@@ -1,8 +1,7 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
-  Flame,
   Sparkles,
   AudioLines,
   ArrowRight,
@@ -18,19 +17,16 @@ import {
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { methods } from '@/data/methods';
-import { achievements } from '@/data/achievements';
 import { useProgress, useOverallProgress } from '@/store/progressStore';
 import { useReview } from '@/store/reviewStore';
 import ProgressRing from '@/components/ui/ProgressRing';
 import NeonButton from '@/components/ui/NeonButton';
-import ConfettiBurst from '@/components/fx/ConfettiBurst';
 import { ParticleConverge } from '@/components/course/FeedbackFx';
-import { Badge, SectionHeading } from '@/components/ui/Bits';
+import { SectionHeading } from '@/components/ui/Bits';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import { StaggerGroup, StaggerItem } from '@/components/ui/Cards';
 import { useMotionTier } from '@/hooks/useMotionTier';
 import { playSfx } from '@/hooks/useSfx';
-import { evaluateAchievements } from '@/lib/achievements';
 
 const ICONS: Record<string, LucideIcon> = {
   AudioLines,
@@ -45,25 +41,28 @@ const ICONS: Record<string, LucideIcon> = {
 export default function Home() {
   const tier = useMotionTier();
   const navigate = useNavigate();
-  const [burst, setBurst] = useState(0);
   const progress = useProgress();
   const overall = useOverallProgress(methods.length);
   const dueCount = useReview((s) => s.cards.filter((c) => c.dueAt <= Date.now()).length);
   const mistakeCount = useReview((s) => s.mistakes.length);
 
-  const title = 'LexiMethod Academy';
-  const letters = title.split('');
-
-  useEffect(() => {
-    const t = window.setTimeout(() => setBurst(1), 700);
-    evaluateAchievements(); // 进入首页时按最新数据补发成就
-    return () => window.clearTimeout(t);
-  }, []);
-
-  const unlockedCount = useMemo(
-    () => achievements.filter((a) => progress.achievements.includes(a.id)).length,
-    [progress.achievements],
+  /** 首访空态：一次课都没学过 */
+  const isFirstVisit = useMemo(
+    () => methods.every((m) => (progress.completedSteps[m.id] ?? []).length === 0),
+    [progress.completedSteps],
   );
+
+  const title = 'LexiMethod Academy';
+  /** 按词分组（词内逐字入场、词间不拆断）：移动端 Academy 不再断成 Aca/demy；i 为全局字符位，保持原延迟节奏 */
+  const titleWords = (() => {
+    const words = title.split(' ');
+    let offset = 0;
+    return words.map((word) => {
+      const chars = word.split('').map((ch, ci) => ({ ch, i: offset + ci }));
+      offset += word.length + 1;
+      return chars;
+    });
+  })();
 
   /**
    * 「上次剩余的学习内容」唯一推算口径：
@@ -86,7 +85,7 @@ export default function Home() {
     ? '全部课程完成 · 去实战演练'
     : nextPos.started
       ? `继续上次：《${shortTitle(nextPos.method)}》第 ${nextPos.step + 1} 步`
-      : '开始旗舰课：音节与重音';
+      : '开始第一课';
   const heroTarget = nextPos.finished ? '/analyze' : `/methods/${nextPos.method.id}?step=${nextPos.step}`;
 
   return (
@@ -95,7 +94,6 @@ export default function Home() {
 
       {/* ---------- HERO ---------- */}
       <section className="relative overflow-hidden rounded-[32px] border border-white/10 bg-white/[0.03] px-6 py-12 md:py-16">
-        <ConfettiBurst fireKey={burst} count={90} />
         <div
           className="absolute left-1/2 top-1/2 h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"
           style={{ background: 'radial-gradient(circle, rgba(0,229,255,0.35), rgba(124,77,255,0.2) 55%, transparent 75%)' }}
@@ -113,19 +111,23 @@ export default function Home() {
             <Sparkles size={13} aria-hidden /> 授人以渔 · 教方法，而不是堆词表
           </motion.div>
 
-          {/* 标题逐字弹入 */}
-          <h1 className="font-display text-4xl font-bold leading-tight md:text-6xl">
-            {letters.map((ch, i) => (
-              <motion.span
-                key={i}
-                className={`inline-block ${i < 11 ? 'text-white' : 'text-gradient'}`}
-                initial={tier === 'off' ? false : { opacity: 0, y: 34, scale: 0.7, rotate: -6 }}
-                animate={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
-                transition={{ delay: 0.2 + i * 0.045, type: 'spring', stiffness: 300, damping: 20 }}
-                style={{ textShadow: '0 0 32px rgba(0,229,255,0.35)' }}
-              >
-                {ch === ' ' ? ' ' : ch}
-              </motion.span>
+          {/* 标题逐字弹入（按词分组，词内不拆断） */}
+          <h1 className="flex flex-wrap items-baseline justify-center gap-x-2.5 font-display text-4xl font-bold leading-tight md:gap-x-4 md:text-6xl">
+            {titleWords.map((word, wi) => (
+              <span key={wi} className="inline-block whitespace-nowrap">
+                {word.map(({ ch, i }) => (
+                  <motion.span
+                    key={i}
+                    className={`inline-block ${i < 11 ? 'text-white' : 'text-gradient'}`}
+                    initial={tier === 'off' ? false : { opacity: 0, y: 34, scale: 0.7, rotate: -6 }}
+                    animate={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
+                    transition={{ delay: 0.2 + i * 0.045, type: 'spring', stiffness: 300, damping: 20 }}
+                    style={{ textShadow: '0 0 32px rgba(0,229,255,0.35)' }}
+                  >
+                    {ch}
+                  </motion.span>
+                ))}
+              </span>
             ))}
           </h1>
 
@@ -155,7 +157,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ---------- 数据条 ---------- */}
+      {/* ---------- 数据条（首访空态不渲染，避免一屏 0/0/0/0 的空账本） ---------- */}
+      {!isFirstVisit && (
       <section className="grid gap-4 md:grid-cols-[repeat(4,1fr)]">
         <div className="glass flex items-center gap-4 p-5">
           <ProgressRing value={overall} size={104} label="总进度" delay={0.1} />
@@ -170,25 +173,25 @@ export default function Home() {
         </div>
 
         <div className="glass flex flex-col justify-center gap-1 p-5">
-          <div className="flex items-center gap-2 text-warn">
-            <Flame size={18} aria-hidden />
-            <span className="font-display text-3xl font-bold tabular-nums">{progress.streakCurrent}</span>
-            <span className="text-xs text-slate-400">天连续</span>
+          <div className="flex items-center gap-2 text-success">
+            <AudioLines size={18} aria-hidden />
+            <span className="font-display text-3xl font-bold tabular-nums">{progress.phonemesLearned.length}</span>
+            <span className="text-xs text-slate-400">/48 音标已学</span>
           </div>
-          <div className="text-[11px] text-slate-500">最长纪录 {progress.streakLongest} 天 · 今天 {progress.activity[new Date().toISOString().slice(0, 10)] ?? 0} 次练习</div>
+          <div className="text-xs text-slate-400">实战分析过 {progress.analyzedWords.length} 个词</div>
+        </div>
+
+        <div className="glass flex flex-col justify-center gap-1 p-5">
+          <div className="flex items-center gap-2 text-warn">
+            <Target size={18} aria-hidden />
+            <span className="font-display text-3xl font-bold tabular-nums">{mistakeCount}</span>
+            <span className="text-xs text-slate-400">道错题待订正</span>
+          </div>
+          <div className="text-xs text-slate-400">复习中心会按遗忘曲线排期</div>
         </div>
 
         <div className="glass flex flex-col justify-center gap-1 p-5">
           <div className="flex items-center gap-2 text-neon">
-            <Target size={18} aria-hidden />
-            <span className="font-display text-3xl font-bold tabular-nums">{progress.xp}</span>
-            <span className="text-xs text-slate-400">XP</span>
-          </div>
-          <div className="text-[11px] text-slate-500">音标已学 {progress.phonemesLearned.length}/48 · 错题 {mistakeCount} 道</div>
-        </div>
-
-        <div className="glass flex flex-col justify-center gap-1 p-5">
-          <div className="flex items-center gap-2 text-success">
             <BookOpenText size={18} aria-hidden />
             <span className="font-display text-3xl font-bold tabular-nums">{dueCount}</span>
             <span className="text-xs text-slate-400">张到期复习卡</span>
@@ -200,6 +203,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      )}
 
       {/* ---------- 我的进度 · 继续学习（唯一进度调节入口） ---------- */}
       <section
@@ -216,12 +220,45 @@ export default function Home() {
           </div>
           <p className="max-w-md text-[11px] leading-relaxed text-slate-400">
             <b className="text-neon">本站零存储</b>：不写浏览器存储、不自动续学，刷新后回到 0。
-            把右边的节数调到你上次学到的位置，再点「继续学习」接着往下走（每标记一节 +10 XP）。
+            把节数调到你上次学到的位置，从那里接着往下走。
           </p>
         </div>
 
-        <div className="grid gap-5 lg:grid-cols-[minmax(0,330px)_minmax(0,1fr)]">
+        {/* 首访引导：三步上手（浅色描边，CTA 为描边款，不是发光主按钮） */}
+        {isFirstVisit && (
+          <div className="mb-4 flex flex-wrap items-center gap-x-5 gap-y-3 rounded-2xl border border-white/15 bg-white/[0.03] px-4 py-3.5">
+            <ol className="flex min-w-0 flex-1 flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-300">
+              <li className="flex items-center gap-1.5">
+                <span className="flex h-5 w-5 items-center justify-center rounded-full border border-neon/50 text-xs font-bold text-neon">1</span>
+                看方法课
+              </li>
+              <li aria-hidden className="text-slate-600">→</li>
+              <li className="flex items-center gap-1.5">
+                <span className="flex h-5 w-5 items-center justify-center rounded-full border border-neon/50 text-xs font-bold text-neon">2</span>
+                做对应训练
+              </li>
+              <li aria-hidden className="text-slate-600">→</li>
+              <li className="flex items-center gap-1.5">
+                <span className="flex h-5 w-5 items-center justify-center rounded-full border border-neon/50 text-xs font-bold text-neon">3</span>
+                到期复习
+              </li>
+            </ol>
+            <p className="basis-full text-xs leading-relaxed text-slate-400 md:basis-auto">
+              进度只存在这次会话里：学过的内容会自动排进复习队列，刷新即归零、不上传任何个人数据。
+            </p>
+            <Link
+              to="/methods"
+              className="inline-flex shrink-0 items-center gap-1.5 rounded-xl border border-neon/45 bg-neon/10 px-4 py-2.5 text-sm font-medium text-neon transition-all hover:-translate-y-0.5 hover:bg-neon/15"
+            >
+              去看方法课 <ArrowRight size={14} aria-hidden />
+            </Link>
+          </div>
+        )}
+
+        {/* 首访时空库的「继续学习」大卡与 hero 主 CTA 重复，隐藏它（进度行仍全部保留） */}
+        <div className={`grid gap-5 ${isFirstVisit ? '' : 'lg:grid-cols-[minmax(0,330px)_minmax(0,1fr)]'}`}>
           {/* 左：当前位置 + 继续学习 */}
+          {!isFirstVisit && (
           <div className="flex flex-col gap-4 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
             <div className="flex items-center gap-4">
               <ProgressRing value={overall} size={104} label="总进度" />
@@ -257,6 +294,7 @@ export default function Home() {
               指哪学哪：进度由你自己调节，站点不替你猜。调完直接跳到那一节。
             </p>
           </div>
+          )}
 
           {/* 右：逐课调节（每门课 = 前 n 节已完成） */}
           <div className="grid gap-2 sm:grid-cols-2">
@@ -446,26 +484,6 @@ export default function Home() {
               );
             })}
           </StaggerGroup>
-        </div>
-      </section>
-
-      {/* ---------- 成就 ---------- */}
-      <section>
-        <SectionHeading
-          kicker="Achievements"
-          title="成就徽章"
-          desc={`已解锁 ${unlockedCount} / ${achievements.length} —— 徽章记录的是“方法使用频次”，不是背了多少词。`}
-        />
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
-          {achievements.map((a) => (
-            <Badge
-              key={a.id}
-              title={a.title}
-              desc={a.desc}
-              earned={progress.achievements.includes(a.id)}
-              icon={<Trophy size={18} />}
-            />
-          ))}
         </div>
       </section>
 

@@ -80,15 +80,12 @@ const goto = async (path) => {
     await sleep(650);
   }
 };
-/** XP 只能从界面上读（零存储，localStorage 永远是空的） */
-const xp = async () => page.evaluate(() => {
-  const el = document.querySelector('[data-testid="header-xp"]');
-  return el ? Number((el.textContent || '').replace(/[^0-9]/g, '')) : -1;
-});
-const waitXpChange = async (from, timeout = 2500) => {
+/** 行为证据 oracle（零存储应用没有 XP 计数器可读）：等待 body 出现指定反馈文本 */
+const bodyHas = (text) => page.evaluate((t) => document.body.innerText.includes(t), text);
+const waitBody = async (text, timeout = 3000) => {
   const t0 = Date.now();
   while (Date.now() - t0 < timeout) {
-    if ((await xp()) !== from) return true;
+    if (await bodyHas(text)) return true;
     await sleep(200);
   }
   return false;
@@ -181,8 +178,6 @@ for (const tab of TYPE_TABS) {
   await sleep(750);
   if (!switched) { check(`页签「${tab}」可切换`, false); continue; }
 
-  const before = await xp();
-
   const handle = await page.evaluate(() => {
     // 返回整页文本与控件标记。prompt 在同类题内会重复（8 道最小对立对共用一个题干），
     // 单靠 prompt 反查会定位到错误题目，必须优先用每题唯一的 narration 定位。
@@ -192,8 +187,8 @@ for (const tab of TYPE_TABS) {
     const stressGroup = !!document.querySelector('[aria-label="选择重音音节"]');
     return { body, hasInput, hasPool, stressGroup };
   });
-  /** 判定反馈面板是否给出「回答正确」——比 XP 变化更强的正确性证据（答错也 +1 XP） */
-  const answeredCorrectly = () => page.evaluate(() => document.body.innerText.includes('回答正确'));
+  /** 行为 oracle：反馈面板出现「回答正确」（每页签 QuestionRunner 按 key 重挂载，无上一题残留） */
+  const answeredCorrectly = () => waitBody('回答正确', 3000);
 
   const bank = quizBanks[tabToKey(tab)] || [];
   const q =
@@ -213,11 +208,10 @@ for (const tab of TYPE_TABS) {
       return false;
     }, right.label);
     await sleep(600);
-    const changed = await waitXpChange(before);
-    const correct = clicked && changed && (await answeredCorrectly());
+    const correct = clicked && (await answeredCorrectly());
     if (correct) solvedTypes.push(tab);
     check(`「${tab}」选择正确答案得分`, correct,
-      clicked ? (changed ? '' : 'XP 未变化') : `未找到选项（题干：${(q.narration || q.prompt).slice(0, 18)}）`);
+      clicked ? (correct ? '' : '答题后未出现「回答正确」反馈') : `未找到选项（题干：${(q.narration || q.prompt).slice(0, 18)}）`);
   } else if (handle.stressGroup && q) {
     const idx = Number(q.answer);
     await page.evaluate((i) => {
@@ -225,10 +219,9 @@ for (const tab of TYPE_TABS) {
       g.querySelectorAll('button')[i].click();
     }, idx);
     await sleep(600);
-    const changed = await waitXpChange(before);
-    const correct = changed && (await answeredCorrectly());
+    const correct = await answeredCorrectly();
     if (correct) solvedTypes.push(tab);
-    check(`「${tab}」点选重音得分`, correct, changed ? '' : 'XP 未变化');
+    check(`「${tab}」点选重音得分`, correct, correct ? '' : '答题后未出现「回答正确」反馈');
   } else if (handle.hasPool && q) {
     const segments = q.answer.split('-');
     let okAll = true;
@@ -251,20 +244,19 @@ for (const tab of TYPE_TABS) {
       if (!picked || !placed) { okAll = false; break; }
     }
     await sleep(700);
-    const changed = okAll && (await waitXpChange(before));
-    const correct = changed && (await answeredCorrectly());
+    const changed = okAll && (await answeredCorrectly());
+    const correct = changed;
     if (correct) solvedTypes.push(tab);
-    check(`「${tab}」按答案拼装判对`, correct, okAll ? (changed ? '' : 'XP 未变化') : '拼块/槽位缺失');
+    check(`「${tab}」按答案拼装判对`, correct, okAll ? (correct ? '' : '答题后未出现「回答正确」反馈') : '拼块/槽位缺失');
   } else if (handle.hasInput && q) {
     // 听写类：题干相同，靠 narration 定位后输入该题的标准答案
     await page.click('input.input-neon');
     await page.type('input.input-neon', q.answer, { delay: 12 });
     await clickText('button', '提交');
     await sleep(600);
-    const changed = await waitXpChange(before);
-    const correct = changed && (await answeredCorrectly());
+    const correct = await answeredCorrectly();
     if (correct) solvedTypes.push(tab);
-    check(`「${tab}」提交标准答案判对`, correct, changed ? '' : 'XP 未变化');
+    check(`「${tab}」提交标准答案判对`, correct, correct ? '' : '答题后未出现「回答正确」反馈');
   } else {
     check(`「${tab}」题目出现`, false, q ? '无法识别题型控件' : '题干未匹配到题库');
   }
@@ -279,7 +271,6 @@ consoleErrors = [];
 
 console.log('[6] 听音拼写训练（听写流程）');
 await goto('/lab/dictation');
-const dictBefore = await xp();
 const hasInput = await page.$('input.input-neon');
 if (hasInput) {
   // 听写页题目由工厂实时生成，题干里内嵌词或音标：据此反查期望答案并断言判对
@@ -299,8 +290,8 @@ if (hasInput) {
     await page.type('input.input-neon', expected, { delay: 12 });
     await clickText('button', '提交');
     await sleep(700);
-    const judged = await page.evaluate(() => document.body.innerText.includes('回答正确'));
-    check('听写提交标准答案判对', judged && (await waitXpChange(dictBefore)), `题干「${promptText.slice(0, 20)}」→ ${expected}`);
+    const judged = await waitBody('回答正确', 3000);
+    check('听写提交标准答案判对', judged, judged ? `题干「${promptText.slice(0, 20)}」→ ${expected}` : `未出现「回答正确」反馈（题干「${promptText.slice(0, 20)}」→ ${expected}）`);
   } else {
     check('听写题干可反查期望答案', false, promptText.slice(0, 40) || '未取到题干');
   }
@@ -352,10 +343,14 @@ await page.evaluate(() => {
 await sleep(300);
 const finished = await clickText('button', '完成分析');
 await sleep(700);
-const analyzed = await page.evaluate(() => ({
-  head: Number(document.body.innerText.match(/分析历史（(\d+)）/)?.[1] ?? '0'),
-  hasWord: [...document.querySelectorAll('section button')].some((b) => b.textContent.trim() === 'construction'),
-}));
+const analyzed = await page.evaluate(() => {
+  // 历史条目按钮 = 词 + 日期，故在「分析历史」所在 section 内按包含匹配（只断言该词条出现）
+  const hist = [...document.querySelectorAll('section')].find((s) => s.innerText.includes('分析历史'));
+  return {
+    head: Number(document.body.innerText.match(/分析历史（(\d+)）/)?.[1] ?? '0'),
+    hasWord: hist ? [...hist.querySelectorAll('button')].some((b) => b.textContent.includes('construction')) : false,
+  };
+});
 check('向导走到完成分析', finished);
 check('分析历史记录 construction', analyzed.head >= 1 && analyzed.hasWord,
   `分析历史 ${analyzed.head} · construction=${analyzed.hasWord}`);
@@ -437,15 +432,20 @@ consoleErrors = [];
 
 console.log('[11] 零存储 + 首页「我的进度」调节面板');
 await goto('/');
-const earnedStart = await page.evaluate(() =>
-  document.querySelector('[data-testid="achievement-badge"][data-title="初次启程"]')?.dataset.earned);
-check('start 成就解锁', earnedStart === '1', `earned=${earnedStart}`);
-const xp1 = await xp();
-check('会话内已累计 XP（进度在内存里）', xp1 > 0, `${xp1} XP`);
+/** 读首页第 1 门课的进度行（行为证据，替代已删除的 XP 计数器） */
+const readCount = () => page.evaluate(() => {
+  const el = document.querySelector('[data-step-count="0"]');
+  if (el) return el.textContent.trim();
+  const m = (document.querySelector('[data-method-row]')?.innerText ?? '').match(/\d+\s*\/\s*\d+/);
+  return m ? m[0].replace(/\s+/g, '') : '';
+});
+// [3][4] 明确点击过课程下一步 → 会话内进度应 >0；刷新后内存 store 重建 → 归零
+const cntBeforeReload = await readCount();
+check('会话内已产生进度（进度在内存里）', !!cntBeforeReload && cntBeforeReload !== '0/8', cntBeforeReload || '读不到进度行');
 await page.reload({ waitUntil: 'networkidle2' });
 await sleep(900);
-const xp2 = await xp();
-check('刷新后回到初始状态（XP 归零）', xp2 === 0, `${xp1} → ${xp2}`);
+const cntAfterReload = await readCount();
+check('刷新后回到初始状态（进度归零，零存储）', cntAfterReload === '0/8', `${cntBeforeReload} → ${cntAfterReload}`);
 const panelInfo = await page.evaluate(() => {
   const p = document.querySelector('[data-testid="progress-panel"]');
   if (!p) return null;
@@ -459,6 +459,27 @@ check('首页出现「我的进度 · 继续学习」面板', Boolean(panelInfo)
   panelInfo ? `${panelInfo.rows} 行` : '面板缺失');
 check('面板解释“不保存数据、由你调节”', Boolean(panelInfo) && /不保存数据|零存储/.test(panelInfo.note),
   (panelInfo?.note ?? '').split('\n')[2]?.slice(0, 40) ?? '');
+consoleErrors = [];
+
+console.log('[11b] 去角色化：XP / 成就徽章 / 热力图已移除（残留扫描）');
+const heroCta = await page.evaluate(() => document.querySelector('[data-testid="hero-resume"]')?.textContent.trim() ?? '');
+check('空库 hero 主 CTA 为「开始第一课」', heroCta.includes('开始第一课'), heroCta.slice(0, 40) || '(无 hero-resume)');
+const homeResidue = await page.evaluate(() => ({
+  xpId: !!document.querySelector('[data-testid="header-xp"]'),
+  xpText: (document.body.innerText.match(/\bXP\b/g) || []).length,
+  badges: document.querySelectorAll('[data-testid="achievement-badge"]').length,
+}));
+check('首页无 XP / 成就徽章残留',
+  !homeResidue.xpId && homeResidue.xpText === 0 && homeResidue.badges === 0, JSON.stringify(homeResidue));
+await goto('/stats');
+const statsResidue = await page.evaluate(() => ({
+  heat: document.body.innerText.includes('热力图'),
+  xpText: (document.body.innerText.match(/\bXP\b/g) || []).length,
+  badges: document.querySelectorAll('[data-testid="achievement-badge"]').length,
+}));
+check('统计页已无热力图 / XP / 徽章',
+  !statsResidue.heat && statsResidue.xpText === 0 && statsResidue.badges === 0, JSON.stringify(statsResidue));
+check('去角色化段零报错', consoleErrors.length === 0, consoleErrors[0] || '');
 consoleErrors = [];
 
 console.log('[13] 费曼关：关键词检查 + 自评 + 掌握标准');
@@ -480,23 +501,16 @@ await page.evaluate((t) => {
 await page.evaluate(() => document.querySelectorAll('[data-rate="5"]').forEach((b) => b.click()));
 await sleep(300);
 
-const feyXpBefore = await xp();
+const recBefore = await bodyHas('最近的讲解记录');
 const submitted = await clickText('button', '提交费曼关');
 await sleep(700);
 const feyBody = await page.evaluate(() => document.body.innerText);
 check('费曼关提交并判定通过', submitted && feyBody.includes('费曼关通过'), feyBody.includes('费曼关通过') ? '' : feyBody.slice(0, 160));
-const feyXpAfter = await xp();
-check('通过费曼关获得 XP', feyXpAfter - feyXpBefore === 15, `${feyXpBefore} → ${feyXpAfter}`);
+// 行为证据（替代原「通过费曼关 +15 XP」）：通过后必须写入一条会话内讲解记录
+const recAfter = feyBody.includes('最近的讲解记录');
+check('通过后写入讲解记录（会话内可见）', !recBefore && recAfter, `提交前=${recBefore} 提交后=${recAfter}`);
 const feyUrl = await page.evaluate(() => window.location.search);
 check('费曼关 ?method= 参数仍生效', feyUrl === '?method=phonics-syllables', feyUrl);
-// 成就与记录都要能在界面上看到（零存储：localStorage 里没有状态可读）
-await goto('/');
-const feyBadge = await page.evaluate(() =>
-  document.querySelector('[data-testid="achievement-badge"][data-title="讲得出，才算会"]')?.dataset.earned);
-check('费曼关成就解锁', feyBadge === '1', `earned=${feyBadge}`);
-const startBadge = await page.evaluate(() =>
-  document.querySelector('[data-testid="achievement-badge"][data-title="初次启程"]')?.dataset.earned);
-check('课程成就仍在（会话内状态未被导航清掉）', startBadge === '1', `earned=${startBadge}`);
 check('费曼关零报错', consoleErrors.length === 0, consoleErrors[0] || '');
 consoleErrors = [];
 
@@ -520,29 +534,34 @@ await goto('/');
 const homeCrumbs = await page.evaluate(() => document.querySelectorAll('nav[aria-label="面包屑"] > span').length);
 check('首页也有面包屑锚点', homeCrumbs === 1, `${homeCrumbs} 段`);
 
-// 2) 首页把进度调到 3 节 → XP +30 → CTA 指向第 4 步 → 落地那一节
+// 2) 首页把进度调到 3 节 → CTA 指向第 4 步 → 落地那一节 → 落地不改进度（原「+30/+10 XP」的 oracle 替换）
 await goto('/');
-const xpA = await xp();
 for (let i = 0; i < 3; i++) {
   await page.click('[data-step-inc="0"]');
   await sleep(220);
 }
-const xpB = await xp();
 const cnt0 = await page.$eval('[data-step-count="0"]', (e) => e.textContent.trim());
 check('调节后卡片显示 3/8 节', cnt0 === '3/8', cnt0);
-check('每标记一节 +10 XP（3 节 = +30）', xpB - xpA === 30, `${xpA} → ${xpB}（Δ${xpB - xpA}）`);
-const resumeLabel = await page.$eval('[data-testid="resume-btn"]', (e) => e.textContent.trim());
-check('主 CTA 指向「第 4 步」', resumeLabel.includes('第 4 步'), resumeLabel);
-const resumeHere = await page.evaluate(() => document.querySelectorAll('[data-testid="map-you-are-here"]').length >= 1);
+const resumeLabel = await page.evaluate(() =>
+  document.querySelector('[data-testid="hero-resume"]')?.textContent.trim()
+  ?? document.querySelector('[data-testid="resume-btn"]')?.textContent.trim() ?? '');
+check('主 CTA 指向「第 4 步」', resumeLabel.includes('第 4 步'), resumeLabel || '(无 CTA)');
+const resumeHere = await page.evaluate(() =>
+  document.querySelectorAll('[data-testid="map-you-are-here"]').length >= 1 ||
+  document.body.innerText.includes('你在这里'));
 check('学习地图标注「你在这里」', resumeHere);
-await page.click('[data-testid="resume-btn"]');
+const ctaSel = await page.evaluate(() =>
+  document.querySelector('[data-testid="hero-resume"]') ? '[data-testid="hero-resume"]' : '[data-testid="resume-btn"]');
+await page.click(ctaSel);
 await sleep(1300);
 const landedUrl = await page.evaluate(() => window.location.pathname + window.location.search);
 check('跳到 /methods/phonics-syllables?step=3', landedUrl === '/methods/phonics-syllables?step=3', landedUrl);
 const landedStep = await page.evaluate(() => document.querySelector('[data-testid="course-step"]')?.textContent.trim() ?? '');
 check('课程页落在第 4 步', landedStep.includes('第 4 步'), landedStep);
-const xpC = await xp();
-check('进入该步再 +10 XP', xpC - xpB === 10, `${xpB} → ${xpC}`);
+// 反向断言（bug 修复验证）：载入深链只定位，不自动 completeStep、不改进度
+await goto('/');
+const cntAfterLand = await page.$eval('[data-step-count="0"]', (e) => e.textContent.trim());
+check('落地课程页不改进度（深链只定位）', cntAfterLand === cnt0, `${cnt0} → ${cntAfterLand}`);
 
 // 3) 移动端底部导航：5 项、当前高亮、可点
 await page.setViewport({ width: 375, height: 812 });
@@ -561,7 +580,8 @@ check('375px 底部导航 5 项可见', Boolean(bn) && bn.count === 5 && bn.h > 
 check('底部导航高亮当前页', Boolean(bn) && bn.items.filter((i) => i.on).length === 1,
   bn ? bn.items.map((i) => `${i.t}${i.on ? '·当前' : ''}`).join('/') : '');
 const clickedNav = await page.evaluate(() => {
-  const a = document.querySelector('[data-testid="bottom-nav"] li:nth-child(4) a');
+  // 按目的地选择（而非位置）：导航项顺序允许调整，链接必须始终可达
+  const a = document.querySelector('[data-testid="bottom-nav"] a[href="/review"]');
   if (a) { a.click(); return true; }
   return false;
 });

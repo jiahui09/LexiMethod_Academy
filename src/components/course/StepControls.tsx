@@ -12,23 +12,32 @@ type Props = {
   total: number;
   autoplay: boolean;
   completed: number[];
+  /** 圆点/回退：直接跳转，不记完成 */
   onChange: (i: number) => void;
+  /** 前进（下一步 / 自动播放 / →）：由父组件决定先记完成再跳 */
+  onNext?: () => void;
+  /** 最后一步的「完成本课」：完成时刻（彩带/祝贺由此触发） */
+  onFinish?: () => void;
   onToggleAutoplay: () => void;
   onReplay: () => void;
 };
 
-/** 课程控制条：上一步 / 下一步 / 自动播放 / 重播 + 步骤圆点 */
+/** 课程控制条：上一步 / 下一步 / 完成本课 / 自动播放 / 重播 + 步骤圆点 */
 export default function StepControls({
   index,
   total,
   autoplay,
   completed,
   onChange,
+  onNext,
+  onFinish,
   onToggleAutoplay,
   onReplay,
 }: Props) {
   const tier = useMotionTier();
   const barRef = useRef<HTMLDivElement>(null);
+  const isLast = index === total - 1;
+  const allDone = completed.length >= total;
 
   // 自动播放：按时间线自动推进
   useEffect(() => {
@@ -36,25 +45,25 @@ export default function StepControls({
     const timer = window.setTimeout(() => {
       if (index < total - 1) {
         playSfx('tick');
-        onChange(index + 1);
+        onNext?.();
       } else {
         onToggleAutoplay();
       }
     }, AUTOPLAY_MS);
     return () => window.clearTimeout(timer);
-  }, [autoplay, index, total, onChange, onToggleAutoplay]);
+  }, [autoplay, index, total, onNext, onToggleAutoplay]);
 
-  // 键盘 ←/→ 控制
+  // 键盘 ←/→ 控制（→ = 前进走 onNext，← = 回退走 onChange）
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement | null;
       if (target && ['INPUT', 'TEXTAREA'].includes(target.tagName)) return;
-      if (e.key === 'ArrowRight' && index < total - 1) onChange(index + 1);
+      if (e.key === 'ArrowRight' && index < total - 1) onNext?.();
       if (e.key === 'ArrowLeft' && index > 0) onChange(index - 1);
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [index, total, onChange]);
+  }, [index, total, onNext, onChange]);
 
   return (
     <div className="glass mt-5 flex flex-col gap-4 p-4 md:p-5">
@@ -107,16 +116,38 @@ export default function StepControls({
           <NeonButton size="sm" variant="ghost" onClick={() => onChange(index - 1)} disabled={index === 0} aria-label="上一步">
             <ChevronLeft size={15} aria-hidden /> 上一步
           </NeonButton>
-          <NeonButton
-            size="sm"
-            onClick={() => {
-              if (index < total - 1) onChange(index + 1);
-            }}
-            disabled={index === total - 1}
-            aria-label="下一步"
-          >
-            下一步 <ChevronRight size={15} aria-hidden />
-          </NeonButton>
+          {isLast ? (
+            onFinish ? (
+              <NeonButton
+                size="sm"
+                onClick={() => onFinish?.()}
+                disabled={allDone}
+                aria-label="完成本课"
+                data-testid="finish-course"
+              >
+                {allDone ? (
+                  <>
+                    <Check size={15} aria-hidden /> 本课已完成
+                  </>
+                ) : (
+                  <>完成本课</>
+                )}
+              </NeonButton>
+            ) : (
+              /* 无 onFinish 的复用方（如音标实验室）：末步不渲染死按钮，完成态由其自身逻辑接管 */
+              null
+            )
+          ) : (
+            <NeonButton
+              size="sm"
+              onClick={() => {
+                onNext?.();
+              }}
+              aria-label="下一步"
+            >
+              下一步 <ChevronRight size={15} aria-hidden />
+            </NeonButton>
+          )}
         </div>
 
         <div className="flex items-center gap-2">

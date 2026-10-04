@@ -6,7 +6,6 @@ import { rules, rulesByType, ruleById } from '@/data/rules';
 import { spellingPatterns } from '@/data/spellingPatterns';
 import { methods, methodById } from '@/data/methods';
 import { quizBanks } from '@/data/quizBanks';
-import { achievements } from '@/data/achievements';
 import { feynmanTasks } from '@/data/feynman';
 import { demoByMethod } from '@/components/course/demoConfig';
 import { TYPE_LABELS, normChoice, normIpa, normWord, judgeAnswer } from '@/lib/answers';
@@ -220,10 +219,7 @@ for (const q of allQ) {
 }
 // 题型覆盖：至少 5 种题型出现在静态题库（原验收）——实为 11
 
-/* ---------- 7. 成就 ---------- */
-ok(achievements.length === 17, `成就 ${achievements.length} != 17`);
-ok(new Set(achievements.map((a) => a.id)).size === 17, '成就 id 重复');
-for (const a of achievements) ok(a.title.length > 0 && a.desc.length > 0, `成就 ${a.id} 文案缺失`);
+/* ---------- 7. 成就（已随去角色化移除，无数据校验） ---------- */
 
 /* ---------- 8. 费曼关 ---------- */
 ok(feynmanTasks.length === methods.length, `费曼关任务 ${feynmanTasks.length} != 方法 ${methods.length}`);

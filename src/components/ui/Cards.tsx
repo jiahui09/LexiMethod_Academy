@@ -34,10 +34,11 @@ export function StaggerGroup({
 
 export function StaggerItem({ children, className = '' }: { children: ReactNode; className?: string }) {
   const tier = useMotionTier();
-  if (tier === 'off') return <div className={className}>{children}</div>;
+  // min-w-0：栅格项默认 min-width:auto 会被 nowrap 内容撑爆整行（/methods 横向溢出根因）
+  if (tier === 'off') return <div className={`min-w-0 ${className}`}>{children}</div>;
   return (
     <motion.div
-      className={className}
+      className={`min-w-0 ${className}`}
       variants={{
         hidden: { opacity: 0, y: 18 },
         show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },

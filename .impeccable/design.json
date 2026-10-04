@@ -1,0 +1,429 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-04T13:47:10+08:00",
+  "title": "Design System: LexiMethod Academy",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Neon Cyan 霓虹青",
+        "canonical": "#00E5FF",
+        "tonalRamp": [
+          "oklch(0.15 0.02 200)",
+          "oklch(0.27 0.05 200)",
+          "oklch(0.39 0.08 200)",
+          "oklch(0.50 0.11 200)",
+          "oklch(0.62 0.13 200)",
+          "oklch(0.74 0.14 200)",
+          "oklch(0.85 0.13 200)",
+          "oklch(0.95 0.05 200)"
+        ]
+      },
+      "secondary": {
+        "role": "secondary",
+        "displayName": "Aurora Violet 极光紫",
+        "canonical": "#7C4DFF",
+        "tonalRamp": [
+          "oklch(0.15 0.03 285)",
+          "oklch(0.27 0.07 285)",
+          "oklch(0.39 0.11 285)",
+          "oklch(0.50 0.14 285)",
+          "oklch(0.62 0.17 285)",
+          "oklch(0.74 0.16 285)",
+          "oklch(0.85 0.11 285)",
+          "oklch(0.95 0.04 285)"
+        ]
+      },
+      "tertiary": {
+        "role": "tertiary",
+        "displayName": "Pulse Pink 脉冲粉",
+        "canonical": "#FF4D9D",
+        "tonalRamp": [
+          "oklch(0.15 0.03 355)",
+          "oklch(0.27 0.08 355)",
+          "oklch(0.39 0.13 355)",
+          "oklch(0.50 0.17 355)",
+          "oklch(0.62 0.21 355)",
+          "oklch(0.74 0.19 355)",
+          "oklch(0.85 0.12 355)",
+          "oklch(0.95 0.04 355)"
+        ]
+      },
+      "success": {
+        "role": "semantic",
+        "displayName": "Pass Green 通过绿",
+        "canonical": "#00E676",
+        "tonalRamp": [
+          "oklch(0.15 0.03 155)",
+          "oklch(0.27 0.07 155)",
+          "oklch(0.39 0.11 155)",
+          "oklch(0.50 0.14 155)",
+          "oklch(0.62 0.16 155)",
+          "oklch(0.74 0.17 155)",
+          "oklch(0.85 0.13 155)",
+          "oklch(0.95 0.04 155)"
+        ]
+      },
+      "warn": {
+        "role": "semantic",
+        "displayName": "Signal Amber 提醒琥珀",
+        "canonical": "#FFB300",
+        "tonalRamp": [
+          "oklch(0.15 0.03 80)",
+          "oklch(0.27 0.07 80)",
+          "oklch(0.39 0.10 80)",
+          "oklch(0.50 0.12 80)",
+          "oklch(0.62 0.14 80)",
+          "oklch(0.74 0.15 80)",
+          "oklch(0.85 0.13 80)",
+          "oklch(0.95 0.05 80)"
+        ]
+      },
+      "danger": {
+        "role": "semantic",
+        "displayName": "Miss Red 错答红",
+        "canonical": "#FF4D6D",
+        "tonalRamp": [
+          "oklch(0.15 0.03 25)",
+          "oklch(0.27 0.08 25)",
+          "oklch(0.39 0.13 25)",
+          "oklch(0.50 0.17 25)",
+          "oklch(0.62 0.20 25)",
+          "oklch(0.74 0.18 25)",
+          "oklch(0.85 0.12 25)",
+          "oklch(0.95 0.04 25)"
+        ]
+      },
+      "neutral-abyss": {
+        "role": "neutral",
+        "displayName": "Abyss Navy 深夜底色",
+        "canonical": "#0B1020",
+        "tonalRamp": [
+          "oklch(0.12 0.02 265)",
+          "oklch(0.20 0.03 265)",
+          "oklch(0.28 0.03 265)",
+          "oklch(0.36 0.03 265)",
+          "oklch(0.45 0.03 265)",
+          "oklch(0.60 0.03 265)",
+          "oklch(0.78 0.02 265)",
+          "oklch(0.93 0.01 265)"
+        ]
+      },
+      "neutral-deep": {
+        "role": "neutral",
+        "displayName": "Deep Field 暗场",
+        "canonical": "#111936",
+        "tonalRamp": [
+          "oklch(0.16 0.03 265)",
+          "oklch(0.24 0.03 265)",
+          "oklch(0.32 0.03 265)",
+          "oklch(0.40 0.03 265)",
+          "oklch(0.50 0.03 265)",
+          "oklch(0.64 0.03 265)",
+          "oklch(0.80 0.02 265)",
+          "oklch(0.94 0.01 265)"
+        ]
+      },
+      "neutral-ink": {
+        "role": "neutral",
+        "displayName": "Ink Black 墨黑",
+        "canonical": "#070B18",
+        "tonalRamp": [
+          "oklch(0.10 0.02 265)",
+          "oklch(0.18 0.02 265)",
+          "oklch(0.26 0.03 265)",
+          "oklch(0.34 0.03 265)",
+          "oklch(0.43 0.03 265)",
+          "oklch(0.58 0.03 265)",
+          "oklch(0.76 0.02 265)",
+          "oklch(0.92 0.01 265)"
+        ]
+      },
+      "neutral-text": {
+        "role": "neutral",
+        "displayName": "Moonlight 月光白",
+        "canonical": "#E2E8F0",
+        "tonalRamp": [
+          "oklch(0.15 0.01 240)",
+          "oklch(0.30 0.01 240)",
+          "oklch(0.45 0.01 240)",
+          "oklch(0.60 0.01 240)",
+          "oklch(0.72 0.01 240)",
+          "oklch(0.82 0.01 240)",
+          "oklch(0.93 0.005 240)",
+          "oklch(0.97 0.003 240)"
+        ]
+      },
+      "neutral-text-dim": {
+        "role": "neutral",
+        "displayName": "Dusk Slate 暮板岩",
+        "canonical": "#CBD5E1",
+        "tonalRamp": [
+          "oklch(0.15 0.01 240)",
+          "oklch(0.30 0.01 240)",
+          "oklch(0.45 0.01 240)",
+          "oklch(0.60 0.01 240)",
+          "oklch(0.72 0.01 240)",
+          "oklch(0.80 0.01 240)",
+          "oklch(0.87 0.01 240)",
+          "oklch(0.96 0.004 240)"
+        ]
+      },
+      "neutral-text-min": {
+        "role": "neutral",
+        "displayName": "Mist Slate 雾板岩（文字地板）",
+        "canonical": "#94A3B8",
+        "tonalRamp": [
+          "oklch(0.15 0.01 245)",
+          "oklch(0.30 0.01 245)",
+          "oklch(0.45 0.01 245)",
+          "oklch(0.58 0.01 245)",
+          "oklch(0.68 0.015 245)",
+          "oklch(0.78 0.012 245)",
+          "oklch(0.87 0.01 245)",
+          "oklch(0.96 0.004 245)"
+        ]
+      },
+      "neutral-surface": {
+        "role": "neutral",
+        "displayName": "Glass Surface 玻璃面",
+        "canonical": "rgba(255, 255, 255, 0.06)"
+      },
+      "neutral-hairline": {
+        "role": "neutral",
+        "displayName": "Glass Hairline 发丝线",
+        "canonical": "rgba(255, 255, 255, 0.12)"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "首页品牌时刻与 404 的巨型标题；全站唯一允许逐字入场的标题。"
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "PageIntro 页面标题与区块大标题（24→30px）。"
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "教学正文与页面说明；列宽以 768px 封顶。"
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "章节 kicker、全大写英文标签与数据卡标签。"
+      },
+      "mono": {
+        "displayName": "Mono",
+        "purpose": "IPA 音标、逐字母批改与等宽数字。"
+      }
+    },
+    "shadows": [
+      {
+        "name": "card-lift",
+        "value": "0 8px 32px rgba(0,0,0,0.35)",
+        "purpose": "玻璃卡默认浮影。"
+      },
+      {
+        "name": "glow-sm",
+        "value": "0 0 12px rgba(0,229,255,0.22)",
+        "purpose": "小型意图高光：logo 徽章、实底按钮。"
+      },
+      {
+        "name": "intent-glow",
+        "value": "0 0 24px rgba(0,229,255,0.18), 0 0 64px rgba(124,77,255,0.12)",
+        "purpose": "主 CTA 的 hover/焦点光晕（One Glow Rule 的专属光）。"
+      },
+      {
+        "name": "celebration-glow",
+        "value": "0 0 48px rgba(0,229,255,0.25), 0 0 120px rgba(124,77,255,0.18)",
+        "purpose": "成就时刻专属大光晕。"
+      },
+      {
+        "name": "neon-pop",
+        "value": "0 0 20px rgba(0,229,255,0.45)",
+        "purpose": "logo 与激活下划线的强发光。"
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-standard",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "状态过渡与入场的默认缓动（Out Expo）。"
+      },
+      {
+        "name": "spring-nav",
+        "value": "spring(stiffness: 320, damping: 30)",
+        "purpose": "导航激活下划线的弹性滑移。"
+      },
+      {
+        "name": "press-feedback",
+        "value": "scale(0.95), spring(stiffness: 260, damping: 24)",
+        "purpose": "按压回弹与点击涟漪。"
+      },
+      {
+        "name": "shake",
+        "value": "0.42s cubic-bezier(0.36, 0.07, 0.19, 0.97)",
+        "purpose": "答错抖动。"
+      },
+      {
+        "name": "ambient-aurora",
+        "value": "18s ease-in-out infinite",
+        "purpose": "极光背景循环；氛围层，随动画档位升降。"
+      },
+      {
+        "name": "ambient-particles",
+        "value": "desktop ≤120 / mobile ≤40 / off = 0",
+        "purpose": "粒子氛围层，随动画档位（完整/精简/关闭/跟随系统）控制，从不承载信息。"
+      },
+      {
+        "name": "celebration",
+        "value": "event-triggered only",
+        "purpose": "彩带与大粒子只在完成课程、全对通关等真实学习里程碑后释放；页面进入不触发。反馈只为学习，不引入角色化成长指标。"
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "wide",
+        "value": "1360px",
+        "purpose": "超宽屏低频入口的例外断点。"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button 发光主按钮",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "一屏唯一的发光主行动点（One Glow Rule）。",
+      "html": "<button class=\"ds-btn-primary\">开始旗舰课</button>",
+      "css": ".ds-btn-primary{position:relative;border-radius:14px;padding:10px 18px;font:600 14px/1.4 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;color:#E8FBFF;background:linear-gradient(#101A35,#101A35) padding-box,linear-gradient(120deg,#00E5FF,#7C4DFF,#FF4D9D,#00E5FF) border-box;border:1px solid transparent;background-size:100% 100%,300% 100%;background-position:0 0,0 0;cursor:pointer;transition:transform .25s cubic-bezier(.22,1,.36,1),box-shadow .35s cubic-bezier(.22,1,.36,1),background-position .6s cubic-bezier(.22,1,.36,1)}.ds-btn-primary:hover{background-position:0 0,100% 0;transform:translateY(-1px);box-shadow:0 0 24px rgba(0,229,255,.18),0 0 64px rgba(124,77,255,.12)}.ds-btn-primary:active{transform:scale(.96)}.ds-btn-primary:focus-visible{outline:2px solid #00E5FF;outline-offset:3px}.ds-btn-primary:disabled{opacity:.4;cursor:not-allowed;box-shadow:none;transform:none}"
+    },
+    {
+      "name": "Ghost Button 幽灵按钮",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "次级动作；与发光点竞争时，主按钮一律降为它。",
+      "html": "<button class=\"ds-btn-ghost\">返回课程</button>",
+      "css": ".ds-btn-ghost{border-radius:14px;padding:10px 18px;font:600 14px/1.4 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;color:rgba(226,240,255,.85);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);cursor:pointer;transition:border-color .25s cubic-bezier(.22,1,.36,1),color .25s cubic-bezier(.22,1,.36,1),transform .25s cubic-bezier(.22,1,.36,1)}.ds-btn-ghost:hover{border-color:rgba(0,229,255,.5);color:#fff;transform:translateY(-1px)}.ds-btn-ghost:active{transform:scale(.96)}.ds-btn-ghost:focus-visible{outline:2px solid #00E5FF;outline-offset:3px}"
+    },
+    {
+      "name": "Glass Card 玻璃卡",
+      "kind": "card",
+      "refersTo": "card-glass",
+      "description": "全站唯一容器材质（Glass-Only Rule）；卡中叠卡是禁令。",
+      "html": "<div class=\"ds-card-glass\"><p class=\"ds-card-kicker\">LESSON 01</p><h3 class=\"ds-card-title\">词根词缀</h3><p class=\"ds-card-body\">把单词拆成可理解的零件，见词知义。</p></div>",
+      "css": ".ds-card-glass{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:20px;box-shadow:0 8px 32px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.06);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);color:#E2E8F0;font:400 14px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;overflow:hidden;transition:transform .35s cubic-bezier(.22,1,.36,1),border-color .35s cubic-bezier(.22,1,.36,1)}.ds-card-glass:hover{transform:translateY(-6px);border-color:rgba(0,229,255,.4)}.ds-card-kicker{margin:0 0 8px;font:600 12px/1.4 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#00E5FF}.ds-card-title{margin:0 0 8px;font:700 20px/1.3 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;color:#fff}.ds-card-body{margin:0;color:#CBD5E1}"
+    },
+    {
+      "name": "Neon Input 霓虹输入框",
+      "kind": "input",
+      "refersTo": "input-neon",
+      "description": "焦点转青；答对转绿，答错转红并抖动。",
+      "html": "<input class=\"ds-input-neon\" placeholder=\"phonetic\" value=\"neon\"><input class=\"ds-input-neon is-correct\" value=\"correct\"><input class=\"ds-input-neon is-wrong\" value=\"wrong\">",
+      "css": ".ds-input-neon{border-radius:14px;padding:10px 14px;font:400 14px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;color:#EAF6FF;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);outline:none;transition:border-color .25s cubic-bezier(.22,1,.36,1),box-shadow .25s cubic-bezier(.22,1,.36,1)}.ds-input-neon::placeholder{color:rgba(148,163,184,.42)}.ds-input-neon:focus{border-color:rgba(0,229,255,.7);box-shadow:0 0 0 3px rgba(0,229,255,.15),0 0 18px rgba(0,229,255,.18)}.ds-input-neon.is-correct{border-color:#00E676}.ds-input-neon.is-wrong{border-color:#FF4D6D;animation:ds-shake .42s cubic-bezier(.36,.07,.19,.97)}@keyframes ds-shake{0%,100%{transform:translateX(0)}15%{transform:translateX(-7px)}30%{transform:translateX(6px)}45%{transform:translateX(-5px)}60%{transform:translateX(4px)}80%{transform:translateX(-2px)}}"
+    },
+    {
+      "name": "Filter Chip 筛选胶囊",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "题型/难度筛选；选中态换青。触控上下文 ≥44px。",
+      "html": "<span class=\"ds-chip\">全部</span><span class=\"ds-chip ds-chip--selected\">听辨</span>",
+      "css": ".ds-chip{display:inline-flex;align-items:center;border-radius:9999px;padding:6px 12px;font:400 14px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;color:#CBD5E1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);cursor:pointer;transition:color .25s cubic-bezier(.22,1,.36,1),border-color .25s cubic-bezier(.22,1,.36,1),background .25s cubic-bezier(.22,1,.36,1)}.ds-chip:hover{color:#fff;border-color:rgba(0,229,255,.4)}.ds-chip:focus-visible{outline:2px solid #00E5FF;outline-offset:3px}.ds-chip--selected{color:#00E5FF;background:rgba(0,229,255,.1);border-color:rgba(0,229,255,.4)}"
+    },
+    {
+      "name": "Top Nav Item 桌面导航项",
+      "kind": "nav",
+      "refersTo": "components.chip",
+      "description": "主导航上限 5 项（Single Focus Rule）；激活态青字 + 渐变发丝下划线。",
+      "html": "<nav class=\"ds-topnav\"><a class=\"ds-nav-item\" href=\"#\">地图</a><a class=\"ds-nav-item\" href=\"#\">课程</a><a class=\"ds-nav-item\" href=\"#\">实验室</a><a class=\"ds-nav-item is-active\" href=\"#\">训练</a><a class=\"ds-nav-item\" href=\"#\">复习</a></nav>",
+      "css": ".ds-topnav{display:flex;gap:4px}.ds-nav-item{position:relative;display:inline-flex;align-items:center;border-radius:12px;padding:8px 12px;font:500 13px/1.4 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;color:#CBD5E1;text-decoration:none;transition:color .3s cubic-bezier(.22,1,.36,1)}.ds-nav-item:hover{color:#fff}.ds-nav-item:focus-visible{outline:2px solid #00E5FF;outline-offset:3px}.ds-nav-item.is-active{color:#00E5FF}.ds-nav-item.is-active::after{content:\"\";position:absolute;left:8px;right:8px;bottom:-2px;height:2px;border-radius:9999px;background:linear-gradient(90deg,#00E5FF,#7C4DFF);box-shadow:0 0 8px #00E5FF}"
+    },
+    {
+      "name": "Bottom Nav Item 底部导航格",
+      "kind": "nav",
+      "refersTo": "components.chip",
+      "description": "与顶栏主导航同名同序的五格；标签 ≥12px，当前项青字高亮。",
+      "html": "<a class=\"ds-bottom-item\" href=\"#\">课程</a><a class=\"ds-bottom-item is-active\" href=\"#\">训练</a>",
+      "css": ".ds-bottom-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:56px;padding:8px 0;font:600 12px/1.4 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;color:#94A3B8;text-decoration:none;transition:color .25s cubic-bezier(.22,1,.36,1)}.ds-bottom-item:hover{color:#CBD5E1}.ds-bottom-item:focus-visible{outline:2px solid #00E5FF;outline-offset:-3px;border-radius:12px}.ds-bottom-item.is-active{color:#00E5FF}"
+    }
+  ],
+  "narrative": {
+    "northStar": "深夜自习室（The Midnight Study Hall）— 一盏台灯、一块屏幕、一条路径。",
+    "overview": "这套系统是一张深夜里专注的书桌：底色是夜——固定的深夜蓝渐变、角落里缓慢呼吸的极光光斑；霓虹是屏幕与台灯的微光；玻璃卡是摊在桌上的一张张讲义。学习者是独自前来的，界面的全部职责是把注意力钉在「下一步该学什么」上，而不是展示自己有多热闹。青色是这张书桌上唯一亮着的信号灯：它出现的地方，就是现在要动的地方。\n\n密度哲学是克制而集中。每屏只有一个发光的主行动点；导航是墙上的便签，最多五张；粒子、极光、彩带属于「氛围层」——夜里偶尔飘过的光尘，归动画档位管理，且彩带只在真正值得庆祝时出现。教学的严谨（方向感、逐步揭示、把原理讲透）才是本站的个性来源，不是堆效果。\n\n反参考同样明确：拒绝白底日间主题，拒绝营销式大图首屏（工具页的首屏必须是可执行的下一步，不是广告），拒绝经验值、连击、连续天数、等级徽章等角色化成长内容——本站是多媒体交互教学工具（朗读、口型动画、交互练习、即时反馈），反馈只为学习服务，不为留存服务——并拒绝任何外部字体与 CDN 资源，离线可用、零请求是这个项目的硬约束。",
+    "keyCharacteristics": [
+      "深夜蓝固定渐变底 + 霓虹青意图信号 + 紫/粉氛围光",
+      "系统字体栈单兵种（display 与 body 同族），中文优先，IPA 与等宽数据用 mono",
+      "玻璃卡是唯一的容器语言，圆角家族 6→24px",
+      "每屏唯一发光主 CTA，桌面主导航 ≤5 项",
+      "状态色恒定：绿=正确/达成，琥珀=提醒，红=错误",
+      "无角色化成长系统：不设经验值、连击、连续天数与等级徽章；对错、进度、完成的教学反馈直接服务学习",
+      "动效分三层：状态反馈（常驻）→ 氛围层（档位控制）→ 完成时刻（事件触发）"
+    ],
+    "rules": [
+      {
+        "name": "The One Glow Rule",
+        "body": "发光（glow 阴影 + 渐变描边）只授予一屏之中的唯一主行动点及其焦点态；同屏出现的第二个发光元素必须熄灭，降为幽灵按钮或文字链接。",
+        "section": "colors"
+      },
+      {
+        "name": "The State Colors Rule",
+        "body": "绿、琥珀、红只说状态，不说别的；需要强调时优先回到青色的意图语义。",
+        "section": "colors"
+      },
+      {
+        "name": "The Floor Rule",
+        "body": "12px 与 4.5:1 是任何文字（含 kicker、微标签、图表刻度）的地板，不是目标；紫色不用于玻璃面上的正文。",
+        "section": "typography"
+      },
+      {
+        "name": "The Single Focus Rule",
+        "body": "每屏只有一个前进方向：唯一发光主 CTA；桌面主导航 ≤5 项；首页首屏可点元素 ≤12；同一决策点可见选项 ≤4。",
+        "section": "layout"
+      },
+      {
+        "name": "The No-Squeeze Rule",
+        "body": "低于 640px 时页头标题与推进按钮必须上下堆叠，禁止并排挤压成竖排窄字条；320px 起不允许任何横向溢出，正文被容器裁切即算缺陷。",
+        "section": "layout"
+      },
+      {
+        "name": "The Glass-Only Rule",
+        "body": "容器只有一种材质：玻璃卡（24px 圆角、发丝描边、20px 模糊）。禁止卡中叠卡；玻璃卡本身永不发光，发光只归主 CTA 与成就时刻。",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "每屏只放一个发光主 CTA，其余推进入口降为幽灵按钮或文字链接。",
+      "文字 ≥12px 且在玻璃面上 ≥4.5:1，最暗只到雾板岩。",
+      "触控上下文的可点目标 ≥44×44px。",
+      "桌面主导航 ≤5 项，多余入口走页脚或更多菜单。",
+      "低于 640px 让页头标题与按钮上下堆叠；320px 起零横向溢出。",
+      "彩带与庆祝粒子只在真实学习里程碑（完成课程、全对通关）后释放。",
+      "反馈直接服务学习：对错、进度、完成状态可庆祝；数值成长指标（经验、连击、天数）不出现。",
+      "所有动效经动画档位降级并尊重 prefers-reduced-motion。",
+      "状态色只表达状态；焦点环对所有可聚焦元素常开。",
+      "新页面复用 PageIntro 骨架：面包屑 → kicker → 标题 → 说明 → 唯一下一步。"
+    ],
+    "donts": [
+      "同屏并置两个发光或渐变描边的主按钮。",
+      "在玻璃卡里再嵌套有独立背景、描边、模糊的容器（卡中叠卡）。",
+      "用低于 12px、或比雾板岩更暗的灰承担文字；用紫色在玻璃面上写正文。",
+      "页面加载即放彩带——无事件的庆祝会让成就反馈贬值。",
+      "引入经验值、连击、连续天数、等级徽章等角色化成长元素——反馈只为学习，不为留存。",
+      "加载任何外部字体、CDN 或追踪脚本。",
+      "让固定元素遮挡内容，或把页头标题挤成竖排窄字条。",
+      "在工具页使用营销式大图 hero——首屏必须是可执行的下一步。"
+    ]
+  }
+}

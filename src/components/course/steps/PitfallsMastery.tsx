@@ -158,7 +158,7 @@ export function MasteryStep({ method, onNextMethod }: { method: Method; onNextMe
               className="flex items-center gap-3"
             >
               <span className="flex items-center gap-1.5 rounded-full border border-success/50 bg-success/12 px-3 py-1.5 text-xs font-semibold text-success">
-                <PartyPopper size={13} aria-hidden /> 课程完成 · 解锁进度 +10 XP
+                <PartyPopper size={13} aria-hidden /> 全部掌握标准达标
               </span>
               {onNextMethod && (
                 <NeonButton size="sm" onClick={onNextMethod}>

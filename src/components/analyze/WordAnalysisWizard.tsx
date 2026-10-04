@@ -119,7 +119,7 @@ export default function WordAnalysisWizard({ wordId, compact = false, onDone }: 
       <div className="relative overflow-hidden rounded-3xl border border-success/40 bg-success/[0.07] p-6">
         <ConfettiBurst fireKey={burst} count={90} />
         <div className="flex items-center gap-2 font-display text-lg font-bold text-white">
-          <PartyPopper className="text-success" aria-hidden /> 分析完成 · +15 XP
+          <PartyPopper className="text-success" aria-hidden /> 分析完成
         </div>
         <div className="mt-4 grid gap-2 text-sm">
           {STEPS.slice(0, 4).map((s) => (

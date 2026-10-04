@@ -1,15 +1,16 @@
 import { NavLink, useLocation } from 'react-router-dom';
-import { Map, GraduationCap, Dumbbell, History, Settings as SettingsIcon } from 'lucide-react';
+import { Map, GraduationCap, AudioLines, Dumbbell, History } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
 type Item = { to: string; label: string; icon: LucideIcon; end?: boolean };
 
+/** 与顶栏主导航同名同序（Single Focus Rule：五格同目的地），标签统一 12px 起 */
 const ITEMS: Item[] = [
   { to: '/', label: '地图', icon: Map, end: true },
   { to: '/methods', label: '课程', icon: GraduationCap },
+  { to: '/lab/phonemes', label: '实验室', icon: AudioLines },
   { to: '/practice', label: '训练', icon: Dumbbell },
   { to: '/review', label: '复习', icon: History },
-  { to: '/settings', label: '设置', icon: SettingsIcon },
 ];
 
 /**
@@ -37,7 +38,7 @@ export default function BottomNav() {
                 to={item.to}
                 end={item.end}
                 aria-current={on ? 'page' : undefined}
-                className={`flex flex-col items-center gap-0.5 py-2.5 text-[10px] transition-colors ${
+                className={`flex flex-col items-center gap-0.5 py-2.5 text-xs transition-colors ${
                   on ? 'text-neon' : 'text-slate-400 hover:text-slate-200'
                 }`}
               >

@@ -9,23 +9,6 @@ export function LightWave() {
   );
 }
 
-/** 连击数字 */
-export function ComboCounter({ value }: { value: number }) {
-  if (value < 2) return null;
-  return (
-    <motion.div
-      key={value}
-      initial={{ scale: 0.4, opacity: 0, y: 6 }}
-      animate={{ scale: 1, opacity: 1, y: 0 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 18 }}
-      className="pointer-events-none font-display text-2xl font-bold text-warn drop-shadow-[0_0_12px_rgba(255,179,0,0.7)]"
-      aria-live="polite"
-    >
-      ×{value} 连击
-    </motion.div>
-  );
-}
-
 /** 音标/发音波形（播放时跳动） */
 export function Waveform({ active, bars = 24, color = '#00E5FF' }: { active: boolean; bars?: number; color?: string }) {
   return (

@@ -55,31 +55,6 @@ export function Chip({
   );
 }
 
-/** 成就徽章 */
-export function Badge({ icon, title, desc, earned }: { icon: React.ReactNode; title: string; desc: string; earned: boolean }) {
-  return (
-    <div
-      className={`glass flex flex-col items-center gap-1.5 p-4 text-center transition-all duration-500 ${
-        earned ? 'border-[rgba(0,230,118,0.4)] shadow-[0_0_22px_rgba(0,230,118,0.18)]' : 'opacity-45 grayscale'
-      }`}
-      title={desc}
-      data-testid="achievement-badge"
-      data-title={title}
-      data-earned={earned ? '1' : '0'}
-    >
-      <div
-        className={`flex h-11 w-11 items-center justify-center rounded-2xl ${
-          earned ? 'bg-[rgba(0,230,118,0.14)] text-success' : 'bg-white/5 text-slate-400'
-        }`}
-      >
-        {icon}
-      </div>
-      <div className="text-xs font-semibold text-white">{title}</div>
-      <div className="text-[10px] leading-tight text-slate-400">{desc}</div>
-    </div>
-  );
-}
-
 /** 区块标题 */
 export function SectionHeading({
   kicker,

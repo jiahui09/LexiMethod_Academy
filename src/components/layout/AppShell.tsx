@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Map,
@@ -13,28 +13,30 @@ import {
   Settings as SettingsIcon,
   Menu,
   X,
-  Flame,
   MessagesSquare,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-import NeonButton from '@/components/ui/NeonButton';
 import BottomNav from '@/components/layout/BottomNav';
-import { useProgress } from '@/store/progressStore';
 import { playSfx } from '@/hooks/useSfx';
 import { useIsMobile } from '@/hooks/useMotionTier';
 
-export type NavItem = { to: string; label: string; icon: LucideIcon; end?: boolean; wideOnly?: boolean };
+export type NavItem = { to: string; label: string; icon: LucideIcon; end?: boolean };
 
+/** 主导航五项（Single Focus Rule：≤5）；与底部导航同名同序，全站目的地叫法一致 */
 export const NAV_ITEMS: NavItem[] = [
-  { to: '/', label: '学习地图', icon: Map, end: true },
-  { to: '/methods', label: '方法课程', icon: GraduationCap },
-  { to: '/lab/phonemes', label: '音标实验室', icon: AudioLines },
-  { to: '/practice', label: '互动训练', icon: Dumbbell },
+  { to: '/', label: '地图', icon: Map, end: true },
+  { to: '/methods', label: '课程', icon: GraduationCap },
+  { to: '/lab/phonemes', label: '实验室', icon: AudioLines },
+  { to: '/practice', label: '训练', icon: Dumbbell },
+  { to: '/review', label: '复习', icon: History },
+];
+
+/** 全部目的地：移动菜单与页脚使用，保证主导航之外的入口仍然一键可达 */
+export const ALL_NAV_ITEMS: NavItem[] = [
+  ...NAV_ITEMS,
   { to: '/analyze', label: '实战演练', icon: Target },
-  // 顶部空间有限：费曼关只在 ≥1360px 显示，窄屏由课程页入口 / 页脚进入
-  { to: '/feynman', label: '费曼关', icon: MessagesSquare, wideOnly: true },
-  { to: '/toolbox', label: '方法工具箱', icon: Wrench },
-  { to: '/review', label: '复习中心', icon: History },
+  { to: '/feynman', label: '费曼关', icon: MessagesSquare },
+  { to: '/toolbox', label: '工具箱', icon: Wrench },
   { to: '/stats', label: '统计', icon: BarChart3 },
   { to: '/settings', label: '设置', icon: SettingsIcon },
 ];
@@ -60,8 +62,6 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const isMobile = useIsMobile();
-  const streak = useProgress((s) => s.streakCurrent);
-  const xp = useProgress((s) => s.xp);
 
   useEffect(() => {
     setOpen(false);
@@ -89,7 +89,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                   key={item.to}
                   to={item.to}
                   end={item.end}
-                  className={`${item.wideOnly ? 'relative hidden min-[1360px]:flex' : 'relative flex'} items-center gap-1.5 rounded-xl px-3 py-2 text-[13px] font-medium transition-all duration-300 ${
+                  className={`relative flex items-center gap-1.5 whitespace-nowrap rounded-xl px-3 py-2 text-[13px] font-medium transition-all duration-300 ${
                     on ? 'text-neon' : 'text-slate-300/75 hover:text-white'
                   }`}
                   aria-current={on ? 'page' : undefined}
@@ -109,19 +109,14 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           </nav>
 
           <div className="flex items-center gap-2">
-            <div className="hidden items-center gap-3 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs sm:flex">
-              <span className="flex items-center gap-1 text-warn" title="连续学习天数">
-                <Flame size={13} aria-hidden />
-                {streak} 天
-              </span>
-              <span className="h-3 w-px bg-white/15" />
-              <span className="text-neon tabular-nums" data-testid="header-xp">{xp} XP</span>
-            </div>
-            <NeonButton size="sm" className="hidden sm:inline-flex" onClick={() => playSfx('click')}>
-              <NavLink to="/practice" className="flex items-center gap-1.5 text-inherit no-underline">
-                开始训练
-              </NavLink>
-            </NeonButton>
+            {/* 单一焦点：发光只留给页面自身的主行动点，header 全局入口用次级描边款 */}
+            <Link
+              to="/practice"
+              onClick={() => playSfx('click')}
+              className="hidden items-center gap-1.5 rounded-xl border border-neon/40 bg-neon/10 px-4 py-2 text-sm font-medium text-neon transition-all hover:-translate-y-0.5 hover:bg-neon/15 sm:inline-flex"
+            >
+              开始训练
+            </Link>
             <button
               type="button"
               className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-slate-200 lg:hidden"
@@ -146,7 +141,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               aria-label="移动导航"
             >
               <div className="container-page grid grid-cols-2 gap-2 py-3">
-                {NAV_ITEMS.map((item) => {
+                {ALL_NAV_ITEMS.map((item) => {
                   const Icon = item.icon;
                   const on = active(item.to, item.end);
                   return (
@@ -178,10 +173,11 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             <span>授人以渔：发音 · 音标拼写 · 自然拼读 · 词根词缀 · 记忆方法</span>
           </div>
           <div className="flex flex-wrap items-center gap-4">
+            <NavLink to="/analyze" className="hover:text-neon transition-colors">实战演练</NavLink>
             <NavLink to="/toolbox" className="hover:text-neon transition-colors">规则速查</NavLink>
             <NavLink to="/feynman" className="hover:text-neon transition-colors">费曼关</NavLink>
-            <NavLink to="/review" className="hover:text-neon transition-colors">复习中心</NavLink>
             <NavLink to="/stats" className="hover:text-neon transition-colors">学习统计</NavLink>
+            <NavLink to="/settings" className="hover:text-neon transition-colors">设置</NavLink>
             <span className="text-slate-500">纯前端 · 零数据存储</span>
           </div>
         </div>

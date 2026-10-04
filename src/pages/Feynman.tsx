@@ -8,7 +8,6 @@ import NeonButton from '@/components/ui/NeonButton';
 import { feynmanTasks, feynmanTask } from '@/data/feynman';
 import { methods } from '@/data/methods';
 import { useProgress } from '@/store/progressStore';
-import { evaluateAchievements } from '@/lib/achievements';
 import { useMotionTier } from '@/hooks/useMotionTier';
 import { playSfx } from '@/hooks/useSfx';
 
@@ -99,7 +98,6 @@ export default function Feynman() {
   const [ratings, setRatings] = useState<number[]>([0, 0, 0, 0]);
   const [result, setResult] = useState<Result | null>(null);
   const [showModel, setShowModel] = useState(false);
-  const [unlocked, setUnlocked] = useState<string | null>(null);
 
   // 录音（仅存内存，关闭即销毁；不写入 localStorage，也不上传）
   const [recUrl, setRecUrl] = useState<string | null>(null);
@@ -171,8 +169,6 @@ export default function Feynman() {
     setResult(r);
     setShowModel(!r.passed);
     recordFeynman({ methodId, hits: r.hits.length, total: task.keywords.length, score, passed: r.passed, text: text.slice(0, 1500) });
-    const newBadges = evaluateAchievements();
-    setUnlocked(newBadges.includes('feynman1') ? '讲得出，才算会' : null);
     playSfx(r.passed ? 'complete' : 'wrong');
   };
 
@@ -375,7 +371,6 @@ export default function Feynman() {
                 关键词命中 {result.hits.length}/{task.keywords.length}
                 {result.missing.length > 0 && <>，还差：<b className="text-warn">{result.missing.join('、')}</b></>}
               </div>
-              {unlocked && <div className="mt-3 rounded-xl border border-warn/40 bg-warn/10 px-3 py-2 text-xs text-warn">新成就解锁：{unlocked}</div>}
               <button
                 type="button"
                 onClick={() => setShowModel((v) => !v)}

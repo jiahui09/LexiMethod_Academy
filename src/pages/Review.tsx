@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { History, RotateCcw, Eye, CheckCircle2, AlertTriangle, Trash2, Play } from 'lucide-react';
+import { History, RotateCcw, Eye, CheckCircle2, AlertTriangle, Trash2, Play, ArrowRight as ArrowRightIcon } from 'lucide-react';
 import { useReview, REVIEW_INTERVALS, mistakeStats } from '@/store/reviewStore';
 import { TYPE_LABELS } from '@/lib/answers';
 import type { QuestionType } from '@/types';
@@ -10,7 +11,6 @@ import { StaggerGroup, StaggerItem } from '@/components/ui/Cards';
 import NeonButton from '@/components/ui/NeonButton';
 import ConfettiBurst from '@/components/fx/ConfettiBurst';
 import { playSfx } from '@/hooks/useSfx';
-import { evaluateAchievements } from '@/lib/achievements';
 import { useMotionTier } from '@/hooks/useMotionTier';
 
 /** 复习中心：SRS 卡片 + 错题本 */
@@ -40,7 +40,6 @@ export default function Review() {
     if (!card) return;
     playSfx(ok ? 'correct' : 'wrong');
     schedule(card.kind, card.refId, card.label, ok);
-    evaluateAchievements();
     if (ok) setDoneCount((d) => d + 1);
     setRevealed(false);
     if (idx + 1 >= queue.length) {
@@ -127,9 +126,17 @@ export default function Review() {
         </div>
 
         {queue.length === 0 && (
-          <div className="rounded-2xl border border-dashed border-white/15 px-4 py-8 text-center">
-            <p className="text-sm text-slate-300">今天没有到期卡片 🎉</p>
-            <p className="mt-1 text-xs text-slate-500">去「互动训练」或「音标实验室」学习，新内容会自动排入复习队列。</p>
+          <div className="rounded-2xl border border-dashed border-white/20 px-4 py-8 text-center">
+            <p className="text-sm text-slate-300">还没有复习卡片</p>
+            <p className="mt-1.5 text-xs leading-relaxed text-slate-400">
+              学完一节课程或做完一组训练后，站点会按遗忘曲线把对应内容排进复习队列，到期卡片会出现在这里。
+            </p>
+            <Link
+              to="/methods"
+              className="mt-4 inline-flex items-center gap-1.5 rounded-xl border border-neon/45 bg-neon/10 px-4 py-2.5 text-sm font-medium text-neon transition-all hover:-translate-y-0.5 hover:bg-neon/15"
+            >
+              去上方法课 <ArrowRightIcon />
+            </Link>
           </div>
         )}
 

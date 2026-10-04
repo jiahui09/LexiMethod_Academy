@@ -51,15 +51,11 @@ export default function MethodList() {
         <div className="flex flex-1 flex-wrap gap-x-8 gap-y-3 text-sm">
           <div>
             <div className="text-2xl font-bold text-white tabular-nums">{progress.completedMethods.length}/{methods.length}</div>
-            <div className="text-xs text-slate-400">模块完成</div>
+            <div className="text-xs text-slate-400">已完成门数</div>
           </div>
           <div>
-            <div className="text-2xl font-bold text-neon tabular-nums">{progress.xp}</div>
-            <div className="text-xs text-slate-400">累计 XP</div>
-          </div>
-          <div>
-            <div className="text-2xl font-bold text-warn tabular-nums">{progress.streakCurrent} 天</div>
-            <div className="text-xs text-slate-400">连续学习</div>
+            <div className="text-2xl font-bold text-neon tabular-nums">{Math.round(overall * 100)}%</div>
+            <div className="text-xs text-slate-400">整体进度</div>
           </div>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -116,7 +112,10 @@ export default function MethodList() {
 
                 <ul className="relative mb-4 flex flex-wrap gap-1.5">
                   {m.principles.slice(0, 3).map((p, k) => (
-                    <li key={k} className="max-w-full truncate rounded-lg border border-white/10 bg-white/[0.05] px-2 py-1 text-[11px] text-slate-400">
+                    <li
+                      key={k}
+                      className="line-clamp-2 max-w-full break-words rounded-lg border border-white/10 bg-white/[0.05] px-2 py-1 text-[11px] text-slate-400"
+                    >
                       {p}
                     </li>
                   ))}

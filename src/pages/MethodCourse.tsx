@@ -7,11 +7,11 @@ import { getMethod, methods } from '@/data/methods';
 import StepHost from '@/components/course/StepHost';
 import StepControls from '@/components/course/StepControls';
 import { Narration } from '@/components/ui/Bits';
+import ConfettiBurst from '@/components/fx/ConfettiBurst';
 import { useProgress } from '@/store/progressStore';
 import { useReview } from '@/store/reviewStore';
 import { useMotionTier } from '@/hooks/useMotionTier';
 import { playSfx } from '@/hooks/useSfx';
-import { evaluateAchievements } from '@/lib/achievements';
 import NotFound from './NotFound';
 
 const EMPTY_STEPS: number[] = [];
@@ -35,26 +35,17 @@ export default function MethodCourse() {
   const [replayKey, setReplayKey] = useState(0);
 
   const completed = useProgress((s) => (method ? s.completedSteps[method.id] ?? EMPTY_STEPS : EMPTY_STEPS));
-  const completedMethods = useProgress((s) => s.completedMethods);
   const completeStep = useProgress((s) => s.completeStep);
   const ensureCard = useReview((s) => s.ensureCard);
 
-  // 进入某步即记为「看过这一节」（仅记在内存里，刷新即清零）
+  const [finishBurst, setFinishBurst] = useState(0);
+
+  // 进入某步只登记复习卡；完成由「前进 / 完成本课」显式记账（载入深链只定位，不改进度）
   useEffect(() => {
     if (!method) return;
-    completeStep(method.id, index, method.steps.length);
     ensureCard('method', `${method.id}-${index}`, `${method.title} · ${method.steps[index]?.title ?? ''}`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [index, method?.id]);
-
-  // 结课成就（method1 / all-methods 等由统一评估器判定）
-  useEffect(() => {
-    if (!method) return;
-    if (completedMethods.includes(method.id)) {
-      if (evaluateAchievements().length > 0) playSfx('complete');
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [completedMethods, method?.id]);
 
   // 自动播放时滚回顶部
   useEffect(() => {
@@ -73,8 +64,24 @@ export default function MethodCourse() {
     setReplayKey((k) => k + 1);
   };
 
+  /** 前进（下一步 / 自动播放 / →）：先记当前步完成，再跳下一节 */
+  const advance = () => {
+    if (index >= total - 1) return;
+    completeStep(method.id, index, total);
+    goTo(index + 1);
+  };
+
+  /** 完成本课：真正的完成时刻 —— 记账 + 彩带 + 祝贺音 */
+  const finish = () => {
+    completeStep(method.id, index, total);
+    setFinishBurst((b) => b + 1);
+    playSfx('complete');
+  };
+
   return (
     <div className="flex flex-col gap-5">
+      {/* 完成本课时刻的彩带（只在事件触发时放，不随页面加载出现） */}
+      <ConfettiBurst fireKey={finishBurst} count={80} />
       {/* 页头 */}
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="min-w-0">
@@ -166,12 +173,46 @@ export default function MethodCourse() {
           autoplay={autoplay}
           completed={completed}
           onChange={goTo}
+          onNext={advance}
+          onFinish={finish}
           onToggleAutoplay={() => setAutoplay((a) => !a)}
           onReplay={() => {
             playSfx('reveal');
             setReplayKey((k) => k + 1);
           }}
         />
+
+        {/* 完成祝贺：本课 8/8 走完才出现（完成时刻，合法彩带/祝贺） */}
+        {completed.length >= total && (
+          <div
+            className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-success/40 bg-success/10 px-4 py-3"
+            role="status"
+            data-testid="course-finished"
+          >
+            <p className="text-sm text-white">
+              本课完成：{total} / {total} 步已走完。下一步去「费曼关」用自己的话讲一遍，才算真的会。
+            </p>
+            <div className="flex flex-wrap gap-2">
+              <Link
+                to={`/feynman?method=${method.id}`}
+                onClick={() => playSfx('click')}
+                className="inline-flex items-center gap-1.5 rounded-xl border border-neon/45 bg-neon/10 px-3.5 py-2 text-xs font-medium text-neon transition-all hover:-translate-y-0.5 hover:bg-neon/15"
+              >
+                <MessagesSquare size={13} aria-hidden /> 去费曼关
+              </Link>
+              <button
+                type="button"
+                onClick={() => {
+                  playSfx('click');
+                  navigate(`/methods/${nextMethod.id}`);
+                }}
+                className="inline-flex items-center gap-1.5 rounded-xl border border-white/15 px-3.5 py-2 text-xs text-slate-300 transition hover:border-neon/40 hover:text-white"
+              >
+                <RouteIcon size={13} aria-hidden /> 下一方法
+              </button>
+            </div>
+          </div>
+        )}
       </motion.section>
 
       {/* 方法要点速览 */}

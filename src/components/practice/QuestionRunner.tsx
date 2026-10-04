@@ -1,18 +1,17 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check, X, Lightbulb, ArrowRight, RefreshCw, Headphones, Rabbit, Turtle } from 'lucide-react';
+import { Check, X, Lightbulb, ArrowRight, RefreshCw, Headphones, Turtle } from 'lucide-react';
 import type { Question } from '@/types';
 import { judgeAnswer, letterFeedback, isWriteType, TYPE_LABELS } from '@/lib/answers';
 import { useSpeech } from '@/hooks/useSpeech';
 import { playSfx } from '@/hooks/useSfx';
-import { evaluateAchievements } from '@/lib/achievements';
 import { useMotionTier } from '@/hooks/useMotionTier';
 import { useProgress } from '@/store/progressStore';
 import { useReview } from '@/store/reviewStore';
 import NeonButton from '@/components/ui/NeonButton';
 import { SpeakButton } from '@/components/ui/Bits';
 import ConfettiBurst from '@/components/fx/ConfettiBurst';
-import { ComboCounter, LightWave } from '@/components/course/FeedbackFx';
+import { LightWave } from '@/components/course/FeedbackFx';
 import TokenPlacer from '@/components/course/TokenPlacer';
 
 type Props = {
@@ -33,7 +32,7 @@ function shuffle<T>(arr: T[]): T[] {
   return a;
 }
 
-/** 通用题目运行器：11 种题型 / 连击 / confetti / 错题记录 */
+/** 通用题目运行器：11 种题型 / 对错反馈 / 完成彩带 / 错题记录 */
 export default function QuestionRunner({
   questions,
   onFinish,
@@ -45,14 +44,11 @@ export default function QuestionRunner({
   const tier = useMotionTier();
   const { speak, stop, supported } = useSpeech();
   const recordAnswer = useProgress((s) => s.recordAnswer);
-  const recordCombo = useProgress((s) => s.recordCombo);
   const addMistake = useReview((s) => s.addMistake);
 
   const [idx, setIdx] = useState(0);
   const [given, setGiven] = useState('');
   const [status, setStatus] = useState<'idle' | 'correct' | 'wrong'>('idle');
-  const [combo, setCombo] = useState(0);
-  const [best, setBest] = useState(0);
   const [results, setResults] = useState<{ correct: boolean; given: string }[]>([]);
   const [done, setDone] = useState(false);
   const [burst, setBurst] = useState(0);
@@ -67,8 +63,6 @@ export default function QuestionRunner({
     setIdx(0);
     setGiven('');
     setStatus('idle');
-    setCombo(0);
-    setBest(0);
     setResults([]);
     setDone(false);
     if (next) setBurst((b) => b); // no-op，保持引用
@@ -96,7 +90,8 @@ export default function QuestionRunner({
       const correct = rs.filter((r) => r.correct).length;
       setDone(true);
       playSfx('complete');
-      setBurst((b) => b + 1);
+      // 完成时刻的彩带：整组全对才放（设计规则：只有完成时刻允许彩带）
+      if (rs.length > 0 && correct === rs.length) setBurst((b) => b + 1);
       onFinish?.({ correct, total: rs.length });
     },
     [onFinish, total],
@@ -109,24 +104,12 @@ export default function QuestionRunner({
       setStatus(ok ? 'correct' : 'wrong');
       setGiven(value);
       playSfx(ok ? 'correct' : 'wrong');
-      if (ok) {
-        const nextCombo = combo + 1;
-        setCombo(nextCombo);
-        setBest((b) => Math.max(b, nextCombo));
-        if (nextCombo > 0 && nextCombo % 3 === 0) setBurst((b) => b + 1);
-      } else {
-        setCombo(0);
-      }
       if (record) recordAnswer(q.type, ok);
-      if (ok) {
-        recordCombo(combo + 1);
-        evaluateAchievements();
-      }
       if (!ok && trackMistakes) addMistake(q, value);
       onAnswered?.(q, ok, value);
       setResults((r) => [...r, { correct: ok, given: value }]);
     },
-    [q, status, combo, record, trackMistakes, addMistake, onAnswered, recordCombo],
+    [q, status, record, trackMistakes, addMistake, onAnswered],
   );
 
   const next = useCallback(() => {
@@ -149,8 +132,8 @@ export default function QuestionRunner({
         <ConfettiBurst fireKey={burst} count={70} />
         <div className="font-display text-4xl font-bold text-white tabular-nums">{pct}%</div>
         <p className="mt-1 text-sm text-slate-300">
-          答对 <span className="text-success">{correct}</span> / {results.length} · 最长连击{' '}
-          <span className="text-warn">{best}</span>
+          答对 <span className="text-success">{correct}</span> / {results.length}（正确率{' '}
+          <span className="text-success tabular-nums">{pct}%</span>）
         </p>
         {wrongList.length > 0 && (
           <div className="mx-auto mt-4 max-w-xl rounded-2xl border border-warn/30 bg-warn/[0.07] p-4 text-left text-xs text-slate-300">
@@ -185,9 +168,7 @@ export default function QuestionRunner({
 
   return (
     <div className="relative overflow-hidden rounded-3xl border border-white/12 bg-white/[0.04] p-5 backdrop-blur-xl md:p-6">
-      <ConfettiBurst fireKey={burst} count={60} />
-
-      {/* 头部：题号 / 题型 / 连击 */}
+      {/* 头部：题号 / 题型 */}
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2 text-xs text-slate-400">
           <span className="rounded-md bg-neon/15 px-2 py-0.5 font-semibold text-neon">{TYPE_LABELS[q.type]}</span>
@@ -197,7 +178,6 @@ export default function QuestionRunner({
           {heading && <span className="hidden sm:inline">· {heading}</span>}
         </div>
         <div className="flex items-center gap-3">
-          <ComboCounter value={combo} />
           {q.speak && supported && (
             <div className="flex items-center gap-1.5">
               <SpeakButton text={q.speak} label="常速播放" />

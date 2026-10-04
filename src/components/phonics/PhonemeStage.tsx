@@ -13,7 +13,6 @@ import { useMotionTier } from '@/hooks/useMotionTier';
 import { useProgress } from '@/store/progressStore';
 import { useReview } from '@/store/reviewStore';
 import { playSfx } from '@/hooks/useSfx';
-import { evaluateAchievements } from '@/lib/achievements';
 
 const STEP_TITLES = [
   '① 音标登场',
@@ -48,7 +47,6 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
   useEffect(() => {
     if (index === STEP_TITLES.length - 1) {
       markLearned(phoneme.id);
-      evaluateAchievements();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [index, phoneme.id]);
@@ -283,6 +281,11 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
             completed={[]}
             onChange={(i) => {
               setIndex(i);
+              setReplay((r) => r + 1);
+            }}
+            onNext={() => {
+              // 前进走 onNext（与 StepControls 的按钮/自动播放/键盘→同一契约）；末步即 markLearned 生效点
+              setIndex((i) => Math.min(i + 1, STEP_TITLES.length - 1));
               setReplay((r) => r + 1);
             }}
             onToggleAutoplay={() => setAutoplay((a) => !a)}

@@ -10,7 +10,7 @@ import QuestionRunner from '@/components/practice/QuestionRunner';
 import PageIntro from '@/components/layout/PageIntro';
 import { StaggerGroup, StaggerItem } from '@/components/ui/Cards';
 import NeonButton from '@/components/ui/NeonButton';
-import { TYPE_LABELS, normWord } from '@/lib/answers';
+import { TYPE_LABELS } from '@/lib/answers';
 import {
   listenWriteWordQ,
   listenWriteIpaQ,
@@ -55,7 +55,6 @@ export default function Practice() {
   const [type, setType] = useState<QuestionType | 'mixed'>('mixed');
   const [seed, setSeed] = useState(1);
   const stats = useProgress((s) => s.stats);
-  const xp = useProgress((s) => s.xp);
 
   const questions = useMemo(() => {
     if (type !== 'mixed') {
@@ -84,7 +83,7 @@ export default function Practice() {
         <div className="glass p-5">
           <div className="text-xs uppercase tracking-widest text-slate-400">累计作答</div>
           <div className="font-display text-3xl font-bold text-white tabular-nums">{totalAnswered}</div>
-          <div className="text-[11px] text-slate-500">正确 {totalCorrect} · XP {xp}</div>
+          <div className="text-[11px] text-slate-500">正确 {totalCorrect}</div>
         </div>
         <div className="glass p-5">
           <div className="text-xs uppercase tracking-widest text-slate-400">总正确率</div>

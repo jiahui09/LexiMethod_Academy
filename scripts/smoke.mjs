@@ -8,9 +8,14 @@
  * 检查项:
  *   1. 全部路由可访问且无 console.error / pageerror（含面包屑 + 下一步引导）
  *   2. 首页 3s 内渲染出标题
- *   3. 旗舰课 8 步可完整点击走完（上一步/下一步/重播）
- *   4. 音标实验室可选择音标并进入 7 步教学
- *   5. 零数据存储：浏览器存储为空，刷新后进度归零（进度由首页手动调节）
+ *   3. 零数据存储 + 课程完成语义：深链 ?step=n 只定位不改进度（反向断言）、
+ *      手动调节改变进度、刷新后进度归零、存储键为空、无 XP/成就徽章残留
+ *   4. 旗舰课 8 步可完整点击走完（上一步/下一步/重播）
+ *   5. 音标实验室可选择音标并进入 7 步教学
+ *   6. 移动端视口不横向溢出
+ *
+ * 注：XP / 连续天数 / 成就徽章 / 连击已从应用移除，相关断言一律以
+ *     行为证据替代（进度行文本、course-step 文本、存储键数、残留扫描）。
  */
 import puppeteer from 'puppeteer-core';
 
@@ -95,8 +100,90 @@ async function main() {
     if (loadMs > 3000) fail(`首页加载 ${loadMs}ms > 3000ms`);
     else ok(`首页标题出现于 ${loadMs}ms`);
 
-    /* 3. 旗舰课 8 步 */
-    console.log('\n[3] 旗舰课《自然拼读法》8 步走完');
+    /* 3. 零数据存储 + 课程完成语义（原「进入课程 +10 XP / 刷新 XP 归零」的 oracle 替换） */
+    console.log('\n[3] 零数据存储 · 深链只定位不改进度 · 无 XP 残留');
+    await page.goto(BASE + '/', { waitUntil: 'networkidle2', timeout: TIMEOUT });
+    await sleep(700);
+
+    const readCount = () =>
+      page.evaluate(() => {
+        const el = document.querySelector('[data-step-count="0"]');
+        if (el) return el.textContent.trim();
+        const m = (document.querySelector('[data-method-row]')?.innerText ?? '').match(/\d+\s*\/\s*\d+/);
+        return m ? m[0].replace(/\s+/g, '') : '';
+      });
+
+    // SPA 内前进/后退：整页 goto 会重建内存 store，测不出「打开页面偷偷改进度」
+    const spaGoto = async (path) => {
+      await page.evaluate((p) => {
+        window.history.pushState({}, '', p);
+        window.dispatchEvent(new PopStateEvent('popstate', { state: {} }));
+      }, path);
+      await sleep(750);
+    };
+
+    // 3a. 深链 ?step=3 只定位、不自动完成步骤（bug 修复验证）
+    const cntBase = await readCount();
+    await spaGoto('/methods/phonics-syllables?step=3');
+    const stepText = (await page.evaluate(() => document.querySelector('[data-testid="course-step"]')?.textContent ?? '')).trim();
+    if (!stepText.includes('第 4 步')) fail(`深链 ?step=3 应落在第 4 步，实为「${stepText || '(无 course-step)'}」`);
+    else ok('深链 ?step=3 落在第 4 步');
+    await spaGoto('/');
+    const cntDeep = await readCount();
+    if (!cntBase || cntDeep !== cntBase) {
+      fail(`打开深链不应改进度（修复验证）：${cntBase || '(读不到)'} → ${cntDeep || '(读不到)'}`);
+    } else ok(`打开深链进度不变（${cntDeep}）`);
+
+    // 3b. 手动调节 = 进度变化本身就是断言点（不再有 XP 同步）
+    const beforeNum = Number((cntDeep.match(/^(\d+)\//) ?? [])[1]);
+    await page.click('[data-step-inc="0"]');
+    await sleep(350);
+    const cntInc = await readCount();
+    const afterNum = Number((cntInc.match(/^(\d+)\//) ?? [])[1]);
+    if (!(afterNum > beforeNum)) fail(`手动 +1 后进度应增加：${cntDeep} → ${cntInc}`);
+    else ok(`手动调节生效（${cntDeep} → ${cntInc}）`);
+
+    // 3c. 刷新后进度归零（零存储：内存 store 重建）
+    await page.reload({ waitUntil: 'networkidle2' });
+    await sleep(800);
+    const cntZero = await readCount();
+    if (cntZero !== '0/8') fail(`刷新后进度应归零（零存储），实为 ${cntZero}（调节后 ${cntInc}）`);
+    else ok('刷新后进度归零（零存储）');
+
+    const store = await page.evaluate(() => ({
+      ls: Object.keys(window.localStorage).length,
+      ss: Object.keys(window.sessionStorage).length,
+      cookies: document.cookie.split(';').filter(Boolean).length,
+    }));
+    if (store.ls || store.ss || store.cookies) {
+      fail(`浏览器存储被写入: localStorage=${store.ls} sessionStorage=${store.ss} cookies=${store.cookies}`);
+    } else ok('localStorage / sessionStorage / cookies 全部为空');
+
+    // 3d. 去角色化残留扫描：无 header-xp / 无 XP 文案 / 无成就徽章
+    const residue = await page.evaluate(() => ({
+      xpId: !!document.querySelector('[data-testid="header-xp"]'),
+      xpText: (document.body.innerText.match(/\bXP\b/g) || []).length,
+      badges: document.querySelectorAll('[data-testid="achievement-badge"]').length,
+    }));
+    if (residue.xpId || residue.xpText || residue.badges) {
+      fail(`去角色化残留: header-xp=${residue.xpId} XP文案=${residue.xpText} 徽章=${residue.badges}`);
+    } else ok('无 XP / 成就徽章残留');
+
+    // 3e. 空库首访：hero 主 CTA 为「开始第一课」
+    const heroCta = await page.evaluate(() => document.querySelector('[data-testid="hero-resume"]')?.textContent.trim() ?? '');
+    if (!heroCta.includes('开始第一课')) fail(`空库 hero 主 CTA 应为「开始第一课」，实为「${heroCta || '(无 hero-resume)'}」`);
+    else ok('空库 hero 主 CTA =「开始第一课」');
+
+    // 3f. 首页「我的进度」面板（此检查须在首页执行）
+    const panel = await page.evaluate(() => {
+      const p = document.querySelector('[data-testid="progress-panel"]');
+      return p ? { rows: p.querySelectorAll('[data-method-row]').length, inc: p.querySelectorAll('[data-step-inc]').length } : null;
+    });
+    if (!panel || panel.rows !== 8 || panel.inc !== 8) fail(`首页「我的进度」面板行数 ${panel?.rows ?? 0}/8`);
+    else ok('首页「我的进度」面板：8 门课均可手动调节数');
+
+    /* 4. 旗舰课 8 步 */
+    console.log('\n[4] 旗舰课《自然拼读法》8 步走完');
     await page.goto(BASE + '/methods/phonics-syllables', { waitUntil: 'networkidle2', timeout: TIMEOUT });
     await sleep(800);
     const titles = await page.evaluate(() =>
@@ -110,16 +197,25 @@ async function main() {
         return h ? h.textContent.trim() : '';
       });
       seen.push(cur);
-      const nextBtn = await page.$$('button[aria-label*="下一步"], button[aria-label*="next"]');
+      const nextBtn = await page.$$('button[aria-label*="下一步"], button[aria-label*="完成本课"]');
       if (!nextBtn.length) {
-        fail(`第 ${step + 1} 步找不到「下一步」按钮`);
+        fail(`第 ${step + 1} 步找不到「下一步/完成本课」按钮`);
         break;
       }
-      // 最后一步不点
-      if (step < 7) await nextBtn[nextBtn.length - 1].click();
+      // 前 7 步点「下一步」，最后一步点「完成本课」（完成只由显式操作触发）
+      await nextBtn[nextBtn.length - 1].click();
     }
     if (seen.filter(Boolean).length < 8) fail(`只走到 ${seen.filter(Boolean).length}/8 步: ${JSON.stringify(seen)}`);
     else ok(`8 步完成: ${seen.map((s) => s.slice(0, 14)).join(' → ')}`);
+
+    // 显式「完成本课」后：按钮进入「本课已完成」终态（完成语义由显式操作驱动）
+    await sleep(600);
+    const finishState = await page.evaluate(() => {
+      const b = document.querySelector('button[aria-label="完成本课"]');
+      return b ? b.textContent.trim() : '';
+    });
+    if (!finishState.includes('本课已完成')) fail(`点「完成本课」后应显示「本课已完成」，实为「${finishState || '(无按钮)'}」`);
+    else ok('显式「完成本课」→ 本课已完成');
 
     // 重播按钮
     const replay = await page.$('button[aria-label*="重播"], button[aria-label*="重播动画"]');
@@ -128,8 +224,8 @@ async function main() {
       ok('重播按钮可点击');
     } else fail('找不到重播按钮');
 
-    /* 4. 音标实验室 */
-    console.log('\n[4] 音标实验室 7 步教学');
+    /* 5. 音标实验室 */
+    console.log('\n[5] 音标实验室 7 步教学');
     await page.goto(BASE + '/lab/phonemes', { waitUntil: 'networkidle2', timeout: TIMEOUT });
     await sleep(900);
     const chipCount = await page.evaluate(
@@ -159,40 +255,6 @@ async function main() {
     const stageText = await page.evaluate(() => document.body.innerText);
     if (!stageText.includes('互动判断')) fail('音标 7 步未到达「互动判断」');
     else ok('音标 7 步走完');
-
-    /* 5. 零数据存储：浏览器存储为空，刷新回到初始 */
-    console.log('\n[5] 零数据存储：刷新后回到初始');
-    await page.goto(BASE + '/methods/phonics-syllables', { waitUntil: 'networkidle2' });
-    await sleep(700);
-    const store = await page.evaluate(() => ({
-      ls: Object.keys(window.localStorage).length,
-      ss: Object.keys(window.sessionStorage).length,
-      cookies: document.cookie.split(';').filter(Boolean).length,
-    }));
-    if (store.ls || store.ss || store.cookies) {
-      fail(`浏览器存储被写入: localStorage=${store.ls} sessionStorage=${store.ss} cookies=${store.cookies}`);
-    } else ok('localStorage / sessionStorage / cookies 全部为空');
-
-    const readXp = () =>
-      page.evaluate(() => {
-        const el = document.querySelector('[data-testid="header-xp"]');
-        return el ? Number((el.textContent || '').replace(/[^0-9]/g, '')) : -1;
-      });
-    const xpBefore = await readXp();
-    if (xpBefore <= 0) fail(`进入课程应有会话内 XP（进入某步 +10），实为 ${xpBefore}`);
-    await page.reload({ waitUntil: 'networkidle2' });
-    await sleep(800);
-    const xpAfter = await readXp();
-    if (xpAfter !== 0) fail(`刷新后 XP 应归零（零存储），实为 ${xpAfter}`);
-    else ok(`刷新后归零（刷新前 ${xpBefore} XP → 0 XP）`);
-
-    // 首页必须提供「我的进度」手动调节入口
-    const panel = await page.evaluate(() => {
-      const p = document.querySelector('[data-testid="progress-panel"]');
-      return p ? { rows: p.querySelectorAll('[data-method-row]').length, inc: p.querySelectorAll('[data-step-inc]').length } : null;
-    });
-    if (!panel || panel.rows !== 8 || panel.inc !== 8) fail(`首页「我的进度」面板行数 ${panel?.rows ?? 0}/8`);
-    else ok('首页「我的进度」面板：8 门课均可手动调节数');
 
     /* 6. 移动端视口不横向溢出 */
     console.log('\n[6] 移动端 375px 无横向滚动');

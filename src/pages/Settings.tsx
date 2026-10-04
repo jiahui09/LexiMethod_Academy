@@ -223,7 +223,8 @@ export default function Settings() {
 
         <div className="grid gap-3 sm:grid-cols-3">
           <div className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-xs text-slate-400">
-            经验值 <b className="text-neon">{progress.xp}</b> · 步骤 <b className="text-white">{Object.values(progress.completedSteps).flat().length}</b> · 音标{' '}
+            步骤 <b className="text-white">{Object.values(progress.completedSteps).flat().length}</b> · 课程{' '}
+            <b className="text-white">{progress.completedMethods.length}</b> · 音标{' '}
             <b className="text-white">{progress.phonemesLearned.length}</b>
           </div>
           <div className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-xs text-slate-400">
@@ -231,8 +232,8 @@ export default function Settings() {
             <b className="text-white">{progress.analyzedWords.length}</b>
           </div>
           <div className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-xs text-slate-400">
-            成就 <b className="text-success">{progress.achievements.length}</b> · 连续{' '}
-            <b className="text-warn">{progress.streakCurrent}</b> 天
+            费曼讲解 <b className="text-success">{progress.feynmanRecords.length}</b> 次 · 其中通过{' '}
+            <b className="text-success">{progress.feynmanRecords.filter((r) => r.passed).length}</b> 次
           </div>
         </div>
 
@@ -243,7 +244,7 @@ export default function Settings() {
             </NeonButton>
           ) : (
             <div className="flex flex-wrap items-center gap-2 rounded-xl border border-danger/45 bg-danger/10 px-3 py-2">
-              <span className="text-xs text-danger">确认清空进度、复习卡、错题与成就？不可撤销。</span>
+              <span className="text-xs text-danger">确认清空进度、复习卡、错题与讲解记录？不可撤销。</span>
               <button
                 type="button"
                 onClick={() => {

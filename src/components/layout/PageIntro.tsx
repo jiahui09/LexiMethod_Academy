@@ -22,7 +22,7 @@ export default function PageIntro({ crumbs, kicker, title, desc, align = 'left',
     <div data-testid="page-intro">
       <Breadcrumbs items={crumbs} className={align === 'center' ? 'justify-center' : ''} />
       <div className={`flex flex-wrap items-end justify-between gap-4 ${align === 'center' ? 'flex-col items-center' : ''}`}>
-        <div className="min-w-0 flex-1">
+        <div className="min-w-0 basis-full sm:basis-0 sm:flex-1">
           <SectionHeading kicker={kicker} title={title} desc={desc} align={align} />
         </div>
         {next && (

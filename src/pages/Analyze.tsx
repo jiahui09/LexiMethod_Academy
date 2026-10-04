@@ -127,7 +127,7 @@ export default function Analyze() {
             <History size={15} className="text-pink" aria-hidden /> 分析历史（{analyzed.length}）
           </div>
           <div className="flex flex-wrap gap-2">
-            {analyzed.length === 0 && <p className="text-xs text-slate-500">完成一次分析后会记录在这里，完成 +15 XP。</p>}
+            {analyzed.length === 0 && <p className="text-xs text-slate-500">完成一次分析后会记录在这里。</p>}
             {analyzed.map((a, i) => (
               <button
                 key={`${a.word}-${i}`}

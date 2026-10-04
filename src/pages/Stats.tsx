@@ -1,6 +1,6 @@
-import { useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Flame, Target, TrendingUp, AudioLines, BookOpenCheck, ListChecks } from 'lucide-react';
+import { Target, AudioLines, MessageSquareText, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { methods } from '@/data/methods';
 import { useProgress, useOverallProgress } from '@/store/progressStore';
 import { TYPE_LABELS } from '@/lib/answers';
@@ -8,13 +8,9 @@ import type { QuestionType } from '@/types';
 import ProgressRing from '@/components/ui/ProgressRing';
 import PageIntro from '@/components/layout/PageIntro';
 import { StaggerGroup, StaggerItem } from '@/components/ui/Cards';
-import { useMotionTier } from '@/hooks/useMotionTier';
 
-const DAY = 86400000;
-
-/** 统计页：进度 / 正确率 / 活跃度热力图 */
+/** 统计页：课程完成度 / 题型正确率 / 费曼关记录 */
 export default function Stats() {
-  const tier = useMotionTier();
   const progress = useProgress();
   const overall = useOverallProgress(methods.length);
 
@@ -23,21 +19,16 @@ export default function Stats() {
   const totalCorrect = types.reduce((s, t) => s + (progress.stats[t]?.correct ?? 0), 0);
   const accuracy = totalAttempts ? Math.round((totalCorrect / totalAttempts) * 100) : 0;
 
-  // 最近 8 周热力图
-  const heatmap = useMemo(() => {
-    const cells: { date: string; count: number }[] = [];
-    const today = new Date();
-    for (let i = 55; i >= 0; i--) {
-      const d = new Date(today.getTime() - i * DAY);
-      const key = d.toISOString().slice(0, 10);
-      cells.push({ date: key, count: progress.activity[key] ?? 0 });
-    }
-    return cells;
-  }, [progress.activity]);
-  const maxAct = Math.max(1, ...heatmap.map((c) => c.count));
+  const feynmanRecords = progress.feynmanRecords ?? [];
+  const feynmanPassed = feynmanRecords.filter((r) => r.passed).length;
 
-  // 最近 14 天柱状
-  const bars = heatmap.slice(-14);
+  /** 首访空态：本次会话没有任何学习痕迹时，只给一行说明与一个去处 */
+  const isEmpty =
+    totalAttempts === 0 &&
+    progress.completedMethods.length === 0 &&
+    progress.phonemesLearned.length === 0 &&
+    progress.analyzedWords.length === 0 &&
+    feynmanRecords.length === 0;
 
   const perMethod = methods.map((m) => {
     const done = progress.completedSteps[m.id]?.length ?? 0;
@@ -59,103 +50,87 @@ export default function Stats() {
         crumbs={[{ label: '学习地图', to: '/' }, { label: '学习统计' }]}
         kicker="Analytics"
         title="统计：看的是“方法使用”，不是背词量"
-        desc="关注四个信号：各方法完成度、题型正确率、连续学习天数、复习与输出的执行情况。零数据存储：这些数字只统计本次会话，刷新后回到起点。"
+        desc="关注三个信号：课程完成度、题型正确率、讲解与输出的执行情况。零数据存储：这些数字只统计本次会话，刷新后回到起点。"
         next={{ label: '回到学习地图', to: '/' }}
       />
 
-      {/* KPI */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="glass flex items-center gap-4 p-5">
-          <ProgressRing value={overall} size={100} label="总进度" />
-          <div>
-            <div className="text-xs uppercase tracking-widest text-slate-400">课程完成</div>
-            <div className="font-display text-2xl font-bold text-white tabular-nums">
-              {progress.completedMethods.length}/{methods.length}
+      {isEmpty && (
+        /* 首访空态：一行说明 + 唯一去处（描边，不放彩带、不放重复发光 CTA） */
+        <div className="flex flex-col items-center gap-4 rounded-2xl border border-dashed border-white/20 px-6 py-10 text-center">
+          <p className="max-w-md text-sm leading-relaxed text-slate-400">
+            还没有可统计的内容：完成课程步骤、做一组训练、讲一次费曼关之后，正确率与完成度会在这里逐项出现。
+          </p>
+          <Link
+            to="/practice"
+            className="inline-flex items-center gap-1.5 rounded-xl border border-neon/45 bg-neon/10 px-4 py-2.5 text-sm font-medium text-neon transition-all hover:-translate-y-0.5 hover:bg-neon/15"
+          >
+            去做第一组训练 <ArrowRight size={14} aria-hidden />
+          </Link>
+        </div>
+      )}
+
+      {!isEmpty && (
+        <>
+          {/* KPI */}
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="glass flex items-center gap-4 p-5">
+              <ProgressRing value={overall} size={100} label="总进度" />
+              <div>
+                <div className="text-xs uppercase tracking-widest text-slate-400">课程完成</div>
+                <div className="font-display text-2xl font-bold text-white tabular-nums">
+                  {progress.completedMethods.length}/{methods.length}
+                </div>
+              </div>
+            </div>
+
+            <div className="glass flex flex-col justify-center gap-1 p-5">
+              <div className="flex items-center gap-2 text-neon">
+                <Target size={18} aria-hidden />
+                <span className="font-display text-3xl font-bold tabular-nums">{accuracy}%</span>
+              </div>
+              <div className="text-xs text-slate-300">总正确率 · 作答 {totalAttempts} 次</div>
+            </div>
+
+            <div className="glass flex flex-col justify-center gap-1 p-5">
+              <div className="flex items-center gap-2 text-violet">
+                <MessageSquareText size={18} aria-hidden />
+                <span className="font-display text-3xl font-bold tabular-nums">
+                  {feynmanPassed}/{feynmanRecords.length}
+                </span>
+              </div>
+              <div className="text-xs text-slate-300">费曼关通过 / 讲解次数</div>
+            </div>
+
+            <div className="glass flex flex-col justify-center gap-1 p-5">
+              <div className="flex items-center gap-2 text-success">
+                <AudioLines size={18} aria-hidden />
+                <span className="font-display text-3xl font-bold tabular-nums">{progress.phonemesLearned.length}</span>
+              </div>
+              <div className="text-xs text-slate-300">
+                音标已学 /48 · 实战词 {progress.analyzedWords.length}
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="glass flex flex-col justify-center gap-1 p-5">
-          <div className="flex items-center gap-2 text-warn">
-            <Flame size={18} aria-hidden />
-            <span className="font-display text-3xl font-bold tabular-nums">{progress.streakCurrent}</span>
-            <span className="text-xs text-slate-400">天连续</span>
-          </div>
-          <div className="text-[11px] text-slate-500">最长 {progress.streakLongest} 天</div>
-        </div>
-
-        <div className="glass flex flex-col justify-center gap-1 p-5">
-          <div className="flex items-center gap-2 text-neon">
-            <Target size={18} aria-hidden />
-            <span className="font-display text-3xl font-bold tabular-nums">{accuracy}%</span>
-          </div>
-          <div className="text-[11px] text-slate-500">总正确率 · 作答 {totalAttempts} 次</div>
-        </div>
-
-        <div className="glass flex flex-col justify-center gap-1 p-5">
-          <div className="flex items-center gap-2 text-success">
-            <TrendingUp size={18} aria-hidden />
-            <span className="font-display text-3xl font-bold tabular-nums">{progress.xp}</span>
-            <span className="text-xs text-slate-400">XP</span>
-          </div>
-          <div className="text-[11px] text-slate-500">
-            音标 {progress.phonemesLearned.length}/48 · 实战词 {progress.analyzedWords.length}
-          </div>
-        </div>
-      </div>
-
-      {/* 热力图 + 14 天柱 */}
-      <section className="grid gap-4 lg:grid-cols-[1.3fr_1fr]">
-        <div className="glass p-5">
-          <div className="mb-3 flex items-center justify-between text-sm font-semibold text-white">
-            <span>活跃热力图（近 8 周）</span>
-            <span className="text-xs font-normal text-slate-500">颜色越亮 = 当天练习越多</span>
-          </div>
-          <div className="grid grid-flow-col grid-rows-7 gap-1 overflow-x-auto pb-1" role="img" aria-label="最近 8 周学习活跃度热力图">
-            {heatmap.map((c) => {
-              const alpha = c.count === 0 ? 0.06 : 0.25 + (c.count / maxAct) * 0.75;
-              return (
-                <span
-                  key={c.date}
-                  title={`${c.date} · ${c.count} 次`}
-                  className="h-4 w-4 rounded-[4px]"
-                  style={{ background: `rgba(0,229,255,${alpha})`, boxShadow: c.count ? '0 0 6px rgba(0,229,255,0.35)' : 'none' }}
-                />
-              );
-            })}
-          </div>
-          <div className="mt-3 flex flex-wrap gap-4 text-[11px] text-slate-500">
-            <span className="flex items-center gap-1.5">
-              <ListChecks size={11} aria-hidden /> 今日 {progress.activity[new Date().toISOString().slice(0, 10)] ?? 0} 次
-            </span>
-            <span className="flex items-center gap-1.5">
-              <AudioLines size={11} aria-hidden /> 音标已学 {progress.phonemesLearned.length}
-            </span>
-            <span className="flex items-center gap-1.5">
-              <BookOpenCheck size={11} aria-hidden /> 实战分析 {progress.analyzedWords.length} 词
-            </span>
-          </div>
-        </div>
-
-        <div className="glass p-5">
-          <div className="mb-3 text-sm font-semibold text-white">近 14 天练习量</div>
-          <div className="flex h-40 items-end gap-1.5">
-            {bars.map((b) => (
-              <div key={b.date} className="group flex flex-1 flex-col items-center gap-1.5" title={`${b.date}: ${b.count}`}>
-                <span className="text-[9px] text-slate-500 tabular-nums">{b.count || ''}</span>
-                <motion.div
-                  className="w-full rounded-t-md bg-gradient-to-t from-violet to-neon"
-                  initial={tier === 'off' ? false : { height: 3 }}
-                  animate={{ height: Math.max(3, (b.count / maxAct) * 110) }}
-                  transition={{ duration: 0.6, delay: 0.03 * bars.indexOf(b) }}
-                  style={{ minHeight: 3 }}
-                />
-                <span className="text-[9px] text-slate-500">{b.date.slice(8)}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+          {/* 费曼关记录 */}
+          {feynmanRecords.length > 0 && (
+            <section className="glass p-5">
+              <div className="mb-3 text-sm font-semibold text-white">费曼关讲解记录</div>
+              <ul className="flex flex-col gap-1.5 text-xs text-slate-300">
+                {feynmanRecords.slice(0, 5).map((r) => (
+                  <li key={r.at} className="flex items-center justify-between gap-2">
+                    <span className="truncate">
+                      {new Date(r.at).toLocaleString('zh-CN', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' })} ·{' '}
+                      {methods.find((m) => m.id === r.methodId)?.title.split('：')[0] ?? r.methodId}
+                    </span>
+                    <span className={r.passed ? 'text-success' : 'text-warn'}>
+                      {r.passed ? '通过' : '未过'} · 关键词 {r.hits}/{r.total}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
 
       {/* 各方法进度 */}
       <section>
@@ -208,11 +183,13 @@ export default function Stats() {
                   transition={{ duration: 0.7 }}
                 />
               </div>
-              <div className="text-[10px] text-slate-500">作答 {attempts} 次</div>
+              <div className="text-xs text-slate-500">作答 {attempts} 次</div>
             </div>
           ))}
         </div>
       </section>
+        </>
+      )}
     </div>
   );
 }
