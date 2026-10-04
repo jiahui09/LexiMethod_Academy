@@ -4,4 +4,4 @@ dist
 *.local
 .npm-cache
 *.tsbuildinfo
-omx/*
+.omx/
