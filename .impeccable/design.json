@@ -416,7 +416,7 @@
       },
       {
         "name": "The Offline Audio Rule",
-        "body": "发音一律使用同源离线音频：48 音标本体与全部例词/最小对立对（221 词）优先播 public/audio/ 内置 mp3（npm run gen:audio 增量生成、--force 全量重建、check:audio 门禁、约 1.1MB），浏览器语音合成仅作兜底——永不请求外部语音服务；许可与复现见 NOTICE-AUDIO.md。",
+        "body": "发音一律使用同源离线音频：48 音标本体与全部例词/最小对立对（词全集 926 词，单源 word-universe.mjs）优先播 public/audio/ 内置 mp3（npm run gen:audio 增量生成、--force 全量重建、check:audio 门禁、约 3.7MB/974 条），浏览器语音合成仅作兜底——永不请求外部语音服务；许可与复现见 NOTICE-AUDIO.md。",
         "section": "audio"
       }
     ],

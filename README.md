@@ -19,7 +19,7 @@
 
 ## 核心特性
 
-- **离线发音音频**：48 个音标本体 + 221 个例词/最小对立对均为**同源内置 mp3**（约 1.1MB，美式音色，piper 神经 TTS 生成），浏览器语音合成只作句子级兜底——运行时**零外部请求**
+- **离线发音音频**：48 个音标本体 + **926 个可点读词**（例词、词族、词缀例词、题库、音节块等 8 个数据源的词全集，约 3.7MB、974 条）均为**同源内置 mp3**（48kbps 美式音色，piper 神经 TTS 生成），浏览器语音合成只作句子级兜底——运行时**零外部请求**
 - **零存储**：进度、设置全部只在内存，刷新即归零；无 localStorage / cookie / 追踪
 - **质量底线门禁**：对比度 ≥4.5:1、字号 ≥12px、触控 ≥44×44、每页 1 h1、无重复 id——全部归零并并入 `verify`
 - **路由错误边界**：懒加载失败或渲染崩溃自动降级（重试 / 刷新 / 回地图），不白屏
@@ -41,9 +41,9 @@ npm run dev        # http://127.0.0.1:5173
 | --- | --- |
 | `npm run dev` / `build` / `preview` | 开发 / 产出 `dist` / 本地预览产物 |
 | `npm run verify` | **总门禁**：build + 体积 + 数据验收 + 音频门禁 + 底线审计 |
-| `npm run size` | 首屏 <200KB、CSS <30KB、全量站点 <2MB |
+| `npm run size` | 首屏 <200KB、CSS <30KB、全量站点 <4.5MB（音频点击时才拉取） |
 | `npm run check:data` | 源数据一致性（2585 项断言） |
-| `npm run check:audio` | 音频三方核验：数据 ↔ manifest ↔ 磁盘（48+221，可解码、时长/体积预算） |
+| `npm run check:audio` | 音频三方核验：词全集 ↔ manifest ↔ 磁盘（48+926，可解码、时长/体积预算、无孤儿） |
 | `npm run audit:floor` | 逐路由设计底线审计（对比度/字号/触控/h1/id） |
 | `npm run smoke` / `npm run accept` | 浏览器冒烟 30+ 项 / 验收 84 项（需先 `npm run dev`，依赖系统 Chromium，可用 `CHROME_BIN` 覆盖） |
 
@@ -60,7 +60,7 @@ npm run gen:audio -- --force   # 全量重建（换音色/换模型后必须）
 ## 部署（Cloudflare Pages）
 
 - 构建命令 `npm run build`，输出目录 `dist`，纯 SPA（深链由 Pages 的 SPA 回退接管）
-- 免费额度（2 万文件 / 25MB 单文件）远大于本项目（约 320 个文件、全量 <2MB）
+- 免费额度（2 万文件 / 25MB 单文件）远大于本项目（约 1020 个文件、全量 ≈4.1MB）
 - **音频或静态资源变更后需重新触发一次部署**才会生效
 - 上线后回归：`node scripts/audit-floor.mjs <url>` + `npm run smoke -- <url>` + `LEXI_BASE=<url> npm run accept`
 

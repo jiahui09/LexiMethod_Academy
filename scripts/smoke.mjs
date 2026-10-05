@@ -268,9 +268,15 @@ async function main() {
         }
         const mf = await mr.json();
         out.manifest = { phonemes: mf.phonemes.length, words: mf.words.length };
-        for (const x of [...mf.phonemes, ...mf.words]) {
-          const r = await fetch(`/audio/${x.file}`);
-          if (!r.ok) out.bad.push(`${x.file} HTTP ${r.status}`);
+        // 分批并发（32/批）：词全集近千条，串行会拖慢整轮冒烟
+        const files = [...mf.phonemes, ...mf.words];
+        for (let i = 0; i < files.length; i += 32) {
+          await Promise.all(
+            files.slice(i, i + 32).map(async (x) => {
+              const r = await fetch(`/audio/${x.file}`);
+              if (!r.ok) out.bad.push(`${x.file} HTTP ${r.status}`);
+            }),
+          );
         }
       } catch (e) {
         out.manifest = String(e);

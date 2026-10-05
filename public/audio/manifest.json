@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-05T06:26:38.131Z",
+  "generatedAt": "2026-10-05T08:16:38.653Z",
   "engine": {
     "tts": "piper-tts",
     "model": "en_US-lessac-medium",
     "modelMd5": "2fc642b535197b6305c7c8f92dc8b24f",
     "sampleRate": 22050,
-    "bitrate": "64k",
+    "bitrate": "48k",
     "phonemeInput": "espeak [[IPA]]"
   },
   "license": {
@@ -18,362 +18,4610 @@
       "id": "iː",
       "slug": "ii",
       "file": "phonemes/ii.mp3",
-      "durationMs": 342,
+      "durationMs": 343,
       "meanDb": -16.1
     },
     {
       "id": "ɪ",
       "slug": "ih",
       "file": "phonemes/ih.mp3",
-      "durationMs": 324,
+      "durationMs": 321,
       "meanDb": -16.2
     },
     {
       "id": "e",
       "slug": "eh",
       "file": "phonemes/eh.mp3",
-      "durationMs": 255,
-      "meanDb": -16.4
+      "durationMs": 260,
+      "meanDb": -16.3
     },
     {
       "id": "æ",
       "slug": "ae",
       "file": "phonemes/ae.mp3",
-      "durationMs": 296,
+      "durationMs": 295,
       "meanDb": -16.2
     },
     {
       "id": "ɜː",
       "slug": "er",
       "file": "phonemes/er.mp3",
-      "durationMs": 256,
-      "meanDb": -16.4
+      "durationMs": 355,
+      "meanDb": -16.3
     },
     {
       "id": "ə",
       "slug": "ax",
       "file": "phonemes/ax.mp3",
-      "durationMs": 276,
-      "meanDb": -16.3
+      "durationMs": 206,
+      "meanDb": -16.6
     },
     {
       "id": "ɑː",
       "slug": "aa",
       "file": "phonemes/aa.mp3",
-      "durationMs": 274,
-      "meanDb": -16.3
+      "durationMs": 333,
+      "meanDb": -16.1
     },
     {
       "id": "ɒ",
       "slug": "ao",
       "file": "phonemes/ao.mp3",
-      "durationMs": 227,
-      "meanDb": -20.2
+      "durationMs": 240,
+      "meanDb": -16.5
     },
     {
       "id": "ɔː",
       "slug": "aw",
       "file": "phonemes/aw.mp3",
-      "durationMs": 327,
-      "meanDb": -16.1
+      "durationMs": 397,
+      "meanDb": -16
     },
     {
       "id": "ʊ",
       "slug": "ub",
       "file": "phonemes/ub.mp3",
-      "durationMs": 203,
-      "meanDb": -16.7
+      "durationMs": 282,
+      "meanDb": -16.3
     },
     {
       "id": "uː",
       "slug": "uu",
       "file": "phonemes/uu.mp3",
-      "durationMs": 351,
-      "meanDb": -16.1
+      "durationMs": 280,
+      "meanDb": -16.3
     },
     {
       "id": "ʌ",
       "slug": "av",
       "file": "phonemes/av.mp3",
-      "durationMs": 272,
-      "meanDb": -16.4
+      "durationMs": 329,
+      "meanDb": -16.1
     },
     {
       "id": "eɪ",
       "slug": "ei",
       "file": "phonemes/ei.mp3",
-      "durationMs": 318,
-      "meanDb": -16.1
+      "durationMs": 282,
+      "meanDb": -16.2
     },
     {
       "id": "aɪ",
       "slug": "ai",
       "file": "phonemes/ai.mp3",
-      "durationMs": 296,
+      "durationMs": 342,
       "meanDb": -16.2
     },
     {
       "id": "ɔɪ",
       "slug": "oi",
       "file": "phonemes/oi.mp3",
-      "durationMs": 395,
-      "meanDb": -16
+      "durationMs": 340,
+      "meanDb": -16.1
     },
     {
       "id": "əʊ",
       "slug": "ou",
       "file": "phonemes/ou.mp3",
-      "durationMs": 405,
+      "durationMs": 368,
       "meanDb": -16
     },
     {
       "id": "aʊ",
       "slug": "au",
       "file": "phonemes/au.mp3",
-      "durationMs": 347,
-      "meanDb": -16.1
+      "durationMs": 286,
+      "meanDb": -16.3
     },
     {
       "id": "ɪə",
       "slug": "ier",
       "file": "phonemes/ier.mp3",
-      "durationMs": 351,
-      "meanDb": -16.1
+      "durationMs": 415,
+      "meanDb": -16
     },
     {
       "id": "eə",
       "slug": "ear",
       "file": "phonemes/ear.mp3",
-      "durationMs": 325,
-      "meanDb": -16.1
+      "durationMs": 453,
+      "meanDb": -15.9
     },
     {
       "id": "ʊə",
       "slug": "uer",
       "file": "phonemes/uer.mp3",
-      "durationMs": 289,
-      "meanDb": -16.2
+      "durationMs": 368,
+      "meanDb": -16.1
     },
     {
       "id": "p",
       "slug": "p",
       "file": "phonemes/p.mp3",
-      "durationMs": 213,
-      "meanDb": -18.2
+      "durationMs": 163,
+      "meanDb": -17.9
     },
     {
       "id": "b",
       "slug": "b",
       "file": "phonemes/b.mp3",
-      "durationMs": 189,
-      "meanDb": -16.8
+      "durationMs": 253,
+      "meanDb": -16.4
     },
     {
       "id": "t",
       "slug": "t",
       "file": "phonemes/t.mp3",
-      "durationMs": 155,
-      "meanDb": -17.7
+      "durationMs": 201,
+      "meanDb": -16.6
     },
     {
       "id": "d",
       "slug": "d",
       "file": "phonemes/d.mp3",
-      "durationMs": 155,
-      "meanDb": -17.1
+      "durationMs": 213,
+      "meanDb": -16.8
     },
     {
       "id": "k",
       "slug": "k",
       "file": "phonemes/k.mp3",
-      "durationMs": 228,
-      "meanDb": -18.7
+      "durationMs": 216,
+      "meanDb": -18.8
     },
     {
       "id": "g",
       "slug": "g",
       "file": "phonemes/g.mp3",
-      "durationMs": 178,
-      "meanDb": -16.9
+      "durationMs": 189,
+      "meanDb": -16.7
     },
     {
       "id": "f",
       "slug": "f",
       "file": "phonemes/f.mp3",
-      "durationMs": 189,
-      "meanDb": -17.3
+      "durationMs": 254,
+      "meanDb": -16.7
     },
     {
       "id": "v",
       "slug": "v",
       "file": "phonemes/v.mp3",
-      "durationMs": 229,
-      "meanDb": -16.6
+      "durationMs": 252,
+      "meanDb": -16.4
     },
     {
       "id": "θ",
       "slug": "th",
       "file": "phonemes/th.mp3",
-      "durationMs": 134,
-      "meanDb": -19.8
+      "durationMs": 201,
+      "meanDb": -17
     },
     {
       "id": "ð",
       "slug": "dh",
       "file": "phonemes/dh.mp3",
-      "durationMs": 283,
-      "meanDb": -16.3
+      "durationMs": 247,
+      "meanDb": -16.4
     },
     {
       "id": "s",
       "slug": "s",
       "file": "phonemes/s.mp3",
-      "durationMs": 143,
-      "meanDb": -17.3
+      "durationMs": 108,
+      "meanDb": -18.3
     },
     {
       "id": "z",
       "slug": "z",
       "file": "phonemes/z.mp3",
-      "durationMs": 166,
-      "meanDb": -17.1
+      "durationMs": 178,
+      "meanDb": -16.9
     },
     {
       "id": "ʃ",
       "slug": "sh",
       "file": "phonemes/sh.mp3",
-      "durationMs": 143,
-      "meanDb": -18
+      "durationMs": 120,
+      "meanDb": -18.7
     },
     {
       "id": "ʒ",
       "slug": "zh",
       "file": "phonemes/zh.mp3",
-      "durationMs": 189,
-      "meanDb": -16.8
+      "durationMs": 206,
+      "meanDb": -16.7
     },
     {
       "id": "h",
       "slug": "h",
       "file": "phonemes/h.mp3",
-      "durationMs": 143,
-      "meanDb": -17.4
+      "durationMs": 186,
+      "meanDb": -16.8
     },
     {
       "id": "tʃ",
       "slug": "ch",
       "file": "phonemes/ch.mp3",
-      "durationMs": 166,
-      "meanDb": -17
+      "durationMs": 155,
+      "meanDb": -17.1
     },
     {
       "id": "dʒ",
       "slug": "jh",
       "file": "phonemes/jh.mp3",
-      "durationMs": 213,
-      "meanDb": -16.7
+      "durationMs": 225,
+      "meanDb": -16.5
     },
     {
       "id": "m",
       "slug": "m",
       "file": "phonemes/m.mp3",
-      "durationMs": 399,
-      "meanDb": -16
+      "durationMs": 198,
+      "meanDb": -16.7
     },
     {
       "id": "n",
       "slug": "n",
       "file": "phonemes/n.mp3",
-      "durationMs": 366,
-      "meanDb": -16.1
+      "durationMs": 289,
+      "meanDb": -16.3
     },
     {
       "id": "ŋ",
       "slug": "ng",
       "file": "phonemes/ng.mp3",
-      "durationMs": 191,
+      "durationMs": 189,
       "meanDb": -16.8
     },
     {
       "id": "l",
       "slug": "l",
       "file": "phonemes/l.mp3",
-      "durationMs": 360,
-      "meanDb": -16.3
+      "durationMs": 338,
+      "meanDb": -16.1
     },
     {
       "id": "r",
       "slug": "r",
       "file": "phonemes/r.mp3",
-      "durationMs": 276,
-      "meanDb": -16.3
+      "durationMs": 290,
+      "meanDb": -16.2
     },
     {
       "id": "w",
       "slug": "w",
       "file": "phonemes/w.mp3",
-      "durationMs": 239,
-      "meanDb": -17.2
+      "durationMs": 254,
+      "meanDb": -16.4
     },
     {
       "id": "j",
       "slug": "y",
       "file": "phonemes/y.mp3",
-      "durationMs": 238,
-      "meanDb": -16.5
+      "durationMs": 221,
+      "meanDb": -16.6
     },
     {
       "id": "tr",
       "slug": "tr",
       "file": "phonemes/tr.mp3",
-      "durationMs": 225,
-      "meanDb": -16.5
+      "durationMs": 271,
+      "meanDb": -16.3
     },
     {
       "id": "dr",
       "slug": "dr",
       "file": "phonemes/dr.mp3",
-      "durationMs": 224,
+      "durationMs": 212,
       "meanDb": -16.5
     },
     {
       "id": "ts",
       "slug": "ts",
       "file": "phonemes/ts.mp3",
-      "durationMs": 189,
+      "durationMs": 201,
       "meanDb": -16.7
     },
     {
       "id": "dz",
       "slug": "dz",
       "file": "phonemes/dz.mp3",
-      "durationMs": 237,
-      "meanDb": -16.5
+      "durationMs": 273,
+      "meanDb": -16.3
     }
   ],
   "words": [
     {
-      "word": "see",
-      "file": "words/see.mp3",
-      "durationMs": 439,
-      "meanDb": -15.9
+      "word": "abnormal",
+      "file": "words/abnormal.mp3",
+      "durationMs": 743,
+      "meanDb": -15.7
     },
     {
-      "word": "team",
-      "file": "words/team.mp3",
-      "durationMs": 472,
-      "meanDb": -15.9
+      "word": "abound",
+      "file": "words/abound.mp3",
+      "durationMs": 603,
+      "meanDb": -15.7
     },
     {
-      "word": "meat",
-      "file": "words/meat.mp3",
-      "durationMs": 382,
+      "word": "about",
+      "file": "words/about.mp3",
+      "durationMs": 509,
+      "meanDb": -15.8
+    },
+    {
+      "word": "absent",
+      "file": "words/absent.mp3",
+      "durationMs": 573,
+      "meanDb": -16.2
+    },
+    {
+      "word": "absolute",
+      "file": "words/absolute.mp3",
+      "durationMs": 671,
+      "meanDb": -16.2
+    },
+    {
+      "word": "absorb",
+      "file": "words/absorb.mp3",
+      "durationMs": 639,
+      "meanDb": -15.8
+    },
+    {
+      "word": "abstract",
+      "file": "words/abstract.mp3",
+      "durationMs": 684,
       "meanDb": -16.1
+    },
+    {
+      "word": "abuse",
+      "file": "words/abuse.mp3",
+      "durationMs": 569,
+      "meanDb": -15.9
+    },
+    {
+      "word": "accept",
+      "file": "words/accept.mp3",
+      "durationMs": 593,
+      "meanDb": -16.1
+    },
+    {
+      "word": "acceptable",
+      "file": "words/acceptable.mp3",
+      "durationMs": 771,
+      "meanDb": -15.8
+    },
+    {
+      "word": "accessible",
+      "file": "words/accessible.mp3",
+      "durationMs": 716,
+      "meanDb": -15.7
+    },
+    {
+      "word": "accord",
+      "file": "words/accord.mp3",
+      "durationMs": 521,
+      "meanDb": -15.9
+    },
+    {
+      "word": "achievement",
+      "file": "words/achievement.mp3",
+      "durationMs": 728,
+      "meanDb": -15.7
+    },
+    {
+      "word": "action",
+      "file": "words/action.mp3",
+      "durationMs": 539,
+      "meanDb": -16.9
+    },
+    {
+      "word": "active",
+      "file": "words/active.mp3",
+      "durationMs": 547,
+      "meanDb": -16.2
+    },
+    {
+      "word": "actor",
+      "file": "words/actor.mp3",
+      "durationMs": 414,
+      "meanDb": -16.3
+    },
+    {
+      "word": "adapt",
+      "file": "words/adapt.mp3",
+      "durationMs": 593,
+      "meanDb": -15.9
+    },
+    {
+      "word": "address",
+      "file": "words/address.mp3",
+      "durationMs": 687,
+      "meanDb": -15.7
+    },
+    {
+      "word": "adhere",
+      "file": "words/adhere.mp3",
+      "durationMs": 604,
+      "meanDb": -15.7
+    },
+    {
+      "word": "admit",
+      "file": "words/admit.mp3",
+      "durationMs": 528,
+      "meanDb": -15.8
+    },
+    {
+      "word": "advance",
+      "file": "words/advance.mp3",
+      "durationMs": 713,
+      "meanDb": -15.7
+    },
+    {
+      "word": "advertise",
+      "file": "words/advertise.mp3",
+      "durationMs": 850,
+      "meanDb": -16.9
+    },
+    {
+      "word": "advocate",
+      "file": "words/advocate.mp3",
+      "durationMs": 700,
+      "meanDb": -16.1
+    },
+    {
+      "word": "aggressive",
+      "file": "words/aggressive.mp3",
+      "durationMs": 590,
+      "meanDb": -15.9
+    },
+    {
+      "word": "agreement",
+      "file": "words/agreement.mp3",
+      "durationMs": 648,
+      "meanDb": -15.8
+    },
+    {
+      "word": "allocate",
+      "file": "words/allocate.mp3",
+      "durationMs": 583,
+      "meanDb": -16.3
+    },
+    {
+      "word": "ambulance",
+      "file": "words/ambulance.mp3",
+      "durationMs": 744,
+      "meanDb": -15.7
+    },
+    {
+      "word": "amorphous",
+      "file": "words/amorphous.mp3",
+      "durationMs": 660,
+      "meanDb": -15.7
+    },
+    {
+      "word": "anger",
+      "file": "words/anger.mp3",
+      "durationMs": 624,
+      "meanDb": -15.8
+    },
+    {
+      "word": "answer",
+      "file": "words/answer.mp3",
+      "durationMs": 559,
+      "meanDb": -15.9
+    },
+    {
+      "word": "antibiotic",
+      "file": "words/antibiotic.mp3",
+      "durationMs": 850,
+      "meanDb": -15.7
+    },
+    {
+      "word": "antidote",
+      "file": "words/antidote.mp3",
+      "durationMs": 644,
+      "meanDb": -16
+    },
+    {
+      "word": "antifreeze",
+      "file": "words/antifreeze.mp3",
+      "durationMs": 775,
+      "meanDb": -16.3
+    },
+    {
+      "word": "antisocial",
+      "file": "words/antisocial.mp3",
+      "durationMs": 842,
+      "meanDb": -15.7
+    },
+    {
+      "word": "any",
+      "file": "words/any.mp3",
+      "durationMs": 427,
+      "meanDb": -16
+    },
+    {
+      "word": "apologize",
+      "file": "words/apologize.mp3",
+      "durationMs": 832,
+      "meanDb": -15.7
+    },
+    {
+      "word": "apology",
+      "file": "words/apology.mp3",
+      "durationMs": 664,
+      "meanDb": -16.1
+    },
+    {
+      "word": "appearance",
+      "file": "words/appearance.mp3",
+      "durationMs": 695,
+      "meanDb": -15.7
+    },
+    {
+      "word": "arm",
+      "file": "words/arm.mp3",
+      "durationMs": 501,
+      "meanDb": -15.9
+    },
+    {
+      "word": "arrangement",
+      "file": "words/arrangement.mp3",
+      "durationMs": 663,
+      "meanDb": -15.8
+    },
+    {
+      "word": "artist",
+      "file": "words/artist.mp3",
+      "durationMs": 533,
+      "meanDb": -16.2
+    },
+    {
+      "word": "assist",
+      "file": "words/assist.mp3",
+      "durationMs": 564,
+      "meanDb": -15.8
+    },
+    {
+      "word": "at",
+      "file": "words/at.mp3",
+      "durationMs": 337,
+      "meanDb": -16.2
+    },
+    {
+      "word": "attention",
+      "file": "words/attention.mp3",
+      "durationMs": 603,
+      "meanDb": -15.8
+    },
+    {
+      "word": "attract",
+      "file": "words/attract.mp3",
+      "durationMs": 627,
+      "meanDb": -15.8
+    },
+    {
+      "word": "attractive",
+      "file": "words/attractive.mp3",
+      "durationMs": 705,
+      "meanDb": -16.2
+    },
+    {
+      "word": "autumn",
+      "file": "words/autumn.mp3",
+      "durationMs": 577,
+      "meanDb": -15.8
+    },
+    {
+      "word": "back",
+      "file": "words/back.mp3",
+      "durationMs": 356,
+      "meanDb": -16.2
+    },
+    {
+      "word": "backward",
+      "file": "words/backward.mp3",
+      "durationMs": 606,
+      "meanDb": -16.1
+    },
+    {
+      "word": "bad",
+      "file": "words/bad.mp3",
+      "durationMs": 444,
+      "meanDb": -15.9
+    },
+    {
+      "word": "badge",
+      "file": "words/badge.mp3",
+      "durationMs": 511,
+      "meanDb": -15.9
+    },
+    {
+      "word": "bake",
+      "file": "words/bake.mp3",
+      "durationMs": 408,
+      "meanDb": -16
+    },
+    {
+      "word": "ball",
+      "file": "words/ball.mp3",
+      "durationMs": 467,
+      "meanDb": -15.9
+    },
+    {
+      "word": "banana",
+      "file": "words/banana.mp3",
+      "durationMs": 521,
+      "meanDb": -15.9
+    },
+    {
+      "word": "bat",
+      "file": "words/bat.mp3",
+      "durationMs": 405,
+      "meanDb": -16
+    },
+    {
+      "word": "bath",
+      "file": "words/bath.mp3",
+      "durationMs": 514,
+      "meanDb": -15.9
+    },
+    {
+      "word": "bathe",
+      "file": "words/bathe.mp3",
+      "durationMs": 534,
+      "meanDb": -15.8
+    },
+    {
+      "word": "bear",
+      "file": "words/bear.mp3",
+      "durationMs": 412,
+      "meanDb": -16
+    },
+    {
+      "word": "beautiful",
+      "file": "words/beautiful.mp3",
+      "durationMs": 603,
+      "meanDb": -15.8
+    },
+    {
+      "word": "beauty",
+      "file": "words/beauty.mp3",
+      "durationMs": 501,
+      "meanDb": -16
+    },
+    {
+      "word": "become",
+      "file": "words/become.mp3",
+      "durationMs": 606,
+      "meanDb": -15.8
+    },
+    {
+      "word": "bed",
+      "file": "words/bed.mp3",
+      "durationMs": 460,
+      "meanDb": -15.9
+    },
+    {
+      "word": "beds",
+      "file": "words/beds.mp3",
+      "durationMs": 506,
+      "meanDb": -15.9
+    },
+    {
+      "word": "beer",
+      "file": "words/beer.mp3",
+      "durationMs": 475,
+      "meanDb": -15.8
+    },
+    {
+      "word": "befriend",
+      "file": "words/befriend.mp3",
+      "durationMs": 646,
+      "meanDb": -15.8
+    },
+    {
+      "word": "behind",
+      "file": "words/behind.mp3",
+      "durationMs": 539,
+      "meanDb": -15.8
     },
     {
       "word": "believe",
       "file": "words/believe.mp3",
+      "durationMs": 533,
+      "meanDb": -15.9
+    },
+    {
+      "word": "besiege",
+      "file": "words/besiege.mp3",
+      "durationMs": 609,
+      "meanDb": -15.9
+    },
+    {
+      "word": "bet",
+      "file": "words/bet.mp3",
+      "durationMs": 397,
+      "meanDb": -16
+    },
+    {
+      "word": "bewilder",
+      "file": "words/bewilder.mp3",
+      "durationMs": 594,
+      "meanDb": -15.8
+    },
+    {
+      "word": "bi",
+      "file": "words/bi.mp3",
+      "durationMs": 387,
+      "meanDb": -16
+    },
+    {
+      "word": "big",
+      "file": "words/big.mp3",
+      "durationMs": 376,
+      "meanDb": -16.1
+    },
+    {
+      "word": "bike",
+      "file": "words/bike.mp3",
+      "durationMs": 386,
+      "meanDb": -16.1
+    },
+    {
+      "word": "biochemical",
+      "file": "words/biochemical.mp3",
+      "durationMs": 896,
+      "meanDb": -15.7
+    },
+    {
+      "word": "biochemistry",
+      "file": "words/biochemistry.mp3",
+      "durationMs": 888,
+      "meanDb": -15.7
+    },
+    {
+      "word": "biography",
+      "file": "words/biography.mp3",
+      "durationMs": 786,
+      "meanDb": -15.8
+    },
+    {
+      "word": "biological",
+      "file": "words/biological.mp3",
+      "durationMs": 788,
+      "meanDb": -15.7
+    },
+    {
+      "word": "biologist",
+      "file": "words/biologist.mp3",
+      "durationMs": 756,
+      "meanDb": -15.7
+    },
+    {
+      "word": "biology",
+      "file": "words/biology.mp3",
+      "durationMs": 681,
+      "meanDb": -15.7
+    },
+    {
+      "word": "biosphere",
+      "file": "words/biosphere.mp3",
+      "durationMs": 813,
+      "meanDb": -15.7
+    },
+    {
+      "word": "biotechnology",
+      "file": "words/biotechnology.mp3",
+      "durationMs": 1136,
+      "meanDb": -15.6
+    },
+    {
+      "word": "bird",
+      "file": "words/bird.mp3",
+      "durationMs": 531,
+      "meanDb": -15.9
+    },
+    {
+      "word": "bite",
+      "file": "words/bite.mp3",
+      "durationMs": 404,
+      "meanDb": -16.9
+    },
+    {
+      "word": "black",
+      "file": "words/black.mp3",
+      "durationMs": 450,
+      "meanDb": -16.1
+    },
+    {
+      "word": "ble",
+      "file": "words/ble.mp3",
+      "durationMs": 386,
+      "meanDb": -16.1
+    },
+    {
+      "word": "blood",
+      "file": "words/blood.mp3",
+      "durationMs": 443,
+      "meanDb": -15.9
+    },
+    {
+      "word": "blue",
+      "file": "words/blue.mp3",
+      "durationMs": 395,
+      "meanDb": -16
+    },
+    {
+      "word": "boat",
+      "file": "words/boat.mp3",
+      "durationMs": 405,
+      "meanDb": -16
+    },
+    {
+      "word": "book",
+      "file": "words/book.mp3",
+      "durationMs": 378,
+      "meanDb": -16.1
+    },
+    {
+      "word": "bought",
+      "file": "words/bought.mp3",
+      "durationMs": 371,
+      "meanDb": -16.1
+    },
+    {
+      "word": "boy",
+      "file": "words/boy.mp3",
+      "durationMs": 504,
+      "meanDb": -15.9
+    },
+    {
+      "word": "bread",
+      "file": "words/bread.mp3",
+      "durationMs": 446,
+      "meanDb": -15.9
+    },
+    {
+      "word": "bridge",
+      "file": "words/bridge.mp3",
       "durationMs": 491,
+      "meanDb": -16
+    },
+    {
+      "word": "bright",
+      "file": "words/bright.mp3",
+      "durationMs": 410,
+      "meanDb": -16.4
+    },
+    {
+      "word": "buy",
+      "file": "words/buy.mp3",
+      "durationMs": 383,
+      "meanDb": -16.6
+    },
+    {
+      "word": "ca",
+      "file": "words/ca.mp3",
+      "durationMs": 362,
+      "meanDb": -16.1
+    },
+    {
+      "word": "call",
+      "file": "words/call.mp3",
+      "durationMs": 432,
+      "meanDb": -16
+    },
+    {
+      "word": "calm",
+      "file": "words/calm.mp3",
+      "durationMs": 516,
+      "meanDb": -15.9
+    },
+    {
+      "word": "cap",
+      "file": "words/cap.mp3",
+      "durationMs": 453,
+      "meanDb": -16.1
+    },
+    {
+      "word": "capable",
+      "file": "words/capable.mp3",
+      "durationMs": 591,
+      "meanDb": -15.8
+    },
+    {
+      "word": "caps",
+      "file": "words/caps.mp3",
+      "durationMs": 453,
+      "meanDb": -16.7
+    },
+    {
+      "word": "capture",
+      "file": "words/capture.mp3",
+      "durationMs": 603,
+      "meanDb": -16
+    },
+    {
+      "word": "car",
+      "file": "words/car.mp3",
+      "durationMs": 391,
+      "meanDb": -16.1
+    },
+    {
+      "word": "cardiac",
+      "file": "words/cardiac.mp3",
+      "durationMs": 616,
+      "meanDb": -16.2
+    },
+    {
+      "word": "care",
+      "file": "words/care.mp3",
+      "durationMs": 467,
+      "meanDb": -16
+    },
+    {
+      "word": "careful",
+      "file": "words/careful.mp3",
+      "durationMs": 615,
+      "meanDb": -15.7
+    },
+    {
+      "word": "carefully",
+      "file": "words/carefully.mp3",
+      "durationMs": 543,
+      "meanDb": -15.8
+    },
+    {
+      "word": "careless",
+      "file": "words/careless.mp3",
+      "durationMs": 652,
+      "meanDb": -15.8
+    },
+    {
+      "word": "cart",
+      "file": "words/cart.mp3",
+      "durationMs": 390,
+      "meanDb": -16
+    },
+    {
+      "word": "cash",
+      "file": "words/cash.mp3",
+      "durationMs": 474,
+      "meanDb": -15.9
+    },
+    {
+      "word": "cat",
+      "file": "words/cat.mp3",
+      "durationMs": 386,
+      "meanDb": -16.1
+    },
+    {
+      "word": "category",
+      "file": "words/category.mp3",
+      "durationMs": 652,
+      "meanDb": -15.8
+    },
+    {
+      "word": "cats",
+      "file": "words/cats.mp3",
+      "durationMs": 594,
+      "meanDb": -15.9
+    },
+    {
+      "word": "cent",
+      "file": "words/cent.mp3",
+      "durationMs": 379,
+      "meanDb": -16
+    },
+    {
+      "word": "chair",
+      "file": "words/chair.mp3",
+      "durationMs": 420,
+      "meanDb": -16
+    },
+    {
+      "word": "change",
+      "file": "words/change.mp3",
+      "durationMs": 567,
+      "meanDb": -15.8
+    },
+    {
+      "word": "chemist",
+      "file": "words/chemist.mp3",
+      "durationMs": 547,
+      "meanDb": -15.9
+    },
+    {
+      "word": "chemistry",
+      "file": "words/chemistry.mp3",
+      "durationMs": 607,
+      "meanDb": -15.8
+    },
+    {
+      "word": "child",
+      "file": "words/child.mp3",
+      "durationMs": 470,
+      "meanDb": -15.9
+    },
+    {
+      "word": "childlike",
+      "file": "words/childlike.mp3",
+      "durationMs": 701,
+      "meanDb": -15.7
+    },
+    {
+      "word": "choke",
+      "file": "words/choke.mp3",
+      "durationMs": 396,
+      "meanDb": -16
+    },
+    {
+      "word": "ci",
+      "file": "words/ci.mp3",
+      "durationMs": 414,
+      "meanDb": -16.1
+    },
+    {
+      "word": "circle",
+      "file": "words/circle.mp3",
+      "durationMs": 467,
+      "meanDb": -15.9
+    },
+    {
+      "word": "city",
+      "file": "words/city.mp3",
+      "durationMs": 380,
+      "meanDb": -16
+    },
+    {
+      "word": "classify",
+      "file": "words/classify.mp3",
+      "durationMs": 744,
+      "meanDb": -15.8
+    },
+    {
+      "word": "clock",
+      "file": "words/clock.mp3",
+      "durationMs": 420,
+      "meanDb": -16
+    },
+    {
+      "word": "clockwise",
+      "file": "words/clockwise.mp3",
+      "durationMs": 662,
+      "meanDb": -16.4
+    },
+    {
+      "word": "clothes",
+      "file": "words/clothes.mp3",
+      "durationMs": 503,
+      "meanDb": -15.9
+    },
+    {
+      "word": "cloudy",
+      "file": "words/cloudy.mp3",
+      "durationMs": 554,
+      "meanDb": -15.8
+    },
+    {
+      "word": "club",
+      "file": "words/club.mp3",
+      "durationMs": 385,
+      "meanDb": -16.2
+    },
+    {
+      "word": "coat",
+      "file": "words/coat.mp3",
+      "durationMs": 422,
+      "meanDb": -16
+    },
+    {
+      "word": "coil",
+      "file": "words/coil.mp3",
+      "durationMs": 470,
+      "meanDb": -16
+    },
+    {
+      "word": "coin",
+      "file": "words/coin.mp3",
+      "durationMs": 535,
+      "meanDb": -15.9
+    },
+    {
+      "word": "collect",
+      "file": "words/collect.mp3",
+      "durationMs": 560,
+      "meanDb": -15.9
+    },
+    {
+      "word": "collection",
+      "file": "words/collection.mp3",
+      "durationMs": 622,
+      "meanDb": -15.8
+    },
+    {
+      "word": "com",
+      "file": "words/com.mp3",
+      "durationMs": 423,
+      "meanDb": -16
+    },
+    {
+      "word": "combine",
+      "file": "words/combine.mp3",
+      "durationMs": 671,
+      "meanDb": -15.8
+    },
+    {
+      "word": "come",
+      "file": "words/come.mp3",
+      "durationMs": 516,
+      "meanDb": -15.9
+    },
+    {
+      "word": "comfort",
+      "file": "words/comfort.mp3",
+      "durationMs": 526,
+      "meanDb": -16.3
+    },
+    {
+      "word": "comfortable",
+      "file": "words/comfortable.mp3",
+      "durationMs": 604,
+      "meanDb": -15.9
+    },
+    {
+      "word": "comforting",
+      "file": "words/comforting.mp3",
+      "durationMs": 668,
+      "meanDb": -15.7
+    },
+    {
+      "word": "common",
+      "file": "words/common.mp3",
+      "durationMs": 472,
+      "meanDb": -15.9
+    },
+    {
+      "word": "compete",
+      "file": "words/compete.mp3",
+      "durationMs": 601,
+      "meanDb": -15.8
+    },
+    {
+      "word": "compose",
+      "file": "words/compose.mp3",
+      "durationMs": 681,
+      "meanDb": -15.8
+    },
+    {
+      "word": "comprehend",
+      "file": "words/comprehend.mp3",
+      "durationMs": 800,
+      "meanDb": -15.8
+    },
+    {
+      "word": "comprehensible",
+      "file": "words/comprehensible.mp3",
+      "durationMs": 875,
+      "meanDb": -15.8
+    },
+    {
+      "word": "comprehension",
+      "file": "words/comprehension.mp3",
+      "durationMs": 885,
+      "meanDb": -15.9
+    },
+    {
+      "word": "comprehensive",
+      "file": "words/comprehensive.mp3",
+      "durationMs": 884,
+      "meanDb": -15.7
+    },
+    {
+      "word": "computer",
+      "file": "words/computer.mp3",
+      "durationMs": 630,
+      "meanDb": -15.8
+    },
+    {
+      "word": "con",
+      "file": "words/con.mp3",
+      "durationMs": 486,
+      "meanDb": -15.9
+    },
+    {
+      "word": "concept",
+      "file": "words/concept.mp3",
+      "durationMs": 672,
+      "meanDb": -15.9
+    },
+    {
+      "word": "conclusion",
+      "file": "words/conclusion.mp3",
+      "durationMs": 760,
+      "meanDb": -15.7
+    },
+    {
+      "word": "conduct",
+      "file": "words/conduct.mp3",
+      "durationMs": 633,
+      "meanDb": -15.8
+    },
+    {
+      "word": "confuse",
+      "file": "words/confuse.mp3",
+      "durationMs": 742,
+      "meanDb": -15.7
+    },
+    {
+      "word": "congestion",
+      "file": "words/congestion.mp3",
+      "durationMs": 763,
+      "meanDb": -15.8
+    },
+    {
+      "word": "connect",
+      "file": "words/connect.mp3",
+      "durationMs": 543,
+      "meanDb": -15.9
+    },
+    {
+      "word": "consent",
+      "file": "words/consent.mp3",
+      "durationMs": 616,
+      "meanDb": -15.9
+    },
+    {
+      "word": "consequent",
+      "file": "words/consequent.mp3",
+      "durationMs": 709,
+      "meanDb": -15.7
+    },
+    {
+      "word": "consist",
+      "file": "words/consist.mp3",
+      "durationMs": 657,
+      "meanDb": -15.7
+    },
+    {
+      "word": "consonant",
+      "file": "words/consonant.mp3",
+      "durationMs": 618,
+      "meanDb": -15.8
+    },
+    {
+      "word": "construct",
+      "file": "words/construct.mp3",
+      "durationMs": 698,
+      "meanDb": -15.9
+    },
+    {
+      "word": "construction",
+      "file": "words/construction.mp3",
+      "durationMs": 760,
+      "meanDb": -15.8
+    },
+    {
+      "word": "constructive",
+      "file": "words/constructive.mp3",
+      "durationMs": 780,
+      "meanDb": -15.7
+    },
+    {
+      "word": "contract",
+      "file": "words/contract.mp3",
+      "durationMs": 696,
+      "meanDb": -15.9
+    },
+    {
+      "word": "contradict",
+      "file": "words/contradict.mp3",
+      "durationMs": 821,
+      "meanDb": -15.7
+    },
+    {
+      "word": "convert",
+      "file": "words/convert.mp3",
+      "durationMs": 597,
+      "meanDb": -15.8
+    },
+    {
+      "word": "cord",
+      "file": "words/cord.mp3",
+      "durationMs": 441,
+      "meanDb": -15.9
+    },
+    {
+      "word": "cough",
+      "file": "words/cough.mp3",
+      "durationMs": 509,
+      "meanDb": -15.8
+    },
+    {
+      "word": "country",
+      "file": "words/country.mp3",
+      "durationMs": 486,
+      "meanDb": -15.9
+    },
+    {
+      "word": "courage",
+      "file": "words/courage.mp3",
+      "durationMs": 499,
+      "meanDb": -15.9
+    },
+    {
+      "word": "creative",
+      "file": "words/creative.mp3",
+      "durationMs": 671,
+      "meanDb": -15.7
+    },
+    {
+      "word": "credible",
+      "file": "words/credible.mp3",
+      "durationMs": 580,
+      "meanDb": -15.8
+    },
+    {
+      "word": "credit",
+      "file": "words/credit.mp3",
+      "durationMs": 416,
+      "meanDb": -16
+    },
+    {
+      "word": "criticize",
+      "file": "words/criticize.mp3",
+      "durationMs": 726,
+      "meanDb": -15.9
+    },
+    {
+      "word": "cultural",
+      "file": "words/cultural.mp3",
+      "durationMs": 644,
+      "meanDb": -15.9
+    },
+    {
+      "word": "culture",
+      "file": "words/culture.mp3",
+      "durationMs": 526,
+      "meanDb": -15.9
+    },
+    {
+      "word": "cup",
+      "file": "words/cup.mp3",
+      "durationMs": 301,
+      "meanDb": -16.2
+    },
+    {
+      "word": "curious",
+      "file": "words/curious.mp3",
+      "durationMs": 691,
+      "meanDb": -15.8
+    },
+    {
+      "word": "curl",
+      "file": "words/curl.mp3",
+      "durationMs": 465,
+      "meanDb": -15.9
+    },
+    {
+      "word": "current",
+      "file": "words/current.mp3",
+      "durationMs": 513,
+      "meanDb": -15.9
+    },
+    {
+      "word": "cursor",
+      "file": "words/cursor.mp3",
+      "durationMs": 496,
+      "meanDb": -15.9
+    },
+    {
+      "word": "cut",
+      "file": "words/cut.mp3",
+      "durationMs": 376,
+      "meanDb": -16.3
+    },
+    {
+      "word": "cute",
+      "file": "words/cute.mp3",
+      "durationMs": 384,
+      "meanDb": -16
+    },
+    {
+      "word": "dangerous",
+      "file": "words/dangerous.mp3",
+      "durationMs": 675,
+      "meanDb": -15.8
+    },
+    {
+      "word": "darkness",
+      "file": "words/darkness.mp3",
+      "durationMs": 609,
+      "meanDb": -16.9
+    },
+    {
+      "word": "day",
+      "file": "words/day.mp3",
+      "durationMs": 395,
+      "meanDb": -16
+    },
+    {
+      "word": "de",
+      "file": "words/de.mp3",
+      "durationMs": 281,
+      "meanDb": -16.3
+    },
+    {
+      "word": "decide",
+      "file": "words/decide.mp3",
+      "durationMs": 631,
+      "meanDb": -15.9
+    },
+    {
+      "word": "decided",
+      "file": "words/decided.mp3",
+      "durationMs": 692,
+      "meanDb": -15.8
+    },
+    {
+      "word": "decision",
+      "file": "words/decision.mp3",
+      "durationMs": 657,
+      "meanDb": -15.9
+    },
+    {
+      "word": "decisive",
+      "file": "words/decisive.mp3",
+      "durationMs": 757,
+      "meanDb": -15.7
+    },
+    {
+      "word": "decode",
+      "file": "words/decode.mp3",
+      "durationMs": 551,
+      "meanDb": -15.8
+    },
+    {
+      "word": "decrease",
+      "file": "words/decrease.mp3",
+      "durationMs": 661,
+      "meanDb": -15.8
+    },
+    {
+      "word": "delete",
+      "file": "words/delete.mp3",
+      "durationMs": 446,
+      "meanDb": -15.9
+    },
+    {
+      "word": "delicate",
+      "file": "words/delicate.mp3",
+      "durationMs": 506,
+      "meanDb": -15.9
+    },
+    {
+      "word": "delicious",
+      "file": "words/delicious.mp3",
+      "durationMs": 644,
+      "meanDb": -15.7
+    },
+    {
+      "word": "depend",
+      "file": "words/depend.mp3",
+      "durationMs": 584,
+      "meanDb": -15.9
+    },
+    {
+      "word": "describe",
+      "file": "words/describe.mp3",
+      "durationMs": 644,
+      "meanDb": -16
+    },
+    {
+      "word": "destroy",
+      "file": "words/destroy.mp3",
+      "durationMs": 663,
+      "meanDb": -15.7
+    },
+    {
+      "word": "detach",
+      "file": "words/detach.mp3",
+      "durationMs": 559,
+      "meanDb": -16.2
+    },
+    {
+      "word": "development",
+      "file": "words/development.mp3",
+      "durationMs": 691,
+      "meanDb": -16.6
+    },
+    {
+      "word": "dialogue",
+      "file": "words/dialogue.mp3",
+      "durationMs": 640,
+      "meanDb": -15.7
+    },
+    {
+      "word": "dict",
+      "file": "words/dict.mp3",
+      "durationMs": 437,
+      "meanDb": -15.9
+    },
+    {
+      "word": "dictate",
+      "file": "words/dictate.mp3",
+      "durationMs": 615,
+      "meanDb": -15.9
+    },
+    {
+      "word": "dictionary",
+      "file": "words/dictionary.mp3",
+      "durationMs": 701,
+      "meanDb": -15.8
+    },
+    {
+      "word": "differ",
+      "file": "words/differ.mp3",
+      "durationMs": 498,
+      "meanDb": -15.9
+    },
+    {
+      "word": "difference",
+      "file": "words/difference.mp3",
+      "durationMs": 587,
+      "meanDb": -16.2
+    },
+    {
+      "word": "diffuse",
+      "file": "words/diffuse.mp3",
+      "durationMs": 669,
+      "meanDb": -15.7
+    },
+    {
+      "word": "diminish",
+      "file": "words/diminish.mp3",
+      "durationMs": 593,
+      "meanDb": -15.8
+    },
+    {
+      "word": "din",
+      "file": "words/din.mp3",
+      "durationMs": 421,
+      "meanDb": -16
+    },
+    {
+      "word": "direction",
+      "file": "words/direction.mp3",
+      "durationMs": 671,
+      "meanDb": -15.8
+    },
+    {
+      "word": "dirty",
+      "file": "words/dirty.mp3",
+      "durationMs": 492,
+      "meanDb": -15.9
+    },
+    {
+      "word": "disagree",
+      "file": "words/disagree.mp3",
+      "durationMs": 688,
+      "meanDb": -15.8
+    },
+    {
+      "word": "disappear",
+      "file": "words/disappear.mp3",
+      "durationMs": 671,
+      "meanDb": -15.7
+    },
+    {
+      "word": "discomfort",
+      "file": "words/discomfort.mp3",
+      "durationMs": 714,
+      "meanDb": -16.5
+    },
+    {
+      "word": "disconnect",
+      "file": "words/disconnect.mp3",
+      "durationMs": 764,
+      "meanDb": -15.7
+    },
+    {
+      "word": "discover",
+      "file": "words/discover.mp3",
+      "durationMs": 592,
+      "meanDb": -15.9
+    },
+    {
+      "word": "discredit",
+      "file": "words/discredit.mp3",
+      "durationMs": 629,
+      "meanDb": -15.8
+    },
+    {
+      "word": "discussion",
+      "file": "words/discussion.mp3",
+      "durationMs": 647,
+      "meanDb": -15.9
+    },
+    {
+      "word": "dislike",
+      "file": "words/dislike.mp3",
+      "durationMs": 590,
+      "meanDb": -15.9
+    },
+    {
+      "word": "dislocate",
+      "file": "words/dislocate.mp3",
+      "durationMs": 770,
+      "meanDb": -15.7
+    },
+    {
+      "word": "dismiss",
+      "file": "words/dismiss.mp3",
+      "durationMs": 777,
+      "meanDb": -15.7
+    },
+    {
+      "word": "diss",
+      "file": "words/diss.mp3",
+      "durationMs": 427,
+      "meanDb": -16.3
+    },
+    {
+      "word": "distort",
+      "file": "words/distort.mp3",
+      "durationMs": 585,
+      "meanDb": -15.8
+    },
+    {
+      "word": "distract",
+      "file": "words/distract.mp3",
+      "durationMs": 674,
+      "meanDb": -16.1
+    },
+    {
+      "word": "diversity",
+      "file": "words/diversity.mp3",
+      "durationMs": 676,
+      "meanDb": -15.9
+    },
+    {
+      "word": "do",
+      "file": "words/do.mp3",
+      "durationMs": 416,
+      "meanDb": -16
+    },
+    {
+      "word": "dog",
+      "file": "words/dog.mp3",
+      "durationMs": 474,
+      "meanDb": -15.9
+    },
+    {
+      "word": "dogs",
+      "file": "words/dogs.mp3",
+      "durationMs": 515,
+      "meanDb": -15.9
+    },
+    {
+      "word": "door",
+      "file": "words/door.mp3",
+      "durationMs": 417,
+      "meanDb": -16
+    },
+    {
+      "word": "drain",
+      "file": "words/drain.mp3",
+      "durationMs": 537,
+      "meanDb": -15.8
+    },
+    {
+      "word": "dress",
+      "file": "words/dress.mp3",
+      "durationMs": 516,
+      "meanDb": -16.2
+    },
+    {
+      "word": "drink",
+      "file": "words/drink.mp3",
+      "durationMs": 398,
+      "meanDb": -16
+    },
+    {
+      "word": "dry",
+      "file": "words/dry.mp3",
+      "durationMs": 498,
+      "meanDb": -15.9
+    },
+    {
+      "word": "duce",
+      "file": "words/duce.mp3",
+      "durationMs": 517,
+      "meanDb": -15.9
+    },
+    {
+      "word": "duck",
+      "file": "words/duck.mp3",
+      "durationMs": 386,
+      "meanDb": -16.8
+    },
+    {
+      "word": "easy",
+      "file": "words/easy.mp3",
+      "durationMs": 469,
+      "meanDb": -15.9
+    },
+    {
+      "word": "eat",
+      "file": "words/eat.mp3",
+      "durationMs": 342,
+      "meanDb": -16.2
+    },
+    {
+      "word": "ed",
+      "file": "words/ed.mp3",
+      "durationMs": 394,
+      "meanDb": -16
+    },
+    {
+      "word": "edge",
+      "file": "words/edge.mp3",
+      "durationMs": 487,
+      "meanDb": -15.9
+    },
+    {
+      "word": "edible",
+      "file": "words/edible.mp3",
+      "durationMs": 509,
+      "meanDb": -15.9
+    },
+    {
+      "word": "educate",
+      "file": "words/educate.mp3",
+      "durationMs": 655,
+      "meanDb": -15.8
+    },
+    {
+      "word": "education",
+      "file": "words/education.mp3",
+      "durationMs": 760,
+      "meanDb": -15.7
+    },
+    {
+      "word": "educational",
+      "file": "words/educational.mp3",
+      "durationMs": 818,
+      "meanDb": -15.7
+    },
+    {
+      "word": "educator",
+      "file": "words/educator.mp3",
+      "durationMs": 632,
+      "meanDb": -16
+    },
+    {
+      "word": "effect",
+      "file": "words/effect.mp3",
+      "durationMs": 565,
+      "meanDb": -15.9
+    },
+    {
+      "word": "efficient",
+      "file": "words/efficient.mp3",
+      "durationMs": 658,
+      "meanDb": -15.7
+    },
+    {
+      "word": "effort",
+      "file": "words/effort.mp3",
+      "durationMs": 457,
+      "meanDb": -16.6
+    },
+    {
+      "word": "egg",
+      "file": "words/egg.mp3",
+      "durationMs": 368,
+      "meanDb": -16
+    },
+    {
+      "word": "eight",
+      "file": "words/eight.mp3",
+      "durationMs": 428,
+      "meanDb": -15.9
+    },
+    {
+      "word": "eject",
+      "file": "words/eject.mp3",
+      "durationMs": 600,
+      "meanDb": -15.8
+    },
+    {
+      "word": "electric",
+      "file": "words/electric.mp3",
+      "durationMs": 611,
+      "meanDb": -15.9
+    },
+    {
+      "word": "elephant",
+      "file": "words/elephant.mp3",
+      "durationMs": 585,
+      "meanDb": -16
+    },
+    {
+      "word": "enable",
+      "file": "words/enable.mp3",
+      "durationMs": 573,
+      "meanDb": -15.8
+    },
+    {
+      "word": "encourage",
+      "file": "words/encourage.mp3",
+      "durationMs": 703,
+      "meanDb": -15.7
+    },
+    {
+      "word": "endless",
+      "file": "words/endless.mp3",
+      "durationMs": 639,
+      "meanDb": -15.8
+    },
+    {
+      "word": "enjoy",
+      "file": "words/enjoy.mp3",
+      "durationMs": 698,
+      "meanDb": -15.7
+    },
+    {
+      "word": "enlist",
+      "file": "words/enlist.mp3",
+      "durationMs": 646,
+      "meanDb": -15.8
+    },
+    {
+      "word": "enough",
+      "file": "words/enough.mp3",
+      "durationMs": 520,
+      "meanDb": -15.9
+    },
+    {
+      "word": "environment",
+      "file": "words/environment.mp3",
+      "durationMs": 746,
+      "meanDb": -16
+    },
+    {
+      "word": "equality",
+      "file": "words/equality.mp3",
+      "durationMs": 719,
+      "meanDb": -15.7
+    },
+    {
+      "word": "es",
+      "file": "words/es.mp3",
+      "durationMs": 444,
+      "meanDb": -15.9
+    },
+    {
+      "word": "evidence",
+      "file": "words/evidence.mp3",
+      "durationMs": 561,
+      "meanDb": -15.9
+    },
+    {
+      "word": "evolve",
+      "file": "words/evolve.mp3",
+      "durationMs": 624,
+      "meanDb": -15.8
+    },
+    {
+      "word": "ex",
+      "file": "words/ex.mp3",
+      "durationMs": 474,
+      "meanDb": -15.8
+    },
+    {
+      "word": "exclude",
+      "file": "words/exclude.mp3",
+      "durationMs": 686,
+      "meanDb": -15.7
+    },
+    {
+      "word": "excursion",
+      "file": "words/excursion.mp3",
+      "durationMs": 740,
+      "meanDb": -15.7
+    },
+    {
+      "word": "exhale",
+      "file": "words/exhale.mp3",
+      "durationMs": 688,
+      "meanDb": -15.7
+    },
+    {
+      "word": "expedition",
+      "file": "words/expedition.mp3",
+      "durationMs": 817,
+      "meanDb": -15.7
+    },
+    {
+      "word": "expense",
+      "file": "words/expense.mp3",
+      "durationMs": 636,
+      "meanDb": -15.7
+    },
+    {
+      "word": "explain",
+      "file": "words/explain.mp3",
+      "durationMs": 712,
+      "meanDb": -15.7
+    },
+    {
+      "word": "explosion",
+      "file": "words/explosion.mp3",
+      "durationMs": 797,
+      "meanDb": -15.7
+    },
+    {
+      "word": "export",
+      "file": "words/export.mp3",
+      "durationMs": 686,
+      "meanDb": -15.8
+    },
+    {
+      "word": "exportation",
+      "file": "words/exportation.mp3",
+      "durationMs": 896,
+      "meanDb": -15.7
+    },
+    {
+      "word": "exporter",
+      "file": "words/exporter.mp3",
+      "durationMs": 651,
+      "meanDb": -15.8
+    },
+    {
+      "word": "express",
+      "file": "words/express.mp3",
+      "durationMs": 683,
+      "meanDb": -15.9
+    },
+    {
+      "word": "extort",
+      "file": "words/extort.mp3",
+      "durationMs": 636,
+      "meanDb": -15.8
+    },
+    {
+      "word": "extract",
+      "file": "words/extract.mp3",
+      "durationMs": 671,
+      "meanDb": -15.8
+    },
+    {
+      "word": "eye",
+      "file": "words/eye.mp3",
+      "durationMs": 382,
+      "meanDb": -16.1
+    },
+    {
+      "word": "factory",
+      "file": "words/factory.mp3",
+      "durationMs": 607,
+      "meanDb": -15.8
+    },
+    {
+      "word": "famous",
+      "file": "words/famous.mp3",
+      "durationMs": 608,
+      "meanDb": -15.8
+    },
+    {
+      "word": "fan",
+      "file": "words/fan.mp3",
+      "durationMs": 462,
+      "meanDb": -16
+    },
+    {
+      "word": "faster",
+      "file": "words/faster.mp3",
+      "durationMs": 529,
+      "meanDb": -15.8
+    },
+    {
+      "word": "father",
+      "file": "words/father.mp3",
+      "durationMs": 462,
+      "meanDb": -15.9
+    },
+    {
+      "word": "feature",
+      "file": "words/feature.mp3",
+      "durationMs": 486,
+      "meanDb": -15.9
+    },
+    {
+      "word": "feel",
+      "file": "words/feel.mp3",
+      "durationMs": 438,
+      "meanDb": -16
+    },
+    {
+      "word": "feet",
+      "file": "words/feet.mp3",
+      "durationMs": 391,
+      "meanDb": -16
+    },
+    {
+      "word": "fight",
+      "file": "words/fight.mp3",
+      "durationMs": 379,
+      "meanDb": -16.9
+    },
+    {
+      "word": "fine",
+      "file": "words/fine.mp3",
+      "durationMs": 505,
+      "meanDb": -15.9
+    },
+    {
+      "word": "finger",
+      "file": "words/finger.mp3",
+      "durationMs": 484,
+      "meanDb": -15.9
+    },
+    {
+      "word": "fish",
+      "file": "words/fish.mp3",
+      "durationMs": 541,
+      "meanDb": -16
+    },
+    {
+      "word": "flexible",
+      "file": "words/flexible.mp3",
+      "durationMs": 681,
+      "meanDb": -15.8
+    },
+    {
+      "word": "flu",
+      "file": "words/flu.mp3",
+      "durationMs": 467,
+      "meanDb": -15.9
+    },
+    {
+      "word": "fluent",
+      "file": "words/fluent.mp3",
+      "durationMs": 485,
+      "meanDb": -15.9
+    },
+    {
+      "word": "fluid",
+      "file": "words/fluid.mp3",
+      "durationMs": 461,
+      "meanDb": -15.9
+    },
+    {
+      "word": "fly",
+      "file": "words/fly.mp3",
+      "durationMs": 478,
+      "meanDb": -15.8
+    },
+    {
+      "word": "food",
+      "file": "words/food.mp3",
+      "durationMs": 415,
+      "meanDb": -15.9
+    },
+    {
+      "word": "fool",
+      "file": "words/fool.mp3",
+      "durationMs": 411,
+      "meanDb": -16
+    },
+    {
+      "word": "for",
+      "file": "words/for.mp3",
+      "durationMs": 436,
+      "meanDb": -16
+    },
+    {
+      "word": "fork",
+      "file": "words/fork.mp3",
+      "durationMs": 434,
+      "meanDb": -15.9
+    },
+    {
+      "word": "fort",
+      "file": "words/fort.mp3",
+      "durationMs": 400,
+      "meanDb": -15.9
+    },
+    {
+      "word": "fortify",
+      "file": "words/fortify.mp3",
+      "durationMs": 675,
+      "meanDb": -15.8
+    },
+    {
+      "word": "forward",
+      "file": "words/forward.mp3",
+      "durationMs": 477,
+      "meanDb": -15.9
+    },
+    {
+      "word": "four",
+      "file": "words/four.mp3",
+      "durationMs": 396,
+      "meanDb": -16.1
+    },
+    {
+      "word": "friendly",
+      "file": "words/friendly.mp3",
+      "durationMs": 609,
+      "meanDb": -15.9
+    },
+    {
+      "word": "full",
+      "file": "words/full.mp3",
+      "durationMs": 446,
+      "meanDb": -16
+    },
+    {
+      "word": "fuse",
+      "file": "words/fuse.mp3",
+      "durationMs": 591,
+      "meanDb": -15.8
+    },
+    {
+      "word": "future",
+      "file": "words/future.mp3",
+      "durationMs": 488,
+      "meanDb": -15.9
+    },
+    {
+      "word": "gap",
+      "file": "words/gap.mp3",
+      "durationMs": 437,
+      "meanDb": -15.9
+    },
+    {
+      "word": "garage",
+      "file": "words/garage.mp3",
+      "durationMs": 610,
+      "meanDb": -15.8
+    },
+    {
+      "word": "garden",
+      "file": "words/garden.mp3",
+      "durationMs": 492,
+      "meanDb": -16.1
+    },
+    {
+      "word": "ge",
+      "file": "words/ge.mp3",
+      "durationMs": 457,
+      "meanDb": -15.9
+    },
+    {
+      "word": "geographer",
+      "file": "words/geographer.mp3",
+      "durationMs": 676,
+      "meanDb": -15.7
+    },
+    {
+      "word": "geographic",
+      "file": "words/geographic.mp3",
+      "durationMs": 736,
+      "meanDb": -15.8
+    },
+    {
+      "word": "geography",
+      "file": "words/geography.mp3",
+      "durationMs": 746,
+      "meanDb": -15.7
+    },
+    {
+      "word": "geology",
+      "file": "words/geology.mp3",
+      "durationMs": 697,
+      "meanDb": -15.8
+    },
+    {
+      "word": "geometry",
+      "file": "words/geometry.mp3",
+      "durationMs": 681,
+      "meanDb": -15.7
+    },
+    {
+      "word": "geothermal",
+      "file": "words/geothermal.mp3",
+      "durationMs": 829,
+      "meanDb": -15.7
+    },
+    {
+      "word": "giant",
+      "file": "words/giant.mp3",
+      "durationMs": 545,
+      "meanDb": -15.8
+    },
+    {
+      "word": "girl",
+      "file": "words/girl.mp3",
+      "durationMs": 508,
+      "meanDb": -15.8
+    },
+    {
+      "word": "give",
+      "file": "words/give.mp3",
+      "durationMs": 448,
+      "meanDb": -15.9
+    },
+    {
+      "word": "glory",
+      "file": "words/glory.mp3",
+      "durationMs": 502,
+      "meanDb": -15.9
+    },
+    {
+      "word": "gnat",
+      "file": "words/gnat.mp3",
+      "durationMs": 465,
+      "meanDb": -16
+    },
+    {
+      "word": "go",
+      "file": "words/go.mp3",
+      "durationMs": 389,
+      "meanDb": -16
+    },
+    {
+      "word": "good",
+      "file": "words/good.mp3",
+      "durationMs": 422,
+      "meanDb": -16
+    },
+    {
+      "word": "government",
+      "file": "words/government.mp3",
+      "durationMs": 519,
+      "meanDb": -16.2
+    },
+    {
+      "word": "grade",
+      "file": "words/grade.mp3",
+      "durationMs": 510,
+      "meanDb": -15.9
+    },
+    {
+      "word": "graduate",
+      "file": "words/graduate.mp3",
+      "durationMs": 583,
+      "meanDb": -15.8
+    },
+    {
+      "word": "grammar",
+      "file": "words/grammar.mp3",
+      "durationMs": 582,
+      "meanDb": -15.8
+    },
+    {
+      "word": "graph",
+      "file": "words/graph.mp3",
+      "durationMs": 479,
+      "meanDb": -16
+    },
+    {
+      "word": "green",
+      "file": "words/green.mp3",
+      "durationMs": 515,
+      "meanDb": -15.9
+    },
+    {
+      "word": "group",
+      "file": "words/group.mp3",
+      "durationMs": 436,
+      "meanDb": -16
+    },
+    {
+      "word": "guess",
+      "file": "words/guess.mp3",
+      "durationMs": 463,
+      "meanDb": -15.9
+    },
+    {
+      "word": "guidance",
+      "file": "words/guidance.mp3",
+      "durationMs": 609,
+      "meanDb": -15.8
+    },
+    {
+      "word": "gy",
+      "file": "words/gy.mp3",
+      "durationMs": 489,
+      "meanDb": -16
+    },
+    {
+      "word": "gym",
+      "file": "words/gym.mp3",
+      "durationMs": 421,
+      "meanDb": -16
+    },
+    {
+      "word": "hair",
+      "file": "words/hair.mp3",
+      "durationMs": 400,
+      "meanDb": -16
+    },
+    {
+      "word": "hand",
+      "file": "words/hand.mp3",
+      "durationMs": 456,
+      "meanDb": -15.9
+    },
+    {
+      "word": "hands",
+      "file": "words/hands.mp3",
+      "durationMs": 544,
+      "meanDb": -15.8
+    },
+    {
+      "word": "hap",
+      "file": "words/hap.mp3",
+      "durationMs": 482,
+      "meanDb": -16.5
+    },
+    {
+      "word": "hapless",
+      "file": "words/hapless.mp3",
+      "durationMs": 594,
+      "meanDb": -16.3
+    },
+    {
+      "word": "happen",
+      "file": "words/happen.mp3",
+      "durationMs": 507,
+      "meanDb": -16
+    },
+    {
+      "word": "happily",
+      "file": "words/happily.mp3",
+      "durationMs": 483,
+      "meanDb": -15.9
+    },
+    {
+      "word": "happiness",
+      "file": "words/happiness.mp3",
+      "durationMs": 656,
+      "meanDb": -15.9
+    },
+    {
+      "word": "happy",
+      "file": "words/happy.mp3",
+      "durationMs": 494,
+      "meanDb": -16.6
+    },
+    {
+      "word": "hardly",
+      "file": "words/hardly.mp3",
+      "durationMs": 508,
+      "meanDb": -16.3
+    },
+    {
+      "word": "hat",
+      "file": "words/hat.mp3",
+      "durationMs": 384,
+      "meanDb": -16.3
+    },
+    {
+      "word": "have",
+      "file": "words/have.mp3",
+      "durationMs": 514,
+      "meanDb": -16
+    },
+    {
+      "word": "he",
+      "file": "words/he.mp3",
+      "durationMs": 344,
+      "meanDb": -16.2
+    },
+    {
+      "word": "head",
+      "file": "words/head.mp3",
+      "durationMs": 461,
+      "meanDb": -15.9
+    },
+    {
+      "word": "health",
+      "file": "words/health.mp3",
+      "durationMs": 521,
+      "meanDb": -15.9
+    },
+    {
+      "word": "hello",
+      "file": "words/hello.mp3",
+      "durationMs": 577,
+      "meanDb": -15.9
+    },
+    {
+      "word": "help",
+      "file": "words/help.mp3",
+      "durationMs": 372,
+      "meanDb": -16.2
+    },
+    {
+      "word": "helpful",
+      "file": "words/helpful.mp3",
+      "durationMs": 629,
+      "meanDb": -16.1
+    },
+    {
+      "word": "hen",
+      "file": "words/hen.mp3",
+      "durationMs": 554,
+      "meanDb": -15.9
+    },
+    {
+      "word": "her",
+      "file": "words/her.mp3",
+      "durationMs": 396,
+      "meanDb": -16.1
+    },
+    {
+      "word": "here",
+      "file": "words/here.mp3",
+      "durationMs": 429,
+      "meanDb": -16
+    },
+    {
+      "word": "hi",
+      "file": "words/hi.mp3",
+      "durationMs": 405,
+      "meanDb": -16.4
+    },
+    {
+      "word": "history",
+      "file": "words/history.mp3",
+      "durationMs": 590,
+      "meanDb": -15.9
+    },
+    {
+      "word": "hits",
+      "file": "words/hits.mp3",
+      "durationMs": 533,
+      "meanDb": -15.8
+    },
+    {
+      "word": "home",
+      "file": "words/home.mp3",
+      "durationMs": 714,
+      "meanDb": -15.8
+    },
+    {
+      "word": "homeless",
+      "file": "words/homeless.mp3",
+      "durationMs": 718,
+      "meanDb": -15.7
+    },
+    {
+      "word": "hopeful",
+      "file": "words/hopeful.mp3",
+      "durationMs": 582,
+      "meanDb": -15.8
+    },
+    {
+      "word": "hopeless",
+      "file": "words/hopeless.mp3",
+      "durationMs": 669,
+      "meanDb": -16.7
+    },
+    {
+      "word": "horse",
+      "file": "words/horse.mp3",
+      "durationMs": 516,
+      "meanDb": -15.9
+    },
+    {
+      "word": "hot",
+      "file": "words/hot.mp3",
+      "durationMs": 435,
+      "meanDb": -16
+    },
+    {
+      "word": "house",
+      "file": "words/house.mp3",
+      "durationMs": 439,
+      "meanDb": -16.6
+    },
+    {
+      "word": "hundred",
+      "file": "words/hundred.mp3",
+      "durationMs": 521,
+      "meanDb": -15.8
+    },
+    {
+      "word": "hypothesis",
+      "file": "words/hypothesis.mp3",
+      "durationMs": 923,
+      "meanDb": -15.9
+    },
+    {
+      "word": "ice",
+      "file": "words/ice.mp3",
+      "durationMs": 522,
+      "meanDb": -15.9
+    },
+    {
+      "word": "idea",
+      "file": "words/idea.mp3",
+      "durationMs": 609,
+      "meanDb": -15.8
+    },
+    {
+      "word": "identify",
+      "file": "words/identify.mp3",
+      "durationMs": 776,
+      "meanDb": -15.7
+    },
+    {
+      "word": "illegal",
+      "file": "words/illegal.mp3",
+      "durationMs": 564,
+      "meanDb": -15.9
+    },
+    {
+      "word": "im",
+      "file": "words/im.mp3",
+      "durationMs": 635,
+      "meanDb": -15.8
+    },
+    {
+      "word": "impede",
+      "file": "words/impede.mp3",
+      "durationMs": 645,
+      "meanDb": -15.7
+    },
+    {
+      "word": "implant",
+      "file": "words/implant.mp3",
+      "durationMs": 639,
+      "meanDb": -15.8
+    },
+    {
+      "word": "import",
+      "file": "words/import.mp3",
+      "durationMs": 570,
+      "meanDb": -15.8
+    },
+    {
+      "word": "importance",
+      "file": "words/importance.mp3",
+      "durationMs": 761,
+      "meanDb": -15.7
+    },
+    {
+      "word": "importation",
+      "file": "words/importation.mp3",
+      "durationMs": 909,
+      "meanDb": -15.6
+    },
+    {
+      "word": "importer",
+      "file": "words/importer.mp3",
+      "durationMs": 600,
+      "meanDb": -15.8
+    },
+    {
+      "word": "impossible",
+      "file": "words/impossible.mp3",
+      "durationMs": 755,
+      "meanDb": -15.8
+    },
+    {
+      "word": "impress",
+      "file": "words/impress.mp3",
+      "durationMs": 675,
+      "meanDb": -15.7
+    },
+    {
+      "word": "in",
+      "file": "words/in.mp3",
+      "durationMs": 385,
+      "meanDb": -16.1
+    },
+    {
+      "word": "inactive",
+      "file": "words/inactive.mp3",
+      "durationMs": 611,
+      "meanDb": -15.8
+    },
+    {
+      "word": "incision",
+      "file": "words/incision.mp3",
+      "durationMs": 655,
+      "meanDb": -15.7
+    },
+    {
+      "word": "incomprehensible",
+      "file": "words/incomprehensible.mp3",
+      "durationMs": 1106,
+      "meanDb": -15.6
+    },
+    {
+      "word": "incredible",
+      "file": "words/incredible.mp3",
+      "durationMs": 728,
+      "meanDb": -15.7
+    },
+    {
+      "word": "indecision",
+      "file": "words/indecision.mp3",
+      "durationMs": 745,
+      "meanDb": -15.7
+    },
+    {
+      "word": "independence",
+      "file": "words/independence.mp3",
+      "durationMs": 819,
+      "meanDb": -15.7
+    },
+    {
+      "word": "influence",
+      "file": "words/influence.mp3",
+      "durationMs": 728,
+      "meanDb": -15.7
+    },
+    {
+      "word": "influx",
+      "file": "words/influx.mp3",
+      "durationMs": 662,
+      "meanDb": -15.8
+    },
+    {
+      "word": "inform",
+      "file": "words/inform.mp3",
+      "durationMs": 717,
+      "meanDb": -15.7
+    },
+    {
+      "word": "informant",
+      "file": "words/informant.mp3",
+      "durationMs": 705,
+      "meanDb": -15.7
+    },
+    {
+      "word": "information",
+      "file": "words/information.mp3",
+      "durationMs": 788,
+      "meanDb": -15.7
+    },
+    {
+      "word": "informative",
+      "file": "words/informative.mp3",
+      "durationMs": 918,
+      "meanDb": -15.6
+    },
+    {
+      "word": "infrastructure",
+      "file": "words/infrastructure.mp3",
+      "durationMs": 923,
+      "meanDb": -15.6
+    },
+    {
+      "word": "inject",
+      "file": "words/inject.mp3",
+      "durationMs": 582,
+      "meanDb": -15.8
+    },
+    {
+      "word": "inquiry",
+      "file": "words/inquiry.mp3",
+      "durationMs": 684,
+      "meanDb": -15.8
+    },
+    {
+      "word": "inside",
+      "file": "words/inside.mp3",
+      "durationMs": 721,
+      "meanDb": -15.7
+    },
+    {
+      "word": "inspect",
+      "file": "words/inspect.mp3",
+      "durationMs": 655,
+      "meanDb": -15.8
+    },
+    {
+      "word": "inspection",
+      "file": "words/inspection.mp3",
+      "durationMs": 793,
+      "meanDb": -15.7
+    },
+    {
+      "word": "inspector",
+      "file": "words/inspector.mp3",
+      "durationMs": 738,
+      "meanDb": -15.7
+    },
+    {
+      "word": "instruct",
+      "file": "words/instruct.mp3",
+      "durationMs": 743,
+      "meanDb": -15.8
+    },
+    {
+      "word": "instruction",
+      "file": "words/instruction.mp3",
+      "durationMs": 782,
+      "meanDb": -15.7
+    },
+    {
+      "word": "instructive",
+      "file": "words/instructive.mp3",
+      "durationMs": 727,
+      "meanDb": -15.7
+    },
+    {
+      "word": "instructor",
+      "file": "words/instructor.mp3",
+      "durationMs": 734,
+      "meanDb": -16.4
+    },
+    {
+      "word": "instrument",
+      "file": "words/instrument.mp3",
+      "durationMs": 673,
+      "meanDb": -15.8
+    },
+    {
+      "word": "interact",
+      "file": "words/interact.mp3",
+      "durationMs": 740,
+      "meanDb": -15.7
+    },
+    {
+      "word": "interest",
+      "file": "words/interest.mp3",
+      "durationMs": 631,
+      "meanDb": -15.8
+    },
+    {
+      "word": "international",
+      "file": "words/international.mp3",
+      "durationMs": 812,
+      "meanDb": -15.7
+    },
+    {
+      "word": "internet",
+      "file": "words/internet.mp3",
+      "durationMs": 605,
+      "meanDb": -15.8
+    },
+    {
+      "word": "interpret",
+      "file": "words/interpret.mp3",
+      "durationMs": 660,
+      "meanDb": -15.8
+    },
+    {
+      "word": "interview",
+      "file": "words/interview.mp3",
+      "durationMs": 621,
+      "meanDb": -15.8
+    },
+    {
+      "word": "introduce",
+      "file": "words/introduce.mp3",
+      "durationMs": 789,
+      "meanDb": -15.7
+    },
+    {
+      "word": "invention",
+      "file": "words/invention.mp3",
+      "durationMs": 701,
+      "meanDb": -15.8
+    },
+    {
+      "word": "invisible",
+      "file": "words/invisible.mp3",
+      "durationMs": 679,
+      "meanDb": -15.8
+    },
+    {
+      "word": "invoke",
+      "file": "words/invoke.mp3",
+      "durationMs": 568,
+      "meanDb": -15.9
+    },
+    {
+      "word": "involve",
+      "file": "words/involve.mp3",
+      "durationMs": 687,
+      "meanDb": -15.8
+    },
+    {
+      "word": "inward",
+      "file": "words/inward.mp3",
+      "durationMs": 620,
+      "meanDb": -15.7
+    },
+    {
+      "word": "irregular",
+      "file": "words/irregular.mp3",
+      "durationMs": 747,
+      "meanDb": -15.7
+    },
+    {
+      "word": "join",
+      "file": "words/join.mp3",
+      "durationMs": 498,
+      "meanDb": -15.9
+    },
+    {
+      "word": "joke",
+      "file": "words/joke.mp3",
+      "durationMs": 391,
+      "meanDb": -16
+    },
+    {
+      "word": "joy",
+      "file": "words/joy.mp3",
+      "durationMs": 551,
+      "meanDb": -15.8
+    },
+    {
+      "word": "judge",
+      "file": "words/judge.mp3",
+      "durationMs": 519,
+      "meanDb": -15.9
+    },
+    {
+      "word": "judgment",
+      "file": "words/judgment.mp3",
+      "durationMs": 630,
+      "meanDb": -16.1
+    },
+    {
+      "word": "jump",
+      "file": "words/jump.mp3",
+      "durationMs": 414,
+      "meanDb": -16
+    },
+    {
+      "word": "jury",
+      "file": "words/jury.mp3",
+      "durationMs": 516,
+      "meanDb": -15.9
+    },
+    {
+      "word": "justice",
+      "file": "words/justice.mp3",
+      "durationMs": 594,
+      "meanDb": -16.6
+    },
+    {
+      "word": "kick",
+      "file": "words/kick.mp3",
+      "durationMs": 380,
+      "meanDb": -16
+    },
+    {
+      "word": "kindness",
+      "file": "words/kindness.mp3",
+      "durationMs": 659,
+      "meanDb": -15.8
+    },
+    {
+      "word": "kite",
+      "file": "words/kite.mp3",
+      "durationMs": 425,
+      "meanDb": -16.3
+    },
+    {
+      "word": "knee",
+      "file": "words/knee.mp3",
+      "durationMs": 369,
+      "meanDb": -16.1
+    },
+    {
+      "word": "knife",
+      "file": "words/knife.mp3",
+      "durationMs": 533,
+      "meanDb": -15.9
+    },
+    {
+      "word": "knock",
+      "file": "words/knock.mp3",
+      "durationMs": 447,
+      "meanDb": -15.9
+    },
+    {
+      "word": "know",
+      "file": "words/know.mp3",
+      "durationMs": 446,
+      "meanDb": -15.9
+    },
+    {
+      "word": "knowledge",
+      "file": "words/knowledge.mp3",
+      "durationMs": 589,
+      "meanDb": -15.8
+    },
+    {
+      "word": "ladylike",
+      "file": "words/ladylike.mp3",
+      "durationMs": 656,
+      "meanDb": -15.7
+    },
+    {
+      "word": "language",
+      "file": "words/language.mp3",
+      "durationMs": 682,
+      "meanDb": -15.8
+    },
+    {
+      "word": "late",
+      "file": "words/late.mp3",
+      "durationMs": 412,
+      "meanDb": -16
+    },
+    {
+      "word": "leaf",
+      "file": "words/leaf.mp3",
+      "durationMs": 403,
+      "meanDb": -15.9
+    },
+    {
+      "word": "leave",
+      "file": "words/leave.mp3",
+      "durationMs": 536,
+      "meanDb": -15.8
+    },
+    {
+      "word": "led",
+      "file": "words/led.mp3",
+      "durationMs": 489,
+      "meanDb": -16
+    },
+    {
+      "word": "let",
+      "file": "words/let.mp3",
+      "durationMs": 414,
+      "meanDb": -15.9
+    },
+    {
+      "word": "letter",
+      "file": "words/letter.mp3",
+      "durationMs": 420,
+      "meanDb": -15.9
+    },
+    {
+      "word": "lifelike",
+      "file": "words/lifelike.mp3",
+      "durationMs": 648,
+      "meanDb": -16.3
+    },
+    {
+      "word": "light",
+      "file": "words/light.mp3",
+      "durationMs": 460,
+      "meanDb": -16
+    },
+    {
+      "word": "like",
+      "file": "words/like.mp3",
+      "durationMs": 443,
+      "meanDb": -16.2
+    },
+    {
+      "word": "likewise",
+      "file": "words/likewise.mp3",
+      "durationMs": 715,
+      "meanDb": -16.6
+    },
+    {
+      "word": "live",
+      "file": "words/live.mp3",
+      "durationMs": 551,
+      "meanDb": -15.9
+    },
+    {
+      "word": "local",
+      "file": "words/local.mp3",
+      "durationMs": 503,
+      "meanDb": -15.9
+    },
+    {
+      "word": "locate",
+      "file": "words/locate.mp3",
+      "durationMs": 534,
+      "meanDb": -15.8
+    },
+    {
+      "word": "logic",
+      "file": "words/logic.mp3",
+      "durationMs": 569,
+      "meanDb": -16
+    },
+    {
+      "word": "long",
+      "file": "words/long.mp3",
+      "durationMs": 521,
+      "meanDb": -15.9
+    },
+    {
+      "word": "look",
+      "file": "words/look.mp3",
+      "durationMs": 407,
+      "meanDb": -16
+    },
+    {
+      "word": "loud",
+      "file": "words/loud.mp3",
+      "durationMs": 525,
+      "meanDb": -15.8
+    },
+    {
+      "word": "love",
+      "file": "words/love.mp3",
+      "durationMs": 529,
+      "meanDb": -16
+    },
+    {
+      "word": "lunch",
+      "file": "words/lunch.mp3",
+      "durationMs": 492,
+      "meanDb": -15.9
+    },
+    {
+      "word": "lure",
+      "file": "words/lure.mp3",
+      "durationMs": 512,
+      "meanDb": -15.9
+    },
+    {
+      "word": "ma",
+      "file": "words/ma.mp3",
+      "durationMs": 401,
+      "meanDb": -16
+    },
+    {
+      "word": "made",
+      "file": "words/made.mp3",
+      "durationMs": 482,
+      "meanDb": -15.9
+    },
+    {
+      "word": "mail",
+      "file": "words/mail.mp3",
+      "durationMs": 522,
+      "meanDb": -15.9
+    },
+    {
+      "word": "man",
+      "file": "words/man.mp3",
+      "durationMs": 535,
+      "meanDb": -15.8
+    },
+    {
+      "word": "manage",
+      "file": "words/manage.mp3",
+      "durationMs": 551,
+      "meanDb": -15.8
+    },
+    {
+      "word": "manipulate",
+      "file": "words/manipulate.mp3",
+      "durationMs": 669,
+      "meanDb": -15.8
+    },
+    {
+      "word": "manual",
+      "file": "words/manual.mp3",
+      "durationMs": 683,
+      "meanDb": -15.7
+    },
+    {
+      "word": "manufacture",
+      "file": "words/manufacture.mp3",
+      "durationMs": 937,
+      "meanDb": -15.7
+    },
+    {
+      "word": "manuscript",
+      "file": "words/manuscript.mp3",
+      "durationMs": 805,
+      "meanDb": -15.7
+    },
+    {
+      "word": "mat",
+      "file": "words/mat.mp3",
+      "durationMs": 468,
+      "meanDb": -15.9
+    },
+    {
+      "word": "math",
+      "file": "words/math.mp3",
+      "durationMs": 551,
+      "meanDb": -15.9
+    },
+    {
+      "word": "me",
+      "file": "words/me.mp3",
+      "durationMs": 430,
+      "meanDb": -16
+    },
+    {
+      "word": "meaningful",
+      "file": "words/meaningful.mp3",
+      "durationMs": 703,
+      "meanDb": -15.7
+    },
+    {
+      "word": "measure",
+      "file": "words/measure.mp3",
+      "durationMs": 559,
+      "meanDb": -15.8
+    },
+    {
+      "word": "meat",
+      "file": "words/meat.mp3",
+      "durationMs": 390,
+      "meanDb": -16
+    },
+    {
+      "word": "medicine",
+      "file": "words/medicine.mp3",
+      "durationMs": 621,
+      "meanDb": -15.8
+    },
+    {
+      "word": "memorial",
+      "file": "words/memorial.mp3",
+      "durationMs": 798,
+      "meanDb": -15.7
+    },
+    {
+      "word": "memorize",
+      "file": "words/memorize.mp3",
+      "durationMs": 743,
+      "meanDb": -15.8
+    },
+    {
+      "word": "memory",
+      "file": "words/memory.mp3",
+      "durationMs": 554,
+      "meanDb": -15.9
+    },
+    {
+      "word": "messy",
+      "file": "words/messy.mp3",
+      "durationMs": 545,
+      "meanDb": -15.8
+    },
+    {
+      "word": "metamorphosis",
+      "file": "words/metamorphosis.mp3",
+      "durationMs": 990,
+      "meanDb": -15.6
+    },
+    {
+      "word": "mi",
+      "file": "words/mi.mp3",
+      "durationMs": 467,
+      "meanDb": -15.9
+    },
+    {
+      "word": "microphone",
+      "file": "words/microphone.mp3",
+      "durationMs": 754,
+      "meanDb": -16.2
+    },
+    {
+      "word": "milk",
+      "file": "words/milk.mp3",
+      "durationMs": 460,
+      "meanDb": -16
+    },
+    {
+      "word": "minute",
+      "file": "words/minute.mp3",
+      "durationMs": 426,
+      "meanDb": -16
+    },
+    {
+      "word": "minutely",
+      "file": "words/minutely.mp3",
+      "durationMs": 743,
+      "meanDb": -15.8
+    },
+    {
+      "word": "minutiae",
+      "file": "words/minutiae.mp3",
+      "durationMs": 781,
+      "meanDb": -15.7
+    },
+    {
+      "word": "mishap",
+      "file": "words/mishap.mp3",
+      "durationMs": 525,
+      "meanDb": -15.9
+    },
+    {
+      "word": "misinformation",
+      "file": "words/misinformation.mp3",
+      "durationMs": 931,
+      "meanDb": -15.7
+    },
+    {
+      "word": "mislead",
+      "file": "words/mislead.mp3",
+      "durationMs": 614,
+      "meanDb": -15.8
+    },
+    {
+      "word": "mission",
+      "file": "words/mission.mp3",
+      "durationMs": 516,
+      "meanDb": -15.9
+    },
+    {
+      "word": "misspell",
+      "file": "words/misspell.mp3",
+      "durationMs": 687,
+      "meanDb": -15.8
+    },
+    {
+      "word": "mistake",
+      "file": "words/mistake.mp3",
+      "durationMs": 558,
+      "meanDb": -15.8
+    },
+    {
+      "word": "misunderstand",
+      "file": "words/misunderstand.mp3",
+      "durationMs": 897,
+      "meanDb": -15.7
+    },
+    {
+      "word": "misuse",
+      "file": "words/misuse.mp3",
+      "durationMs": 639,
+      "meanDb": -15.7
+    },
+    {
+      "word": "modernize",
+      "file": "words/modernize.mp3",
+      "durationMs": 787,
+      "meanDb": -16.1
+    },
+    {
+      "word": "modify",
+      "file": "words/modify.mp3",
+      "durationMs": 700,
+      "meanDb": -15.8
+    },
+    {
+      "word": "money",
+      "file": "words/money.mp3",
+      "durationMs": 495,
+      "meanDb": -15.8
+    },
+    {
+      "word": "monochrome",
+      "file": "words/monochrome.mp3",
+      "durationMs": 813,
+      "meanDb": -15.7
+    },
+    {
+      "word": "monologue",
+      "file": "words/monologue.mp3",
+      "durationMs": 652,
+      "meanDb": -15.8
+    },
+    {
+      "word": "monopoly",
+      "file": "words/monopoly.mp3",
+      "durationMs": 615,
+      "meanDb": -15.8
+    },
+    {
+      "word": "monotonous",
+      "file": "words/monotonous.mp3",
+      "durationMs": 740,
+      "meanDb": -15.7
+    },
+    {
+      "word": "moon",
+      "file": "words/moon.mp3",
+      "durationMs": 773,
+      "meanDb": -15.7
+    },
+    {
+      "word": "morning",
+      "file": "words/morning.mp3",
+      "durationMs": 566,
+      "meanDb": -15.8
+    },
+    {
+      "word": "morphology",
+      "file": "words/morphology.mp3",
+      "durationMs": 757,
+      "meanDb": -15.7
+    },
+    {
+      "word": "mother",
+      "file": "words/mother.mp3",
+      "durationMs": 442,
+      "meanDb": -16
+    },
+    {
+      "word": "mouse",
+      "file": "words/mouse.mp3",
+      "durationMs": 570,
+      "meanDb": -15.8
+    },
+    {
+      "word": "mouth",
+      "file": "words/mouth.mp3",
+      "durationMs": 476,
+      "meanDb": -15.9
+    },
+    {
+      "word": "movement",
+      "file": "words/movement.mp3",
+      "durationMs": 581,
+      "meanDb": -15.9
+    },
+    {
+      "word": "multilingual",
+      "file": "words/multilingual.mp3",
+      "durationMs": 961,
+      "meanDb": -15.7
+    },
+    {
+      "word": "multimedia",
+      "file": "words/multimedia.mp3",
+      "durationMs": 939,
+      "meanDb": -15.7
+    },
+    {
+      "word": "multiply",
+      "file": "words/multiply.mp3",
+      "durationMs": 734,
+      "meanDb": -15.9
+    },
+    {
+      "word": "multitude",
+      "file": "words/multitude.mp3",
+      "durationMs": 835,
+      "meanDb": -15.8
+    },
+    {
+      "word": "my",
+      "file": "words/my.mp3",
+      "durationMs": 489,
+      "meanDb": -15.9
+    },
+    {
+      "word": "myth",
+      "file": "words/myth.mp3",
+      "durationMs": 527,
+      "meanDb": -15.8
+    },
+    {
+      "word": "name",
+      "file": "words/name.mp3",
+      "durationMs": 490,
+      "meanDb": -15.9
+    },
+    {
+      "word": "nation",
+      "file": "words/nation.mp3",
+      "durationMs": 586,
+      "meanDb": -15.8
+    },
+    {
+      "word": "national",
+      "file": "words/national.mp3",
+      "durationMs": 611,
+      "meanDb": -15.9
+    },
+    {
+      "word": "natural",
+      "file": "words/natural.mp3",
+      "durationMs": 581,
+      "meanDb": -15.8
+    },
+    {
+      "word": "nature",
+      "file": "words/nature.mp3",
+      "durationMs": 538,
+      "meanDb": -15.8
+    },
+    {
+      "word": "near",
+      "file": "words/near.mp3",
+      "durationMs": 454,
+      "meanDb": -16
+    },
+    {
+      "word": "needed",
+      "file": "words/needed.mp3",
+      "durationMs": 508,
+      "meanDb": -15.9
+    },
+    {
+      "word": "needs",
+      "file": "words/needs.mp3",
+      "durationMs": 525,
+      "meanDb": -15.8
+    },
+    {
+      "word": "nervous",
+      "file": "words/nervous.mp3",
+      "durationMs": 548,
+      "meanDb": -15.8
+    },
+    {
+      "word": "ness",
+      "file": "words/ness.mp3",
+      "durationMs": 525,
+      "meanDb": -15.9
+    },
+    {
+      "word": "nice",
+      "file": "words/nice.mp3",
+      "durationMs": 541,
+      "meanDb": -15.8
+    },
+    {
+      "word": "night",
+      "file": "words/night.mp3",
+      "durationMs": 482,
+      "meanDb": -15.9
+    },
+    {
+      "word": "no",
+      "file": "words/no.mp3",
+      "durationMs": 454,
+      "meanDb": -15.9
+    },
+    {
+      "word": "noise",
+      "file": "words/noise.mp3",
+      "durationMs": 590,
+      "meanDb": -15.8
+    },
+    {
+      "word": "nonfiction",
+      "file": "words/nonfiction.mp3",
+      "durationMs": 806,
+      "meanDb": -15.9
+    },
+    {
+      "word": "nonsense",
+      "file": "words/nonsense.mp3",
+      "durationMs": 681,
+      "meanDb": -15.8
+    },
+    {
+      "word": "nonsmoking",
+      "file": "words/nonsmoking.mp3",
+      "durationMs": 843,
+      "meanDb": -15.7
+    },
+    {
+      "word": "nonstop",
+      "file": "words/nonstop.mp3",
+      "durationMs": 742,
+      "meanDb": -15.8
+    },
+    {
+      "word": "now",
+      "file": "words/now.mp3",
+      "durationMs": 474,
+      "meanDb": -15.8
+    },
+    {
+      "word": "nurse",
+      "file": "words/nurse.mp3",
+      "durationMs": 519,
+      "meanDb": -15.9
+    },
+    {
+      "word": "nute",
+      "file": "words/nute.mp3",
+      "durationMs": 456,
+      "meanDb": -15.9
+    },
+    {
+      "word": "object",
+      "file": "words/object.mp3",
+      "durationMs": 707,
+      "meanDb": -16.5
+    },
+    {
+      "word": "occupy",
+      "file": "words/occupy.mp3",
+      "durationMs": 678,
+      "meanDb": -16.1
+    },
+    {
+      "word": "occur",
+      "file": "words/occur.mp3",
+      "durationMs": 538,
+      "meanDb": -15.9
+    },
+    {
+      "word": "offer",
+      "file": "words/offer.mp3",
+      "durationMs": 520,
+      "meanDb": -15.9
+    },
+    {
+      "word": "og",
+      "file": "words/og.mp3",
+      "durationMs": 375,
+      "meanDb": -16
+    },
+    {
+      "word": "oil",
+      "file": "words/oil.mp3",
+      "durationMs": 472,
+      "meanDb": -15.9
+    },
+    {
+      "word": "ol",
+      "file": "words/ol.mp3",
+      "durationMs": 436,
+      "meanDb": -15.9
+    },
+    {
+      "word": "one",
+      "file": "words/one.mp3",
+      "durationMs": 446,
+      "meanDb": -15.9
+    },
+    {
+      "word": "organization",
+      "file": "words/organization.mp3",
+      "durationMs": 865,
+      "meanDb": -15.8
+    },
+    {
+      "word": "organize",
+      "file": "words/organize.mp3",
+      "durationMs": 789,
+      "meanDb": -15.8
+    },
+    {
+      "word": "otherwise",
+      "file": "words/otherwise.mp3",
+      "durationMs": 794,
+      "meanDb": -16.3
+    },
+    {
+      "word": "out",
+      "file": "words/out.mp3",
+      "durationMs": 403,
+      "meanDb": -16
+    },
+    {
+      "word": "overcome",
+      "file": "words/overcome.mp3",
+      "durationMs": 635,
+      "meanDb": -15.7
+    },
+    {
+      "word": "overlook",
+      "file": "words/overlook.mp3",
+      "durationMs": 563,
+      "meanDb": -15.9
+    },
+    {
+      "word": "overtake",
+      "file": "words/overtake.mp3",
+      "durationMs": 664,
+      "meanDb": -15.9
+    },
+    {
+      "word": "overtime",
+      "file": "words/overtime.mp3",
+      "durationMs": 696,
+      "meanDb": -16
+    },
+    {
+      "word": "package",
+      "file": "words/package.mp3",
+      "durationMs": 527,
+      "meanDb": -15.9
+    },
+    {
+      "word": "page",
+      "file": "words/page.mp3",
+      "durationMs": 539,
+      "meanDb": -15.9
+    },
+    {
+      "word": "paradox",
+      "file": "words/paradox.mp3",
+      "durationMs": 646,
+      "meanDb": -16.9
+    },
+    {
+      "word": "paragraph",
+      "file": "words/paragraph.mp3",
+      "durationMs": 647,
+      "meanDb": -15.8
+    },
+    {
+      "word": "parallel",
+      "file": "words/parallel.mp3",
+      "durationMs": 607,
+      "meanDb": -15.8
+    },
+    {
+      "word": "parasite",
+      "file": "words/parasite.mp3",
+      "durationMs": 638,
+      "meanDb": -15.9
+    },
+    {
+      "word": "park",
+      "file": "words/park.mp3",
+      "durationMs": 407,
+      "meanDb": -16.2
+    },
+    {
+      "word": "pat",
+      "file": "words/pat.mp3",
+      "durationMs": 402,
+      "meanDb": -16.2
+    },
+    {
+      "word": "peace",
+      "file": "words/peace.mp3",
+      "durationMs": 522,
+      "meanDb": -15.9
+    },
+    {
+      "word": "pedal",
+      "file": "words/pedal.mp3",
+      "durationMs": 446,
+      "meanDb": -16
+    },
+    {
+      "word": "pedestrian",
+      "file": "words/pedestrian.mp3",
+      "durationMs": 767,
+      "meanDb": -15.8
+    },
+    {
+      "word": "pen",
+      "file": "words/pen.mp3",
+      "durationMs": 416,
+      "meanDb": -16
+    },
+    {
+      "word": "pendant",
+      "file": "words/pendant.mp3",
+      "durationMs": 481,
+      "meanDb": -15.9
+    },
+    {
+      "word": "perfect",
+      "file": "words/perfect.mp3",
+      "durationMs": 594,
+      "meanDb": -15.8
+    },
+    {
+      "word": "perhaps",
+      "file": "words/perhaps.mp3",
+      "durationMs": 622,
+      "meanDb": -16.2
+    },
+    {
+      "word": "perimeter",
+      "file": "words/perimeter.mp3",
+      "durationMs": 644,
+      "meanDb": -15.8
+    },
+    {
+      "word": "perinatal",
+      "file": "words/perinatal.mp3",
+      "durationMs": 685,
+      "meanDb": -15.8
+    },
+    {
+      "word": "period",
+      "file": "words/period.mp3",
+      "durationMs": 565,
+      "meanDb": -15.8
+    },
+    {
+      "word": "peripheral",
+      "file": "words/peripheral.mp3",
+      "durationMs": 778,
+      "meanDb": -15.7
+    },
+    {
+      "word": "persist",
+      "file": "words/persist.mp3",
+      "durationMs": 655,
+      "meanDb": -15.8
+    },
+    {
+      "word": "personal",
+      "file": "words/personal.mp3",
+      "durationMs": 573,
+      "meanDb": -15.8
+    },
+    {
+      "word": "pho",
+      "file": "words/pho.mp3",
+      "durationMs": 359,
+      "meanDb": -16.1
+    },
+    {
+      "word": "phone",
+      "file": "words/phone.mp3",
+      "durationMs": 530,
+      "meanDb": -15.9
+    },
+    {
+      "word": "phonics",
+      "file": "words/phonics.mp3",
+      "durationMs": 592,
+      "meanDb": -15.8
+    },
+    {
+      "word": "photo",
+      "file": "words/photo.mp3",
+      "durationMs": 511,
+      "meanDb": -15.9
+    },
+    {
+      "word": "photocopy",
+      "file": "words/photocopy.mp3",
+      "durationMs": 770,
+      "meanDb": -15.9
+    },
+    {
+      "word": "photograph",
+      "file": "words/photograph.mp3",
+      "durationMs": 664,
+      "meanDb": -15.8
+    },
+    {
+      "word": "photographer",
+      "file": "words/photographer.mp3",
+      "durationMs": 720,
+      "meanDb": -16
+    },
+    {
+      "word": "photographic",
+      "file": "words/photographic.mp3",
+      "durationMs": 755,
+      "meanDb": -15.8
+    },
+    {
+      "word": "photography",
+      "file": "words/photography.mp3",
+      "durationMs": 751,
+      "meanDb": -15.7
+    },
+    {
+      "word": "photosynthesis",
+      "file": "words/photosynthesis.mp3",
+      "durationMs": 1017,
+      "meanDb": -15.7
+    },
+    {
+      "word": "phy",
+      "file": "words/phy.mp3",
+      "durationMs": 414,
+      "meanDb": -16.3
+    },
+    {
+      "word": "pi",
+      "file": "words/pi.mp3",
+      "durationMs": 400,
+      "meanDb": -16.9
+    },
+    {
+      "word": "pianist",
+      "file": "words/pianist.mp3",
+      "durationMs": 564,
+      "meanDb": -15.8
+    },
+    {
+      "word": "picture",
+      "file": "words/picture.mp3",
+      "durationMs": 492,
+      "meanDb": -16
+    },
+    {
+      "word": "plane",
+      "file": "words/plane.mp3",
+      "durationMs": 486,
+      "meanDb": -15.9
+    },
+    {
+      "word": "play",
+      "file": "words/play.mp3",
+      "durationMs": 443,
+      "meanDb": -16
+    },
+    {
+      "word": "played",
+      "file": "words/played.mp3",
+      "durationMs": 476,
+      "meanDb": -15.9
+    },
+    {
+      "word": "pleasure",
+      "file": "words/pleasure.mp3",
+      "durationMs": 483,
+      "meanDb": -15.9
+    },
+    {
+      "word": "political",
+      "file": "words/political.mp3",
+      "durationMs": 663,
+      "meanDb": -15.9
+    },
+    {
+      "word": "por",
+      "file": "words/por.mp3",
+      "durationMs": 400,
+      "meanDb": -16
+    },
+    {
+      "word": "port",
+      "file": "words/port.mp3",
+      "durationMs": 391,
+      "meanDb": -16
+    },
+    {
+      "word": "portability",
+      "file": "words/portability.mp3",
+      "durationMs": 791,
+      "meanDb": -15.7
+    },
+    {
+      "word": "portable",
+      "file": "words/portable.mp3",
+      "durationMs": 573,
+      "meanDb": -15.9
+    },
+    {
+      "word": "porter",
+      "file": "words/porter.mp3",
+      "durationMs": 420,
+      "meanDb": -16
+    },
+    {
+      "word": "positive",
+      "file": "words/positive.mp3",
+      "durationMs": 604,
+      "meanDb": -16.4
+    },
+    {
+      "word": "possible",
+      "file": "words/possible.mp3",
+      "durationMs": 659,
+      "meanDb": -16
+    },
+    {
+      "word": "powerless",
+      "file": "words/powerless.mp3",
+      "durationMs": 629,
+      "meanDb": -16.4
+    },
+    {
+      "word": "pre",
+      "file": "words/pre.mp3",
+      "durationMs": 394,
+      "meanDb": -16.1
+    },
+    {
+      "word": "precise",
+      "file": "words/precise.mp3",
+      "durationMs": 678,
+      "meanDb": -16
+    },
+    {
+      "word": "predict",
+      "file": "words/predict.mp3",
+      "durationMs": 525,
+      "meanDb": -15.8
+    },
+    {
+      "word": "predictable",
+      "file": "words/predictable.mp3",
+      "durationMs": 768,
+      "meanDb": -15.9
+    },
+    {
+      "word": "prediction",
+      "file": "words/prediction.mp3",
+      "durationMs": 619,
+      "meanDb": -16
+    },
+    {
+      "word": "predictive",
+      "file": "words/predictive.mp3",
+      "durationMs": 721,
+      "meanDb": -15.8
+    },
+    {
+      "word": "preface",
+      "file": "words/preface.mp3",
+      "durationMs": 552,
+      "meanDb": -15.9
+    },
+    {
+      "word": "prefer",
+      "file": "words/prefer.mp3",
+      "durationMs": 534,
+      "meanDb": -15.8
+    },
+    {
+      "word": "prefix",
+      "file": "words/prefix.mp3",
+      "durationMs": 607,
+      "meanDb": -15.8
+    },
+    {
+      "word": "prejudice",
+      "file": "words/prejudice.mp3",
+      "durationMs": 735,
+      "meanDb": -15.7
+    },
+    {
+      "word": "prepare",
+      "file": "words/prepare.mp3",
+      "durationMs": 567,
+      "meanDb": -15.8
+    },
+    {
+      "word": "preschool",
+      "file": "words/preschool.mp3",
+      "durationMs": 642,
+      "meanDb": -15.8
+    },
+    {
+      "word": "prescribe",
+      "file": "words/prescribe.mp3",
+      "durationMs": 734,
+      "meanDb": -16
+    },
+    {
+      "word": "presence",
+      "file": "words/presence.mp3",
+      "durationMs": 562,
+      "meanDb": -15.8
+    },
+    {
+      "word": "present",
+      "file": "words/present.mp3",
+      "durationMs": 544,
+      "meanDb": -15.9
+    },
+    {
+      "word": "presentable",
+      "file": "words/presentable.mp3",
+      "durationMs": 662,
+      "meanDb": -15.9
+    },
+    {
+      "word": "presentation",
+      "file": "words/presentation.mp3",
+      "durationMs": 796,
+      "meanDb": -15.6
+    },
+    {
+      "word": "presently",
+      "file": "words/presently.mp3",
+      "durationMs": 591,
+      "meanDb": -16
+    },
+    {
+      "word": "pressure",
+      "file": "words/pressure.mp3",
+      "durationMs": 472,
+      "meanDb": -16
+    },
+    {
+      "word": "preview",
+      "file": "words/preview.mp3",
+      "durationMs": 617,
+      "meanDb": -15.8
+    },
+    {
+      "word": "principal",
+      "file": "words/principal.mp3",
+      "durationMs": 681,
+      "meanDb": -15.8
+    },
+    {
+      "word": "pro",
+      "file": "words/pro.mp3",
+      "durationMs": 446,
+      "meanDb": -16
+    },
+    {
+      "word": "produce",
+      "file": "words/produce.mp3",
+      "durationMs": 630,
+      "meanDb": -15.8
+    },
+    {
+      "word": "producer",
+      "file": "words/producer.mp3",
+      "durationMs": 652,
+      "meanDb": -15.8
+    },
+    {
+      "word": "product",
+      "file": "words/product.mp3",
+      "durationMs": 587,
+      "meanDb": -16.6
+    },
+    {
+      "word": "production",
+      "file": "words/production.mp3",
+      "durationMs": 623,
+      "meanDb": -16.2
+    },
+    {
+      "word": "productive",
+      "file": "words/productive.mp3",
+      "durationMs": 690,
+      "meanDb": -16
+    },
+    {
+      "word": "progress",
+      "file": "words/progress.mp3",
+      "durationMs": 697,
+      "meanDb": -16.2
+    },
+    {
+      "word": "project",
+      "file": "words/project.mp3",
+      "durationMs": 642,
+      "meanDb": -16.5
+    },
+    {
+      "word": "promote",
+      "file": "words/promote.mp3",
+      "durationMs": 530,
+      "meanDb": -15.9
+    },
+    {
+      "word": "propose",
+      "file": "words/propose.mp3",
+      "durationMs": 665,
+      "meanDb": -15.8
+    },
+    {
+      "word": "prospect",
+      "file": "words/prospect.mp3",
+      "durationMs": 617,
+      "meanDb": -17.6
+    },
+    {
+      "word": "prospective",
+      "file": "words/prospective.mp3",
+      "durationMs": 754,
+      "meanDb": -15.7
+    },
+    {
+      "word": "prospectus",
+      "file": "words/prospectus.mp3",
+      "durationMs": 812,
+      "meanDb": -15.8
+    },
+    {
+      "word": "protect",
+      "file": "words/protect.mp3",
+      "durationMs": 540,
+      "meanDb": -15.9
+    },
+    {
+      "word": "provide",
+      "file": "words/provide.mp3",
+      "durationMs": 589,
+      "meanDb": -15.9
+    },
+    {
+      "word": "pure",
+      "file": "words/pure.mp3",
+      "durationMs": 467,
+      "meanDb": -15.9
+    },
+    {
+      "word": "pursue",
+      "file": "words/pursue.mp3",
+      "durationMs": 603,
+      "meanDb": -15.7
+    },
+    {
+      "word": "put",
+      "file": "words/put.mp3",
+      "durationMs": 368,
+      "meanDb": -17.5
+    },
+    {
+      "word": "queen",
+      "file": "words/queen.mp3",
+      "durationMs": 527,
+      "meanDb": -15.8
+    },
+    {
+      "word": "ques",
+      "file": "words/ques.mp3",
+      "durationMs": 540,
+      "meanDb": -16.1
+    },
+    {
+      "word": "quest",
+      "file": "words/quest.mp3",
+      "durationMs": 536,
+      "meanDb": -16.3
+    },
+    {
+      "word": "question",
+      "file": "words/question.mp3",
+      "durationMs": 624,
+      "meanDb": -16
+    },
+    {
+      "word": "questionable",
+      "file": "words/questionable.mp3",
+      "durationMs": 747,
+      "meanDb": -15.8
+    },
+    {
+      "word": "questioner",
+      "file": "words/questioner.mp3",
+      "durationMs": 618,
+      "meanDb": -16.2
+    },
+    {
+      "word": "questioning",
+      "file": "words/questioning.mp3",
+      "durationMs": 658,
+      "meanDb": -16
+    },
+    {
+      "word": "questionnaire",
+      "file": "words/questionnaire.mp3",
+      "durationMs": 700,
+      "meanDb": -15.7
+    },
+    {
+      "word": "queue",
+      "file": "words/queue.mp3",
+      "durationMs": 376,
+      "meanDb": -16.1
+    },
+    {
+      "word": "quickly",
+      "file": "words/quickly.mp3",
+      "durationMs": 518,
+      "meanDb": -15.8
+    },
+    {
+      "word": "quiet",
+      "file": "words/quiet.mp3",
+      "durationMs": 487,
+      "meanDb": -15.9
+    },
+    {
+      "word": "quite",
+      "file": "words/quite.mp3",
+      "durationMs": 403,
+      "meanDb": -16.4
+    },
+    {
+      "word": "ra",
+      "file": "words/ra.mp3",
+      "durationMs": 391,
+      "meanDb": -16
+    },
+    {
+      "word": "rain",
+      "file": "words/rain.mp3",
+      "durationMs": 572,
+      "meanDb": -15.9
+    },
+    {
+      "word": "rainy",
+      "file": "words/rainy.mp3",
+      "durationMs": 543,
+      "meanDb": -15.8
+    },
+    {
+      "word": "re",
+      "file": "words/re.mp3",
+      "durationMs": 481,
+      "meanDb": -15.9
+    },
+    {
+      "word": "read",
+      "file": "words/read.mp3",
+      "durationMs": 528,
+      "meanDb": -15.7
+    },
+    {
+      "word": "readable",
+      "file": "words/readable.mp3",
+      "durationMs": 604,
+      "meanDb": -15.8
+    },
+    {
+      "word": "realise",
+      "file": "words/realise.mp3",
+      "durationMs": 734,
+      "meanDb": -15.8
+    },
+    {
+      "word": "realize",
+      "file": "words/realize.mp3",
+      "durationMs": 729,
+      "meanDb": -15.7
+    },
+    {
+      "word": "rebuild",
+      "file": "words/rebuild.mp3",
+      "durationMs": 582,
+      "meanDb": -15.9
+    },
+    {
+      "word": "recognise",
+      "file": "words/recognise.mp3",
+      "durationMs": 906,
+      "meanDb": -16.2
+    },
+    {
+      "word": "reconstruction",
+      "file": "words/reconstruction.mp3",
+      "durationMs": 916,
+      "meanDb": -15.9
+    },
+    {
+      "word": "record",
+      "file": "words/record.mp3",
+      "durationMs": 504,
+      "meanDb": -16.3
+    },
+    {
+      "word": "recorded",
+      "file": "words/recorded.mp3",
+      "durationMs": 639,
+      "meanDb": -15.7
+    },
+    {
+      "word": "recorder",
+      "file": "words/recorder.mp3",
+      "durationMs": 570,
+      "meanDb": -15.9
+    },
+    {
+      "word": "recording",
+      "file": "words/recording.mp3",
+      "durationMs": 582,
+      "meanDb": -15.9
+    },
+    {
+      "word": "red",
+      "file": "words/red.mp3",
+      "durationMs": 436,
+      "meanDb": -15.9
+    },
+    {
+      "word": "reduce",
+      "file": "words/reduce.mp3",
+      "durationMs": 669,
+      "meanDb": -15.7
+    },
+    {
+      "word": "refer",
+      "file": "words/refer.mp3",
+      "durationMs": 548,
+      "meanDb": -15.8
+    },
+    {
+      "word": "reference",
+      "file": "words/reference.mp3",
+      "durationMs": 622,
+      "meanDb": -16.2
+    },
+    {
+      "word": "reform",
+      "file": "words/reform.mp3",
+      "durationMs": 715,
+      "meanDb": -15.7
+    },
+    {
+      "word": "refund",
+      "file": "words/refund.mp3",
+      "durationMs": 652,
+      "meanDb": -15.9
+    },
+    {
+      "word": "refusal",
+      "file": "words/refusal.mp3",
+      "durationMs": 697,
+      "meanDb": -15.8
+    },
+    {
+      "word": "refuse",
+      "file": "words/refuse.mp3",
+      "durationMs": 653,
+      "meanDb": -15.8
+    },
+    {
+      "word": "reject",
+      "file": "words/reject.mp3",
+      "durationMs": 651,
+      "meanDb": -15.8
+    },
+    {
+      "word": "relative",
+      "file": "words/relative.mp3",
+      "durationMs": 563,
+      "meanDb": -15.8
+    },
+    {
+      "word": "remind",
+      "file": "words/remind.mp3",
+      "durationMs": 649,
+      "meanDb": -15.8
+    },
+    {
+      "word": "report",
+      "file": "words/report.mp3",
+      "durationMs": 515,
+      "meanDb": -15.9
+    },
+    {
+      "word": "reporter",
+      "file": "words/reporter.mp3",
+      "durationMs": 581,
+      "meanDb": -16.2
+    },
+    {
+      "word": "request",
+      "file": "words/request.mp3",
+      "durationMs": 685,
+      "meanDb": -15.8
+    },
+    {
+      "word": "require",
+      "file": "words/require.mp3",
+      "durationMs": 615,
+      "meanDb": -15.8
+    },
+    {
+      "word": "resist",
+      "file": "words/resist.mp3",
+      "durationMs": 688,
+      "meanDb": -15.7
+    },
+    {
+      "word": "resistance",
+      "file": "words/resistance.mp3",
+      "durationMs": 698,
+      "meanDb": -15.8
+    },
+    {
+      "word": "resolve",
+      "file": "words/resolve.mp3",
+      "durationMs": 656,
+      "meanDb": -15.7
+    },
+    {
+      "word": "resonant",
+      "file": "words/resonant.mp3",
+      "durationMs": 556,
+      "meanDb": -15.8
+    },
+    {
+      "word": "respect",
+      "file": "words/respect.mp3",
+      "durationMs": 633,
+      "meanDb": -15.7
+    },
+    {
+      "word": "respectable",
+      "file": "words/respectable.mp3",
+      "durationMs": 734,
+      "meanDb": -15.7
+    },
+    {
+      "word": "respectful",
+      "file": "words/respectful.mp3",
+      "durationMs": 779,
+      "meanDb": -15.9
+    },
+    {
+      "word": "respectfully",
+      "file": "words/respectfully.mp3",
+      "durationMs": 810,
+      "meanDb": -16.3
+    },
+    {
+      "word": "respective",
+      "file": "words/respective.mp3",
+      "durationMs": 691,
+      "meanDb": -15.8
+    },
+    {
+      "word": "respectively",
+      "file": "words/respectively.mp3",
+      "durationMs": 836,
+      "meanDb": -15.7
+    },
+    {
+      "word": "restructure",
+      "file": "words/restructure.mp3",
+      "durationMs": 702,
+      "meanDb": -16.1
+    },
+    {
+      "word": "retort",
+      "file": "words/retort.mp3",
+      "durationMs": 570,
+      "meanDb": -15.7
+    },
+    {
+      "word": "return",
+      "file": "words/return.mp3",
+      "durationMs": 586,
+      "meanDb": -15.8
+    },
+    {
+      "word": "reverse",
+      "file": "words/reverse.mp3",
+      "durationMs": 629,
+      "meanDb": -15.8
+    },
+    {
+      "word": "review",
+      "file": "words/review.mp3",
+      "durationMs": 528,
+      "meanDb": -15.9
+    },
+    {
+      "word": "revise",
+      "file": "words/revise.mp3",
+      "durationMs": 676,
+      "meanDb": -16
+    },
+    {
+      "word": "revolve",
+      "file": "words/revolve.mp3",
+      "durationMs": 653,
+      "meanDb": -15.9
+    },
+    {
+      "word": "rewrite",
+      "file": "words/rewrite.mp3",
+      "durationMs": 586,
+      "meanDb": -15.8
+    },
+    {
+      "word": "right",
+      "file": "words/right.mp3",
+      "durationMs": 470,
+      "meanDb": -16.9
+    },
+    {
+      "word": "ring",
+      "file": "words/ring.mp3",
+      "durationMs": 450,
+      "meanDb": -16
+    },
+    {
+      "word": "river",
+      "file": "words/river.mp3",
+      "durationMs": 468,
+      "meanDb": -15.9
+    },
+    {
+      "word": "robot",
+      "file": "words/robot.mp3",
+      "durationMs": 577,
+      "meanDb": -15.8
+    },
+    {
+      "word": "room",
+      "file": "words/room.mp3",
+      "durationMs": 520,
+      "meanDb": -15.9
+    },
+    {
+      "word": "rose",
+      "file": "words/rose.mp3",
+      "durationMs": 553,
+      "meanDb": -15.8
+    },
+    {
+      "word": "rough",
+      "file": "words/rough.mp3",
+      "durationMs": 440,
+      "meanDb": -16.6
+    },
+    {
+      "word": "said",
+      "file": "words/said.mp3",
+      "durationMs": 408,
+      "meanDb": -15.9
+    },
+    {
+      "word": "sandy",
+      "file": "words/sandy.mp3",
+      "durationMs": 589,
+      "meanDb": -15.8
+    },
+    {
+      "word": "says",
+      "file": "words/says.mp3",
+      "durationMs": 487,
+      "meanDb": -15.9
+    },
+    {
+      "word": "school",
+      "file": "words/school.mp3",
+      "durationMs": 425,
+      "meanDb": -16
+    },
+    {
+      "word": "scientist",
+      "file": "words/scientist.mp3",
+      "durationMs": 681,
+      "meanDb": -15.8
+    },
+    {
+      "word": "scissors",
+      "file": "words/scissors.mp3",
+      "durationMs": 664,
+      "meanDb": -15.7
+    },
+    {
+      "word": "script",
+      "file": "words/script.mp3",
+      "durationMs": 509,
+      "meanDb": -16
+    },
+    {
+      "word": "sea",
+      "file": "words/sea.mp3",
+      "durationMs": 437,
       "meanDb": -15.9
     },
     {
@@ -383,1299 +4631,1281 @@
       "meanDb": -15.9
     },
     {
-      "word": "sit",
-      "file": "words/sit.mp3",
-      "durationMs": 339,
-      "meanDb": -16.4
-    },
-    {
-      "word": "big",
-      "file": "words/big.mp3",
-      "durationMs": 416,
-      "meanDb": -16
-    },
-    {
-      "word": "women",
-      "file": "words/women.mp3",
-      "durationMs": 441,
-      "meanDb": -16
-    },
-    {
-      "word": "live",
-      "file": "words/live.mp3",
-      "durationMs": 501,
-      "meanDb": -15.9
-    },
-    {
-      "word": "bed",
-      "file": "words/bed.mp3",
-      "durationMs": 430,
-      "meanDb": -15.9
-    },
-    {
-      "word": "head",
-      "file": "words/head.mp3",
-      "durationMs": 521,
-      "meanDb": -15.9
-    },
-    {
-      "word": "any",
-      "file": "words/any.mp3",
-      "durationMs": 417,
-      "meanDb": -16
-    },
-    {
-      "word": "said",
-      "file": "words/said.mp3",
-      "durationMs": 463,
-      "meanDb": -15.9
-    },
-    {
-      "word": "bad",
-      "file": "words/bad.mp3",
-      "durationMs": 438,
-      "meanDb": -16
-    },
-    {
-      "word": "cat",
-      "file": "words/cat.mp3",
-      "durationMs": 352,
-      "meanDb": -16.1
-    },
-    {
-      "word": "hand",
-      "file": "words/hand.mp3",
-      "durationMs": 459,
-      "meanDb": -15.9
-    },
-    {
-      "word": "happy",
-      "file": "words/happy.mp3",
-      "durationMs": 505,
-      "meanDb": -16.3
-    },
-    {
-      "word": "bird",
-      "file": "words/bird.mp3",
-      "durationMs": 501,
-      "meanDb": -15.9
-    },
-    {
-      "word": "nurse",
-      "file": "words/nurse.mp3",
-      "durationMs": 531,
+      "word": "section",
+      "file": "words/section.mp3",
+      "durationMs": 561,
       "meanDb": -15.8
     },
     {
-      "word": "work",
-      "file": "words/work.mp3",
-      "durationMs": 372,
-      "meanDb": -16.1
-    },
-    {
-      "word": "girl",
-      "file": "words/girl.mp3",
-      "durationMs": 472,
-      "meanDb": -15.9
-    },
-    {
-      "word": "about",
-      "file": "words/about.mp3",
-      "durationMs": 554,
-      "meanDb": -15.9
-    },
-    {
-      "word": "sofa",
-      "file": "words/sofa.mp3",
-      "durationMs": 466,
-      "meanDb": -15.9
-    },
-    {
-      "word": "system",
-      "file": "words/system.mp3",
-      "durationMs": 533,
-      "meanDb": -15.9
-    },
-    {
-      "word": "support",
-      "file": "words/support.mp3",
-      "durationMs": 530,
-      "meanDb": -16
-    },
-    {
-      "word": "abound",
-      "file": "words/abound.mp3",
-      "durationMs": 556,
-      "meanDb": -15.8
-    },
-    {
-      "word": "car",
-      "file": "words/car.mp3",
-      "durationMs": 389,
-      "meanDb": -16.1
-    },
-    {
-      "word": "father",
-      "file": "words/father.mp3",
-      "durationMs": 436,
-      "meanDb": -15.9
-    },
-    {
-      "word": "arm",
-      "file": "words/arm.mp3",
-      "durationMs": 513,
-      "meanDb": -15.9
-    },
-    {
-      "word": "calm",
-      "file": "words/calm.mp3",
-      "durationMs": 530,
-      "meanDb": -15.9
-    },
-    {
-      "word": "come",
-      "file": "words/come.mp3",
-      "durationMs": 487,
-      "meanDb": -15.9
-    },
-    {
-      "word": "hot",
-      "file": "words/hot.mp3",
-      "durationMs": 436,
-      "meanDb": -16
-    },
-    {
-      "word": "dog",
-      "file": "words/dog.mp3",
-      "durationMs": 435,
-      "meanDb": -16
-    },
-    {
-      "word": "watch",
-      "file": "words/watch.mp3",
-      "durationMs": 472,
-      "meanDb": -15.9
-    },
-    {
-      "word": "sorry",
-      "file": "words/sorry.mp3",
-      "durationMs": 436,
-      "meanDb": -16
-    },
-    {
-      "word": "hat",
-      "file": "words/hat.mp3",
-      "durationMs": 414,
-      "meanDb": -16
-    },
-    {
-      "word": "door",
-      "file": "words/door.mp3",
-      "durationMs": 403,
-      "meanDb": -16
-    },
-    {
-      "word": "call",
-      "file": "words/call.mp3",
-      "durationMs": 476,
-      "meanDb": -15.9
-    },
-    {
-      "word": "four",
-      "file": "words/four.mp3",
-      "durationMs": 463,
-      "meanDb": -15.9
-    },
-    {
-      "word": "bought",
-      "file": "words/bought.mp3",
-      "durationMs": 394,
-      "meanDb": -16
-    },
-    {
-      "word": "book",
-      "file": "words/book.mp3",
-      "durationMs": 406,
-      "meanDb": -16
-    },
-    {
-      "word": "put",
-      "file": "words/put.mp3",
-      "durationMs": 378,
-      "meanDb": -16.1
-    },
-    {
-      "word": "woman",
-      "file": "words/woman.mp3",
-      "durationMs": 508,
-      "meanDb": -15.8
-    },
-    {
-      "word": "good",
-      "file": "words/good.mp3",
-      "durationMs": 454,
-      "meanDb": -16
-    },
-    {
-      "word": "full",
-      "file": "words/full.mp3",
-      "durationMs": 435,
-      "meanDb": -16
-    },
-    {
-      "word": "fool",
-      "file": "words/fool.mp3",
-      "durationMs": 454,
-      "meanDb": -15.9
-    },
-    {
-      "word": "blue",
-      "file": "words/blue.mp3",
-      "durationMs": 452,
-      "meanDb": -16
-    },
-    {
-      "word": "food",
-      "file": "words/food.mp3",
-      "durationMs": 460,
-      "meanDb": -15.9
-    },
-    {
-      "word": "room",
-      "file": "words/room.mp3",
-      "durationMs": 584,
-      "meanDb": -15.8
-    },
-    {
-      "word": "to",
-      "file": "words/to.mp3",
-      "durationMs": 324,
-      "meanDb": -16.1
-    },
-    {
-      "word": "cup",
-      "file": "words/cup.mp3",
-      "durationMs": 389,
-      "meanDb": -16.1
-    },
-    {
-      "word": "love",
-      "file": "words/love.mp3",
-      "durationMs": 505,
-      "meanDb": -15.9
-    },
-    {
-      "word": "blood",
-      "file": "words/blood.mp3",
-      "durationMs": 472,
-      "meanDb": -16
-    },
-    {
-      "word": "money",
-      "file": "words/money.mp3",
-      "durationMs": 464,
-      "meanDb": -15.9
-    },
-    {
-      "word": "cut",
-      "file": "words/cut.mp3",
-      "durationMs": 373,
-      "meanDb": -16.9
-    },
-    {
-      "word": "cart",
-      "file": "words/cart.mp3",
-      "durationMs": 359,
-      "meanDb": -16.2
-    },
-    {
-      "word": "day",
-      "file": "words/day.mp3",
-      "durationMs": 434,
-      "meanDb": -16
-    },
-    {
-      "word": "name",
-      "file": "words/name.mp3",
-      "durationMs": 536,
-      "meanDb": -15.9
-    },
-    {
-      "word": "eight",
-      "file": "words/eight.mp3",
-      "durationMs": 436,
-      "meanDb": -15.9
-    },
-    {
-      "word": "they",
-      "file": "words/they.mp3",
-      "durationMs": 405,
-      "meanDb": -16
-    },
-    {
-      "word": "late",
-      "file": "words/late.mp3",
+      "word": "see",
+      "file": "words/see.mp3",
       "durationMs": 423,
       "meanDb": -15.9
     },
     {
-      "word": "let",
-      "file": "words/let.mp3",
-      "durationMs": 446,
-      "meanDb": -16
+      "word": "semicircle",
+      "file": "words/semicircle.mp3",
+      "durationMs": 679,
+      "meanDb": -15.8
     },
     {
-      "word": "my",
-      "file": "words/my.mp3",
-      "durationMs": 479,
-      "meanDb": -15.9
+      "word": "semiconductor",
+      "file": "words/semiconductor.mp3",
+      "durationMs": 880,
+      "meanDb": -15.7
     },
     {
-      "word": "time",
-      "file": "words/time.mp3",
-      "durationMs": 501,
-      "meanDb": -16
+      "word": "semifinal",
+      "file": "words/semifinal.mp3",
+      "durationMs": 716,
+      "meanDb": -15.7
     },
     {
-      "word": "fly",
-      "file": "words/fly.mp3",
-      "durationMs": 470,
-      "meanDb": -16
+      "word": "semiskilled",
+      "file": "words/semiskilled.mp3",
+      "durationMs": 774,
+      "meanDb": -15.8
     },
     {
-      "word": "eye",
-      "file": "words/eye.mp3",
-      "durationMs": 429,
-      "meanDb": -16
-    },
-    {
-      "word": "bite",
-      "file": "words/bite.mp3",
+      "word": "sent",
+      "file": "words/sent.mp3",
       "durationMs": 408,
-      "meanDb": -16.6
-    },
-    {
-      "word": "bet",
-      "file": "words/bet.mp3",
-      "durationMs": 401,
-      "meanDb": -16
-    },
-    {
-      "word": "boy",
-      "file": "words/boy.mp3",
-      "durationMs": 426,
-      "meanDb": -16
-    },
-    {
-      "word": "noise",
-      "file": "words/noise.mp3",
-      "durationMs": 626,
-      "meanDb": -15.8
-    },
-    {
-      "word": "coin",
-      "file": "words/coin.mp3",
-      "durationMs": 573,
-      "meanDb": -15.8
-    },
-    {
-      "word": "join",
-      "file": "words/join.mp3",
-      "durationMs": 464,
       "meanDb": -15.9
     },
     {
-      "word": "coil",
-      "file": "words/coil.mp3",
-      "durationMs": 551,
+      "word": "sequence",
+      "file": "words/sequence.mp3",
+      "durationMs": 711,
       "meanDb": -15.9
     },
     {
-      "word": "curl",
-      "file": "words/curl.mp3",
-      "durationMs": 478,
-      "meanDb": -15.9
-    },
-    {
-      "word": "go",
-      "file": "words/go.mp3",
-      "durationMs": 360,
-      "meanDb": -16.1
-    },
-    {
-      "word": "home",
-      "file": "words/home.mp3",
-      "durationMs": 652,
-      "meanDb": -15.8
-    },
-    {
-      "word": "boat",
-      "file": "words/boat.mp3",
-      "durationMs": 391,
-      "meanDb": -16
-    },
-    {
-      "word": "know",
-      "file": "words/know.mp3",
-      "durationMs": 437,
-      "meanDb": -16
-    },
-    {
-      "word": "house",
-      "file": "words/house.mp3",
-      "durationMs": 526,
-      "meanDb": -16.3
-    },
-    {
-      "word": "now",
-      "file": "words/now.mp3",
-      "durationMs": 399,
-      "meanDb": -16
-    },
-    {
-      "word": "mouth",
-      "file": "words/mouth.mp3",
-      "durationMs": 470,
-      "meanDb": -15.9
-    },
-    {
-      "word": "out",
-      "file": "words/out.mp3",
-      "durationMs": 435,
-      "meanDb": -15.9
-    },
-    {
-      "word": "horse",
-      "file": "words/horse.mp3",
-      "durationMs": 528,
-      "meanDb": -15.9
-    },
-    {
-      "word": "here",
-      "file": "words/here.mp3",
-      "durationMs": 436,
-      "meanDb": -16
-    },
-    {
-      "word": "near",
-      "file": "words/near.mp3",
-      "durationMs": 460,
-      "meanDb": -15.9
-    },
-    {
-      "word": "beer",
-      "file": "words/beer.mp3",
-      "durationMs": 446,
-      "meanDb": -16
-    },
-    {
-      "word": "idea",
-      "file": "words/idea.mp3",
-      "durationMs": 620,
-      "meanDb": -15.8
-    },
-    {
-      "word": "bear",
-      "file": "words/bear.mp3",
-      "durationMs": 472,
-      "meanDb": -15.9
-    },
-    {
-      "word": "hair",
-      "file": "words/hair.mp3",
-      "durationMs": 478,
-      "meanDb": -15.9
-    },
-    {
-      "word": "there",
-      "file": "words/there.mp3",
-      "durationMs": 458,
-      "meanDb": -15.9
-    },
-    {
-      "word": "care",
-      "file": "words/care.mp3",
-      "durationMs": 413,
-      "meanDb": -15.9
-    },
-    {
-      "word": "tour",
-      "file": "words/tour.mp3",
-      "durationMs": 401,
-      "meanDb": -16
-    },
-    {
-      "word": "pure",
-      "file": "words/pure.mp3",
-      "durationMs": 499,
-      "meanDb": -15.9
-    },
-    {
-      "word": "sure",
-      "file": "words/sure.mp3",
-      "durationMs": 365,
-      "meanDb": -16.1
-    },
-    {
-      "word": "lure",
-      "file": "words/lure.mp3",
-      "durationMs": 421,
-      "meanDb": -16
-    },
-    {
-      "word": "toe",
-      "file": "words/toe.mp3",
-      "durationMs": 450,
-      "meanDb": -16
-    },
-    {
-      "word": "pen",
-      "file": "words/pen.mp3",
-      "durationMs": 438,
-      "meanDb": -16
-    },
-    {
-      "word": "speak",
-      "file": "words/speak.mp3",
-      "durationMs": 428,
-      "meanDb": -16
-    },
-    {
-      "word": "pat",
-      "file": "words/pat.mp3",
-      "durationMs": 388,
-      "meanDb": -16.5
-    },
-    {
-      "word": "bat",
-      "file": "words/bat.mp3",
-      "durationMs": 375,
-      "meanDb": -16.1
-    },
-    {
-      "word": "club",
-      "file": "words/club.mp3",
-      "durationMs": 395,
-      "meanDb": -16.1
-    },
-    {
-      "word": "robot",
-      "file": "words/robot.mp3",
-      "durationMs": 568,
-      "meanDb": -15.8
-    },
-    {
-      "word": "buy",
-      "file": "words/buy.mp3",
-      "durationMs": 403,
-      "meanDb": -16.3
-    },
-    {
-      "word": "tea",
-      "file": "words/tea.mp3",
-      "durationMs": 363,
-      "meanDb": -16.1
-    },
-    {
-      "word": "stop",
-      "file": "words/stop.mp3",
-      "durationMs": 387,
-      "meanDb": -16
-    },
-    {
-      "word": "water",
-      "file": "words/water.mp3",
-      "durationMs": 485,
-      "meanDb": -15.9
-    },
-    {
-      "word": "tin",
-      "file": "words/tin.mp3",
-      "durationMs": 425,
-      "meanDb": -15.9
-    },
-    {
-      "word": "din",
-      "file": "words/din.mp3",
-      "durationMs": 499,
-      "meanDb": -15.9
-    },
-    {
-      "word": "made",
-      "file": "words/made.mp3",
-      "durationMs": 516,
-      "meanDb": -15.8
-    },
-    {
-      "word": "red",
-      "file": "words/red.mp3",
-      "durationMs": 447,
-      "meanDb": -15.9
-    },
-    {
-      "word": "do",
-      "file": "words/do.mp3",
-      "durationMs": 371,
-      "meanDb": -16
-    },
-    {
-      "word": "school",
-      "file": "words/school.mp3",
-      "durationMs": 465,
-      "meanDb": -15.9
-    },
-    {
-      "word": "back",
-      "file": "words/back.mp3",
-      "durationMs": 376,
-      "meanDb": -16.2
-    },
-    {
-      "word": "queue",
-      "file": "words/queue.mp3",
-      "durationMs": 377,
-      "meanDb": -16
-    },
-    {
-      "word": "cap",
-      "file": "words/cap.mp3",
-      "durationMs": 420,
-      "meanDb": -16
-    },
-    {
-      "word": "gap",
-      "file": "words/gap.mp3",
-      "durationMs": 410,
-      "meanDb": -16
-    },
-    {
-      "word": "egg",
-      "file": "words/egg.mp3",
-      "durationMs": 456,
-      "meanDb": -15.9
-    },
-    {
-      "word": "guess",
-      "file": "words/guess.mp3",
-      "durationMs": 511,
-      "meanDb": -15.9
-    },
-    {
-      "word": "fish",
-      "file": "words/fish.mp3",
-      "durationMs": 498,
-      "meanDb": -15.9
-    },
-    {
-      "word": "leaf",
-      "file": "words/leaf.mp3",
-      "durationMs": 486,
-      "meanDb": -15.9
-    },
-    {
-      "word": "phone",
-      "file": "words/phone.mp3",
-      "durationMs": 520,
-      "meanDb": -15.9
-    },
-    {
-      "word": "enough",
-      "file": "words/enough.mp3",
-      "durationMs": 555,
-      "meanDb": -15.8
-    },
-    {
-      "word": "fan",
-      "file": "words/fan.mp3",
-      "durationMs": 422,
-      "meanDb": -16
-    },
-    {
-      "word": "van",
-      "file": "words/van.mp3",
-      "durationMs": 463,
-      "meanDb": -15.9
-    },
-    {
-      "word": "very",
-      "file": "words/very.mp3",
-      "durationMs": 498,
-      "meanDb": -15.9
-    },
-    {
-      "word": "leave",
-      "file": "words/leave.mp3",
-      "durationMs": 473,
-      "meanDb": -15.9
-    },
-    {
-      "word": "voice",
-      "file": "words/voice.mp3",
-      "durationMs": 461,
-      "meanDb": -16
-    },
-    {
-      "word": "have",
-      "file": "words/have.mp3",
-      "durationMs": 455,
-      "meanDb": -15.9
-    },
-    {
-      "word": "vine",
-      "file": "words/vine.mp3",
-      "durationMs": 560,
-      "meanDb": -15.9
-    },
-    {
-      "word": "fine",
-      "file": "words/fine.mp3",
-      "durationMs": 512,
-      "meanDb": -15.9
-    },
-    {
-      "word": "think",
-      "file": "words/think.mp3",
-      "durationMs": 441,
-      "meanDb": -16
-    },
-    {
-      "word": "thank",
-      "file": "words/thank.mp3",
-      "durationMs": 446,
-      "meanDb": -15.9
-    },
-    {
-      "word": "bath",
-      "file": "words/bath.mp3",
-      "durationMs": 541,
-      "meanDb": -15.8
-    },
-    {
-      "word": "math",
-      "file": "words/math.mp3",
-      "durationMs": 439,
-      "meanDb": -15.9
-    },
-    {
-      "word": "sink",
-      "file": "words/sink.mp3",
-      "durationMs": 409,
-      "meanDb": -16
-    },
-    {
-      "word": "this",
-      "file": "words/this.mp3",
-      "durationMs": 518,
-      "meanDb": -15.9
-    },
-    {
-      "word": "mother",
-      "file": "words/mother.mp3",
-      "durationMs": 421,
-      "meanDb": -16
-    },
-    {
-      "word": "clothes",
-      "file": "words/clothes.mp3",
-      "durationMs": 624,
-      "meanDb": -15.8
-    },
-    {
-      "word": "bathe",
-      "file": "words/bathe.mp3",
-      "durationMs": 517,
-      "meanDb": -15.9
-    },
-    {
-      "word": "diss",
-      "file": "words/diss.mp3",
-      "durationMs": 420,
-      "meanDb": -16
-    },
-    {
-      "word": "city",
-      "file": "words/city.mp3",
-      "durationMs": 383,
-      "meanDb": -16.1
-    },
-    {
-      "word": "ice",
-      "file": "words/ice.mp3",
-      "durationMs": 555,
-      "meanDb": -15.9
-    },
-    {
-      "word": "sip",
-      "file": "words/sip.mp3",
-      "durationMs": 333,
-      "meanDb": -16.1
-    },
-    {
-      "word": "ship",
-      "file": "words/ship.mp3",
-      "durationMs": 294,
-      "meanDb": -16.3
-    },
-    {
-      "word": "zoo",
-      "file": "words/zoo.mp3",
-      "durationMs": 503,
-      "meanDb": -15.9
-    },
-    {
-      "word": "easy",
-      "file": "words/easy.mp3",
-      "durationMs": 428,
-      "meanDb": -15.9
-    },
-    {
-      "word": "rose",
-      "file": "words/rose.mp3",
-      "durationMs": 525,
-      "meanDb": -15.8
-    },
-    {
-      "word": "zero",
-      "file": "words/zero.mp3",
-      "durationMs": 618,
-      "meanDb": -15.8
-    },
-    {
-      "word": "suit",
-      "file": "words/suit.mp3",
-      "durationMs": 442,
+      "word": "shall",
+      "file": "words/shall.mp3",
+      "durationMs": 424,
       "meanDb": -16
     },
     {
       "word": "she",
       "file": "words/she.mp3",
-      "durationMs": 417,
+      "durationMs": 397,
       "meanDb": -16
     },
     {
-      "word": "sugar",
-      "file": "words/sugar.mp3",
-      "durationMs": 435,
-      "meanDb": -16
-    },
-    {
-      "word": "nation",
-      "file": "words/nation.mp3",
-      "durationMs": 568,
-      "meanDb": -15.8
-    },
-    {
-      "word": "cash",
-      "file": "words/cash.mp3",
-      "durationMs": 474,
-      "meanDb": -15.9
-    },
-    {
-      "word": "measure",
-      "file": "words/measure.mp3",
-      "durationMs": 391,
-      "meanDb": -16
-    },
-    {
-      "word": "vision",
-      "file": "words/vision.mp3",
-      "durationMs": 539,
-      "meanDb": -15.9
-    },
-    {
-      "word": "usual",
-      "file": "words/usual.mp3",
-      "durationMs": 605,
-      "meanDb": -15.8
-    },
-    {
-      "word": "garage",
-      "file": "words/garage.mp3",
-      "durationMs": 668,
-      "meanDb": -15.7
-    },
-    {
-      "word": "pleasure",
-      "file": "words/pleasure.mp3",
-      "durationMs": 402,
-      "meanDb": -16
-    },
-    {
-      "word": "pressure",
-      "file": "words/pressure.mp3",
-      "durationMs": 496,
-      "meanDb": -15.9
-    },
-    {
-      "word": "hello",
-      "file": "words/hello.mp3",
-      "durationMs": 551,
-      "meanDb": -15.9
-    },
-    {
-      "word": "behind",
-      "file": "words/behind.mp3",
-      "durationMs": 579,
-      "meanDb": -15.8
-    },
-    {
-      "word": "who",
-      "file": "words/who.mp3",
-      "durationMs": 483,
-      "meanDb": -15.9
-    },
-    {
-      "word": "at",
-      "file": "words/at.mp3",
-      "durationMs": 385,
-      "meanDb": -16
-    },
-    {
-      "word": "chair",
-      "file": "words/chair.mp3",
-      "durationMs": 428,
-      "meanDb": -16
-    },
-    {
-      "word": "nature",
-      "file": "words/nature.mp3",
-      "durationMs": 540,
-      "meanDb": -15.9
-    },
-    {
-      "word": "teach",
-      "file": "words/teach.mp3",
+      "word": "sheep",
+      "file": "words/sheep.mp3",
       "durationMs": 437,
+      "meanDb": -15.9
+    },
+    {
+      "word": "ship",
+      "file": "words/ship.mp3",
+      "durationMs": 285,
+      "meanDb": -16.4
+    },
+    {
+      "word": "si",
+      "file": "words/si.mp3",
+      "durationMs": 404,
       "meanDb": -16
     },
     {
-      "word": "choke",
-      "file": "words/choke.mp3",
-      "durationMs": 417,
-      "meanDb": -16.1
-    },
-    {
-      "word": "joke",
-      "file": "words/joke.mp3",
-      "durationMs": 377,
-      "meanDb": -16.1
-    },
-    {
-      "word": "jump",
-      "file": "words/jump.mp3",
-      "durationMs": 385,
-      "meanDb": -16
-    },
-    {
-      "word": "page",
-      "file": "words/page.mp3",
-      "durationMs": 517,
-      "meanDb": -15.9
-    },
-    {
-      "word": "soldier",
-      "file": "words/soldier.mp3",
-      "durationMs": 551,
-      "meanDb": -15.9
-    },
-    {
-      "word": "bridge",
-      "file": "words/bridge.mp3",
-      "durationMs": 481,
-      "meanDb": -15.9
-    },
-    {
-      "word": "man",
-      "file": "words/man.mp3",
-      "durationMs": 598,
-      "meanDb": -15.8
-    },
-    {
-      "word": "swim",
-      "file": "words/swim.mp3",
-      "durationMs": 411,
-      "meanDb": -16
-    },
-    {
-      "word": "autumn",
-      "file": "words/autumn.mp3",
-      "durationMs": 511,
-      "meanDb": -15.9
-    },
-    {
-      "word": "mat",
-      "file": "words/mat.mp3",
-      "durationMs": 465,
-      "meanDb": -15.9
-    },
-    {
-      "word": "gnat",
-      "file": "words/gnat.mp3",
-      "durationMs": 450,
-      "meanDb": -16
-    },
-    {
-      "word": "no",
-      "file": "words/no.mp3",
-      "durationMs": 416,
-      "meanDb": -16
-    },
-    {
-      "word": "sun",
-      "file": "words/sun.mp3",
-      "durationMs": 382,
-      "meanDb": -16.1
-    },
-    {
-      "word": "so",
-      "file": "words/so.mp3",
-      "durationMs": 398,
-      "meanDb": -16
-    },
-    {
-      "word": "sing",
-      "file": "words/sing.mp3",
-      "durationMs": 454,
-      "meanDb": -15.9
-    },
-    {
-      "word": "finger",
-      "file": "words/finger.mp3",
-      "durationMs": 498,
-      "meanDb": -15.9
-    },
-    {
-      "word": "drink",
-      "file": "words/drink.mp3",
-      "durationMs": 402,
+      "word": "simplify",
+      "file": "words/simplify.mp3",
+      "durationMs": 693,
       "meanDb": -16
     },
     {
       "word": "sin",
       "file": "words/sin.mp3",
-      "durationMs": 483,
-      "meanDb": -15.9
+      "durationMs": 368,
+      "meanDb": -16.1
     },
     {
-      "word": "like",
-      "file": "words/like.mp3",
-      "durationMs": 418,
+      "word": "sing",
+      "file": "words/sing.mp3",
+      "durationMs": 420,
       "meanDb": -16
     },
     {
-      "word": "help",
-      "file": "words/help.mp3",
-      "durationMs": 402,
+      "word": "sink",
+      "file": "words/sink.mp3",
+      "durationMs": 382,
       "meanDb": -16
     },
     {
-      "word": "feel",
-      "file": "words/feel.mp3",
-      "durationMs": 472,
-      "meanDb": -15.9
-    },
-    {
-      "word": "letter",
-      "file": "words/letter.mp3",
-      "durationMs": 454,
-      "meanDb": -16
-    },
-    {
-      "word": "led",
-      "file": "words/led.mp3",
-      "durationMs": 459,
-      "meanDb": -16
-    },
-    {
-      "word": "right",
-      "file": "words/right.mp3",
-      "durationMs": 443,
-      "meanDb": -16.8
-    },
-    {
-      "word": "write",
-      "file": "words/write.mp3",
-      "durationMs": 422,
-      "meanDb": -16.5
-    },
-    {
-      "word": "light",
-      "file": "words/light.mp3",
-      "durationMs": 482,
-      "meanDb": -16
-    },
-    {
-      "word": "we",
-      "file": "words/we.mp3",
-      "durationMs": 487,
-      "meanDb": -16
-    },
-    {
-      "word": "one",
-      "file": "words/one.mp3",
-      "durationMs": 462,
-      "meanDb": -16
-    },
-    {
-      "word": "answer",
-      "file": "words/answer.mp3",
-      "durationMs": 532,
-      "meanDb": -15.9
-    },
-    {
-      "word": "wine",
-      "file": "words/wine.mp3",
-      "durationMs": 543,
-      "meanDb": -15.9
-    },
-    {
-      "word": "yes",
-      "file": "words/yes.mp3",
-      "durationMs": 558,
+      "word": "sion",
+      "file": "words/sion.mp3",
+      "durationMs": 599,
       "meanDb": -15.8
     },
     {
-      "word": "unit",
-      "file": "words/unit.mp3",
-      "durationMs": 485,
-      "meanDb": -15.9
-    },
-    {
-      "word": "beauty",
-      "file": "words/beauty.mp3",
-      "durationMs": 479,
+      "word": "sip",
+      "file": "words/sip.mp3",
+      "durationMs": 426,
       "meanDb": -16
     },
     {
-      "word": "use",
-      "file": "words/use.mp3",
+      "word": "sit",
+      "file": "words/sit.mp3",
+      "durationMs": 338,
+      "meanDb": -16.1
+    },
+    {
+      "word": "sky",
+      "file": "words/sky.mp3",
+      "durationMs": 478,
+      "meanDb": -15.9
+    },
+    {
+      "word": "slowly",
+      "file": "words/slowly.mp3",
+      "durationMs": 551,
+      "meanDb": -15.8
+    },
+    {
+      "word": "small",
+      "file": "words/small.mp3",
+      "durationMs": 555,
+      "meanDb": -15.8
+    },
+    {
+      "word": "so",
+      "file": "words/so.mp3",
+      "durationMs": 409,
+      "meanDb": -16
+    },
+    {
+      "word": "sofa",
+      "file": "words/sofa.mp3",
       "durationMs": 536,
+      "meanDb": -15.8
+    },
+    {
+      "word": "solar",
+      "file": "words/solar.mp3",
+      "durationMs": 515,
+      "meanDb": -16
+    },
+    {
+      "word": "soldier",
+      "file": "words/soldier.mp3",
+      "durationMs": 499,
       "meanDb": -15.9
     },
     {
-      "word": "es",
-      "file": "words/es.mp3",
-      "durationMs": 446,
-      "meanDb": -16
+      "word": "solve",
+      "file": "words/solve.mp3",
+      "durationMs": 571,
+      "meanDb": -15.9
     },
     {
-      "word": "tree",
-      "file": "words/tree.mp3",
-      "durationMs": 417,
-      "meanDb": -16
+      "word": "sonar",
+      "file": "words/sonar.mp3",
+      "durationMs": 564,
+      "meanDb": -15.9
     },
     {
-      "word": "country",
-      "file": "words/country.mp3",
-      "durationMs": 531,
+      "word": "sonata",
+      "file": "words/sonata.mp3",
+      "durationMs": 542,
       "meanDb": -15.8
     },
     {
-      "word": "track",
-      "file": "words/track.mp3",
-      "durationMs": 460,
+      "word": "song",
+      "file": "words/song.mp3",
+      "durationMs": 422,
       "meanDb": -16
     },
     {
-      "word": "interest",
-      "file": "words/interest.mp3",
-      "durationMs": 587,
+      "word": "sorry",
+      "file": "words/sorry.mp3",
+      "durationMs": 508,
+      "meanDb": -15.9
+    },
+    {
+      "word": "soup",
+      "file": "words/soup.mp3",
+      "durationMs": 451,
+      "meanDb": -16
+    },
+    {
+      "word": "speak",
+      "file": "words/speak.mp3",
+      "durationMs": 322,
+      "meanDb": -16.1
+    },
+    {
+      "word": "special",
+      "file": "words/special.mp3",
+      "durationMs": 439,
+      "meanDb": -15.9
+    },
+    {
+      "word": "specialist",
+      "file": "words/specialist.mp3",
+      "durationMs": 645,
+      "meanDb": -15.7
+    },
+    {
+      "word": "spect",
+      "file": "words/spect.mp3",
+      "durationMs": 484,
+      "meanDb": -16.3
+    },
+    {
+      "word": "spectacular",
+      "file": "words/spectacular.mp3",
+      "durationMs": 782,
+      "meanDb": -15.7
+    },
+    {
+      "word": "spectator",
+      "file": "words/spectator.mp3",
+      "durationMs": 620,
       "meanDb": -15.8
     },
     {
-      "word": "train",
-      "file": "words/train.mp3",
+      "word": "speed",
+      "file": "words/speed.mp3",
+      "durationMs": 439,
+      "meanDb": -16
+    },
+    {
+      "word": "spin",
+      "file": "words/spin.mp3",
+      "durationMs": 390,
+      "meanDb": -16
+    },
+    {
+      "word": "sport",
+      "file": "words/sport.mp3",
+      "durationMs": 375,
+      "meanDb": -16.1
+    },
+    {
+      "word": "stage",
+      "file": "words/stage.mp3",
       "durationMs": 504,
       "meanDb": -15.9
     },
     {
-      "word": "drain",
-      "file": "words/drain.mp3",
+      "word": "star",
+      "file": "words/star.mp3",
+      "durationMs": 463,
+      "meanDb": -16
+    },
+    {
+      "word": "station",
+      "file": "words/station.mp3",
+      "durationMs": 516,
+      "meanDb": -15.9
+    },
+    {
+      "word": "stepwise",
+      "file": "words/stepwise.mp3",
+      "durationMs": 667,
+      "meanDb": -16
+    },
+    {
+      "word": "stop",
+      "file": "words/stop.mp3",
+      "durationMs": 404,
+      "meanDb": -16
+    },
+    {
+      "word": "storage",
+      "file": "words/storage.mp3",
+      "durationMs": 512,
+      "meanDb": -15.9
+    },
+    {
+      "word": "street",
+      "file": "words/street.mp3",
+      "durationMs": 421,
+      "meanDb": -16
+    },
+    {
+      "word": "strong",
+      "file": "words/strong.mp3",
       "durationMs": 500,
       "meanDb": -15.9
     },
     {
-      "word": "dress",
-      "file": "words/dress.mp3",
-      "durationMs": 558,
-      "meanDb": -15.8
+      "word": "stronger",
+      "file": "words/stronger.mp3",
+      "durationMs": 520,
+      "meanDb": -15.9
     },
     {
-      "word": "hundred",
-      "file": "words/hundred.mp3",
-      "durationMs": 566,
-      "meanDb": -15.8
+      "word": "struc",
+      "file": "words/struc.mp3",
+      "durationMs": 407,
+      "meanDb": -16
     },
     {
-      "word": "dry",
-      "file": "words/dry.mp3",
-      "durationMs": 481,
+      "word": "structural",
+      "file": "words/structural.mp3",
+      "durationMs": 656,
+      "meanDb": -16.1
+    },
+    {
+      "word": "structure",
+      "file": "words/structure.mp3",
+      "durationMs": 543,
+      "meanDb": -16.1
+    },
+    {
+      "word": "structured",
+      "file": "words/structured.mp3",
+      "durationMs": 539,
       "meanDb": -16.2
     },
     {
-      "word": "address",
-      "file": "words/address.mp3",
-      "durationMs": 631,
+      "word": "students",
+      "file": "words/students.mp3",
+      "durationMs": 559,
       "meanDb": -15.8
     },
     {
-      "word": "cats",
-      "file": "words/cats.mp3",
-      "durationMs": 522,
+      "word": "submarine",
+      "file": "words/submarine.mp3",
+      "durationMs": 871,
+      "meanDb": -15.7
+    },
+    {
+      "word": "submit",
+      "file": "words/submit.mp3",
+      "durationMs": 477,
+      "meanDb": -15.9
+    },
+    {
+      "word": "subsequent",
+      "file": "words/subsequent.mp3",
+      "durationMs": 693,
+      "meanDb": -16.5
+    },
+    {
+      "word": "subtitle",
+      "file": "words/subtitle.mp3",
+      "durationMs": 681,
+      "meanDb": -15.8
+    },
+    {
+      "word": "suburb",
+      "file": "words/suburb.mp3",
+      "durationMs": 560,
+      "meanDb": -15.9
+    },
+    {
+      "word": "subway",
+      "file": "words/subway.mp3",
+      "durationMs": 526,
+      "meanDb": -15.9
+    },
+    {
+      "word": "sugar",
+      "file": "words/sugar.mp3",
+      "durationMs": 446,
+      "meanDb": -16.1
+    },
+    {
+      "word": "suggestion",
+      "file": "words/suggestion.mp3",
+      "durationMs": 762,
       "meanDb": -16.2
     },
     {
-      "word": "hits",
-      "file": "words/hits.mp3",
-      "durationMs": 494,
+      "word": "suit",
+      "file": "words/suit.mp3",
+      "durationMs": 424,
       "meanDb": -15.9
     },
     {
       "word": "suits",
       "file": "words/suits.mp3",
-      "durationMs": 452,
+      "durationMs": 498,
+      "meanDb": -15.9
+    },
+    {
+      "word": "sun",
+      "file": "words/sun.mp3",
+      "durationMs": 420,
+      "meanDb": -16.1
+    },
+    {
+      "word": "sunny",
+      "file": "words/sunny.mp3",
+      "durationMs": 436,
+      "meanDb": -15.9
+    },
+    {
+      "word": "supervise",
+      "file": "words/supervise.mp3",
+      "durationMs": 774,
+      "meanDb": -15.7
+    },
+    {
+      "word": "support",
+      "file": "words/support.mp3",
+      "durationMs": 561,
+      "meanDb": -15.8
+    },
+    {
+      "word": "sure",
+      "file": "words/sure.mp3",
+      "durationMs": 400,
       "meanDb": -16
     },
     {
-      "word": "students",
-      "file": "words/students.mp3",
+      "word": "suspect",
+      "file": "words/suspect.mp3",
+      "durationMs": 655,
+      "meanDb": -16.3
+    },
+    {
+      "word": "suspend",
+      "file": "words/suspend.mp3",
+      "durationMs": 661,
+      "meanDb": -15.7
+    },
+    {
+      "word": "swim",
+      "file": "words/swim.mp3",
+      "durationMs": 467,
+      "meanDb": -16
+    },
+    {
+      "word": "symphony",
+      "file": "words/symphony.mp3",
+      "durationMs": 580,
+      "meanDb": -15.8
+    },
+    {
+      "word": "system",
+      "file": "words/system.mp3",
+      "durationMs": 580,
+      "meanDb": -15.8
+    },
+    {
+      "word": "ta",
+      "file": "words/ta.mp3",
+      "durationMs": 345,
+      "meanDb": -16.2
+    },
+    {
+      "word": "tea",
+      "file": "words/tea.mp3",
+      "durationMs": 361,
+      "meanDb": -16
+    },
+    {
+      "word": "teach",
+      "file": "words/teach.mp3",
+      "durationMs": 389,
+      "meanDb": -16
+    },
+    {
+      "word": "teacher",
+      "file": "words/teacher.mp3",
+      "durationMs": 460,
+      "meanDb": -15.9
+    },
+    {
+      "word": "team",
+      "file": "words/team.mp3",
+      "durationMs": 407,
+      "meanDb": -16
+    },
+    {
+      "word": "tel",
+      "file": "words/tel.mp3",
+      "durationMs": 372,
+      "meanDb": -16
+    },
+    {
+      "word": "telegram",
+      "file": "words/telegram.mp3",
+      "durationMs": 648,
+      "meanDb": -16
+    },
+    {
+      "word": "telegraph",
+      "file": "words/telegraph.mp3",
+      "durationMs": 776,
+      "meanDb": -15.7
+    },
+    {
+      "word": "telephone",
+      "file": "words/telephone.mp3",
+      "durationMs": 649,
+      "meanDb": -15.8
+    },
+    {
+      "word": "telephonic",
+      "file": "words/telephonic.mp3",
+      "durationMs": 687,
+      "meanDb": -15.8
+    },
+    {
+      "word": "telephony",
+      "file": "words/telephony.mp3",
+      "durationMs": 552,
+      "meanDb": -15.9
+    },
+    {
+      "word": "telephoto",
+      "file": "words/telephoto.mp3",
+      "durationMs": 760,
+      "meanDb": -15.7
+    },
+    {
+      "word": "telescope",
+      "file": "words/telescope.mp3",
+      "durationMs": 710,
+      "meanDb": -15.8
+    },
+    {
+      "word": "television",
+      "file": "words/television.mp3",
+      "durationMs": 609,
+      "meanDb": -16.2
+    },
+    {
+      "word": "thank",
+      "file": "words/thank.mp3",
+      "durationMs": 444,
+      "meanDb": -16
+    },
+    {
+      "word": "that",
+      "file": "words/that.mp3",
+      "durationMs": 388,
+      "meanDb": -16
+    },
+    {
+      "word": "theme",
+      "file": "words/theme.mp3",
+      "durationMs": 423,
+      "meanDb": -16
+    },
+    {
+      "word": "theory",
+      "file": "words/theory.mp3",
+      "durationMs": 562,
+      "meanDb": -15.8
+    },
+    {
+      "word": "there",
+      "file": "words/there.mp3",
+      "durationMs": 478,
+      "meanDb": -15.9
+    },
+    {
+      "word": "these",
+      "file": "words/these.mp3",
+      "durationMs": 473,
+      "meanDb": -15.9
+    },
+    {
+      "word": "thesis",
+      "file": "words/thesis.mp3",
+      "durationMs": 619,
+      "meanDb": -15.8
+    },
+    {
+      "word": "they",
+      "file": "words/they.mp3",
+      "durationMs": 438,
+      "meanDb": -16
+    },
+    {
+      "word": "think",
+      "file": "words/think.mp3",
+      "durationMs": 428,
+      "meanDb": -15.9
+    },
+    {
+      "word": "thirty",
+      "file": "words/thirty.mp3",
+      "durationMs": 467,
+      "meanDb": -16
+    },
+    {
+      "word": "this",
+      "file": "words/this.mp3",
+      "durationMs": 461,
+      "meanDb": -15.9
+    },
+    {
+      "word": "thomas",
+      "file": "words/thomas.mp3",
+      "durationMs": 563,
+      "meanDb": -17
+    },
+    {
+      "word": "though",
+      "file": "words/though.mp3",
+      "durationMs": 375,
+      "meanDb": -16.1
+    },
+    {
+      "word": "thought",
+      "file": "words/thought.mp3",
+      "durationMs": 423,
+      "meanDb": -16.3
+    },
+    {
+      "word": "three",
+      "file": "words/three.mp3",
+      "durationMs": 406,
+      "meanDb": -16
+    },
+    {
+      "word": "through",
+      "file": "words/through.mp3",
+      "durationMs": 392,
+      "meanDb": -16
+    },
+    {
+      "word": "time",
+      "file": "words/time.mp3",
+      "durationMs": 513,
+      "meanDb": -16.1
+    },
+    {
+      "word": "tin",
+      "file": "words/tin.mp3",
+      "durationMs": 442,
+      "meanDb": -16
+    },
+    {
+      "word": "tion",
+      "file": "words/tion.mp3",
+      "durationMs": 665,
+      "meanDb": -15.8
+    },
+    {
+      "word": "to",
+      "file": "words/to.mp3",
+      "durationMs": 414,
+      "meanDb": -16
+    },
+    {
+      "word": "toe",
+      "file": "words/toe.mp3",
+      "durationMs": 431,
+      "meanDb": -15.9
+    },
+    {
+      "word": "torture",
+      "file": "words/torture.mp3",
+      "durationMs": 517,
+      "meanDb": -15.9
+    },
+    {
+      "word": "tough",
+      "file": "words/tough.mp3",
+      "durationMs": 503,
+      "meanDb": -15.9
+    },
+    {
+      "word": "tour",
+      "file": "words/tour.mp3",
+      "durationMs": 441,
+      "meanDb": -16
+    },
+    {
+      "word": "tourist",
+      "file": "words/tourist.mp3",
+      "durationMs": 555,
+      "meanDb": -15.9
+    },
+    {
+      "word": "track",
+      "file": "words/track.mp3",
+      "durationMs": 461,
+      "meanDb": -16.1
+    },
+    {
+      "word": "tractor",
+      "file": "words/tractor.mp3",
+      "durationMs": 500,
+      "meanDb": -16.5
+    },
+    {
+      "word": "train",
+      "file": "words/train.mp3",
+      "durationMs": 536,
+      "meanDb": -15.8
+    },
+    {
+      "word": "trans",
+      "file": "words/trans.mp3",
+      "durationMs": 635,
+      "meanDb": -15.8
+    },
+    {
+      "word": "transfer",
+      "file": "words/transfer.mp3",
+      "durationMs": 555,
+      "meanDb": -15.8
+    },
+    {
+      "word": "transform",
+      "file": "words/transform.mp3",
+      "durationMs": 796,
+      "meanDb": -15.7
+    },
+    {
+      "word": "transformation",
+      "file": "words/transformation.mp3",
+      "durationMs": 958,
+      "meanDb": -15.6
+    },
+    {
+      "word": "transformative",
+      "file": "words/transformative.mp3",
+      "durationMs": 881,
+      "meanDb": -15.7
+    },
+    {
+      "word": "transformer",
+      "file": "words/transformer.mp3",
+      "durationMs": 742,
+      "meanDb": -15.7
+    },
+    {
+      "word": "translate",
+      "file": "words/translate.mp3",
+      "durationMs": 723,
+      "meanDb": -15.8
+    },
+    {
+      "word": "translator",
+      "file": "words/translator.mp3",
+      "durationMs": 716,
+      "meanDb": -15.8
+    },
+    {
+      "word": "transmit",
+      "file": "words/transmit.mp3",
+      "durationMs": 701,
+      "meanDb": -15.8
+    },
+    {
+      "word": "transplant",
+      "file": "words/transplant.mp3",
+      "durationMs": 715,
+      "meanDb": -15.7
+    },
+    {
+      "word": "transport",
+      "file": "words/transport.mp3",
+      "durationMs": 652,
+      "meanDb": -15.7
+    },
+    {
+      "word": "transportable",
+      "file": "words/transportable.mp3",
+      "durationMs": 853,
+      "meanDb": -15.6
+    },
+    {
+      "word": "transportation",
+      "file": "words/transportation.mp3",
+      "durationMs": 1011,
+      "meanDb": -15.6
+    },
+    {
+      "word": "transporter",
+      "file": "words/transporter.mp3",
+      "durationMs": 747,
+      "meanDb": -15.7
+    },
+    {
+      "word": "tree",
+      "file": "words/tree.mp3",
+      "durationMs": 440,
+      "meanDb": -15.9
+    },
+    {
+      "word": "truly",
+      "file": "words/truly.mp3",
+      "durationMs": 474,
+      "meanDb": -15.9
+    },
+    {
+      "word": "ture",
+      "file": "words/ture.mp3",
+      "durationMs": 472,
+      "meanDb": -16
+    },
+    {
+      "word": "turn",
+      "file": "words/turn.mp3",
+      "durationMs": 422,
+      "meanDb": -16
+    },
+    {
+      "word": "un",
+      "file": "words/un.mp3",
+      "durationMs": 428,
+      "meanDb": -16
+    },
+    {
+      "word": "unable",
+      "file": "words/unable.mp3",
+      "durationMs": 588,
+      "meanDb": -15.9
+    },
+    {
+      "word": "uncomfortable",
+      "file": "words/uncomfortable.mp3",
+      "durationMs": 840,
+      "meanDb": -15.7
+    },
+    {
+      "word": "underestimate",
+      "file": "words/underestimate.mp3",
+      "durationMs": 765,
+      "meanDb": -15.6
+    },
+    {
+      "word": "undergo",
+      "file": "words/undergo.mp3",
+      "durationMs": 649,
+      "meanDb": -15.7
+    },
+    {
+      "word": "underline",
+      "file": "words/underline.mp3",
+      "durationMs": 735,
+      "meanDb": -15.8
+    },
+    {
+      "word": "underpass",
+      "file": "words/underpass.mp3",
+      "durationMs": 823,
+      "meanDb": -15.8
+    },
+    {
+      "word": "undress",
+      "file": "words/undress.mp3",
+      "durationMs": 683,
+      "meanDb": -15.7
+    },
+    {
+      "word": "uneducated",
+      "file": "words/uneducated.mp3",
+      "durationMs": 776,
+      "meanDb": -15.7
+    },
+    {
+      "word": "unfair",
+      "file": "words/unfair.mp3",
+      "durationMs": 580,
+      "meanDb": -15.7
+    },
+    {
+      "word": "unhappy",
+      "file": "words/unhappy.mp3",
+      "durationMs": 690,
+      "meanDb": -15.8
+    },
+    {
+      "word": "uniform",
+      "file": "words/uniform.mp3",
+      "durationMs": 761,
+      "meanDb": -15.7
+    },
+    {
+      "word": "unit",
+      "file": "words/unit.mp3",
+      "durationMs": 472,
+      "meanDb": -15.9
+    },
+    {
+      "word": "university",
+      "file": "words/university.mp3",
+      "durationMs": 829,
+      "meanDb": -15.7
+    },
+    {
+      "word": "unlock",
+      "file": "words/unlock.mp3",
+      "durationMs": 476,
+      "meanDb": -15.9
+    },
+    {
+      "word": "unpredictable",
+      "file": "words/unpredictable.mp3",
+      "durationMs": 943,
+      "meanDb": -15.8
+    },
+    {
+      "word": "upgrade",
+      "file": "words/upgrade.mp3",
+      "durationMs": 681,
+      "meanDb": -15.9
+    },
+    {
+      "word": "uphold",
+      "file": "words/uphold.mp3",
+      "durationMs": 657,
+      "meanDb": -15.7
+    },
+    {
+      "word": "upright",
+      "file": "words/upright.mp3",
+      "durationMs": 542,
+      "meanDb": -16.8
+    },
+    {
+      "word": "upset",
+      "file": "words/upset.mp3",
+      "durationMs": 541,
+      "meanDb": -16.2
+    },
+    {
+      "word": "upward",
+      "file": "words/upward.mp3",
+      "durationMs": 538,
+      "meanDb": -16.4
+    },
+    {
+      "word": "usage",
+      "file": "words/usage.mp3",
+      "durationMs": 561,
+      "meanDb": -15.9
+    },
+    {
+      "word": "use",
+      "file": "words/use.mp3",
+      "durationMs": 536,
+      "meanDb": -15.8
+    },
+    {
+      "word": "useless",
+      "file": "words/useless.mp3",
+      "durationMs": 677,
+      "meanDb": -15.7
+    },
+    {
+      "word": "usual",
+      "file": "words/usual.mp3",
+      "durationMs": 581,
+      "meanDb": -15.8
+    },
+    {
+      "word": "van",
+      "file": "words/van.mp3",
+      "durationMs": 470,
+      "meanDb": -16
+    },
+    {
+      "word": "various",
+      "file": "words/various.mp3",
+      "durationMs": 623,
+      "meanDb": -15.8
+    },
+    {
+      "word": "verdict",
+      "file": "words/verdict.mp3",
+      "durationMs": 512,
+      "meanDb": -15.9
+    },
+    {
+      "word": "version",
+      "file": "words/version.mp3",
+      "durationMs": 498,
+      "meanDb": -15.9
+    },
+    {
+      "word": "very",
+      "file": "words/very.mp3",
+      "durationMs": 455,
+      "meanDb": -16
+    },
+    {
+      "word": "vi",
+      "file": "words/vi.mp3",
+      "durationMs": 896,
+      "meanDb": -15.6
+    },
+    {
+      "word": "video",
+      "file": "words/video.mp3",
+      "durationMs": 522,
+      "meanDb": -15.8
+    },
+    {
+      "word": "vine",
+      "file": "words/vine.mp3",
+      "durationMs": 484,
+      "meanDb": -16
+    },
+    {
+      "word": "visibility",
+      "file": "words/visibility.mp3",
+      "durationMs": 716,
+      "meanDb": -15.7
+    },
+    {
+      "word": "visible",
+      "file": "words/visible.mp3",
+      "durationMs": 540,
+      "meanDb": -15.9
+    },
+    {
+      "word": "vision",
+      "file": "words/vision.mp3",
+      "durationMs": 525,
+      "meanDb": -15.9
+    },
+    {
+      "word": "visitor",
+      "file": "words/visitor.mp3",
+      "durationMs": 477,
+      "meanDb": -16.3
+    },
+    {
+      "word": "visual",
+      "file": "words/visual.mp3",
       "durationMs": 586,
       "meanDb": -15.8
     },
     {
-      "word": "caps",
-      "file": "words/caps.mp3",
-      "durationMs": 521,
+      "word": "vocal",
+      "file": "words/vocal.mp3",
+      "durationMs": 488,
       "meanDb": -15.9
     },
     {
-      "word": "beds",
-      "file": "words/beds.mp3",
-      "durationMs": 515,
+      "word": "vocation",
+      "file": "words/vocation.mp3",
+      "durationMs": 709,
+      "meanDb": -15.8
+    },
+    {
+      "word": "voice",
+      "file": "words/voice.mp3",
+      "durationMs": 577,
       "meanDb": -15.9
     },
     {
-      "word": "needs",
-      "file": "words/needs.mp3",
+      "word": "volume",
+      "file": "words/volume.mp3",
+      "durationMs": 609,
+      "meanDb": -15.9
+    },
+    {
+      "word": "walked",
+      "file": "words/walked.mp3",
+      "durationMs": 511,
+      "meanDb": -16
+    },
+    {
+      "word": "wall",
+      "file": "words/wall.mp3",
+      "durationMs": 505,
+      "meanDb": -15.9
+    },
+    {
+      "word": "wanted",
+      "file": "words/wanted.mp3",
+      "durationMs": 491,
+      "meanDb": -15.9
+    },
+    {
+      "word": "war",
+      "file": "words/war.mp3",
+      "durationMs": 450,
+      "meanDb": -15.9
+    },
+    {
+      "word": "wards",
+      "file": "words/wards.mp3",
+      "durationMs": 530,
+      "meanDb": -15.8
+    },
+    {
+      "word": "warlike",
+      "file": "words/warlike.mp3",
+      "durationMs": 629,
+      "meanDb": -15.8
+    },
+    {
+      "word": "warm",
+      "file": "words/warm.mp3",
+      "durationMs": 551,
+      "meanDb": -15.8
+    },
+    {
+      "word": "watch",
+      "file": "words/watch.mp3",
+      "durationMs": 522,
+      "meanDb": -16.1
+    },
+    {
+      "word": "water",
+      "file": "words/water.mp3",
+      "durationMs": 513,
+      "meanDb": -15.9
+    },
+    {
+      "word": "we",
+      "file": "words/we.mp3",
+      "durationMs": 317,
+      "meanDb": -16.2
+    },
+    {
+      "word": "weakness",
+      "file": "words/weakness.mp3",
+      "durationMs": 641,
+      "meanDb": -15.8
+    },
+    {
+      "word": "weather",
+      "file": "words/weather.mp3",
+      "durationMs": 412,
+      "meanDb": -16
+    },
+    {
+      "word": "who",
+      "file": "words/who.mp3",
+      "durationMs": 389,
+      "meanDb": -16
+    },
+    {
+      "word": "willingness",
+      "file": "words/willingness.mp3",
+      "durationMs": 662,
+      "meanDb": -15.8
+    },
+    {
+      "word": "wine",
+      "file": "words/wine.mp3",
+      "durationMs": 494,
+      "meanDb": -15.9
+    },
+    {
+      "word": "wish",
+      "file": "words/wish.mp3",
+      "durationMs": 554,
+      "meanDb": -15.8
+    },
+    {
+      "word": "withdraw",
+      "file": "words/withdraw.mp3",
+      "durationMs": 649,
+      "meanDb": -15.8
+    },
+    {
+      "word": "wither",
+      "file": "words/wither.mp3",
+      "durationMs": 406,
+      "meanDb": -16
+    },
+    {
+      "word": "withhold",
+      "file": "words/withhold.mp3",
+      "durationMs": 581,
+      "meanDb": -15.8
+    },
+    {
+      "word": "withstand",
+      "file": "words/withstand.mp3",
+      "durationMs": 722,
+      "meanDb": -15.7
+    },
+    {
+      "word": "woman",
+      "file": "words/woman.mp3",
       "durationMs": 541,
+      "meanDb": -15.9
+    },
+    {
+      "word": "women",
+      "file": "words/women.mp3",
+      "durationMs": 498,
+      "meanDb": -15.9
+    },
+    {
+      "word": "wonderful",
+      "file": "words/wonderful.mp3",
+      "durationMs": 603,
+      "meanDb": -15.8
+    },
+    {
+      "word": "word",
+      "file": "words/word.mp3",
+      "durationMs": 462,
       "meanDb": -15.9
     },
     {
       "word": "words",
       "file": "words/words.mp3",
-      "durationMs": 525,
-      "meanDb": -15.9
-    },
-    {
-      "word": "hands",
-      "file": "words/hands.mp3",
-      "durationMs": 586,
+      "durationMs": 539,
       "meanDb": -15.8
     },
     {
-      "word": "wards",
-      "file": "words/wards.mp3",
-      "durationMs": 551,
+      "word": "work",
+      "file": "words/work.mp3",
+      "durationMs": 397,
+      "meanDb": -16
+    },
+    {
+      "word": "worker",
+      "file": "words/worker.mp3",
+      "durationMs": 489,
+      "meanDb": -15.9
+    },
+    {
+      "word": "worm",
+      "file": "words/worm.mp3",
+      "durationMs": 532,
+      "meanDb": -15.9
+    },
+    {
+      "word": "wrap",
+      "file": "words/wrap.mp3",
+      "durationMs": 450,
+      "meanDb": -16.2
+    },
+    {
+      "word": "wrist",
+      "file": "words/wrist.mp3",
+      "durationMs": 500,
+      "meanDb": -15.9
+    },
+    {
+      "word": "write",
+      "file": "words/write.mp3",
+      "durationMs": 429,
+      "meanDb": -16.9
+    },
+    {
+      "word": "wrong",
+      "file": "words/wrong.mp3",
+      "durationMs": 601,
+      "meanDb": -15.8
+    },
+    {
+      "word": "yes",
+      "file": "words/yes.mp3",
+      "durationMs": 589,
+      "meanDb": -15.8
+    },
+    {
+      "word": "zero",
+      "file": "words/zero.mp3",
+      "durationMs": 541,
+      "meanDb": -15.8
+    },
+    {
+      "word": "zoo",
+      "file": "words/zoo.mp3",
+      "durationMs": 454,
       "meanDb": -15.9
     }
   ]

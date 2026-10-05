@@ -2,10 +2,10 @@
 /**
  * 音标 / 例词 离线音频生成器
  * ============================================================
- * 输入：src/data/phonemes.ts（48 音标 + ttsWord 例词，经 esbuild 编译后导入）
+ * 输入：词全集 scripts/word-universe.mjs（926 词：8 个数据源的全部可点读词槽位）
  * 引擎：piper-tts（工作区 venv .venv-audio）+ en_US-lessac-medium（.models/）
  * 输出：public/audio/phonemes/<slug>.mp3   48 个孤立音素
- *       public/audio/words/<word>.mp3      全部例词 + 最小对立对（去重，约 220 词）
+ *       public/audio/words/<word>.mp3      词全集（去重，约 926 词）
  *       public/audio/manifest.json         溯源清单（时长/响度/许可）
  *       src/data/phonemeAudio.ts           运行时映射模块（勿手改）
  *
@@ -16,10 +16,11 @@
  *
  * 依赖：python3、ffmpeg/ffprobe、node_modules/.bin/esbuild（随 vite 自带）
  */
-import { execFileSync, spawnSync } from 'node:child_process';
+import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
+import { buildWordUniverse, loadData as loadUniverseData } from './word-universe.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const VENV = path.join(ROOT, '.venv-audio');
@@ -55,6 +56,8 @@ const TRIM_TAIL = '0.03';
 const FINAL_PAD = '0.05';     // 编码前追加尾部静音（s）
 const MIN_PH_DUR = 0.08, MAX_PH_DUR = 3.5;
 const MIN_W_DUR = 0.15, MAX_W_DUR = 3.0;
+/** mp3 码率：词全集近千条，48k 单声道语音可辨且压住总量（变更后自动全量重建） */
+const BITRATE = '48k';
 const MEAN_DB_MIN = -26, MEAN_DB_MAX = -6;
 
 /* ---------------- 小工具 ---------------- */
@@ -112,19 +115,6 @@ function setup() {
 }
 
 /* ---------------- 主流程 ---------------- */
-async function compilePhonemes() {
-  const esbuild = path.join(ROOT, 'node_modules', '.bin', 'esbuild');
-  if (!fs.existsSync(esbuild)) die('缺少 esbuild（node_modules/.bin/esbuild），先 npm install');
-  const outFile = path.join(TMP, 'phonemes.mjs');
-  fs.mkdirSync(TMP, { recursive: true });
-  sh(esbuild, [
-    path.join(ROOT, 'src', 'data', 'phonemes.ts'),
-    '--bundle', '--format=esm', `--outfile=${outFile}`,
-    `--tsconfig=${path.join(ROOT, 'tsconfig.app.json')}`,
-  ]);
-  const mod = await import(`${pathToFileURL(outFile).href}?v=${Date.now()}`);
-  return mod.phonemes;
-}
 
 async function main() {
   const args = process.argv.slice(2);
@@ -137,7 +127,7 @@ async function main() {
   }
 
   /* 1. 数据校验 */
-  const phonemes = await compilePhonemes();
+  const phonemes = (await loadUniverseData()).phonemes;
   if (phonemes.length !== 48) die(`音标数量 ${phonemes.length} ≠ 48`);
   const ids = phonemes.map((p) => p.id);
   if (new Set(ids).size !== 48) die('音标 id 有重复');
@@ -154,22 +144,25 @@ async function main() {
   fs.mkdirSync(OUT_PH_DIR, { recursive: true });
   fs.mkdirSync(OUT_W_DIR, { recursive: true });
 
-  // 全量词表：ttsWord + exampleWords + 最小对立对（教学里所有会被朗读的词）
-  const uniqueWords = [
-    ...new Set(
-      phonemes
-        .flatMap((p) => [p.ttsWord, ...p.exampleWords, ...(p.minimalPairs ?? []).flatMap((x) => [x.a, x.b])])
-        .filter(Boolean),
-    ),
-  ];
-  for (const w of uniqueWords) {
-    if (!/^[a-z]+$/.test(w)) die(`词表含非 a-z 字符: ${JSON.stringify(w)}`);
+  // 全量词表：词全集单源（8 数据源全部可点读词槽位，见 word-universe.mjs）
+  const { words: uniqueWords, skipped } = await buildWordUniverse();
+  if (!uniqueWords.length) die('词全集为空');
+  const skippedWords = skipped.filter((s) => s.reason === 'WORD_SKIP');
+  if (skippedWords.length) log(`· WORD_SKIP 回落 TTS：${skippedWords.map((s) => s.token).join(' ')}`);
+
+  // 孤儿清理：words 目录中不在词全集内的文件（WORD_SKIP 追加后的历史残留等）
+  const wordSet = new Set(uniqueWords);
+  for (const f of fs.readdirSync(OUT_W_DIR)) {
+    if (f.endsWith('.mp3') && !wordSet.has(f.slice(0, -4))) {
+      fs.unlinkSync(path.join(OUT_W_DIR, f));
+      log(`· 清理孤儿音频 ${f}`);
+    }
   }
 
   // --force / 模型变更 / 无历史清单 → 全量重生成；否则只合成缺失文件
   const MANIFEST_PATH = path.join(ROOT, 'public', 'audio', 'manifest.json');
   const old = fs.existsSync(MANIFEST_PATH) ? JSON.parse(fs.readFileSync(MANIFEST_PATH, 'utf8')) : null;
-  const force = args.includes('--force') || !old || old.engine?.modelMd5 !== MODEL_MD5;
+  const force = args.includes('--force') || !old || old.engine?.modelMd5 !== MODEL_MD5 || old.engine?.bitrate !== BITRATE;
   const needPh = phonemes.filter((p) => force || !fs.existsSync(path.join(OUT_PH_DIR, `${SLUG[p.id]}.mp3`)));
   const needW = uniqueWords.filter((w) => force || !fs.existsSync(path.join(OUT_W_DIR, `${w}.mp3`)));
 
@@ -201,7 +194,7 @@ async function main() {
     const delta = Math.max(-VOLUME_CLAMP, Math.min(VOLUME_CLAMP, TARGET_MEAN_DB - mean)).toFixed(1);
     sh('ffmpeg', ['-y', '-v', 'error', '-i', trimmed, '-af',
       `volume=${delta}dB,alimiter=limit=0.89,apad=pad_dur=${FINAL_PAD}`,
-      '-ac', '1', '-ar', '22050', '-b:a', '64k', outMp3]);
+      '-ac', '1', '-ar', '22050', '-b:a', BITRATE, outMp3]);
     const dur = ffprobeDur(outMp3);
     const after = measure(outMp3);
     return { dur, meanDb: after.mean, bytes: fs.statSync(outMp3).size };
@@ -248,7 +241,7 @@ async function main() {
   /* 4. manifest + 运行时映射模块 */
   const manifest = {
     generatedAt: new Date().toISOString(),
-    engine: { tts: 'piper-tts', model: 'en_US-lessac-medium', modelMd5: MODEL_MD5, sampleRate: 22050, bitrate: '64k', phonemeInput: 'espeak [[IPA]]' },
+    engine: { tts: 'piper-tts', model: 'en_US-lessac-medium', modelMd5: MODEL_MD5, sampleRate: 22050, bitrate: BITRATE, phonemeInput: 'espeak [[IPA]]' },
     license: {
       model: 'rhasspy/piper-voices（HuggingFace 卡片标注 MIT）',
       dataset: 'Lessac BLIZZARD 2013（CSTR/Lessac 研究许可）',

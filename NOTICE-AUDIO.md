@@ -6,19 +6,19 @@
 
 | 路径 | 内容 | 规格 |
 | --- | --- | --- |
-| `public/audio/phonemes/*.mp3` | 48 个英语音标的孤立发音 | 22.05kHz 单声道 64kbps，134–405ms |
-| `public/audio/words/*.mp3` | 例词 + 最小对立对朗读（全量去重 221 词） | 同上，294–668ms |
+| `public/audio/phonemes/*.mp3` | 48 个英语音标的孤立发音 | 22.05kHz 单声道 48kbps，108–453ms |
+| `public/audio/words/*.mp3` | 词全集朗读——8 个数据源全部可点读词槽位（例词/词族/词缀例词/题库/音节块等，去重 926 词） | 同上，281–1136ms |
 | `public/audio/manifest.json` | 溯源清单（时长 / 响度 / 模型 / 校验） | 生成物 |
 | `src/data/phonemeAudio.ts` | 运行时 id → 文件映射 | 生成物，勿手改 |
 
-合计约 1.1MB（门禁上限 1.5MB；全站 <2MB）。
+合计约 3.7MB / 974 条（门禁上限 4MB；全站 <4.5MB；音频点击时才拉取，不进首屏）。词全集由 `scripts/word-universe.mjs` 单源定义（生成器与门禁同读）。
 
 ## 生成工具链
 
 - **引擎**：`piper-tts` 1.8.0（Python，工作区虚拟环境 `.venv-audio/`，不污染系统）
 - **模型**：`en_US-lessac-medium`（HuggingFace [`rhasspy/piper-voices`](https://huggingface.co/rhasspy/piper-voices)，22050Hz，md5 `2fc642b535197b6305c7c8f92dc8b24f`，下载时校验）
 - **音素输入**：espeak `[[IPA]]` 转写直接驱动（`phoneme_type: espeak`），48 音标逐一验证出声
-- **后处理**（ffmpeg）：静音裁剪（头/尾留 30ms）→ 响度归一至 -16dB mean（±12dB 钳制、-1dBFS 限幅）→ mp3 64kbps 单声道，尾补 50ms
+- **后处理**（ffmpeg）：静音裁剪（头/尾留 30ms）→ 响度归一至 -16dB mean（±12dB 钳制、-1dBFS 限幅）→ mp3 48kbps 单声道，尾补 50ms（码率/模型变更会自动触发全量重建）
 - **复现**：
   ```bash
   npm run gen:audio -- --setup   # 首次：创建 .venv-audio + 下载模型（校验 md5）
@@ -34,6 +34,6 @@
 
 ## 门禁
 
-- `npm run check:audio`（已并入 `npm run verify`）：数据（phonemes.ts）↔ manifest ↔ 磁盘三方一致、逐文件可解码、时长与单文件体积预算、无孤儿文件、音频总量 ≤1.5MB、生成映射模块未过期。
+- `npm run check:audio`（已并入 `npm run verify`）：词全集（`word-universe.mjs`）↔ manifest ↔ 磁盘三方一致（缺词/过期词/数目核验）、逐文件可解码、时长与单文件体积预算、无孤儿文件、音频总量 ≤4MB、生成映射模块未过期。
 - `npm run smoke` 的 **[5b] 音标离线音频** 段：manifest 全量文件 HTTP 200、mp3 在 Chromium 内解码播放（currentTime 前进且无 error）、UI「播放 /θ/ 发音」按钮可用且未被禁用。
 - 兜底语义：任一音频缺失时调用方回退浏览器语音合成（例词），音标本体按钮保持可用并提示。

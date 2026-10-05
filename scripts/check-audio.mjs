@@ -2,24 +2,25 @@
 /**
  * 音频资产门禁（npm run check:audio，已并入 verify）
  *
- * 三方一致性：src/data/phonemes.ts ↔ public/audio/manifest.json ↔ 磁盘文件
- *  - 48 音素 + 45 去重例词全覆盖（id/词、slug、文件路径）
+ * 三方一致性：词全集 scripts/word-universe.mjs ↔ public/audio/manifest.json ↔ 磁盘文件
+ *  - 48 音素 + 词全集（约 926 词：8 数据源全部可点读词槽位）全覆盖（id/词、slug、文件路径）
  *  - 每个 mp3 存在、可解码（ffprobe）、时长合理、体积在预算内
  *  - src/data/phonemeAudio.ts 覆盖全部 id 与词（生成物未过期）
- *  - 音频总量 ≤ 1.5MB（全量静态资源 2MB 预算的音频份额）
+ *  - 音频总量 ≤ 4MB（全量静态资源 4.5MB 预算的音频份额；音频点击时才拉取，不进首屏）
  *
  * 依赖：node_modules/.bin/esbuild（随 vite）、系统 ffprobe（ffmpeg）
  */
 import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
+import { buildWordUniverse, loadData as loadUniverseData } from './word-universe.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const AUDIO_DIR = path.join(ROOT, 'public', 'audio');
 const MANIFEST = path.join(AUDIO_DIR, 'manifest.json');
 const GEN_MODULE = path.join(ROOT, 'src', 'data', 'phonemeAudio.ts');
-const MAX_TOTAL = 1.5 * 1024 * 1024;
+const MAX_TOTAL = 4 * 1024 * 1024;
 const LIMITS = { phMin: 0.08, phMax: 3.5, wMin: 0.15, wMax: 3.0, phKB: 40, wKB: 60 };
 
 const errors = [];
@@ -33,18 +34,15 @@ function ffprobeDur(file) {
 }
 
 async function main() {
-  /* 1. 数据源 */
-  const esbuild = path.join(ROOT, 'node_modules', '.bin', 'esbuild');
-  if (!fs.existsSync(esbuild)) err('缺少 esbuild（先 npm install）');
-  const tmp = path.join(ROOT, '.tmp', 'check-audio-phonemes.mjs');
-  fs.mkdirSync(path.dirname(tmp), { recursive: true });
-  const r = spawnSync(esbuild, [path.join(ROOT, 'src', 'data', 'phonemes.ts'), '--bundle', '--format=esm', `--outfile=${tmp}`, `--tsconfig=${path.join(ROOT, 'tsconfig.app.json')}`], { encoding: 'utf8' });
-  if (r.status !== 0) {
-    err(`esbuild 编译 phonemes.ts 失败:\n${r.stderr}`);
-  }
+  /* 1. 数据源（词全集单源，esbuild 打包 8 个数据文件） */
   let phonemes = [];
-  if (errors.length === 0) {
-    phonemes = (await import(`${pathToFileURL(tmp).href}?v=${Date.now()}`)).phonemes;
+  let words = [];
+  try {
+    const data = await loadUniverseData();
+    phonemes = data.phonemes ?? [];
+    words = (await buildWordUniverse()).words;
+  } catch (e) {
+    err(`词全集打包失败:\n${e.message ?? e}`);
   }
   if (phonemes.length && phonemes.length !== 48) err(`音标数 ${phonemes.length} ≠ 48`);
 
@@ -61,14 +59,7 @@ async function main() {
     const extra = mIds.filter((id) => !ids.includes(id));
     if (miss.length) err(`manifest 缺音素: ${miss.join(' ')}`);
     if (extra.length) err(`manifest 多音素: ${extra.join(' ')}`);
-    // 全量词表：ttsWord + exampleWords + 最小对立对（教学中所有会被朗读的词）
-    const words = [
-      ...new Set(
-        phonemes
-          .flatMap((p) => [p.ttsWord, ...p.exampleWords, ...(p.minimalPairs ?? []).flatMap((x) => [x.a, x.b])])
-          .filter(Boolean),
-      ),
-    ];
+    // 全量词表来自词全集单源（见 scripts/word-universe.mjs 头注）
     const mWords = manifest.words.map((x) => x.word);
     const missW = words.filter((w) => !mWords.includes(w));
     const extraW = mWords.filter((w) => !words.includes(w));
@@ -91,7 +82,7 @@ async function main() {
     };
     for (const x of manifest.phonemes) checkFile(x.file, LIMITS.phMin, LIMITS.phMax, LIMITS.phKB, `音素 /${x.id}/`);
     for (const x of manifest.words) checkFile(x.file, LIMITS.wMin, LIMITS.wMax, LIMITS.wKB, `例词 "${x.word}"`);
-    if (total > MAX_TOTAL) err(`音频总量 ${(total / 1024).toFixed(0)}KB > 1536KB 上限`);
+    if (total > MAX_TOTAL) err(`音频总量 ${(total / 1024).toFixed(0)}KB > ${(MAX_TOTAL / 1024 / 1024).toFixed(1)}MB 上限`);
 
     /* 目录无孤儿（存在但未入清单的文件） */
     for (const [dir, expect] of [['phonemes', manifest.phonemes], ['words', manifest.words]]) {

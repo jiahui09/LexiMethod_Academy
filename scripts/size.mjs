@@ -86,10 +86,10 @@ const fails = [];
 if (totalBytes >= 200 * 1024) fails.push(`首屏 ${kb(totalBytes)} ≥ 200 KB`);
 if (cssBytes >= 30 * 1024) fails.push(`首屏 CSS ${kb(cssBytes)} ≥ 30 KB`);
 if (allBytes >= 2 * 1024 * 1024) fails.push(`JS/CSS 资源 ${kb(allBytes)} ≥ 2 MB`);
-if (siteBytes >= 2 * 1024 * 1024) fails.push(`全量站点 ${kb(siteBytes)} ≥ 2 MB`);
+if (siteBytes >= 4.5 * 1024 * 1024) fails.push(`全量站点 ${kb(siteBytes)} ≥ 4.5 MB`);
 
 if (fails.length) {
   console.error(`\n✗ 体积超限：${fails.join('；')}`);
   process.exit(1);
 }
-console.log('\n✓ 体积达标（首屏 <200KB / CSS <30KB / 全量站点 <2MB）');
+console.log('\n✓ 体积达标（首屏 <200KB / CSS <30KB / 全量站点 <4.5MB，音频点击时才拉取）');
