@@ -12,7 +12,8 @@
     "check:data": "node scripts/checkData.mjs",
     "smoke": "node scripts/smoke.mjs",
     "accept": "node scripts/acceptance.mjs",
-    "verify": "npm run build && npm run size && npm run check:data"
+    "verify": "npm run build && npm run size && npm run check:data && npm run audit:floor",
+    "audit:floor": "node scripts/audit-floor.mjs"
   },
   "dependencies": {
     "framer-motion": "11.18.2",

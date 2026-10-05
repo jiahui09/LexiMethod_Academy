@@ -54,7 +54,7 @@ export default function PhonemeChart({
               playSfx('click');
               setFilter(f.key);
             }}
-            className={`rounded-full border px-3.5 py-1.5 text-xs font-medium transition-all duration-300 ${
+            className={`min-h-[44px] rounded-full border px-3.5 py-1.5 text-xs font-medium transition-all duration-300 ${
               filter === f.key
                 ? 'border-neon bg-neon/18 text-neon shadow-[0_0_16px_rgba(0,229,255,0.3)]'
                 : 'border-white/14 bg-white/5 text-slate-300 hover:border-neon/45'
@@ -69,7 +69,7 @@ export default function PhonemeChart({
       <div className="flex flex-col gap-3">
         {groups.map((g) => (
           <div key={g.key}>
-            <div className="mb-1.5 text-[11px] font-bold uppercase tracking-widest text-slate-500">{g.label}</div>
+            <div className="mb-1.5 text-xs font-bold uppercase tracking-widest text-slate-400">{g.label}</div>
             <div className="grid grid-cols-4 gap-1.5 sm:grid-cols-6 md:grid-cols-7">
               {g.items.map((p, i) => {
                 const active = p.id === selected;
@@ -97,7 +97,7 @@ export default function PhonemeChart({
                     aria-pressed={active}
                   >
                     <span className="ipa text-[15px] font-semibold">{p.symbol}</span>
-                    <span className="text-[10px] text-slate-400">{p.exampleWords[0]}</span>
+                    <span className="text-xs text-slate-400">{p.exampleWords[0]}</span>
                     {done && (
                       <span className="absolute right-1 top-1 h-1.5 w-1.5 rounded-full bg-success shadow-[0_0_6px_#00E676]" aria-label="已学" />
                     )}
@@ -112,7 +112,7 @@ export default function PhonemeChart({
         ))}
       </div>
 
-      <div className="flex flex-wrap items-center gap-3 text-[11px] text-slate-500">
+      <div className="flex flex-wrap items-center gap-3 text-xs text-slate-400">
         <span className="flex items-center gap-1.5">
           <span className="h-2 w-2 rounded-full bg-warn" /> 清音（声带不振动）
         </span>

@@ -100,9 +100,9 @@ export default function MethodList() {
                   </span>
                   <div className="min-w-0">
                     <div className="mb-0.5 flex flex-wrap items-center gap-2">
-                      <span className="text-[10px] font-bold tabular-nums text-slate-500">模块 {i + 1}</span>
-                      <span className="rounded-full border border-white/12 px-2 py-0.5 text-[10px] text-slate-400">{m.category}</span>
-                      {done && <span className="rounded-full bg-success/15 px-2 py-0.5 text-[10px] font-bold text-success">✓ 已完成</span>}
+                      <span className="text-xs font-bold tabular-nums text-slate-400">模块 {i + 1}</span>
+                      <span className="rounded-full border border-white/12 px-2 py-0.5 text-xs text-slate-400">{m.category}</span>
+                      {done && <span className="rounded-full bg-success/15 px-2 py-0.5 text-xs font-bold text-success">✓ 已完成</span>}
                     </div>
                     <h3 className="font-display text-lg font-bold leading-tight text-white">{m.title}</h3>
                   </div>
@@ -114,7 +114,7 @@ export default function MethodList() {
                   {m.principles.slice(0, 3).map((p, k) => (
                     <li
                       key={k}
-                      className="line-clamp-2 max-w-full break-words rounded-lg border border-white/10 bg-white/[0.05] px-2 py-1 text-[11px] text-slate-400"
+                      className="line-clamp-2 max-w-full break-words rounded-lg border border-white/10 bg-white/[0.05] px-2 py-1 text-xs text-slate-400"
                     >
                       {p}
                     </li>
@@ -122,7 +122,7 @@ export default function MethodList() {
                 </ul>
 
                 <div className="relative mb-3">
-                  <div className="mb-1 flex items-center justify-between text-[11px] text-slate-500">
+                  <div className="mb-1 flex items-center justify-between text-xs text-slate-400">
                     <span>{steps.length}/{m.steps.length} 步</span>
                     <span className="tabular-nums">{pct}%</span>
                   </div>
@@ -139,7 +139,7 @@ export default function MethodList() {
 
                 <Link
                   to={`/methods/${m.id}`}
-                  className="relative inline-flex items-center justify-center gap-2 rounded-xl border border-white/12 px-4 py-2.5 text-sm font-medium text-slate-200 transition-all duration-300 hover:border-neon/70 hover:bg-neon/10 hover:text-neon"
+                  className="relative inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl border border-white/12 px-4 py-2.5 text-sm font-medium text-slate-200 transition-all duration-300 hover:border-neon/70 hover:bg-neon/10 hover:text-neon"
                 >
                   {pct > 0 ? `继续第 ${steps.length + 1 > m.steps.length ? m.steps.length : steps.length + 1} 步` : '进入课程'}
                   <ArrowRight size={14} aria-hidden />

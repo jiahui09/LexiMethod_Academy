@@ -67,7 +67,7 @@ export default function Toolbox() {
               playSfx('click');
               setTab(t.key);
             }}
-            className={`flex items-center gap-2 rounded-xl border px-4 py-2.5 text-sm transition-all duration-300 ${
+            className={`flex min-h-[44px] items-center gap-2 rounded-xl border px-4 py-2.5 text-sm transition-all duration-300 ${
               tab === t.key
                 ? 'border-neon bg-neon/14 text-neon shadow-[0_0_18px_rgba(0,229,255,0.28)]'
                 : 'border-white/12 bg-white/[0.04] text-slate-300 hover:border-neon/45'
@@ -112,7 +112,7 @@ function SyllableTool() {
     return parts.length >= 3 ? parts.length - 3 : parts.length > 1 ? 0 : 0;
   }, [input, parts]);
 
-  const colors = ['#00E5FF', '#7C4DFF', '#FF4D9D', '#00E676', '#FFB300'];
+  const colors = ['#00E5FF', '#A98BFF', '#FF4D9D', '#00E676', '#FFB300'];
 
   return (
     <div className="grid gap-5 lg:grid-cols-2">
@@ -177,7 +177,7 @@ function SyllableTool() {
               <p className="mb-1.5 text-xs leading-relaxed text-slate-300">{g.rule}</p>
               <div className="flex flex-wrap gap-1.5">
                 {g.examples.map((e) => (
-                  <span key={e} className="ipa rounded-md border border-white/12 px-2 py-0.5 text-[11px] text-slate-300">
+                  <span key={e} className="ipa rounded-md border border-white/12 px-2 py-0.5 text-xs text-slate-300">
                     {e}
                   </span>
                 ))}
@@ -212,11 +212,11 @@ function StressTool() {
           />
         </div>
         <div className="flex flex-col gap-2">
-          {hits.length === 0 && <p className="text-sm text-slate-500">没有匹配的词。</p>}
+          {hits.length === 0 && <p className="text-sm text-slate-400">没有匹配的词。</p>}
           {hits.map((w) => (
             <div key={w.id} className="flex flex-wrap items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3">
               <span className="font-display text-base font-semibold text-white">{w.word}</span>
-              <SpeakButton text={w.word} size="sm" />
+              <SpeakButton text={w.word} size="sm" className="min-h-[44px] min-w-[44px]" />
               <span className="ipa text-xs text-neon">{w.phoneticUK}</span>
               <div className="flex gap-1">
                 {w.syllables.map((s, i) => (
@@ -224,7 +224,7 @@ function StressTool() {
                     key={i}
                     className={`rounded-md border px-2 py-0.5 text-xs ${
                       i === w.stressIndex
-                        ? 'border-pink/60 bg-pink/15 font-bold text-pink shadow-[0_0_10px_rgba(255,77,157,0.35)]'
+                        ? 'border-pink/60 bg-pink/15 font-bold text-pink-lit shadow-[0_0_10px_rgba(255,77,157,0.35)]'
                         : 'border-white/12 text-slate-400'
                     }`}
                   >
@@ -233,7 +233,7 @@ function StressTool() {
                   </span>
                 ))}
               </div>
-              <span className="ml-auto flex items-center gap-1.5 text-[11px] text-slate-500">
+              <span className="ml-auto flex items-center gap-1.5 text-xs text-slate-400">
                 <Volume2 size={11} aria-hidden /> {w.partOfSpeech} · {w.meaningCN}
               </span>
             </div>
@@ -246,11 +246,11 @@ function StressTool() {
         <div className="flex flex-col gap-2.5">
           {stressGuides.map((g) => (
             <div key={g.id} className="rounded-2xl border border-white/10 bg-white/[0.04] p-3.5">
-              <div className="mb-1 text-sm font-semibold text-violet">{g.title}</div>
+              <div className="mb-1 text-sm font-semibold text-violet-lit">{g.title}</div>
               <p className="mb-1.5 text-xs leading-relaxed text-slate-300">{g.rule}</p>
               <div className="flex flex-wrap gap-1.5">
                 {g.examples.map((e) => (
-                  <span key={e} className="rounded-md border border-white/12 px-2 py-0.5 text-[11px] text-slate-300">
+                  <span key={e} className="rounded-md border border-white/12 px-2 py-0.5 text-xs text-slate-300">
                     {e}
                   </span>
                 ))}
@@ -290,7 +290,7 @@ function AffixTool() {
       {examples && examples.length > 0 && (
         <div className="flex flex-wrap gap-1.5">
           {examples.slice(0, 4).map((e) => (
-            <span key={e} className="rounded-md border border-white/10 px-2 py-0.5 text-[11px] text-slate-400">
+            <span key={e} className="rounded-md border border-white/10 px-2 py-0.5 text-xs text-slate-400">
               {e}
             </span>
           ))}
@@ -310,7 +310,7 @@ function AffixTool() {
           placeholder="搜索含义或形式，如 spect / 看、-tion / 名词"
           aria-label="搜索词根词缀"
         />
-        <span className="text-xs text-slate-500 tabular-nums">
+        <span className="text-xs text-slate-400 tabular-nums">
           前缀 {pHits.length} · 后缀 {sHits.length} · 词根 {rHits.length}
         </span>
       </div>
@@ -343,7 +343,7 @@ function AffixTool() {
         </div>
         <div className="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
           {rHits.map((p, i) => (
-            <Card key={`${p.text}-${i}`} text={p.text} meaning={p.meaning} examples={p.examples} tone="#7C4DFF" />
+            <Card key={`${p.text}-${i}`} text={p.text} meaning={p.meaning} examples={p.examples} tone="#A98BFF" />
           ))}
         </div>
       </section>
@@ -368,7 +368,7 @@ function ContextTool() {
           aria-label="语境笔记"
         />
         <div className="mt-3 flex items-center gap-3">
-          <span className="text-xs text-slate-500">
+          <span className="text-xs text-slate-400">
             {note ? `已记录 ${note.length} 字` : '还没有内容'} · 零存储，刷新即清空（本站不写浏览器存储）
           </span>
         </div>
@@ -381,7 +381,7 @@ function ContextTool() {
             <div key={n.id} className="rounded-2xl border border-white/10 bg-white/[0.04] p-3.5">
               <div className="mb-1 text-sm font-semibold text-neon">{n.title}</div>
               <p className="text-xs leading-relaxed text-slate-300">{n.note}</p>
-              <p className="mt-1.5 rounded-lg border border-white/10 bg-black/25 px-2.5 py-1.5 text-[11px] text-slate-400">
+              <p className="mt-1.5 rounded-lg border border-white/10 bg-black/25 px-2.5 py-1.5 text-xs text-slate-400">
                 {n.example}
               </p>
             </div>
@@ -403,14 +403,14 @@ function RhythmTool() {
           <div className="absolute left-0 right-0 top-6 h-0.5 rounded-full bg-gradient-to-r from-neon via-violet to-pink" aria-hidden />
           {[0, ...gaps].map((d, i) => (
             <div key={d} className="absolute top-0 flex -translate-x-1/2 flex-col items-center" style={{ left: `${(i / 4) * 100}%` }}>
-              <span className={`rounded-md px-2 py-0.5 text-[11px] font-bold ${i === 0 ? 'bg-neon/20 text-neon' : 'bg-violet/20 text-violet'}`}>
+              <span className={`rounded-md px-2 py-0.5 text-xs font-bold ${i === 0 ? 'bg-neon/20 text-neon' : 'bg-violet/20 text-violet-lit'}`}>
                 第 {d} 天
               </span>
               <span className="mt-1.5 h-3 w-3 rounded-full border-2 border-white/60 bg-[#0B1020]" />
             </div>
           ))}
         </div>
-        <p className="text-xs text-slate-500">间隔天数为 1 / 3 / 7 / 14 / 30 天（共 5 档），到期卡片进入「复习中心」。</p>
+        <p className="text-xs text-slate-400">间隔天数为 1 / 3 / 7 / 14 / 30 天（共 5 档），到期卡片进入「复习中心」。</p>
       </div>
 
       <div className="grid gap-3 md:grid-cols-5">
@@ -418,7 +418,7 @@ function RhythmTool() {
           <div key={r.id} className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
             <div className="mb-1 font-display text-lg font-bold text-neon">第 {r.day} 天</div>
             <div className="mb-1.5 text-xs font-semibold text-white">{r.focus}</div>
-            <p className="text-[11px] leading-relaxed text-slate-400">{r.action}</p>
+            <p className="text-xs leading-relaxed text-slate-400">{r.action}</p>
           </div>
         ))}
       </div>
@@ -475,7 +475,7 @@ function OutputTool() {
           aria-label="输出内容"
         />
         <div className="mt-2 flex items-center justify-between text-xs">
-          <span className={used >= 4 ? 'text-success' : 'text-slate-500'}>
+          <span className={used >= 4 ? 'text-success' : 'text-slate-400'}>
             当前 {used} 词 {used >= 4 ? '✓ 达标（≥4 词）' : '· 建议至少 4 词'}
           </span>
           <NeonButton
@@ -503,9 +503,9 @@ function OutputTool() {
             >
               <div className="mb-0.5 flex items-center gap-2 text-sm">
                 <span className="font-semibold text-white">{d.title}</span>
-                <span className="text-[10px] text-slate-500">{d.difficulty}</span>
+                <span className="text-xs text-slate-400">{d.difficulty}</span>
               </div>
-              <p className="text-[11px] leading-relaxed text-slate-400">{d.prompt}</p>
+              <p className="text-xs leading-relaxed text-slate-400">{d.prompt}</p>
             </div>
           ))}
         </div>
@@ -544,7 +544,7 @@ function MetacogTool() {
             if (!items.length) return null;
             return (
               <div key={g}>
-                <div className="mb-1.5 text-[11px] font-bold uppercase tracking-widest text-violet">{g}</div>
+                <div className="mb-1.5 text-xs font-bold uppercase tracking-widest text-violet-lit">{g}</div>
                 <div className="flex flex-col gap-1.5">
                   {items.map((m) => (
                     <label
@@ -560,7 +560,7 @@ function MetacogTool() {
                         }}
                         className="mt-0.5 accent-[#00E5FF]"
                       />
-                      <span className={checked[m.id] ? 'text-slate-500 line-through' : ''}>{m.label}</span>
+                      <span className={checked[m.id] ? 'text-slate-400 line-through' : ''}>{m.label}</span>
                     </label>
                   ))}
                 </div>
@@ -580,7 +580,7 @@ function MetacogTool() {
                 <span className="text-slate-300">{s.signal}</span>
               </div>
               <div className="mb-1 flex items-start gap-2 text-xs">
-                <span className="rounded-md border border-violet/40 bg-violet/12 px-2 py-0.5 font-semibold text-violet">诊断</span>
+                <span className="rounded-md border border-violet/40 bg-violet/12 px-2 py-0.5 font-semibold text-violet-lit">诊断</span>
                 <span className="text-slate-300">{s.diagnosis}</span>
               </div>
               <div className="flex items-start gap-2 text-xs">

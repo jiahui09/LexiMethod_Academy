@@ -136,10 +136,12 @@ components:
 ### Secondary
 
 - **Aurora Violet 极光紫** (#7C4DFF): 氛围与层次——页面渐变的高处光斑、渐变描边的第二段、次级数据可视化。它自己从不单独发出「可点击」暗示，也从不承担玻璃面上的正文（对比度不足）。
+  - **Violet Lit 紫文字变体** (#A98BFF, token `violet-lit`): 当紫必须携带文字（12px 标签、chip、强调词）时的唯一合法形态，玻璃面上 ≥5.5:1。本色只留给边框、填充、光晕、SVG 与 ≥18.66px 粗体大字（3:1 达标）。
 
 ### Tertiary
 
 - **Pulse Pink 脉冲粉** (#FF4D9D): 庆祝与个性点缀——完成时刻的呼吸光点、渐变的收尾、重点数据的高亮。稀缺使用，才能保住「被庆祝感」。
+  - **Pink Lit 粉文字变体** (#FF80B5, token `pink-lit`): 粉承担文字时的唯一合法形态（激活开关文字、高亮词），≥4.5:1。本色保留给填充、光晕与描边。
 
 ### Semantic
 
@@ -182,7 +184,7 @@ components:
 
 ### Named Rules
 
-**The Floor Rule.** 12px 与 4.5:1 是任何文字（含 kicker、微标签、图表刻度）的地板，不是目标；紫色不用于玻璃面上的正文。
+**The Floor Rule.** 12px 与 4.5:1 是任何文字（含 kicker、微标签、图表刻度）的地板，不是目标；紫色不用于玻璃面上的正文（必须携带文字时用 lit 变体 #A98BFF / #FF80B5）。底线由 `npm run audit:floor`（scripts/audit-floor.mjs：对比度/字号/触控/h1/重复 id 逐路由审计）把守，违规归零后并入 `npm run verify` 作为门禁。
 
 ## Layout
 

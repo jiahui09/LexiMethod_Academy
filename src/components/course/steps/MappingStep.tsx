@@ -35,7 +35,7 @@ export default function MappingStep({ method }: { method: Method }) {
           transition={{ delay: 0.15, type: 'spring', stiffness: 260, damping: 22 }}
           className="rounded-2xl border border-pink/50 bg-pink/12 px-6 py-4 text-center shadow-[0_0_26px_rgba(255,77,157,0.25)]"
         >
-          <div className="text-[10px] uppercase tracking-widest text-pink/80">拼写</div>
+          <div className="text-xs uppercase tracking-widest text-pink-lit/80">拼写</div>
           <div className="font-display text-3xl font-bold text-white">{demo.pattern}</div>
         </motion.div>
 
@@ -63,7 +63,7 @@ export default function MappingStep({ method }: { method: Method }) {
           transition={{ delay: 0.9, type: 'spring', stiffness: 260, damping: 22 }}
           className="rounded-2xl border border-neon/50 bg-neon/12 px-6 py-4 text-center shadow-[0_0_26px_rgba(0,229,255,0.25)]"
         >
-          <div className="text-[10px] uppercase tracking-widest text-neon/80">发音</div>
+          <div className="text-xs uppercase tracking-widest text-neon/80">发音</div>
           <div className="ipa text-3xl font-bold text-white">{demo.sound}</div>
         </motion.div>
       </div>
@@ -92,7 +92,7 @@ export default function MappingStep({ method }: { method: Method }) {
               <span className="ipa w-28 shrink-0 text-xs text-slate-400">{f.ipa}</span>
 
               {/* 高亮的拼写块 */}
-              <span className="rounded-md border border-pink/45 bg-pink/12 px-2 py-0.5 text-xs font-semibold text-pink">
+              <span className="rounded-md border border-pink/45 bg-pink/12 px-2 py-0.5 text-xs font-semibold text-pink-lit">
                 {demo.pattern}
               </span>
 
@@ -109,7 +109,7 @@ export default function MappingStep({ method }: { method: Method }) {
               <span className="ipa rounded-md border border-neon/45 bg-neon/12 px-2 py-0.5 text-xs font-semibold text-neon">
                 {demo.sound}
               </span>
-              <Volume2 size={14} className="shrink-0 text-slate-500 transition group-hover:text-neon" aria-hidden />
+              <Volume2 size={14} className="shrink-0 text-slate-400 transition group-hover:text-neon" aria-hidden />
             </motion.button>
           ))}
         </div>

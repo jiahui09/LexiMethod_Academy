@@ -65,7 +65,7 @@ export default function Settings() {
                 aria-pressed={s.accent === o.key}
               >
                 <div className={`text-sm font-semibold ${s.accent === o.key ? 'text-neon' : 'text-slate-300'}`}>{o.label}</div>
-                <div className="ipa mt-1 text-[11px] text-slate-500">{o.sample}</div>
+                <div className="ipa mt-1 text-xs text-slate-400">{o.sample}</div>
               </button>
             ))}
           </div>
@@ -73,14 +73,14 @@ export default function Settings() {
             <NeonButton size="sm" variant="ghost" onClick={() => speak(s.accent === 'uk' ? 'The early bird catches the worm' : 'Practice makes perfect')}>
               试听
             </NeonButton>
-            {!speechSupported() && <span className="text-[11px] text-warn">当前浏览器不支持语音合成</span>}
+            {!speechSupported() && <span className="text-xs text-warn">当前浏览器不支持语音合成</span>}
           </div>
         </section>
 
         {/* 语速 */}
         <section className="glass p-5">
           <div className="mb-1 flex items-center gap-2 text-sm font-semibold text-white">
-            <Gauge size={15} className="text-violet" aria-hidden /> 朗读语速
+            <Gauge size={15} className="text-violet-lit" aria-hidden /> 朗读语速
           </div>
           <p className="mb-4 text-xs text-slate-400">慢速用于听清结构（拼写/音标题），常速用于自然语流。</p>
 
@@ -145,11 +145,11 @@ export default function Settings() {
                 aria-pressed={s.motionTier === o.key}
               >
                 <div className={`text-sm font-semibold ${s.motionTier === o.key ? 'text-success' : 'text-slate-300'}`}>{o.label}</div>
-                <div className="mt-0.5 text-[11px] leading-snug text-slate-500">{o.desc}</div>
+                <div className="mt-0.5 text-xs leading-snug text-slate-400">{o.desc}</div>
               </button>
             ))}
           </div>
-          <div className="mt-3 text-[11px] text-slate-500">
+          <div className="mt-3 text-xs text-slate-400">
             当前生效档位：<Chip tone="green">{resolveMotionTier(s.motionTier)}</Chip>（写入 &lt;html data-motion&gt;，CSS 动画同步降级）
           </div>
         </section>
@@ -157,13 +157,13 @@ export default function Settings() {
         {/* 音效与粒子 */}
         <section className="glass p-5">
           <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-white">
-            <Sparkles size={15} className="text-pink" aria-hidden /> 音效与背景
+            <Sparkles size={15} className="text-pink-lit" aria-hidden /> 音效与背景
           </div>
 
           <div className="mb-4 flex items-center justify-between rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3">
             <div>
               <div className="text-sm text-slate-200">UI 音效</div>
-              <div className="text-[11px] text-slate-500">点击 / 答对 / 答错 / 完成的提示音</div>
+              <div className="text-xs text-slate-400">点击 / 答对 / 答错 / 完成的提示音</div>
             </div>
             <button
               type="button"
@@ -171,7 +171,7 @@ export default function Settings() {
                 s.toggleSound();
                 playSfx('click');
               }}
-              className={`flex h-9 w-16 items-center rounded-full border px-1 transition-all ${
+              className={`flex h-11 w-16 items-center rounded-full border px-1 transition-all ${
                 s.sound === 'on' ? 'border-neon bg-neon/20 justify-end' : 'border-white/15 bg-white/5 justify-start'
               }`}
               role="switch"
@@ -194,8 +194,8 @@ export default function Settings() {
                   playSfx('tick');
                   s.setParticleDensity(p);
                 }}
-                className={`rounded-lg border px-3 py-1.5 transition ${
-                  s.particleDensity === p ? 'border-pink bg-pink/15 text-pink' : 'border-white/12 text-slate-300 hover:border-pink/50'
+                className={`min-h-[44px] min-w-[44px] rounded-lg border px-3 py-1.5 transition ${
+                  s.particleDensity === p ? 'border-pink bg-pink/15 text-pink-lit' : 'border-white/12 text-slate-300 hover:border-pink/50'
                 }`}
                 aria-pressed={s.particleDensity === p}
               >
@@ -203,7 +203,7 @@ export default function Settings() {
               </button>
             ))}
           </div>
-          <p className="mt-2 text-[11px] text-slate-500">
+          <p className="mt-2 text-xs text-slate-400">
             <Monitor size={11} className="mr-1 inline" aria-hidden />
             “自动”= 桌面 ≤120 粒子 / 移动 ≤40；关闭动画档位时粒子为 0。
           </p>

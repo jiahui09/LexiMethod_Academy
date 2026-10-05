@@ -86,8 +86,8 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
               </div>
               <p className="max-w-md px-4 text-sm text-slate-300">{phoneme.hintCN}</p>
               <div className="flex items-center gap-2">
-                <SpeakButton text={phoneme.ttsWord ?? phoneme.exampleWords[0]} />
-                <SpeakButton text={phoneme.ttsWord ?? phoneme.exampleWords[0]} slow />
+                <SpeakButton text={phoneme.ttsWord ?? phoneme.exampleWords[0]} className="min-h-[44px] min-w-[44px]" />
+                <SpeakButton text={phoneme.ttsWord ?? phoneme.exampleWords[0]} slow className="min-h-[44px] min-w-[44px]" />
                 <Waveform active={speaking} bars={20} />
               </div>
             </div>
@@ -116,7 +116,7 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
           <div className="grid gap-3 lg:grid-cols-[1.4fr_1fr]">
             <MouthSideView geo={phoneme.geo} voiced={phoneme.voiced} playing />
             <div className="flex flex-col gap-3">
-              <InfoCard title="气流路径" text={phoneme.airflow} tone="#7C4DFF" />
+              <InfoCard title="气流路径" text={phoneme.airflow} tone="#A98BFF" />
               <div
                 className="rounded-2xl border p-4"
                 style={{
@@ -149,7 +149,7 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
                 <div key={c.id} className="rounded-2xl border border-white/10 bg-white/[0.04] p-3">
                   <div className="mb-2 flex items-center justify-between">
                     <span className="ipa text-lg font-bold text-white">
-                      {phoneme.symbol} <span className="text-slate-500">vs</span> {c.symbol}
+                      {phoneme.symbol} <span className="text-slate-400">vs</span> {c.symbol}
                     </span>
                     <button
                       type="button"
@@ -157,7 +157,7 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
                         playSfx('tick');
                         onSelect(c);
                       }}
-                      className="flex items-center gap-1 rounded-lg border border-neon/40 bg-neon/10 px-2 py-1 text-[11px] text-neon hover:bg-neon/20"
+                      className="flex min-h-[44px] min-w-[44px] items-center gap-1 rounded-lg border border-neon/40 bg-neon/10 px-2 py-1 text-xs text-neon hover:bg-neon/20"
                     >
                       <Link2 size={11} aria-hidden /> 切换到 {c.symbol}
                     </button>
@@ -205,7 +205,7 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
                 {phoneme.commonSpellings.map((s) => (
                   <span
                     key={s}
-                    className="ipa rounded-lg border border-pink/45 bg-pink/10 px-3 py-1.5 text-sm font-semibold text-pink"
+                    className="ipa min-h-[44px] min-w-[44px] rounded-lg border border-pink/45 bg-pink/10 px-3 py-1.5 text-sm font-semibold text-pink-lit"
                   >
                     {s}
                   </span>
@@ -215,14 +215,14 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
 
             {longShort && (
               <div className="rounded-2xl border border-violet/35 bg-violet/[0.08] p-4">
-                <div className="mb-2 text-xs font-semibold text-violet">长短音对比</div>
+                <div className="mb-2 text-xs font-semibold text-violet-lit">长短音对比</div>
                 <div className="flex flex-wrap items-center gap-4">
                   {[phoneme, longShort].map((p) => (
                     <div key={p.id} className="flex items-center gap-2">
                       <span className="ipa text-xl font-bold text-white">{p.symbol}</span>
                       <span className="text-xs text-slate-400">{p.exampleWords[0]}</span>
-                      <SpeakButton text={p.ttsWord ?? p.exampleWords[0]} size="sm" />
-                      <SpeakButton text={p.ttsWord ?? p.exampleWords[0]} size="sm" slow />
+                      <SpeakButton text={p.ttsWord ?? p.exampleWords[0]} size="sm" className="min-h-[44px] min-w-[44px]" />
+                      <SpeakButton text={p.ttsWord ?? p.exampleWords[0]} size="sm" slow className="min-h-[44px] min-w-[44px]" />
                     </div>
                   ))}
                 </div>
@@ -249,22 +249,22 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
           <div>
             <div className="flex items-center gap-2">
               <span className="ipa text-3xl font-bold text-white">{phoneme.symbol}</span>
-              <span className="rounded-md border border-neon/40 bg-neon/10 px-2 py-0.5 text-[11px] text-neon">
+              <span className="rounded-md border border-neon/40 bg-neon/10 px-2 py-0.5 text-xs text-neon">
                 {STEP_TITLES[index]}
               </span>
             </div>
             <p className="mt-1 text-xs text-slate-400">{phoneme.hintCN}</p>
           </div>
           <div className="flex items-center gap-2">
-            <SpeakButton text={phoneme.ttsWord ?? phoneme.exampleWords[0]} />
-            <SpeakButton text={phoneme.ttsWord ?? phoneme.exampleWords[0]} slow />
+            <SpeakButton text={phoneme.ttsWord ?? phoneme.exampleWords[0]} className="min-h-[44px] min-w-[44px]" />
+            <SpeakButton text={phoneme.ttsWord ?? phoneme.exampleWords[0]} slow className="min-h-[44px] min-w-[44px]" />
             <button
               type="button"
               onClick={() => {
                 playSfx('correct');
                 markLearned(phoneme.id);
               }}
-              className="flex items-center gap-1 rounded-xl border border-success/45 bg-success/12 px-3 py-2 text-xs text-success transition hover:bg-success/20"
+              className="flex min-h-[44px] items-center gap-1 rounded-xl border border-success/45 bg-success/12 px-3 py-2 text-xs text-success transition hover:bg-success/20"
             >
               <CheckCircle2 size={13} aria-hidden /> 标记已学
             </button>
@@ -298,7 +298,7 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
       <section className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
         <InfoCard title="口型" text={phoneme.mouthShape} tone="#00E5FF" />
         <InfoCard title="舌位" text={phoneme.tonguePosition} tone="#FF4D9D" />
-        <InfoCard title="气流" text={phoneme.airflow} tone="#7C4DFF" />
+        <InfoCard title="气流" text={phoneme.airflow} tone="#A98BFF" />
         <div className="rounded-2xl border border-warn/30 bg-warn/[0.06] p-4">
           <div className="mb-1.5 flex items-center gap-1.5 text-xs font-semibold text-warn">
             <TriangleAlert size={13} aria-hidden /> 中文母语者易犯错误
@@ -319,7 +319,7 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
           </div>
           <div className="flex flex-wrap gap-2">
             {phoneme.commonSpellings.map((s) => (
-              <span key={s} className="ipa rounded-lg border border-pink/45 bg-pink/10 px-3 py-1.5 text-sm text-pink">
+              <span key={s} className="ipa rounded-lg border border-pink/45 bg-pink/10 px-3 py-1.5 text-sm text-pink-lit">
                 {s}
               </span>
             ))}
@@ -340,7 +340,7 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
                     playSfx('tick');
                     onSelect(p);
                   }}
-                  className="ipa rounded-lg border border-neon/35 bg-neon/[0.08] px-3 py-1.5 text-sm text-neon transition hover:border-neon/70"
+                  className="ipa min-h-[44px] min-w-[44px] rounded-lg border border-neon/35 bg-neon/[0.08] px-3 py-1.5 text-sm text-neon transition hover:border-neon/70"
                 >
                   {p.symbol}
                 </button>
@@ -366,7 +366,7 @@ function InfoCard({ title, text, tone }: { title: string; text: string; tone: st
 function MiniMouth({ phoneme }: { phoneme: Phoneme }) {
   return (
     <div className="overflow-hidden rounded-xl border border-white/10">
-      <div className="px-2 pt-1 text-center text-[10px] font-bold text-slate-400">{phoneme.symbol}</div>
+      <div className="px-2 pt-1 text-center text-xs font-bold text-slate-400">{phoneme.symbol}</div>
       <MouthSideView geo={phoneme.geo} voiced={phoneme.voiced} showFront={false} />
     </div>
   );

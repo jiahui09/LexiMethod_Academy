@@ -96,7 +96,7 @@ export default function StepControls({
                 playSfx('click');
                 onChange(i);
               }}
-              className="group flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] transition-all duration-300"
+              className="group flex items-center justify-center gap-1.5 rounded-full border px-2.5 py-1 text-xs transition-all duration-300 min-h-[44px] min-w-[44px]"
               style={{
                 borderColor: activeDot ? 'rgba(0,229,255,0.75)' : done ? 'rgba(0,230,118,0.4)' : 'rgba(255,255,255,0.14)',
                 background: activeDot ? 'rgba(0,229,255,0.16)' : 'rgba(255,255,255,0.04)',
@@ -172,7 +172,7 @@ export default function StepControls({
         </span>
       </div>
 
-      <p className="text-[11px] text-slate-500">提示：可用键盘 ← / → 翻页；开启“自动播放”将按时间线自动推进每一步。</p>
+      <p className="text-xs text-slate-400">提示：可用键盘 ← / → 翻页；开启“自动播放”将按时间线自动推进每一步。</p>
     </div>
   );
 }

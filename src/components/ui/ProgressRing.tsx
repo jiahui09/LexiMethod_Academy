@@ -59,8 +59,8 @@ export default function ProgressRing({
         <span className="font-display text-2xl font-bold text-white tabular-nums">
           {Math.round(v * 100)}%
         </span>
-        {label && <span className="mt-0.5 text-[11px] text-slate-300/70">{label}</span>}
-        {sub && <span className="text-[10px] text-slate-400/70">{sub}</span>}
+        {label && <span className="mt-0.5 text-xs text-slate-300/70">{label}</span>}
+        {sub && <span className="text-xs text-slate-400/70">{sub}</span>}
       </div>
     </div>
   );

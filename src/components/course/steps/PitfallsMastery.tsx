@@ -58,7 +58,7 @@ export function PitfallsStep({ method }: { method: Method }) {
               aria-expanded={open}
             >
               <div className="mb-1.5 flex items-center gap-2 text-xs font-semibold text-danger">
-                <span className="flex h-5 w-5 items-center justify-center rounded-md bg-danger/20 text-[11px]">
+                <span className="flex h-5 w-5 items-center justify-center rounded-md bg-danger/20 text-xs">
                   {i + 1}
                 </span>
                 误区
@@ -170,7 +170,7 @@ export function MasteryStep({ method, onNextMethod }: { method: Method; onNextMe
         </AnimatePresence>
       </div>
 
-      <p className="mt-4 border-t border-white/8 pt-3 text-[11px] leading-relaxed text-slate-500">
+      <p className="mt-4 border-t border-white/8 pt-3 text-xs leading-relaxed text-slate-400">
         掌握的定义是“在没有提示的陌生材料上也能做到”。建议：立刻到{' '}
         <span className="text-neon">实战演练</span> 找一个没学过的词走一遍全流程。
       </p>

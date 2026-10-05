@@ -72,7 +72,7 @@ export default function SpellingMapDrill() {
             aria-pressed={dir === d.key}
           >
             <div className="mb-1 flex items-center gap-1.5 text-sm font-semibold text-white">
-              <ArrowLeftRight size={14} className={dir === d.key ? 'text-neon' : 'text-slate-500'} aria-hidden />
+              <ArrowLeftRight size={14} className={dir === d.key ? 'text-neon' : 'text-slate-400'} aria-hidden />
               {d.label}
             </div>
             <div className="text-xs leading-relaxed text-slate-400">{d.desc}</div>
@@ -95,7 +95,7 @@ export default function SpellingMapDrill() {
           换一组 ↻
         </NeonButton>
       </div>
-      <p className="text-xs text-slate-500">
+      <p className="text-xs text-slate-400">
         提示：听音拼写不熟？切到「听音拼写训练」标签，先写音标、再写单词，逐字母反馈。
         <button type="button" className="ml-2 text-neon underline" onClick={() => speak('construction')}>
           试听 construction
@@ -116,7 +116,7 @@ function PatternSpotlight() {
     <section className="rounded-3xl border border-white/12 bg-white/[0.04] p-5">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2 text-sm font-semibold text-white">
-          <Sparkles size={15} className="text-pink" aria-hidden /> 拼写规则动画
+          <Sparkles size={15} className="text-pink-lit" aria-hidden /> 拼写规则动画
         </div>
         <div className="flex flex-wrap gap-1.5">
           {spellingPatterns.slice(0, 10).map((p) => (
@@ -127,8 +127,8 @@ function PatternSpotlight() {
                 playSfx('tick');
                 setPatternId(p.id);
               }}
-              className={`ipa rounded-lg border px-2.5 py-1 text-xs transition ${
-                p.id === patternId ? 'border-pink bg-pink/18 text-pink' : 'border-white/12 bg-white/5 text-slate-300 hover:border-pink/50'
+              className={`ipa min-h-[44px] min-w-[44px] rounded-lg border px-2.5 py-1 text-xs transition ${
+                p.id === patternId ? 'border-pink bg-pink/18 text-pink-lit' : 'border-white/12 bg-white/5 text-slate-300 hover:border-pink/50'
               }`}
               aria-pressed={p.id === patternId}
             >
@@ -194,7 +194,7 @@ function PatternSpotlight() {
                 {idx >= 0 ? (
                   <>
                     {head}
-                    <mark className="rounded bg-pink/30 px-1 text-pink">{mid}</mark>
+                    <mark className="rounded bg-pink/20 px-1 text-pink-lit">{mid}</mark>
                     {tail}
                   </>
                 ) : (

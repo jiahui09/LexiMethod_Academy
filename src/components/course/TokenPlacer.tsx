@@ -131,7 +131,7 @@ export default function TokenPlacer({
   return (
     <div className="flex flex-col gap-4">
       <p className="text-sm text-slate-300/85">
-        <span className="mr-2 rounded-md bg-neon/15 px-2 py-0.5 text-[11px] font-bold text-neon">练习</span>
+        <span className="mr-2 rounded-md bg-neon/15 px-2 py-0.5 text-xs font-bold text-neon">练习</span>
         {instructions}
       </p>
 
@@ -163,13 +163,13 @@ export default function TokenPlacer({
               className={`relative flex min-w-[76px] items-center justify-center rounded-2xl border px-4 py-4 font-display text-lg font-semibold backdrop-blur-md transition-colors ${
                 piece
                   ? 'border-neon/50 bg-neon/10 text-white'
-                  : 'border-dashed border-white/25 bg-white/[0.04] text-slate-500'
+                  : 'border-dashed border-white/25 bg-white/[0.04] text-slate-400'
               } ${picked && !piece ? 'border-solid border-neon/70 bg-neon/10 ring-2 ring-neon/30' : ''}`}
               aria-label={`第 ${i + 1} 个槽位${piece ? `：${piece.text}` : '（空）'}`}
             >
               {piece ? piece.text : '?'}
             </motion.button>
-            {i < slots.length - 1 && <span className="text-slate-500">{gapToken === '-' ? '·' : gapToken}</span>}
+            {i < slots.length - 1 && <span className="text-slate-400">{gapToken === '-' ? '·' : gapToken}</span>}
           </div>
         ))}
         {status === 'correct' && <LightWave />}
@@ -207,7 +207,7 @@ export default function TokenPlacer({
             </motion.button>
           ))}
         </AnimatePresence>
-        {pool.length === 0 && <span className="text-xs text-slate-500">（拼块已全部放入，点击槽位可取回）</span>}
+        {pool.length === 0 && <span className="text-xs text-slate-400">（拼块已全部放入，点击槽位可取回）</span>}
       </div>
 
       {/* 反馈 */}
@@ -238,9 +238,9 @@ export default function TokenPlacer({
         )}
       </AnimatePresence>
 
-      <div className="flex items-center justify-between text-xs text-slate-500">
+      <div className="flex items-center justify-between text-xs text-slate-400">
         <span>尝试次数：{attempts}</span>
-        <button type="button" onClick={reset} className="rounded-lg border border-white/12 px-3 py-1 hover:border-neon/50 hover:text-neon transition">
+        <button type="button" onClick={reset} className="min-h-[44px] rounded-lg border border-white/12 px-3 py-1 hover:border-neon/50 hover:text-neon transition">
           重新出题
         </button>
       </div>

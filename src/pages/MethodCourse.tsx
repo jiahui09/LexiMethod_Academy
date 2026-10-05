@@ -97,7 +97,7 @@ export default function MethodCourse() {
           <h1 className="mt-2 flex flex-wrap items-center gap-3 font-display text-2xl font-bold text-white md:text-3xl">
             {method.title}
             <span
-              className="rounded-full border px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest"
+              className="rounded-full border px-2.5 py-1 text-xs font-bold uppercase tracking-widest"
               style={{ color: method.accent, borderColor: `${method.accent}66`, background: `${method.accent}18` }}
             >
               {method.category}
@@ -108,9 +108,9 @@ export default function MethodCourse() {
 
         <div className="glass flex flex-wrap items-center gap-3 px-4 py-3">
           <div className="text-right">
-            <div className="text-[10px] uppercase tracking-widest text-slate-400">本课进度</div>
+            <div className="text-xs uppercase tracking-widest text-slate-400">本课进度</div>
             <div className="font-display text-xl font-bold text-neon tabular-nums">{donePct}%</div>
-            <div className="text-[11px] text-slate-400 tabular-nums" data-testid="course-step">
+            <div className="text-xs text-slate-400 tabular-nums" data-testid="course-step">
               第 {index + 1} 步 / 共 {total} 步
             </div>
           </div>
@@ -130,7 +130,7 @@ export default function MethodCourse() {
           <Link
             to={`/feynman?method=${method.id}`}
             onClick={() => playSfx('reveal')}
-            className="flex items-center gap-1.5 rounded-xl border px-3 py-2 text-xs transition hover:-translate-y-0.5"
+            className="flex min-h-[44px] items-center gap-1.5 rounded-xl border px-3 py-2 text-xs transition hover:-translate-y-0.5"
             style={{ color: method.accent ?? '#00E5FF', borderColor: `${method.accent ?? '#00E5FF'}66`, background: `${method.accent ?? '#00E5FF'}14` }}
             aria-label={`进入费曼关：${method.title}`}
           >
@@ -143,7 +143,7 @@ export default function MethodCourse() {
               navigate(`/methods/${nextMethod.id}`);
               setIndex(0);
             }}
-            className="flex items-center gap-1.5 rounded-xl border border-white/12 px-3 py-2 text-xs text-slate-300 transition hover:border-neon/50 hover:text-neon"
+            className="flex min-h-[44px] items-center gap-1.5 rounded-xl border border-white/12 px-3 py-2 text-xs text-slate-300 transition hover:border-neon/50 hover:text-neon"
             aria-label={`前往下一方法：${nextMethod.title}`}
           >
             <RouteIcon size={13} aria-hidden /> 下一方法
@@ -196,7 +196,7 @@ export default function MethodCourse() {
               <Link
                 to={`/feynman?method=${method.id}`}
                 onClick={() => playSfx('click')}
-                className="inline-flex items-center gap-1.5 rounded-xl border border-neon/45 bg-neon/10 px-3.5 py-2 text-xs font-medium text-neon transition-all hover:-translate-y-0.5 hover:bg-neon/15"
+                className="inline-flex min-h-[44px] items-center gap-1.5 rounded-xl border border-neon/45 bg-neon/10 px-3.5 py-2 text-xs font-medium text-neon transition-all hover:-translate-y-0.5 hover:bg-neon/15"
               >
                 <MessagesSquare size={13} aria-hidden /> 去费曼关
               </Link>
@@ -206,7 +206,7 @@ export default function MethodCourse() {
                   playSfx('click');
                   navigate(`/methods/${nextMethod.id}`);
                 }}
-                className="inline-flex items-center gap-1.5 rounded-xl border border-white/15 px-3.5 py-2 text-xs text-slate-300 transition hover:border-neon/40 hover:text-white"
+                className="inline-flex min-h-[44px] items-center gap-1.5 rounded-xl border border-white/15 px-3.5 py-2 text-xs text-slate-300 transition hover:border-neon/40 hover:text-white"
               >
                 <RouteIcon size={13} aria-hidden /> 下一方法
               </button>
@@ -225,7 +225,7 @@ export default function MethodCourse() {
             transition={{ delay: 0.1 + i * 0.05, duration: 0.45 }}
             className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-slate-300"
           >
-            <span className="mb-1 block text-[10px] font-bold uppercase tracking-widest" style={{ color: method.accent }}>
+            <span className="mb-1 block text-xs font-bold uppercase tracking-widest" style={{ color: method.accent }}>
               原理 {i + 1}
             </span>
             {p}

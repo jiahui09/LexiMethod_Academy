@@ -60,7 +60,7 @@ export default function DictationTrainer() {
             aria-pressed={mode === m.key}
           >
             <div className="mb-1 flex items-center gap-1.5 text-sm font-semibold text-white">
-              <Headphones size={14} className={mode === m.key ? 'text-neon' : 'text-slate-500'} aria-hidden />
+              <Headphones size={14} className={mode === m.key ? 'text-neon' : 'text-slate-400'} aria-hidden />
               {m.label}
             </div>
             <div className="text-xs leading-relaxed text-slate-400">{m.desc}</div>
@@ -82,7 +82,7 @@ export default function DictationTrainer() {
               setCount(n);
               setSeed((s) => s + 1);
             }}
-            className={`rounded-lg border px-3 py-1 text-xs transition ${
+            className={`min-h-[44px] rounded-lg border px-3 py-1 text-xs transition ${
               count === n ? 'border-neon bg-neon/15 text-neon' : 'border-white/12 text-slate-300 hover:border-neon/50'
             }`}
             aria-pressed={count === n}
@@ -98,7 +98,7 @@ export default function DictationTrainer() {
             setOnlyTag(null);
             setSeed((s) => s + 1);
           }}
-          className={`rounded-lg border px-3 py-1 text-xs transition ${!onlyTag ? 'border-violet bg-violet/15 text-violet' : 'border-white/12 text-slate-300 hover:border-violet/50'}`}
+          className={`min-h-[44px] rounded-lg border px-3 py-1 text-xs transition ${!onlyTag ? 'border-violet bg-violet/15 text-violet-lit' : 'border-white/12 text-slate-300 hover:border-violet/50'}`}
           aria-pressed={!onlyTag}
         >
           全部词
@@ -112,8 +112,8 @@ export default function DictationTrainer() {
               setOnlyTag(t);
               setSeed((s) => s + 1);
             }}
-            className={`rounded-lg border px-3 py-1 text-xs transition ${
-              onlyTag === t ? 'border-violet bg-violet/15 text-violet' : 'border-white/12 text-slate-300 hover:border-violet/50'
+            className={`min-h-[44px] rounded-lg border px-3 py-1 text-xs transition ${
+              onlyTag === t ? 'border-violet bg-violet/15 text-violet-lit' : 'border-white/12 text-slate-300 hover:border-violet/50'
             }`}
             aria-pressed={onlyTag === t}
           >
@@ -154,7 +154,7 @@ export default function DictationTrainer() {
             <ListRestart size={13} aria-hidden /> 听写相关错题（{listenMistakes.length}）
           </div>
           <div className="flex max-h-40 flex-col gap-1.5 overflow-y-auto pr-1">
-            {listenMistakes.length === 0 && <p className="text-xs text-slate-500">暂无错题，继续保持。</p>}
+            {listenMistakes.length === 0 && <p className="text-xs text-slate-400">暂无错题，继续保持。</p>}
             {listenMistakes.slice(0, 8).map((m) => (
               <div key={m.id} className="flex flex-wrap items-center gap-2 rounded-lg border border-white/10 px-3 py-2 text-xs">
                 <span className="text-slate-400">{m.prompt.slice(0, 26)}</span>
@@ -166,7 +166,7 @@ export default function DictationTrainer() {
         </div>
       </div>
 
-      <p className="text-xs text-slate-500">累计听写训练：{dictationCount} 次（在题目中作答自动累计）</p>
+      <p className="text-xs text-slate-400">累计听写训练：{dictationCount} 次（在题目中作答自动累计）</p>
     </div>
   );
 }

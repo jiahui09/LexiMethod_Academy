@@ -25,20 +25,20 @@ export default function EntranceStep({ method }: { method: Method }) {
       <div className="relative z-10 flex flex-col items-center gap-5">
         <div className="flex flex-wrap items-center justify-center gap-2">
           <span
-            className="rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-widest"
+            className="rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-widest"
             style={{ color: accent, borderColor: `${accent}66`, background: `${accent}1A` }}
           >
             方法模块
           </span>
           {method.durationMin && (
-            <span className="flex items-center gap-1 rounded-full border border-white/12 bg-white/5 px-3 py-1 text-[11px] text-slate-300">
+            <span className="flex items-center gap-1 rounded-full border border-white/12 bg-white/5 px-3 py-1 text-xs text-slate-300">
               <Clock3 size={12} aria-hidden /> 约 {method.durationMin} 分钟
             </span>
           )}
         </div>
 
-        {/* 标题字母逐个汇聚 */}
-        <h1 className="flex flex-wrap items-center justify-center gap-x-1 font-display text-3xl font-bold leading-tight text-white md:text-5xl">
+        {/* 标题字母逐个汇聚（h2：页面 h1 属于 MethodCourse 的课程标题） */}
+        <h2 className="flex flex-wrap items-center justify-center gap-x-1 font-display text-3xl font-bold leading-tight text-white md:text-5xl">
           {letters.map((ch, i) => (
             <motion.span
               key={`${ch}-${i}`}
@@ -53,7 +53,7 @@ export default function EntranceStep({ method }: { method: Method }) {
               {ch === ' ' ? ' ' : ch}
             </motion.span>
           ))}
-        </h1>
+        </h2>
 
         <motion.p
           initial={tier === 'off' ? false : { opacity: 0, y: 14 }}
@@ -61,7 +61,7 @@ export default function EntranceStep({ method }: { method: Method }) {
           transition={{ delay: 0.7, duration: 0.5 }}
           className="max-w-2xl text-sm leading-relaxed text-slate-300/90 md:text-base"
         >
-          <span className="mr-2 inline-flex items-center gap-1 rounded-md bg-neon/15 px-2 py-0.5 text-[11px] font-bold text-neon">
+          <span className="mr-2 inline-flex items-center gap-1 rounded-md bg-neon/15 px-2 py-0.5 text-xs font-bold text-neon">
             <Target size={11} aria-hidden /> 你将学会
           </span>
           {method.subtitle}

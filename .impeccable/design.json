@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-04T13:47:10+08:00",
+  "generatedAt": "2026-10-04T10:44:02.218Z",
   "title": "Design System: LexiMethod Academy",
   "extensions": {
     "colorMeta": {
@@ -34,6 +34,12 @@
           "oklch(0.95 0.04 285)"
         ]
       },
+      "secondaryText": {
+        "role": "secondary-text",
+        "displayName": "Violet Lit 紫文字变体",
+        "canonical": "#A98BFF",
+        "note": "token violet-lit: 紫承载文字的唯一合法形态, 玻璃面 ≥5.5:1; 本色仅用于边框/填充/光晕/SVG/≥18.66px粗体大字"
+      },
       "tertiary": {
         "role": "tertiary",
         "displayName": "Pulse Pink 脉冲粉",
@@ -48,6 +54,12 @@
           "oklch(0.85 0.12 355)",
           "oklch(0.95 0.04 355)"
         ]
+      },
+      "tertiaryText": {
+        "role": "tertiary-text",
+        "displayName": "Pink Lit 粉文字变体",
+        "canonical": "#FF80B5",
+        "note": "token pink-lit: 粉承载文字的唯一合法形态, ≥4.5:1; 本色仅用于填充/光晕/描边"
       },
       "success": {
         "role": "semantic",
@@ -384,7 +396,7 @@
       },
       {
         "name": "The Floor Rule",
-        "body": "12px 与 4.5:1 是任何文字（含 kicker、微标签、图表刻度）的地板，不是目标；紫色不用于玻璃面上的正文。",
+        "body": "12px 与 4.5:1 是任何文字（含 kicker、微标签、图表刻度）的地板，不是目标；紫色不用于玻璃面上的正文，必须携带文字时用 lit 变体 #A98BFF / #FF80B5。触控目标 ≥44×44px（390px 视口）。底线由 npm run audit:floor 逐路由审计把守，违规归零后并入 npm run verify 门禁。",
         "section": "typography"
       },
       {

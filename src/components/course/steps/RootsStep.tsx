@@ -76,7 +76,7 @@ export default function RootsStep() {
       {/* 拼装 */}
       <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-5">
         <div className="mb-4 flex flex-wrap items-center gap-2 text-xs text-slate-400">
-          <span className="flex items-center gap-1.5 rounded-md bg-pink/15 px-2 py-0.5 font-semibold text-pink">
+          <span className="flex items-center gap-1.5 rounded-md bg-pink/15 px-2 py-0.5 font-semibold text-pink-lit">
             <ZoomIn size={12} aria-hidden /> 色块拼装
           </span>
           <span className="font-display text-base font-semibold text-white">{word.word}</span>
@@ -94,16 +94,16 @@ export default function RootsStep() {
               <span className="font-display text-xl font-bold" style={{ color: r.color }}>
                 {r.text}
               </span>
-              <span className="text-[11px] text-slate-300">{r.meaning}</span>
+              <span className="text-xs text-slate-300">{r.meaning}</span>
               <span
-                className="rounded-full px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider"
+                className="rounded-full px-2 py-0.5 text-xs font-bold uppercase tracking-wider"
                 style={{ background: `${r.color}2A`, color: r.color }}
               >
                 {r.type === 'prefix' ? '前缀' : r.type === 'suffix' ? '后缀' : '词根'}
               </span>
             </div>
           ))}
-          <span className="text-2xl text-slate-500" aria-hidden>
+          <span className="text-2xl text-slate-400" aria-hidden>
             =
           </span>
           <motion.div
@@ -113,7 +113,7 @@ export default function RootsStep() {
             className="flex flex-col items-center gap-1 rounded-2xl border border-success/50 bg-success/12 px-6 py-4 shadow-[0_0_28px_rgba(0,230,118,0.25)]"
           >
             <span className="font-display text-lg font-bold text-white">{word.word}</span>
-            <span className="text-[11px] text-[#B9FFD9]">{word.meaningCN}</span>
+            <span className="text-xs text-[#B9FFD9]">{word.meaningCN}</span>
           </motion.div>
         </div>
 
@@ -184,7 +184,7 @@ export default function RootsStep() {
             })}
           </svg>
         </div>
-        <div className="mt-2 flex flex-wrap gap-2 text-[11px] text-slate-400">
+        <div className="mt-2 flex flex-wrap gap-2 text-xs text-slate-400">
           <span className="flex items-center gap-1">
             <Volume2 size={11} aria-hidden /> 点击树上任意节点可听发音
           </span>

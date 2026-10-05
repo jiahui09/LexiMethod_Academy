@@ -5,3 +5,6 @@ dist
 .npm-cache
 *.tsbuildinfo
 .omx/
+.impeccable/audit-c*.json
+.impeccable/audit-mine*.json
+.impeccable/touch-dump.txt

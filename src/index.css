@@ -103,6 +103,8 @@ body {
     isolation: isolate;
     border-radius: 14px;
     padding: 10px 18px;
+    /* 触控底线：390px 视口下可点元素 ≥44×44（hover/active/disabled 只改 transform/透明度，不缩高度） */
+    min-height: 44px;
     font-weight: 600;
     color: #e8fbff;
     background:
@@ -141,6 +143,8 @@ body {
   .btn-ghost {
     border-radius: 14px;
     padding: 10px 18px;
+    /* 触控底线：390px 视口下可点元素 ≥44×44 */
+    min-height: 44px;
     font-weight: 500;
     color: rgba(226, 240, 255, 0.85);
     background: rgba(255, 255, 255, 0.05);

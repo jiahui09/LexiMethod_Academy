@@ -36,7 +36,7 @@ export function MemoryChainStep({ method }: { method: Method }) {
 
   const chain = [
     { label: '单词', value: 'ambulance', sub: '/ˈæmbjələns/ 救护车', color: '#00E5FF', icon: Quote },
-    { label: '图像', value: '蓝灯闪烁的白色车', sub: '在脑海里生成清晰、夸张、有动作的画面', color: '#7C4DFF', icon: Clapperboard },
+    { label: '图像', value: '蓝灯闪烁的白色车', sub: '在脑海里生成清晰、夸张、有动作的画面', color: '#A98BFF', icon: Clapperboard },
     { label: '谐音钩子（仅作辅助）', value: '“俺不能死”', sub: '用母语发音搭建临时钩子，粤语/普通话都行', color: '#FFB300', icon: BrainCircuit },
     { label: '故事场景', value: '“俺不能死”→ 抢救 → 救护车', sub: '把钩子编成 3 秒故事，画面越荒诞越好记', color: '#FF4D9D', icon: Clapperboard },
     { label: '回归', value: '读准 /ˈæmbjələns/ + 放进句子', sub: '联想只是钩子，最终必须回到发音与语境', color: '#00E676', icon: Quote },
@@ -46,7 +46,7 @@ export function MemoryChainStep({ method }: { method: Method }) {
     <div className="flex flex-col gap-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <p className="text-sm text-slate-300">
-          <span className="mr-2 rounded-md bg-warn/15 px-2 py-0.5 text-[11px] font-bold text-warn">联想链</span>
+          <span className="mr-2 rounded-md bg-warn/15 px-2 py-0.5 text-xs font-bold text-warn">联想链</span>
           按顺序构建：单词 → 图像 → 故事 → 回归发音与语境
         </p>
         <NeonButton
@@ -86,7 +86,7 @@ export function MemoryChainStep({ method }: { method: Method }) {
                   <Icon size={17} aria-hidden />
                 </span>
                 <div className="min-w-0 flex-1">
-                  <div className="text-[10px] font-bold uppercase tracking-widest" style={{ color: c.color }}>
+                  <div className="text-xs font-bold uppercase tracking-widest" style={{ color: c.color }}>
                     {c.label}
                   </div>
                   <div className="font-display text-base font-semibold text-white">{c.value}</div>
@@ -179,7 +179,7 @@ export function ContextStep() {
             );
           })}
         </div>
-        <p className="mt-3 text-xs text-slate-500">
+        <p className="mt-3 text-xs text-slate-400">
           孤立单词记的是“释义”，词块记的是“怎么用”。阅读时优先收集 <span className="text-neon">动词+名词 / 形容词+名词 / 动词+副词</span>{' '}
           这类搭配，复习时整块调用。
         </p>
@@ -216,7 +216,7 @@ export function SrsTimelineStep() {
                 className="flex flex-col items-center gap-1.5 text-center"
               >
                 <span
-                  className="flex h-10 w-10 items-center justify-center rounded-full border text-[10px] font-bold"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border text-xs font-bold"
                   style={{
                     borderColor: '#00E5FF',
                     background: 'rgba(0,229,255,0.14)',
@@ -227,13 +227,13 @@ export function SrsTimelineStep() {
                   {i + 1}
                 </span>
                 <span className="font-display text-xs font-bold text-white">{n.day}</span>
-                <span className="text-[10px] leading-tight text-slate-400">{n.action}</span>
+                <span className="text-xs leading-tight text-slate-400">{n.action}</span>
               </motion.div>
             ))}
           </div>
         </div>
         <div className="mt-4 flex items-center gap-2 rounded-xl border border-violet/30 bg-violet/[0.08] px-3 py-2 text-xs text-slate-300">
-          <span className="text-violet">↑</span> 忘得最快的阶段在学后 24 小时内，所以第一次复习要“近”，之后逐级拉长。
+          <span className="text-violet-lit">↑</span> 忘得最快的阶段在学后 24 小时内，所以第一次复习要“近”，之后逐级拉长。
         </div>
       </div>
 
@@ -260,7 +260,7 @@ export function SrsTimelineStep() {
           </motion.div>
         ))}
       </div>
-      <p className="text-xs text-slate-500">测试效应（testing effect）：提取动作本身会加固记忆痕迹，比重复输入更省时、更牢。</p>
+      <p className="text-xs text-slate-400">测试效应（testing effect）：提取动作本身会加固记忆痕迹，比重复输入更省时、更牢。</p>
     </div>
   );
 }
@@ -273,9 +273,9 @@ export function OutputFunnelStep() {
   const [stage, setStage] = useState(0);
 
   const stages = [
-    { label: '被动词汇', desc: '看得懂、想起来慢', color: '#64748B', icon: ScrollText },
+    { label: '被动词汇', desc: '看得懂、想起来慢', color: '#94A3B8', icon: ScrollText },
     { label: '造句', desc: '把词放进自己的句子', color: '#00E5FF', icon: PenLine },
-    { label: '口语输出', desc: '读出来 / 说出来 1 次', color: '#7C4DFF', icon: Mic2 },
+    { label: '口语输出', desc: '读出来 / 说出来 1 次', color: '#A98BFF', icon: Mic2 },
     { label: '主动词汇', desc: '写作口语中自动调用', color: '#00E676', icon: BrainCircuit },
   ];
 
@@ -302,7 +302,7 @@ export function OutputFunnelStep() {
               </div>
             </motion.div>
             {i < stages.length - 1 && (
-              <motion.div {...fade(tier, i * 0.22 + 0.1)} className="my-1 flex justify-center text-slate-500" aria-hidden>
+              <motion.div {...fade(tier, i * 0.22 + 0.1)} className="my-1 flex justify-center text-slate-400" aria-hidden>
                 <ArrowDown size={16} />
               </motion.div>
             )}
@@ -339,7 +339,7 @@ export function OutputFunnelStep() {
             完成输出
           </NeonButton>
         </div>
-        <p className="mt-2 text-[11px] text-slate-500">句子 ≥ 4 个词才计入输出；说出来（朗读一遍）效果再 +1。</p>
+        <p className="mt-2 text-xs text-slate-400">句子 ≥ 4 个词才计入输出；说出来（朗读一遍）效果再 +1。</p>
       </div>
     </div>
   );
@@ -361,7 +361,7 @@ export function MetacogStep() {
         <div className="flex flex-col gap-3">
           {groups.map((g, gi) => (
             <div key={g}>
-              <div className="mb-1 text-[11px] font-bold" style={{ color: ['#00E5FF', '#7C4DFF', '#FF4D9D', '#00E676'][gi % 4] }}>
+              <div className="mb-1 text-xs font-bold" style={{ color: ['#00E5FF', '#A98BFF', '#FF4D9D', '#00E676'][gi % 4] }}>
                 {g}
               </div>
               <ul className="flex flex-col gap-1">
@@ -388,13 +388,13 @@ export function MetacogStep() {
           {strategyTuning.slice(0, 5).map((s, i) => (
             <motion.div key={s.id} {...fade(tier, 0.06 * i)} className="rounded-xl border border-white/10 bg-white/[0.04] px-3 py-2">
               <div className="text-xs font-semibold text-white">{s.signal}</div>
-              <div className="text-[11px] text-slate-400">诊断：{s.diagnosis}</div>
-              <div className="text-[11px] text-success">改法：{s.fix}</div>
+              <div className="text-xs text-slate-400">诊断：{s.diagnosis}</div>
+              <div className="text-xs text-success">改法：{s.fix}</div>
             </motion.div>
           ))}
         </div>
         <div className="mt-3">
-          <label className="mb-1 block text-[11px] text-slate-400" htmlFor="meta-log">
+          <label className="mb-1 block text-xs text-slate-400" htmlFor="meta-log">
             今天的复盘（哪些方法有效 / 哪些词总忘 / 明天怎么调整）
           </label>
           <textarea
@@ -427,7 +427,7 @@ export function GenericStep({ method, stepIndex }: { method: Method; stepIndex: 
             {...fade(tier, i * 0.07)}
             className="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3"
           >
-            <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-violet/20 text-xs font-bold text-violet">
+            <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-violet/20 text-xs font-bold text-violet-lit">
               {i + 1}
             </span>
             <p className="text-sm leading-relaxed text-slate-200">{p}</p>
@@ -435,7 +435,7 @@ export function GenericStep({ method, stepIndex }: { method: Method; stepIndex: 
         ))}
       </div>
       <AnimatePresence>
-        {tier === 'off' && <p className="text-xs text-slate-500">（减少动态模式：动画内容以静态文本呈现）</p>}
+        {tier === 'off' && <p className="text-xs text-slate-400">（减少动态模式：动画内容以静态文本呈现）</p>}
       </AnimatePresence>
     </div>
   );

@@ -180,8 +180,8 @@ export default function QuestionRunner({
         <div className="flex items-center gap-3">
           {q.speak && supported && (
             <div className="flex items-center gap-1.5">
-              <SpeakButton text={q.speak} label="常速播放" />
-              <SpeakButton text={q.speak} slow label="慢速播放" />
+              <SpeakButton text={q.speak} label="常速播放" className="min-h-[44px] min-w-[44px]" />
+              <SpeakButton text={q.speak} slow label="慢速播放" className="min-h-[44px] min-w-[44px]" />
             </div>
           )}
         </div>
@@ -200,13 +200,13 @@ export default function QuestionRunner({
       <div className="mb-4 flex items-start justify-between gap-3">
         <div>
           <p className="font-display text-lg font-semibold text-white md:text-xl">{q.prompt}</p>
-          <p className="mt-1 text-xs text-slate-500">{q.narration}</p>
+          <p className="mt-1 text-xs text-slate-400">{q.narration}</p>
         </div>
         {q.speak && !isChoice && (
           <button
             type="button"
             onClick={() => speak(q.speak!, { slow: q.speakSlow })}
-            className="flex items-center gap-1.5 rounded-xl border border-neon/40 bg-neon/10 px-3 py-2 text-xs text-neon hover:bg-neon/20 transition"
+            className="flex min-h-[44px] items-center gap-1.5 rounded-xl border border-neon/40 bg-neon/10 px-3 py-2 text-xs text-neon hover:bg-neon/20 transition"
           >
             <Headphones size={14} aria-hidden /> 播放
           </button>
@@ -243,7 +243,7 @@ export default function QuestionRunner({
                   }`}
                 >
                   <span className="flex items-center gap-2.5">
-                    <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-white/8 text-[11px] font-bold text-slate-300">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-white/8 text-xs font-bold text-slate-300">
                       {String.fromCharCode(65 + i)}
                     </span>
                     <span className={`font-display font-semibold text-white ${c.sub ? '' : 'ipa text-base'}`}>{c.label}</span>
@@ -356,7 +356,7 @@ export default function QuestionRunner({
                   >
                     {s}
                   </motion.button>
-                  <span className="text-[10px] text-slate-500">#{i}</span>
+                  <span className="text-xs text-slate-400">#{i}</span>
                 </div>
               );
             })}
@@ -407,7 +407,7 @@ export default function QuestionRunner({
           type="button"
           onClick={() => speak(q.speak ?? q.prompt, { slow: true })}
           disabled={!supported}
-          className="flex items-center gap-1.5 text-xs text-slate-400 transition hover:text-neon disabled:opacity-40"
+          className="flex min-h-[44px] items-center gap-1.5 text-xs text-slate-400 transition hover:text-neon disabled:opacity-40"
         >
           <Turtle size={13} aria-hidden /> 慢速再听一遍
         </button>

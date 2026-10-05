@@ -43,7 +43,7 @@ export const ALL_NAV_ITEMS: NavItem[] = [
 
 function Logo() {
   return (
-    <NavLink to="/" className="group flex items-center gap-2.5" aria-label="LexiMethod Academy 首页">
+    <NavLink to="/" className="group flex min-h-[44px] min-w-[44px] items-center justify-center gap-2.5" aria-label="LexiMethod Academy 首页">
       <span className="relative flex h-9 w-9 items-center justify-center rounded-xl border border-neon/40 bg-neon/10 shadow-glow-sm">
         <span className="font-display text-sm font-bold text-neon">Lx</span>
         <span className="absolute -right-0.5 -top-0.5 h-2 w-2 rounded-full bg-pink shadow-[0_0_8px_#FF4D9D]" />
@@ -52,7 +52,7 @@ function Logo() {
         <span className="font-display text-[15px] font-bold tracking-tight text-white group-hover:text-neon transition-colors">
           LexiMethod
         </span>
-        <span className="text-[10px] uppercase tracking-[0.28em] text-slate-400">Academy</span>
+        <span className="text-xs uppercase tracking-[0.28em] text-slate-400">Academy</span>
       </span>
     </NavLink>
   );
@@ -119,7 +119,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             </Link>
             <button
               type="button"
-              className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-slate-200 lg:hidden"
+              className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-slate-200 lg:hidden"
               onClick={() => setOpen((v) => !v)}
               aria-label={open ? '关闭菜单' : '打开菜单'}
               aria-expanded={open}
@@ -173,12 +173,12 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             <span>授人以渔：发音 · 音标拼写 · 自然拼读 · 词根词缀 · 记忆方法</span>
           </div>
           <div className="flex flex-wrap items-center gap-4">
-            <NavLink to="/analyze" className="hover:text-neon transition-colors">实战演练</NavLink>
-            <NavLink to="/toolbox" className="hover:text-neon transition-colors">规则速查</NavLink>
-            <NavLink to="/feynman" className="hover:text-neon transition-colors">费曼关</NavLink>
-            <NavLink to="/stats" className="hover:text-neon transition-colors">学习统计</NavLink>
-            <NavLink to="/settings" className="hover:text-neon transition-colors">设置</NavLink>
-            <span className="text-slate-500">纯前端 · 零数据存储</span>
+            <NavLink to="/analyze" className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center transition-colors hover:text-neon">实战演练</NavLink>
+            <NavLink to="/toolbox" className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center transition-colors hover:text-neon">规则速查</NavLink>
+            <NavLink to="/feynman" className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center transition-colors hover:text-neon">费曼关</NavLink>
+            <NavLink to="/stats" className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center transition-colors hover:text-neon">学习统计</NavLink>
+            <NavLink to="/settings" className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center transition-colors hover:text-neon">设置</NavLink>
+            <span className="text-slate-400">纯前端 · 零数据存储</span>
           </div>
         </div>
       </footer>

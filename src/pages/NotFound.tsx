@@ -16,13 +16,13 @@ export default function NotFound() {
       <div className="mt-2 flex flex-wrap justify-center gap-3">
         <Link
           to="/"
-          className="rounded-xl border border-neon/50 bg-neon/12 px-5 py-2.5 text-sm font-semibold text-neon transition hover:bg-neon/20 hover:shadow-glow-sm"
+          className="min-h-[44px] rounded-xl border border-neon/50 bg-neon/12 px-5 py-2.5 text-sm font-semibold text-neon transition hover:bg-neon/20 hover:shadow-glow-sm"
         >
           回到学习地图
         </Link>
         <Link
           to="/methods/phonics-syllables"
-          className="rounded-xl border border-white/14 px-5 py-2.5 text-sm text-slate-300 transition hover:border-neon/50 hover:text-neon"
+          className="min-h-[44px] rounded-xl border border-white/14 px-5 py-2.5 text-sm text-slate-300 transition hover:border-neon/50 hover:text-neon"
         >
           直接进入旗舰课
         </Link>

@@ -62,7 +62,7 @@ export default function PracticeStep({ method }: { method: Method }) {
           换一组题 ↻
         </button>
       </div>
-      {tier === 'off' && <p className="text-xs text-slate-500">（已开启减少动态：动画以静态方式呈现）</p>}
+      {tier === 'off' && <p className="text-xs text-slate-400">（已开启减少动态：动画以静态方式呈现）</p>}
     </div>
   );
 }
@@ -119,7 +119,7 @@ function SyllablePractice() {
             className="flex flex-col gap-4"
           >
             <p className="text-sm text-slate-300">
-              <span className="mr-2 rounded-md bg-violet/15 px-2 py-0.5 text-[11px] font-bold text-violet">第二步</span>
+              <span className="mr-2 rounded-md bg-violet/15 px-2 py-0.5 text-xs font-bold text-violet-lit">第二步</span>
               点击你认为的重读音节（名词→动词？想想 -tion 后缀的重音规律）。
             </p>
             <div className="flex flex-wrap items-center gap-2.5">
@@ -150,7 +150,7 @@ function SyllablePractice() {
                 </motion.button>
               ))}
             </div>
-            <p className="text-xs text-slate-500">提示：-tion 结尾的词，重音几乎总在它前面那个音节（倒数第二音节）。</p>
+            <p className="text-xs text-slate-400">提示：-tion 结尾的词，重音几乎总在它前面那个音节（倒数第二音节）。</p>
           </motion.div>
         )}
 
@@ -187,7 +187,7 @@ function AffixPractice({ wordId }: { wordId: string }) {
     <div className="relative overflow-hidden rounded-3xl border border-white/12 bg-white/[0.04] p-5 backdrop-blur-xl md:p-6">
       <ConfettiBurst fireKey={burst} count={70} />
       <div className="mb-4 flex flex-wrap items-center gap-3 text-xs text-slate-400">
-        <span className="rounded-md bg-pink/15 px-2 py-0.5 font-semibold text-pink">词缀拼装</span>
+        <span className="rounded-md bg-pink/15 px-2 py-0.5 font-semibold text-pink-lit">词缀拼装</span>
         <span>
           目标词：<span className="font-display font-semibold text-white">{word.word}</span>
         </span>
@@ -269,13 +269,13 @@ function ChecklistPractice() {
                   {on && <Check size={13} aria-hidden />}
                 </span>
                 <span className={`text-sm ${on ? 'text-white' : 'text-slate-300'}`}>{item.label}</span>
-                <span className="ml-auto text-[10px] uppercase tracking-wider text-slate-500">{item.group}</span>
+                <span className="ml-auto text-xs uppercase tracking-wider text-slate-400">{item.group}</span>
               </motion.button>
             </li>
           );
         })}
       </ul>
-      <p className="mt-4 text-xs text-slate-500">
+      <p className="mt-4 text-xs text-slate-400">
         元认知要义：不是“学了多久”，而是“是否监控到自己的薄弱点并调整了策略”。
       </p>
     </div>

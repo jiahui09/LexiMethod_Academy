@@ -155,11 +155,11 @@ export default function WordAnalysisWizard({ wordId, compact = false, onDone }: 
       {/* 头部 */}
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2 text-xs text-slate-400">
-          <span className="rounded-md bg-pink/15 px-2 py-0.5 font-semibold text-pink">实战演练</span>
+          <span className="rounded-md bg-pink/15 px-2 py-0.5 font-semibold text-pink-lit">实战演练</span>
           <span>生词：</span>
           <span className="font-display text-base font-semibold text-white">{word}</span>
           {dict && <span className="ipa">{dict.phoneticUK}</span>}
-          <SpeakButton text={word} size="sm" />
+          <SpeakButton text={word} size="sm" className="min-h-[44px] min-w-[44px]" />
         </div>
         <div className="flex items-center gap-1" aria-label="分析进度">
           {STEPS.map((s, i) => (
@@ -201,7 +201,7 @@ export default function WordAnalysisWizard({ wordId, compact = false, onDone }: 
                     playSfx('tick');
                     setAnswer(def.key, o);
                   }}
-                  className={`rounded-xl border px-4 py-2.5 text-sm transition-all ${
+                  className={`min-h-[44px] rounded-xl border px-4 py-2.5 text-sm transition-all ${
                     value === o
                       ? 'border-neon bg-neon/15 text-white shadow-neon'
                       : 'border-white/15 bg-white/[0.05] text-slate-300 hover:border-neon/50'
@@ -246,7 +246,7 @@ export default function WordAnalysisWizard({ wordId, compact = false, onDone }: 
                 >
                   <Eye size={14} aria-hidden /> {revealed ? '已核对' : '对照内置词典'}
                 </NeonButton>
-                {dict && <SpeakButton text={dict.word} label="播放发音" />}
+                {dict && <SpeakButton text={dict.word} label="播放发音" className="min-h-[44px] min-w-[44px]" />}
               </div>
 
               <AnimatePresence>
@@ -303,7 +303,7 @@ export default function WordAnalysisWizard({ wordId, compact = false, onDone }: 
                 playSfx('reveal');
                 setHints((h) => ({ ...h, [def.key]: true }));
               }}
-              className="flex items-center gap-1.5 rounded-xl border border-warn/40 bg-warn/10 px-3 py-2 text-xs text-warn transition hover:bg-warn/20"
+              className="flex min-h-[44px] items-center gap-1.5 rounded-xl border border-warn/40 bg-warn/10 px-3 py-2 text-xs text-warn transition hover:bg-warn/20"
             >
               <Lightbulb size={13} aria-hidden /> {hints[def.key] ? '提示已展开' : '要提示吗？'}
             </button>
@@ -327,7 +327,7 @@ export default function WordAnalysisWizard({ wordId, compact = false, onDone }: 
               type="button"
               disabled={step === 0}
               onClick={() => setStep((s) => Math.max(0, s - 1))}
-              className="text-xs text-slate-400 transition hover:text-neon disabled:opacity-30"
+              className="min-h-[44px] text-xs text-slate-400 transition hover:text-neon disabled:opacity-30"
             >
               ← 上一步
             </button>
@@ -337,7 +337,7 @@ export default function WordAnalysisWizard({ wordId, compact = false, onDone }: 
           </div>
 
           {!compact && (
-            <p className="flex items-start gap-1.5 text-[11px] text-slate-500">
+            <p className="flex items-start gap-1.5 text-xs text-slate-400">
               <PenLine size={12} className="mt-0.5 shrink-0" aria-hidden />
               全程不直接给出答案：网站只提供方法、步骤与提示，结论由你自己产出后再核对。
             </p>

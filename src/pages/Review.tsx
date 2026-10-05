@@ -77,24 +77,24 @@ export default function Review() {
         <div className="glass p-5">
           <div className="text-xs uppercase tracking-widest text-slate-400">今日到期</div>
           <div className="font-display text-3xl font-bold text-neon tabular-nums">{due.length}</div>
-          <div className="text-[11px] text-slate-500">共 {cards.length} 张卡片</div>
+          <div className="text-xs text-slate-400">共 {cards.length} 张卡片</div>
         </div>
         <div className="glass p-5">
           <div className="text-xs uppercase tracking-widest text-slate-400">错题本</div>
           <div className="font-display text-3xl font-bold text-warn tabular-nums">{mistakes.length}</div>
-          <div className="text-[11px] text-slate-500">答错自动收录</div>
+          <div className="text-xs text-slate-400">答错自动收录</div>
         </div>
         <div className="glass p-5">
           <div className="text-xs uppercase tracking-widest text-slate-400">累计复习正确</div>
           <div className="font-display text-3xl font-bold text-success tabular-nums">{reviewed}</div>
-          <div className="text-[11px] text-slate-500">每次正确升一档</div>
+          <div className="text-xs text-slate-400">每次正确升一档</div>
         </div>
         <div className="glass p-5">
           <div className="text-xs uppercase tracking-widest text-slate-400">间隔分布</div>
           <div className="mt-2 flex items-end gap-1.5">
             {stageBuckets.map((n, i) => (
               <div key={i} className="flex flex-1 flex-col items-center gap-1">
-                <span className="text-[10px] text-slate-400 tabular-nums">{n}</span>
+                <span className="text-xs text-slate-400 tabular-nums">{n}</span>
                 <motion.div
                   className="w-full rounded-t bg-gradient-to-t from-violet to-neon"
                   initial={tier === 'off' ? false : { height: 4 }}
@@ -102,7 +102,7 @@ export default function Review() {
                   transition={{ delay: i * 0.06, duration: 0.5 }}
                   style={{ minHeight: 4 }}
                 />
-                <span className="text-[9px] text-slate-500">{REVIEW_INTERVALS[i]}d</span>
+                <span className="text-xs text-slate-400">{REVIEW_INTERVALS[i]}d</span>
               </div>
             ))}
           </div>
@@ -200,7 +200,7 @@ export default function Review() {
               <p className="mt-1 text-sm text-slate-300">
                 主动回忆 {queue.length} 次，其中“记得” {doneCount} 次。记忆强度来自提取，而不是重读。
               </p>
-              <p className="mt-1 text-xs text-slate-500">
+              <p className="mt-1 text-xs text-slate-400">
                 已按表现重新排期：记得 → {REVIEW_INTERVALS[1]} 天后见；忘了 → 今天稍后再来。
               </p>
             </motion.div>
@@ -216,7 +216,7 @@ export default function Review() {
           </div>
           <div className="flex flex-wrap gap-2">
             {Object.entries(mStats).map(([t, n]) => (
-              <span key={t} className="rounded-lg border border-white/12 bg-white/[0.05] px-2.5 py-1 text-[11px] text-slate-300">
+              <span key={t} className="rounded-lg border border-white/12 bg-white/[0.05] px-2.5 py-1 text-xs text-slate-300">
                 {TYPE_LABELS[t as QuestionType] ?? t} <b className="text-warn">{n}</b>
               </span>
             ))}
@@ -227,7 +227,7 @@ export default function Review() {
                   playSfx('click');
                   clearMistakes();
                 }}
-                className="flex items-center gap-1 rounded-lg border border-danger/40 px-2.5 py-1 text-[11px] text-danger transition hover:bg-danger/12"
+                className="flex items-center gap-1 rounded-lg border border-danger/40 px-2.5 py-1 text-xs text-danger transition hover:bg-danger/12"
               >
                 <Trash2 size={11} aria-hidden /> 清空
               </button>
@@ -237,7 +237,7 @@ export default function Review() {
 
         <StaggerGroup className="grid gap-3 md:grid-cols-2" stagger={0.05}>
           {mistakes.length === 0 && (
-            <div className="rounded-2xl border border-dashed border-white/15 px-4 py-8 text-center text-sm text-slate-500 md:col-span-2">
+            <div className="rounded-2xl border border-dashed border-white/15 px-4 py-8 text-center text-sm text-slate-400 md:col-span-2">
               还没有错题。去「互动训练」做几道题，错的会自动出现在这里并附带原理解释。
             </div>
           )}
@@ -246,7 +246,7 @@ export default function Review() {
               <div className="rounded-2xl border border-warn/25 bg-warn/[0.05] p-4">
                 <div className="mb-2 flex items-center justify-between gap-2">
                   <Chip tone="amber">{TYPE_LABELS[m.type] ?? m.type}</Chip>
-                  <span className="text-[10px] text-slate-500">
+                  <span className="text-xs text-slate-400">
                     {new Date(m.at).toLocaleString('zh-CN')} · 错 {m.count} 次
                   </span>
                 </div>
@@ -255,7 +255,7 @@ export default function Review() {
                   <span className="rounded-lg border border-danger/40 bg-danger/10 px-2.5 py-1 text-danger">你的：{m.given || '（空）'}</span>
                   <span className="ipa rounded-lg border border-success/40 bg-success/10 px-2.5 py-1 text-success">正确：{m.answer}</span>
                 </div>
-                <p className="text-[11px] leading-relaxed text-slate-400">{m.explain}</p>
+                <p className="text-xs leading-relaxed text-slate-400">{m.explain}</p>
                 <div className="mt-2.5 flex justify-end">
                   <button
                     type="button"
@@ -264,7 +264,7 @@ export default function Review() {
                       resolveMistake(m.id);
                       schedule('mistake', m.questionId, m.prompt, true);
                     }}
-                    className="flex items-center gap-1 rounded-lg border border-success/40 px-3 py-1.5 text-[11px] text-success transition hover:bg-success/12"
+                    className="flex items-center gap-1 rounded-lg border border-success/40 px-3 py-1.5 text-xs text-success transition hover:bg-success/12"
                   >
                     <RotateCcw size={11} aria-hidden /> 我已掌握
                   </button>

@@ -94,7 +94,7 @@ export default function Analyze() {
               setInput(w);
               start(w);
             }}
-            className="rounded-lg border border-neon/35 bg-neon/[0.08] px-3 py-1.5 text-xs text-neon transition hover:border-neon/70"
+            className="min-h-[44px] rounded-lg border border-neon/35 bg-neon/[0.08] px-3 py-1.5 text-xs text-neon transition hover:border-neon/70"
           >
             {w}
           </button>
@@ -110,7 +110,7 @@ export default function Analyze() {
               setInput(w.word);
               start(w.word);
             }}
-            className="rounded-lg border border-violet/35 bg-violet/[0.08] px-3 py-1.5 text-xs text-violet transition hover:border-violet/70"
+            className="min-h-[44px] rounded-lg border border-violet/35 bg-violet/[0.08] px-3 py-1.5 text-xs text-violet-lit transition hover:border-violet/70"
           >
             {w.word}
           </button>
@@ -124,10 +124,10 @@ export default function Analyze() {
       <section className="grid gap-4 lg:grid-cols-2">
         <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-5">
           <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-white">
-            <History size={15} className="text-pink" aria-hidden /> 分析历史（{analyzed.length}）
+            <History size={15} className="text-pink-lit" aria-hidden /> 分析历史（{analyzed.length}）
           </div>
           <div className="flex flex-wrap gap-2">
-            {analyzed.length === 0 && <p className="text-xs text-slate-500">完成一次分析后会记录在这里。</p>}
+            {analyzed.length === 0 && <p className="text-xs text-slate-400">完成一次分析后会记录在这里。</p>}
             {analyzed.map((a, i) => (
               <button
                 key={`${a.word}-${i}`}
@@ -137,10 +137,10 @@ export default function Analyze() {
                   setInput(a.word);
                   start(a.word);
                 }}
-                className="flex items-center gap-2 rounded-xl border border-white/12 bg-white/[0.05] px-3 py-2 text-xs transition hover:border-pink/60"
+                className="flex min-h-[44px] items-center gap-2 rounded-xl border border-white/12 bg-white/[0.05] px-3 py-2 text-xs transition hover:border-pink/60"
               >
                 <span className="font-semibold text-white">{a.word}</span>
-                <span className="text-slate-500">{new Date(a.at).toLocaleDateString('zh-CN')}</span>
+                <span className="text-slate-400">{new Date(a.at).toLocaleDateString('zh-CN')}</span>
               </button>
             ))}
           </div>
@@ -160,7 +160,7 @@ export default function Analyze() {
             ].map((t, i) => (
               <StaggerItem key={i}>
                 <div className="flex items-start gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-3 py-2.5 text-xs text-slate-300">
-                  <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded border border-success/50 text-[10px] text-success">
+                  <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded border border-success/50 text-xs text-success">
                     ✓
                   </span>
                   {t}

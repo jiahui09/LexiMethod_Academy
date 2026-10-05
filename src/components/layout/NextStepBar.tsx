@@ -96,19 +96,19 @@ export default function NextStepBar() {
       <div className="flex flex-wrap items-center gap-2">
         <Link
           to={primary.to}
-          className="inline-flex items-center gap-1.5 rounded-xl border border-neon/40 bg-neon/10 px-3.5 py-2 text-[13px] font-medium text-neon transition-all hover:-translate-y-0.5 hover:bg-neon/15"
+          className="inline-flex min-h-[44px] items-center gap-1.5 rounded-xl border border-neon/40 bg-neon/10 px-3.5 py-2 text-[13px] font-medium text-neon transition-all hover:-translate-y-0.5 hover:bg-neon/15"
         >
           {primary.label} <ArrowRight size={13} aria-hidden />
         </Link>
         <Link
           to={secondary.to}
-          className="inline-flex items-center gap-1.5 rounded-xl border border-white/12 bg-white/5 px-3.5 py-2 text-[13px] text-slate-300 transition hover:border-white/30 hover:text-white"
+          className="inline-flex min-h-[44px] items-center gap-1.5 rounded-xl border border-white/12 bg-white/5 px-3.5 py-2 text-[13px] text-slate-300 transition hover:border-white/30 hover:text-white"
         >
           {secondary.label}
         </Link>
         <Link
           to="/"
-          className="inline-flex items-center gap-1.5 rounded-xl px-3 py-2 text-[13px] text-slate-400 transition hover:text-white"
+          className="inline-flex min-h-[44px] items-center gap-1.5 rounded-xl px-3 py-2 text-[13px] text-slate-400 transition hover:text-white"
         >
           <MapIcon size={13} aria-hidden /> 回学习地图
         </Link>

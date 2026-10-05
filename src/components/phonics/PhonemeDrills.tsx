@@ -176,7 +176,7 @@ export function ListenChooseDrill({ phoneme }: { phoneme: Phoneme }) {
               }`}
             >
               <div className="ipa font-semibold">{o.symbol}</div>
-              <div className="text-[10px] text-slate-400">{o.exampleWords[0]}</div>
+              <div className="text-xs text-slate-400">{o.exampleWords[0]}</div>
             </button>
           );
         })}
@@ -217,7 +217,7 @@ export function MouthGuessDrill({ phoneme }: { phoneme: Phoneme }) {
   return (
     <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
       <div className="mb-3 flex items-center justify-between gap-2">
-        <span className="flex items-center gap-1.5 text-xs font-semibold text-violet">
+        <span className="flex items-center gap-1.5 text-xs font-semibold text-violet-lit">
           <Eye size={13} aria-hidden /> 看口型猜音标
         </span>
         <NeonButton size="sm" variant="ghost" onClick={roll}>
@@ -315,7 +315,7 @@ export function RecordCompare({ phoneme }: { phoneme: Phoneme }) {
 
   return (
     <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-      <div className="mb-3 flex items-center gap-1.5 text-xs font-semibold text-pink">
+      <div className="mb-3 flex items-center gap-1.5 text-xs font-semibold text-pink-lit">
         <Mic size={13} aria-hidden /> 录音对比：先听原声，再录自己
       </div>
       <div className="flex flex-wrap items-center gap-2">
@@ -363,7 +363,7 @@ export function RecordCompare({ phoneme }: { phoneme: Phoneme }) {
             不像，再练
           </button>
           {selfOk === false && (
-            <span className="text-slate-500">重听原声，注意：{phoneme.mouthShape.slice(0, 30)}…</span>
+            <span className="text-slate-400">重听原声，注意：{phoneme.mouthShape.slice(0, 30)}…</span>
           )}
         </div>
       )}

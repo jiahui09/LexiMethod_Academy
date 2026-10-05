@@ -23,13 +23,13 @@ export default function PageIntro({ crumbs, kicker, title, desc, align = 'left',
       <Breadcrumbs items={crumbs} className={align === 'center' ? 'justify-center' : ''} />
       <div className={`flex flex-wrap items-end justify-between gap-4 ${align === 'center' ? 'flex-col items-center' : ''}`}>
         <div className="min-w-0 basis-full sm:basis-0 sm:flex-1">
-          <SectionHeading kicker={kicker} title={title} desc={desc} align={align} />
+          <SectionHeading kicker={kicker} title={title} desc={desc} align={align} as="h1" />
         </div>
         {next && (
           <Link
             to={next.to}
             data-testid="intro-next"
-            className="mb-6 inline-flex shrink-0 items-center gap-1.5 rounded-xl border border-neon/40 bg-neon/10 px-4 py-2.5 text-sm font-medium text-neon transition-all hover:-translate-y-0.5 hover:bg-neon/15"
+            className="mb-6 inline-flex shrink-0 items-center gap-1.5 rounded-xl border border-neon/40 bg-neon/10 px-4 py-2.5 min-h-[44px] text-sm font-medium text-neon transition-all hover:-translate-y-0.5 hover:bg-neon/15"
           >
             下一步 · {next.label} <ArrowRight size={14} aria-hidden />
           </Link>

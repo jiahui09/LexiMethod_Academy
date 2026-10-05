@@ -59,7 +59,7 @@ export default function PhonemeLab() {
               <t.icon size={17} className={tab === t.key ? 'text-neon' : 'text-slate-400'} aria-hidden />
               <span className="flex flex-col leading-tight">
                 <span className={`text-sm font-semibold ${tab === t.key ? 'text-white' : 'text-slate-300'}`}>{t.label}</span>
-                <span className="text-[11px] text-slate-500">{t.desc}</span>
+                <span className="text-xs text-slate-400">{t.desc}</span>
               </span>
             </NavLink>
           ))}
@@ -86,7 +86,7 @@ export default function PhonemeLab() {
                 transition={{ duration: 0.5 }}
               />
             </div>
-            <span className="text-slate-500">选中音标 → 播放例词 → 走完 7 步讲解 → 标记已学</span>
+            <span className="text-slate-400">选中音标 → 播放例词 → 走完 7 步讲解 → 标记已学</span>
           </div>
 
           <div className="grid gap-6 xl:grid-cols-[380px_1fr]">

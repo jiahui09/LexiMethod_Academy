@@ -21,7 +21,7 @@ export function Chip({
 }) {
   const tones: Record<string, string> = {
     cyan: '#00E5FF',
-    violet: '#7C4DFF',
+    violet: '#A98BFF',
     pink: '#FF4D9D',
     green: '#00E676',
     amber: '#FFB300',
@@ -61,11 +61,14 @@ export function SectionHeading({
   title,
   desc,
   align = 'left',
+  as = 'h2',
 }: {
   kicker?: string;
   title: string;
   desc?: string;
   align?: 'left' | 'center';
+  /** 标题层级：页面级标题（PageIntro）传 h1，区块标题默认 h2 —— 每路由恰好一个 h1 */
+  as?: 'h1' | 'h2';
 }) {
   const tier = useMotionTier();
   const anim =
@@ -77,6 +80,7 @@ export function SectionHeading({
           viewport: { once: true },
           transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
         };
+  const Tag = as;
   return (
     <motion.div className={`mb-6 ${align === 'center' ? 'text-center' : ''}`} {...anim}>
       {kicker && (
@@ -86,7 +90,7 @@ export function SectionHeading({
           <span className="h-px w-6 bg-neon/60" />
         </div>
       )}
-      <h2 className="font-display text-2xl font-bold text-white md:text-3xl">{title}</h2>
+      <Tag className="font-display text-2xl font-bold text-white md:text-3xl">{title}</Tag>
       {desc && <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-300/80 md:text-base">{desc}</p>}
     </motion.div>
   );
@@ -140,7 +144,7 @@ export function SpeakButton({
 export function Narration({ text, className = '' }: { text: string; className?: string }) {
   return (
     <p className={`border-l-2 border-neon/50 bg-white/[0.04] px-4 py-3 text-sm leading-relaxed text-slate-300/90 ${className}`}>
-      <span className="mr-2 text-[10px] font-bold uppercase tracking-wider text-neon/80">讲解</span>
+      <span className="mr-2 text-xs font-bold uppercase tracking-wider text-neon/80">讲解</span>
       {text}
     </p>
   );

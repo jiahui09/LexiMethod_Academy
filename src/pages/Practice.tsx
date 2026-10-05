@@ -83,7 +83,7 @@ export default function Practice() {
         <div className="glass p-5">
           <div className="text-xs uppercase tracking-widest text-slate-400">累计作答</div>
           <div className="font-display text-3xl font-bold text-white tabular-nums">{totalAnswered}</div>
-          <div className="text-[11px] text-slate-500">正确 {totalCorrect}</div>
+          <div className="text-xs text-slate-400">正确 {totalCorrect}</div>
         </div>
         <div className="glass p-5">
           <div className="text-xs uppercase tracking-widest text-slate-400">总正确率</div>
@@ -103,9 +103,9 @@ export default function Practice() {
           <div className="text-xs uppercase tracking-widest text-slate-400">覆盖题型</div>
           <div className="font-display text-3xl font-bold text-success tabular-nums">
             {TYPES.filter((t) => (stats[t]?.total ?? 0) > 0).length}
-            <span className="text-base text-slate-500"> / 11</span>
+            <span className="text-base text-slate-400"> / 11</span>
           </div>
-          <div className="text-[11px] text-slate-500">全题型都练过 = 方法闭环</div>
+          <div className="text-xs text-slate-400">全题型都练过 = 方法闭环</div>
         </div>
       </div>
 
@@ -118,7 +118,7 @@ export default function Practice() {
             setType('mixed');
             setSeed((s) => s + 1);
           }}
-          className={`flex items-center gap-1.5 rounded-full border px-4 py-2 text-xs font-medium transition-all duration-300 ${
+          className={`flex min-h-[44px] items-center gap-1.5 rounded-full border px-4 py-2 text-xs font-medium transition-all duration-300 ${
             type === 'mixed' ? 'border-neon bg-neon/18 text-neon shadow-[0_0_16px_rgba(0,229,255,0.3)]' : 'border-white/14 bg-white/5 text-slate-300 hover:border-neon/45'
           }`}
           aria-pressed={type === 'mixed'}
@@ -134,7 +134,7 @@ export default function Practice() {
               setType(t);
               setSeed((s) => s + 1);
             }}
-            className={`rounded-full border px-3.5 py-2 text-xs transition-all duration-300 ${
+            className={`min-h-[44px] rounded-full border px-3.5 py-2 text-xs transition-all duration-300 ${
               type === t ? 'border-violet bg-violet/20 text-white shadow-[0_0_16px_rgba(124,77,255,0.35)]' : 'border-white/14 bg-white/5 text-slate-300 hover:border-violet/50'
             }`}
             aria-pressed={type === t}
@@ -174,7 +174,7 @@ export default function Practice() {
                 <div className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3">
                   <div className="mb-1.5 flex items-center justify-between text-xs">
                     <span className="text-slate-300">{TYPE_LABELS[t]}</span>
-                    <span className={`tabular-nums ${pct >= 80 ? 'text-success' : pct >= 50 ? 'text-warn' : 'text-slate-500'}`}>
+                    <span className={`tabular-nums ${pct >= 80 ? 'text-success' : pct >= 50 ? 'text-warn' : 'text-slate-400'}`}>
                       {s.total ? `${pct}%` : '未练习'}
                     </span>
                   </div>
@@ -193,7 +193,7 @@ export default function Practice() {
         </StaggerGroup>
       </section>
 
-      <p className="text-xs text-slate-500">
+      <p className="text-xs text-slate-400">
         目标线：单题型正确率 ≥ 80%。达标意味着这套「音 → 形 → 义」通路已自动化，可以换更难的词继续练（实战演练页）。
       </p>
     </div>

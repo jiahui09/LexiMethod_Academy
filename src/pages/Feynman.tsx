@@ -191,7 +191,7 @@ export default function Feynman() {
       {/* 课次选择 */}
       <div className="flex flex-wrap gap-2" role="tablist" aria-label="选择要讲解的课次">
         {feynmanTasks.map((t, i) => (
-          <Chip key={t.methodId} active={t.methodId === methodId} onClick={() => switchMethod(t.methodId)}>
+          <Chip key={t.methodId} active={t.methodId === methodId} onClick={() => switchMethod(t.methodId)} className="min-h-[44px]">
             {i + 1}. {methods.find((m) => m.id === t.methodId)?.title.split('：')[0] ?? t.methodId}
           </Chip>
         ))}
@@ -202,10 +202,10 @@ export default function Feynman() {
         <motion.section className="glass p-5 md:p-6" {...anim}>
           <div className="mb-2 flex items-start justify-between gap-3">
             <div>
-              <div className="text-[10px] font-bold uppercase tracking-widest text-neon">讲解任务</div>
+              <div className="text-xs font-bold uppercase tracking-widest text-neon">讲解任务</div>
               <p className="mt-1 text-sm text-slate-200">{task.prompt}</p>
             </div>
-            <span className="shrink-0 rounded-full border border-white/12 px-2.5 py-1 text-[10px] text-slate-400">
+            <span className="shrink-0 rounded-full border border-white/12 px-2.5 py-1 text-xs text-slate-400">
               已通过 {passedCount} 次
             </span>
           </div>
@@ -215,7 +215,7 @@ export default function Feynman() {
               <span
                 key={k}
                 data-kw={k}
-                className={`rounded-full border px-2.5 py-1 text-[11px] ${
+                className={`rounded-full border px-2.5 py-1 text-xs ${
                   result
                     ? result.hits.includes(k)
                       ? 'border-success/60 bg-success/10 text-success'
@@ -245,7 +245,7 @@ export default function Feynman() {
             placeholder="例如：单词是声音块不是字母串，每个音节里必须有一个元音核心……"
             className="mt-1.5 w-full resize-y rounded-2xl border border-white/12 bg-white/[0.04] p-3.5 text-sm leading-relaxed text-slate-100 outline-none transition focus:border-neon/60"
           />
-          <div className="mt-1 flex justify-between text-[11px] text-slate-500">
+          <div className="mt-1 flex justify-between text-xs text-slate-400">
             <span>已输入 {text.trim().length} 字</span>
             <span>要求：关键词 ≥ {KEYWORD_NEED} · 例子词 ≥ {EXAMPLE_WORD_NEED} · 自评 ≥ {SELF_SCORE_NEED}/20</span>
           </div>
@@ -284,12 +284,12 @@ export default function Feynman() {
               )}
             </div>
             {recState === 'denied' && (
-              <span className="w-full text-[11px] text-warn">未获得麦克风权限，已降级为纯文字讲解；你仍可正常通过费曼关。</span>
+              <span className="w-full text-xs text-warn">未获得麦克风权限，已降级为纯文字讲解；你仍可正常通过费曼关。</span>
             )}
             {recState === 'unsupported' && (
-              <span className="w-full text-[11px] text-warn">当前浏览器不支持录音，改用文字讲解即可。</span>
+              <span className="w-full text-xs text-warn">当前浏览器不支持录音，改用文字讲解即可。</span>
             )}
-            {recMs > 0 && recState === 'idle' && <span className="text-[11px] text-slate-500">本段录音 {(recMs / 1000).toFixed(1)}s，仅保存在内存</span>}
+            {recMs > 0 && recState === 'idle' && <span className="text-xs text-slate-400">本段录音 {(recMs / 1000).toFixed(1)}s，仅保存在内存</span>}
           </div>
 
           {/* 自评量表 */}
@@ -314,7 +314,7 @@ export default function Feynman() {
                           playSfx('tick');
                           setRatings((r) => r.map((x, idx) => (idx === i ? v : x)));
                         }}
-                        className={`h-7 w-7 rounded-lg border text-xs transition ${
+                        className={`h-11 w-11 rounded-lg border text-xs transition ${
                           ratings[i] === v
                             ? 'border-neon bg-neon/20 text-neon shadow-[0_0_10px_rgba(0,229,255,0.3)]'
                             : 'border-white/12 text-slate-400 hover:border-neon/50'
@@ -333,7 +333,7 @@ export default function Feynman() {
             <NeonButton onClick={submit} disabled={!text.trim()} className="disabled:cursor-not-allowed disabled:opacity-40">
               提交费曼关
             </NeonButton>
-            <span className="text-xs text-slate-500">自评 {score}/20{rated ? '' : '（尚未全部评分）'}</span>
+            <span className="text-xs text-slate-400">自评 {score}/20{rated ? '' : '（尚未全部评分）'}</span>
           </div>
         </motion.section>
 
@@ -362,12 +362,12 @@ export default function Feynman() {
                     <span className={`mt-0.5 ${c.ok ? 'text-success' : 'text-danger'}`}>{c.ok ? <Check size={15} aria-hidden /> : <X size={15} aria-hidden />}</span>
                     <span className={c.ok ? 'text-slate-200' : 'text-slate-400'}>
                       <b className="font-semibold">{c.label}</b>
-                      <span className="block text-xs text-slate-500">{c.detail}</span>
+                      <span className="block text-xs text-slate-400">{c.detail}</span>
                     </span>
                   </li>
                 ))}
               </ul>
-              <div className="mt-3 text-xs text-slate-500">
+              <div className="mt-3 text-xs text-slate-400">
                 关键词命中 {result.hits.length}/{task.keywords.length}
                 {result.missing.length > 0 && <>，还差：<b className="text-warn">{result.missing.join('、')}</b></>}
               </div>

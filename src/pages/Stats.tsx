@@ -62,7 +62,7 @@ export default function Stats() {
           </p>
           <Link
             to="/practice"
-            className="inline-flex items-center gap-1.5 rounded-xl border border-neon/45 bg-neon/10 px-4 py-2.5 text-sm font-medium text-neon transition-all hover:-translate-y-0.5 hover:bg-neon/15"
+            className="inline-flex min-h-[44px] items-center gap-1.5 rounded-xl border border-neon/45 bg-neon/10 px-4 py-2.5 text-sm font-medium text-neon transition-all hover:-translate-y-0.5 hover:bg-neon/15"
           >
             去做第一组训练 <ArrowRight size={14} aria-hidden />
           </Link>
@@ -92,7 +92,7 @@ export default function Stats() {
             </div>
 
             <div className="glass flex flex-col justify-center gap-1 p-5">
-              <div className="flex items-center gap-2 text-violet">
+              <div className="flex items-center gap-2 text-violet-lit">
                 <MessageSquareText size={18} aria-hidden />
                 <span className="font-display text-3xl font-bold tabular-nums">
                   {feynmanPassed}/{feynmanRecords.length}
@@ -164,7 +164,7 @@ export default function Stats() {
       <section>
         <div className="mb-3 text-sm font-semibold text-white">题型表现（按作答量排序）</div>
         {topTypes.length === 0 && (
-          <p className="rounded-2xl border border-dashed border-white/15 px-4 py-6 text-center text-sm text-slate-500">
+          <p className="rounded-2xl border border-dashed border-white/15 px-4 py-6 text-center text-sm text-slate-400">
             还没有作答记录 —— 去「互动训练」完成第一轮。
           </p>
         )}
@@ -183,7 +183,7 @@ export default function Stats() {
                   transition={{ duration: 0.7 }}
                 />
               </div>
-              <div className="text-xs text-slate-500">作答 {attempts} 次</div>
+              <div className="text-xs text-slate-400">作答 {attempts} 次</div>
             </div>
           ))}
         </div>

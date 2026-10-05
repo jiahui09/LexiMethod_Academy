@@ -137,8 +137,8 @@ export default function Home() {
             transition={{ delay: 0.9, duration: 0.5 }}
             className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-slate-300/90 md:text-base"
           >
-            学会后你能：<b className="text-neon">看到生词读出来</b> · <b className="text-violet">听到发音拼出来</b> ·{' '}
-            <b className="text-pink">拆开词根猜意思</b> · 用科学的复习与输出把被动词汇变成主动词汇。
+            学会后你能：<b className="text-neon">看到生词读出来</b> · <b className="text-violet-lit">听到发音拼出来</b> ·{' '}
+            <b className="text-pink-lit">拆开词根猜意思</b> · 用科学的复习与输出把被动词汇变成主动词汇。
           </motion.p>
 
           <motion.div
@@ -166,9 +166,9 @@ export default function Home() {
             <div className="text-xs uppercase tracking-widest text-slate-400">方法课程</div>
             <div className="font-display text-xl font-bold text-white">
               {progress.completedMethods.length}
-              <span className="text-sm text-slate-500"> / {methods.length}</span>
+              <span className="text-sm text-slate-400"> / {methods.length}</span>
             </div>
-            <div className="text-[11px] text-slate-500">模块已完成</div>
+            <div className="text-xs text-slate-400">模块已完成</div>
           </div>
         </div>
 
@@ -196,7 +196,7 @@ export default function Home() {
             <span className="font-display text-3xl font-bold tabular-nums">{dueCount}</span>
             <span className="text-xs text-slate-400">张到期复习卡</span>
           </div>
-          <div className="text-[11px] text-slate-500">
+          <div className="text-xs text-slate-400">
             <Link to="/review" className="text-neon underline">
               去复习中心 →
             </Link>
@@ -213,12 +213,12 @@ export default function Home() {
       >
         <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
           <div>
-            <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-500">My Progress</div>
+            <div className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400">My Progress</div>
             <h2 id="progress-panel-title" className="font-display text-xl font-bold text-white">
               我的进度 · 继续学习
             </h2>
           </div>
-          <p className="max-w-md text-[11px] leading-relaxed text-slate-400">
+          <p className="max-w-md text-xs leading-relaxed text-slate-400">
             <b className="text-neon">本站零存储</b>：不写浏览器存储、不自动续学，刷新后回到 0。
             把节数调到你上次学到的位置，从那里接着往下走。
           </p>
@@ -232,12 +232,12 @@ export default function Home() {
                 <span className="flex h-5 w-5 items-center justify-center rounded-full border border-neon/50 text-xs font-bold text-neon">1</span>
                 看方法课
               </li>
-              <li aria-hidden className="text-slate-600">→</li>
+              <li aria-hidden className="text-slate-400">→</li>
               <li className="flex items-center gap-1.5">
                 <span className="flex h-5 w-5 items-center justify-center rounded-full border border-neon/50 text-xs font-bold text-neon">2</span>
                 做对应训练
               </li>
-              <li aria-hidden className="text-slate-600">→</li>
+              <li aria-hidden className="text-slate-400">→</li>
               <li className="flex items-center gap-1.5">
                 <span className="flex h-5 w-5 items-center justify-center rounded-full border border-neon/50 text-xs font-bold text-neon">3</span>
                 到期复习
@@ -248,7 +248,7 @@ export default function Home() {
             </p>
             <Link
               to="/methods"
-              className="inline-flex shrink-0 items-center gap-1.5 rounded-xl border border-neon/45 bg-neon/10 px-4 py-2.5 text-sm font-medium text-neon transition-all hover:-translate-y-0.5 hover:bg-neon/15"
+              className="inline-flex min-h-[44px] shrink-0 items-center gap-1.5 rounded-xl border border-neon/45 bg-neon/10 px-4 py-2.5 text-sm font-medium text-neon transition-all hover:-translate-y-0.5 hover:bg-neon/15"
             >
               去看方法课 <ArrowRight size={14} aria-hidden />
             </Link>
@@ -267,7 +267,7 @@ export default function Home() {
                 <div className="font-display text-lg font-bold text-white" data-testid="resume-title">
                   {nextPos.finished ? '全部课程完成' : shortTitle(nextPos.method)}
                 </div>
-                <div className="text-[11px] text-slate-500" data-testid="resume-step">
+                <div className="text-xs text-slate-400" data-testid="resume-step">
                   {nextPos.finished
                     ? '反复实战 + 费曼关，把方法变成手感'
                     : `第 ${nextPos.step + 1} 步 / 共 ${nextPos.method.steps.length} 步 · ${
@@ -290,7 +290,7 @@ export default function Home() {
               <ArrowRight size={15} aria-hidden />
             </NeonButton>
 
-            <p className="text-[11px] leading-relaxed text-slate-500">
+            <p className="text-xs leading-relaxed text-slate-400">
               指哪学哪：进度由你自己调节，站点不替你猜。调完直接跳到那一节。
             </p>
           </div>
@@ -310,7 +310,7 @@ export default function Home() {
                 >
                   <div className="min-w-0 flex-1">
                     <div className="truncate text-xs text-white">
-                      <span className="mr-1.5 text-[10px] font-bold tabular-nums text-slate-500">
+                      <span className="mr-1.5 text-xs font-bold tabular-nums text-slate-400">
                         0{i + 1}
                       </span>
                       {shortTitle(m)}
@@ -332,12 +332,12 @@ export default function Home() {
                         playSfx('tick');
                         progress.setMethodProgress(m.id, Math.max(0, done - 1), total);
                       }}
-                      className="flex h-7 w-7 items-center justify-center rounded-lg border border-white/12 bg-white/5 text-slate-300 transition hover:border-white/30 hover:text-white disabled:opacity-30"
+                      className="flex h-11 w-11 items-center justify-center rounded-lg border border-white/12 bg-white/5 text-slate-300 transition hover:border-white/30 hover:text-white disabled:opacity-30"
                       disabled={done === 0}
                     >
                       <Minus size={13} aria-hidden />
                     </button>
-                    <span className="w-11 text-center text-[11px] tabular-nums text-slate-300" data-step-count={i}>
+                    <span className="w-11 text-center text-xs tabular-nums text-slate-300" data-step-count={i}>
                       {done}/{total}
                     </span>
                     <button
@@ -348,7 +348,7 @@ export default function Home() {
                         playSfx('tick');
                         progress.setMethodProgress(m.id, Math.min(total, done + 1), total);
                       }}
-                      className="flex h-7 w-7 items-center justify-center rounded-lg border border-white/12 bg-white/5 text-slate-300 transition hover:border-white/30 hover:text-white disabled:opacity-30"
+                      className="flex h-11 w-11 items-center justify-center rounded-lg border border-white/12 bg-white/5 text-slate-300 transition hover:border-white/30 hover:text-white disabled:opacity-30"
                       disabled={done === total}
                     >
                       <Plus size={13} aria-hidden />
@@ -361,7 +361,7 @@ export default function Home() {
                         playSfx('wrong');
                         progress.resetMethod(m.id);
                       }}
-                      className="flex h-7 w-7 items-center justify-center rounded-lg border border-white/12 bg-white/5 text-slate-400 transition hover:border-danger/50 hover:text-danger"
+                      className="flex h-11 w-11 items-center justify-center rounded-lg border border-white/12 bg-white/5 text-slate-400 transition hover:border-danger/50 hover:text-danger"
                       disabled={done === 0}
                       title="清空该课进度"
                     >
@@ -430,16 +430,16 @@ export default function Home() {
                         </span>
                         <div>
                           <div className="flex items-center gap-2">
-                            <span className="text-[10px] font-bold tabular-nums text-slate-500">0{i + 1}</span>
+                            <span className="text-xs font-bold tabular-nums text-slate-400">0{i + 1}</span>
                             {done && (
-                              <span className="rounded-full bg-success/15 px-2 py-0.5 text-[10px] font-bold text-success">已完成</span>
+                              <span className="rounded-full bg-success/15 px-2 py-0.5 text-xs font-bold text-success">已完成</span>
                             )}
                             {!done && steps.length > 0 && (
-                              <span className="rounded-full bg-neon/15 px-2 py-0.5 text-[10px] font-bold text-neon">进行中</span>
+                              <span className="rounded-full bg-neon/15 px-2 py-0.5 text-xs font-bold text-neon">进行中</span>
                             )}
                             {!done && !nextPos.finished && nextPos.method.id === m.id && (
                               <span
-                                className="flex items-center gap-1 rounded-full border border-neon/40 bg-neon/10 px-2 py-0.5 text-[10px] font-bold text-neon"
+                                className="flex items-center gap-1 rounded-full border border-neon/40 bg-neon/10 px-2 py-0.5 text-xs font-bold text-neon"
                                 data-testid="map-you-are-here"
                               >
                                 <MapPin size={10} aria-hidden /> 你在这里
@@ -451,7 +451,7 @@ export default function Home() {
                           </h3>
                         </div>
                       </div>
-                      <span className={`text-[11px] ${locked ? 'text-slate-600' : 'text-slate-500'}`}>
+                      <span className={`text-xs ${locked ? 'text-slate-400' : 'text-slate-400'}`}>
                         {locked ? '建议按顺序' : `${m.durationMin ?? 20} 分钟`}
                       </span>
                     </div>
@@ -469,12 +469,12 @@ export default function Home() {
                     </div>
 
                     <div className="flex items-center justify-between">
-                      <span className="text-[11px] text-slate-500">
+                      <span className="text-xs text-slate-400">
                         {steps.length} / {m.steps.length} 步 · {m.pitfalls.length} 个误区清单
                       </span>
                       <Link
                         to={`/methods/${m.id}`}
-                        className="inline-flex items-center gap-1 rounded-xl border border-white/12 px-3 py-1.5 text-xs text-slate-300 transition group-hover:border-[color:var(--acc)] group-hover:text-white"
+                        className="inline-flex min-h-[44px] items-center gap-1 rounded-xl border border-white/12 px-3 py-1.5 text-xs text-slate-300 transition group-hover:border-[color:var(--acc)] group-hover:text-white"
                       >
                         {pct > 0 ? '继续学习' : '进入课程'} <ArrowRight size={12} aria-hidden />
                       </Link>

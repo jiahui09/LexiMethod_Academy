@@ -40,7 +40,7 @@ export default function StepHost({ method, stepIndex, replayKey, onNextMethod }:
         return (
           <div className="flex flex-col gap-3">
             <WordAnalysisWizard wordId={demo.applicationWord ?? 'construction'} compact />
-            <p className="text-[11px] text-slate-500">
+            <p className="text-xs text-slate-400">
               每一步都可以点“要提示吗”，但网站不会替你作答 —— 这正是实战与背单词的区别。
             </p>
           </div>
@@ -72,7 +72,7 @@ export default function StepHost({ method, stepIndex, replayKey, onNextMethod }:
       {/* 步骤标题条 */}
       <div className="flex flex-wrap items-center gap-3">
         <span
-          className="rounded-full border px-3 py-1 text-[11px] font-bold uppercase tracking-widest"
+          className="rounded-full border px-3 py-1 text-xs font-bold uppercase tracking-widest"
           style={{ color: method.accent ?? '#00E5FF', borderColor: `${method.accent ?? '#00E5FF'}66`, background: `${method.accent ?? '#00E5FF'}1A` }}
         >
           Step {stepIndex + 1} · {ANIMATION_LABELS[anim]}

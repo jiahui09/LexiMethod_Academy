@@ -8,6 +8,11 @@ export default {
         neon: '#00E5FF',
         violet: '#7C4DFF',
         pink: '#FF4D9D',
+        // 文字提亮变体（DESIGN.md 对比度底线 ≥4.5:1）：
+        // violet/pink 本色作正文色在深色玻璃面上不达标，文字一律用 lit 变体；
+        // 本色仅用于边框、填充、光晕与 ≥18.66px 粗体大字（3:1 达标）
+        'violet-lit': '#A98BFF',
+        'pink-lit': '#FF80B5',
         success: '#00E676',
         warn: '#FFB300',
         danger: '#FF4D6D',

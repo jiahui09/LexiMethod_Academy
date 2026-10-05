@@ -24,7 +24,7 @@ export default function RuleStep({ method }: { method: Method }) {
             transition={{ delay: i * 0.08, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
             className="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3"
           >
-            <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-violet/20 text-xs font-bold text-violet">
+            <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-violet/20 text-xs font-bold text-violet-lit">
               {i + 1}
             </span>
             <p className="text-sm leading-relaxed text-slate-200">{p}</p>
@@ -38,7 +38,7 @@ export default function RuleStep({ method }: { method: Method }) {
     <div className="flex flex-col gap-5">
       {/* 规则标题 */}
       <div className="flex flex-wrap items-center gap-3">
-        <span className="flex items-center gap-2 rounded-full border border-violet/40 bg-violet/12 px-3 py-1 text-xs font-semibold text-violet">
+        <span className="flex items-center gap-2 rounded-full border border-violet/40 bg-violet/12 px-3 py-1 text-xs font-semibold text-violet-lit">
           <Lightbulb size={12} aria-hidden /> {demo.ruleTitle}
         </span>
         <button
@@ -84,9 +84,9 @@ export default function RuleStep({ method }: { method: Method }) {
               >
                 {syl}
               </span>
-              <span className="ipa text-[11px] text-slate-400">{demo.syllableIpa[i]}</span>
+              <span className="ipa text-xs text-slate-400">{demo.syllableIpa[i]}</span>
               {stressed && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-neon px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-[#04121c]">
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-neon px-2 py-0.5 text-xs font-bold uppercase tracking-wider text-[#04121c]">
                   重音
                 </span>
               )}
@@ -114,7 +114,7 @@ export default function RuleStep({ method }: { method: Method }) {
               transition={{ delay: 0.7, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             />
           </div>
-          <p className="mt-2 text-[11px] text-slate-400">音量更大、音长更长、音高更突出</p>
+          <p className="mt-2 text-xs text-slate-400">音量更大、音长更长、音高更突出</p>
         </div>
         <div className="rounded-2xl border border-white/12 bg-white/[0.04] p-4">
           <div className="mb-2 text-xs font-semibold text-slate-300">非重读音节：弱读为 /ə/ 或短元音</div>
@@ -126,7 +126,7 @@ export default function RuleStep({ method }: { method: Method }) {
               transition={{ delay: 0.85, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             />
           </div>
-          <p className="mt-2 text-[11px] text-slate-400">con 的 o、tion 的 e，都不读“饱满”</p>
+          <p className="mt-2 text-xs text-slate-400">con 的 o、tion 的 e，都不读“饱满”</p>
         </div>
       </div>
     </div>

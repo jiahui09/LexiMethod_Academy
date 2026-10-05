@@ -13,15 +13,15 @@ export default function Breadcrumbs({ items, className = '' }: { items: Crumb[];
     <nav
       aria-label="面包屑"
       data-testid="breadcrumbs"
-      className={`flex flex-wrap items-center gap-1.5 text-[11px] text-slate-400 ${className}`}
+      className={`flex flex-wrap items-center gap-1.5 text-xs text-slate-400 ${className}`}
     >
       {items.map((c, i) => {
         const last = i === items.length - 1;
         return (
           <span key={`${c.label}-${i}`} className="flex items-center gap-1.5">
-            {i > 0 && <ChevronRight size={11} className="text-slate-600" aria-hidden />}
+            {i > 0 && <ChevronRight size={11} className="text-slate-400" aria-hidden />}
             {c.to && !last ? (
-              <Link to={c.to} className="transition-colors hover:text-neon">
+              <Link to={c.to} className="inline-flex min-h-[44px] items-center transition-colors hover:text-neon">
                 {c.label}
               </Link>
             ) : (
