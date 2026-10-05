@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-05T05:49:55.111Z",
+  "generatedAt": "2026-10-05T06:26:38.131Z",
   "engine": {
     "tts": "piper-tts",
     "model": "en_US-lessac-medium",
@@ -359,10 +359,52 @@
       "meanDb": -15.9
     },
     {
+      "word": "team",
+      "file": "words/team.mp3",
+      "durationMs": 472,
+      "meanDb": -15.9
+    },
+    {
+      "word": "meat",
+      "file": "words/meat.mp3",
+      "durationMs": 382,
+      "meanDb": -16.1
+    },
+    {
+      "word": "believe",
+      "file": "words/believe.mp3",
+      "durationMs": 491,
+      "meanDb": -15.9
+    },
+    {
+      "word": "seat",
+      "file": "words/seat.mp3",
+      "durationMs": 435,
+      "meanDb": -15.9
+    },
+    {
       "word": "sit",
       "file": "words/sit.mp3",
       "durationMs": 339,
       "meanDb": -16.4
+    },
+    {
+      "word": "big",
+      "file": "words/big.mp3",
+      "durationMs": 416,
+      "meanDb": -16
+    },
+    {
+      "word": "women",
+      "file": "words/women.mp3",
+      "durationMs": 441,
+      "meanDb": -16
+    },
+    {
+      "word": "live",
+      "file": "words/live.mp3",
+      "durationMs": 501,
+      "meanDb": -15.9
     },
     {
       "word": "bed",
@@ -371,15 +413,69 @@
       "meanDb": -15.9
     },
     {
+      "word": "head",
+      "file": "words/head.mp3",
+      "durationMs": 521,
+      "meanDb": -15.9
+    },
+    {
+      "word": "any",
+      "file": "words/any.mp3",
+      "durationMs": 417,
+      "meanDb": -16
+    },
+    {
+      "word": "said",
+      "file": "words/said.mp3",
+      "durationMs": 463,
+      "meanDb": -15.9
+    },
+    {
+      "word": "bad",
+      "file": "words/bad.mp3",
+      "durationMs": 438,
+      "meanDb": -16
+    },
+    {
       "word": "cat",
       "file": "words/cat.mp3",
       "durationMs": 352,
       "meanDb": -16.1
     },
     {
+      "word": "hand",
+      "file": "words/hand.mp3",
+      "durationMs": 459,
+      "meanDb": -15.9
+    },
+    {
+      "word": "happy",
+      "file": "words/happy.mp3",
+      "durationMs": 505,
+      "meanDb": -16.3
+    },
+    {
       "word": "bird",
       "file": "words/bird.mp3",
       "durationMs": 501,
+      "meanDb": -15.9
+    },
+    {
+      "word": "nurse",
+      "file": "words/nurse.mp3",
+      "durationMs": 531,
+      "meanDb": -15.8
+    },
+    {
+      "word": "work",
+      "file": "words/work.mp3",
+      "durationMs": 372,
+      "meanDb": -16.1
+    },
+    {
+      "word": "girl",
+      "file": "words/girl.mp3",
+      "durationMs": 472,
       "meanDb": -15.9
     },
     {
@@ -389,15 +485,87 @@
       "meanDb": -15.9
     },
     {
+      "word": "sofa",
+      "file": "words/sofa.mp3",
+      "durationMs": 466,
+      "meanDb": -15.9
+    },
+    {
+      "word": "system",
+      "file": "words/system.mp3",
+      "durationMs": 533,
+      "meanDb": -15.9
+    },
+    {
+      "word": "support",
+      "file": "words/support.mp3",
+      "durationMs": 530,
+      "meanDb": -16
+    },
+    {
+      "word": "abound",
+      "file": "words/abound.mp3",
+      "durationMs": 556,
+      "meanDb": -15.8
+    },
+    {
       "word": "car",
       "file": "words/car.mp3",
       "durationMs": 389,
       "meanDb": -16.1
     },
     {
+      "word": "father",
+      "file": "words/father.mp3",
+      "durationMs": 436,
+      "meanDb": -15.9
+    },
+    {
+      "word": "arm",
+      "file": "words/arm.mp3",
+      "durationMs": 513,
+      "meanDb": -15.9
+    },
+    {
+      "word": "calm",
+      "file": "words/calm.mp3",
+      "durationMs": 530,
+      "meanDb": -15.9
+    },
+    {
+      "word": "come",
+      "file": "words/come.mp3",
+      "durationMs": 487,
+      "meanDb": -15.9
+    },
+    {
       "word": "hot",
       "file": "words/hot.mp3",
       "durationMs": 436,
+      "meanDb": -16
+    },
+    {
+      "word": "dog",
+      "file": "words/dog.mp3",
+      "durationMs": 435,
+      "meanDb": -16
+    },
+    {
+      "word": "watch",
+      "file": "words/watch.mp3",
+      "durationMs": 472,
+      "meanDb": -15.9
+    },
+    {
+      "word": "sorry",
+      "file": "words/sorry.mp3",
+      "durationMs": 436,
+      "meanDb": -16
+    },
+    {
+      "word": "hat",
+      "file": "words/hat.mp3",
+      "durationMs": 414,
       "meanDb": -16
     },
     {
@@ -407,10 +575,58 @@
       "meanDb": -16
     },
     {
+      "word": "call",
+      "file": "words/call.mp3",
+      "durationMs": 476,
+      "meanDb": -15.9
+    },
+    {
+      "word": "four",
+      "file": "words/four.mp3",
+      "durationMs": 463,
+      "meanDb": -15.9
+    },
+    {
+      "word": "bought",
+      "file": "words/bought.mp3",
+      "durationMs": 394,
+      "meanDb": -16
+    },
+    {
       "word": "book",
       "file": "words/book.mp3",
       "durationMs": 406,
       "meanDb": -16
+    },
+    {
+      "word": "put",
+      "file": "words/put.mp3",
+      "durationMs": 378,
+      "meanDb": -16.1
+    },
+    {
+      "word": "woman",
+      "file": "words/woman.mp3",
+      "durationMs": 508,
+      "meanDb": -15.8
+    },
+    {
+      "word": "good",
+      "file": "words/good.mp3",
+      "durationMs": 454,
+      "meanDb": -16
+    },
+    {
+      "word": "full",
+      "file": "words/full.mp3",
+      "durationMs": 435,
+      "meanDb": -16
+    },
+    {
+      "word": "fool",
+      "file": "words/fool.mp3",
+      "durationMs": 454,
+      "meanDb": -15.9
     },
     {
       "word": "blue",
@@ -419,15 +635,93 @@
       "meanDb": -16
     },
     {
+      "word": "food",
+      "file": "words/food.mp3",
+      "durationMs": 460,
+      "meanDb": -15.9
+    },
+    {
+      "word": "room",
+      "file": "words/room.mp3",
+      "durationMs": 584,
+      "meanDb": -15.8
+    },
+    {
+      "word": "to",
+      "file": "words/to.mp3",
+      "durationMs": 324,
+      "meanDb": -16.1
+    },
+    {
       "word": "cup",
       "file": "words/cup.mp3",
       "durationMs": 389,
       "meanDb": -16.1
     },
     {
+      "word": "love",
+      "file": "words/love.mp3",
+      "durationMs": 505,
+      "meanDb": -15.9
+    },
+    {
+      "word": "blood",
+      "file": "words/blood.mp3",
+      "durationMs": 472,
+      "meanDb": -16
+    },
+    {
+      "word": "money",
+      "file": "words/money.mp3",
+      "durationMs": 464,
+      "meanDb": -15.9
+    },
+    {
+      "word": "cut",
+      "file": "words/cut.mp3",
+      "durationMs": 373,
+      "meanDb": -16.9
+    },
+    {
+      "word": "cart",
+      "file": "words/cart.mp3",
+      "durationMs": 359,
+      "meanDb": -16.2
+    },
+    {
       "word": "day",
       "file": "words/day.mp3",
       "durationMs": 434,
+      "meanDb": -16
+    },
+    {
+      "word": "name",
+      "file": "words/name.mp3",
+      "durationMs": 536,
+      "meanDb": -15.9
+    },
+    {
+      "word": "eight",
+      "file": "words/eight.mp3",
+      "durationMs": 436,
+      "meanDb": -15.9
+    },
+    {
+      "word": "they",
+      "file": "words/they.mp3",
+      "durationMs": 405,
+      "meanDb": -16
+    },
+    {
+      "word": "late",
+      "file": "words/late.mp3",
+      "durationMs": 423,
+      "meanDb": -15.9
+    },
+    {
+      "word": "let",
+      "file": "words/let.mp3",
+      "durationMs": 446,
       "meanDb": -16
     },
     {
@@ -437,10 +731,70 @@
       "meanDb": -15.9
     },
     {
+      "word": "time",
+      "file": "words/time.mp3",
+      "durationMs": 501,
+      "meanDb": -16
+    },
+    {
+      "word": "fly",
+      "file": "words/fly.mp3",
+      "durationMs": 470,
+      "meanDb": -16
+    },
+    {
+      "word": "eye",
+      "file": "words/eye.mp3",
+      "durationMs": 429,
+      "meanDb": -16
+    },
+    {
+      "word": "bite",
+      "file": "words/bite.mp3",
+      "durationMs": 408,
+      "meanDb": -16.6
+    },
+    {
+      "word": "bet",
+      "file": "words/bet.mp3",
+      "durationMs": 401,
+      "meanDb": -16
+    },
+    {
       "word": "boy",
       "file": "words/boy.mp3",
       "durationMs": 426,
       "meanDb": -16
+    },
+    {
+      "word": "noise",
+      "file": "words/noise.mp3",
+      "durationMs": 626,
+      "meanDb": -15.8
+    },
+    {
+      "word": "coin",
+      "file": "words/coin.mp3",
+      "durationMs": 573,
+      "meanDb": -15.8
+    },
+    {
+      "word": "join",
+      "file": "words/join.mp3",
+      "durationMs": 464,
+      "meanDb": -15.9
+    },
+    {
+      "word": "coil",
+      "file": "words/coil.mp3",
+      "durationMs": 551,
+      "meanDb": -15.9
+    },
+    {
+      "word": "curl",
+      "file": "words/curl.mp3",
+      "durationMs": 478,
+      "meanDb": -15.9
     },
     {
       "word": "go",
@@ -449,10 +803,52 @@
       "meanDb": -16.1
     },
     {
+      "word": "home",
+      "file": "words/home.mp3",
+      "durationMs": 652,
+      "meanDb": -15.8
+    },
+    {
+      "word": "boat",
+      "file": "words/boat.mp3",
+      "durationMs": 391,
+      "meanDb": -16
+    },
+    {
+      "word": "know",
+      "file": "words/know.mp3",
+      "durationMs": 437,
+      "meanDb": -16
+    },
+    {
       "word": "house",
       "file": "words/house.mp3",
       "durationMs": 526,
       "meanDb": -16.3
+    },
+    {
+      "word": "now",
+      "file": "words/now.mp3",
+      "durationMs": 399,
+      "meanDb": -16
+    },
+    {
+      "word": "mouth",
+      "file": "words/mouth.mp3",
+      "durationMs": 470,
+      "meanDb": -15.9
+    },
+    {
+      "word": "out",
+      "file": "words/out.mp3",
+      "durationMs": 435,
+      "meanDb": -15.9
+    },
+    {
+      "word": "horse",
+      "file": "words/horse.mp3",
+      "durationMs": 528,
+      "meanDb": -15.9
     },
     {
       "word": "here",
@@ -461,9 +857,45 @@
       "meanDb": -16
     },
     {
+      "word": "near",
+      "file": "words/near.mp3",
+      "durationMs": 460,
+      "meanDb": -15.9
+    },
+    {
+      "word": "beer",
+      "file": "words/beer.mp3",
+      "durationMs": 446,
+      "meanDb": -16
+    },
+    {
+      "word": "idea",
+      "file": "words/idea.mp3",
+      "durationMs": 620,
+      "meanDb": -15.8
+    },
+    {
+      "word": "bear",
+      "file": "words/bear.mp3",
+      "durationMs": 472,
+      "meanDb": -15.9
+    },
+    {
       "word": "hair",
       "file": "words/hair.mp3",
       "durationMs": 478,
+      "meanDb": -15.9
+    },
+    {
+      "word": "there",
+      "file": "words/there.mp3",
+      "durationMs": 458,
+      "meanDb": -15.9
+    },
+    {
+      "word": "care",
+      "file": "words/care.mp3",
+      "durationMs": 413,
       "meanDb": -15.9
     },
     {
@@ -473,16 +905,70 @@
       "meanDb": -16
     },
     {
+      "word": "pure",
+      "file": "words/pure.mp3",
+      "durationMs": 499,
+      "meanDb": -15.9
+    },
+    {
+      "word": "sure",
+      "file": "words/sure.mp3",
+      "durationMs": 365,
+      "meanDb": -16.1
+    },
+    {
+      "word": "lure",
+      "file": "words/lure.mp3",
+      "durationMs": 421,
+      "meanDb": -16
+    },
+    {
+      "word": "toe",
+      "file": "words/toe.mp3",
+      "durationMs": 450,
+      "meanDb": -16
+    },
+    {
       "word": "pen",
       "file": "words/pen.mp3",
       "durationMs": 438,
       "meanDb": -16
     },
     {
-      "word": "bad",
-      "file": "words/bad.mp3",
-      "durationMs": 438,
+      "word": "speak",
+      "file": "words/speak.mp3",
+      "durationMs": 428,
       "meanDb": -16
+    },
+    {
+      "word": "pat",
+      "file": "words/pat.mp3",
+      "durationMs": 388,
+      "meanDb": -16.5
+    },
+    {
+      "word": "bat",
+      "file": "words/bat.mp3",
+      "durationMs": 375,
+      "meanDb": -16.1
+    },
+    {
+      "word": "club",
+      "file": "words/club.mp3",
+      "durationMs": 395,
+      "meanDb": -16.1
+    },
+    {
+      "word": "robot",
+      "file": "words/robot.mp3",
+      "durationMs": 568,
+      "meanDb": -15.8
+    },
+    {
+      "word": "buy",
+      "file": "words/buy.mp3",
+      "durationMs": 403,
+      "meanDb": -16.3
     },
     {
       "word": "tea",
@@ -491,15 +977,123 @@
       "meanDb": -16.1
     },
     {
-      "word": "dog",
-      "file": "words/dog.mp3",
-      "durationMs": 435,
+      "word": "stop",
+      "file": "words/stop.mp3",
+      "durationMs": 387,
       "meanDb": -16
+    },
+    {
+      "word": "water",
+      "file": "words/water.mp3",
+      "durationMs": 485,
+      "meanDb": -15.9
+    },
+    {
+      "word": "tin",
+      "file": "words/tin.mp3",
+      "durationMs": 425,
+      "meanDb": -15.9
+    },
+    {
+      "word": "din",
+      "file": "words/din.mp3",
+      "durationMs": 499,
+      "meanDb": -15.9
+    },
+    {
+      "word": "made",
+      "file": "words/made.mp3",
+      "durationMs": 516,
+      "meanDb": -15.8
+    },
+    {
+      "word": "red",
+      "file": "words/red.mp3",
+      "durationMs": 447,
+      "meanDb": -15.9
+    },
+    {
+      "word": "do",
+      "file": "words/do.mp3",
+      "durationMs": 371,
+      "meanDb": -16
+    },
+    {
+      "word": "school",
+      "file": "words/school.mp3",
+      "durationMs": 465,
+      "meanDb": -15.9
+    },
+    {
+      "word": "back",
+      "file": "words/back.mp3",
+      "durationMs": 376,
+      "meanDb": -16.2
+    },
+    {
+      "word": "queue",
+      "file": "words/queue.mp3",
+      "durationMs": 377,
+      "meanDb": -16
+    },
+    {
+      "word": "cap",
+      "file": "words/cap.mp3",
+      "durationMs": 420,
+      "meanDb": -16
+    },
+    {
+      "word": "gap",
+      "file": "words/gap.mp3",
+      "durationMs": 410,
+      "meanDb": -16
+    },
+    {
+      "word": "egg",
+      "file": "words/egg.mp3",
+      "durationMs": 456,
+      "meanDb": -15.9
+    },
+    {
+      "word": "guess",
+      "file": "words/guess.mp3",
+      "durationMs": 511,
+      "meanDb": -15.9
     },
     {
       "word": "fish",
       "file": "words/fish.mp3",
       "durationMs": 498,
+      "meanDb": -15.9
+    },
+    {
+      "word": "leaf",
+      "file": "words/leaf.mp3",
+      "durationMs": 486,
+      "meanDb": -15.9
+    },
+    {
+      "word": "phone",
+      "file": "words/phone.mp3",
+      "durationMs": 520,
+      "meanDb": -15.9
+    },
+    {
+      "word": "enough",
+      "file": "words/enough.mp3",
+      "durationMs": 555,
+      "meanDb": -15.8
+    },
+    {
+      "word": "fan",
+      "file": "words/fan.mp3",
+      "durationMs": 422,
+      "meanDb": -16
+    },
+    {
+      "word": "van",
+      "file": "words/van.mp3",
+      "durationMs": 463,
       "meanDb": -15.9
     },
     {
@@ -509,9 +1103,63 @@
       "meanDb": -15.9
     },
     {
+      "word": "leave",
+      "file": "words/leave.mp3",
+      "durationMs": 473,
+      "meanDb": -15.9
+    },
+    {
+      "word": "voice",
+      "file": "words/voice.mp3",
+      "durationMs": 461,
+      "meanDb": -16
+    },
+    {
+      "word": "have",
+      "file": "words/have.mp3",
+      "durationMs": 455,
+      "meanDb": -15.9
+    },
+    {
+      "word": "vine",
+      "file": "words/vine.mp3",
+      "durationMs": 560,
+      "meanDb": -15.9
+    },
+    {
+      "word": "fine",
+      "file": "words/fine.mp3",
+      "durationMs": 512,
+      "meanDb": -15.9
+    },
+    {
       "word": "think",
       "file": "words/think.mp3",
       "durationMs": 441,
+      "meanDb": -16
+    },
+    {
+      "word": "thank",
+      "file": "words/thank.mp3",
+      "durationMs": 446,
+      "meanDb": -15.9
+    },
+    {
+      "word": "bath",
+      "file": "words/bath.mp3",
+      "durationMs": 541,
+      "meanDb": -15.8
+    },
+    {
+      "word": "math",
+      "file": "words/math.mp3",
+      "durationMs": 439,
+      "meanDb": -15.9
+    },
+    {
+      "word": "sink",
+      "file": "words/sink.mp3",
+      "durationMs": 409,
       "meanDb": -16
     },
     {
@@ -521,10 +1169,82 @@
       "meanDb": -15.9
     },
     {
+      "word": "mother",
+      "file": "words/mother.mp3",
+      "durationMs": 421,
+      "meanDb": -16
+    },
+    {
+      "word": "clothes",
+      "file": "words/clothes.mp3",
+      "durationMs": 624,
+      "meanDb": -15.8
+    },
+    {
+      "word": "bathe",
+      "file": "words/bathe.mp3",
+      "durationMs": 517,
+      "meanDb": -15.9
+    },
+    {
+      "word": "diss",
+      "file": "words/diss.mp3",
+      "durationMs": 420,
+      "meanDb": -16
+    },
+    {
+      "word": "city",
+      "file": "words/city.mp3",
+      "durationMs": 383,
+      "meanDb": -16.1
+    },
+    {
+      "word": "ice",
+      "file": "words/ice.mp3",
+      "durationMs": 555,
+      "meanDb": -15.9
+    },
+    {
+      "word": "sip",
+      "file": "words/sip.mp3",
+      "durationMs": 333,
+      "meanDb": -16.1
+    },
+    {
+      "word": "ship",
+      "file": "words/ship.mp3",
+      "durationMs": 294,
+      "meanDb": -16.3
+    },
+    {
       "word": "zoo",
       "file": "words/zoo.mp3",
       "durationMs": 503,
       "meanDb": -15.9
+    },
+    {
+      "word": "easy",
+      "file": "words/easy.mp3",
+      "durationMs": 428,
+      "meanDb": -15.9
+    },
+    {
+      "word": "rose",
+      "file": "words/rose.mp3",
+      "durationMs": 525,
+      "meanDb": -15.8
+    },
+    {
+      "word": "zero",
+      "file": "words/zero.mp3",
+      "durationMs": 618,
+      "meanDb": -15.8
+    },
+    {
+      "word": "suit",
+      "file": "words/suit.mp3",
+      "durationMs": 442,
+      "meanDb": -16
     },
     {
       "word": "she",
@@ -533,10 +1253,58 @@
       "meanDb": -16
     },
     {
+      "word": "sugar",
+      "file": "words/sugar.mp3",
+      "durationMs": 435,
+      "meanDb": -16
+    },
+    {
+      "word": "nation",
+      "file": "words/nation.mp3",
+      "durationMs": 568,
+      "meanDb": -15.8
+    },
+    {
+      "word": "cash",
+      "file": "words/cash.mp3",
+      "durationMs": 474,
+      "meanDb": -15.9
+    },
+    {
       "word": "measure",
       "file": "words/measure.mp3",
       "durationMs": 391,
       "meanDb": -16
+    },
+    {
+      "word": "vision",
+      "file": "words/vision.mp3",
+      "durationMs": 539,
+      "meanDb": -15.9
+    },
+    {
+      "word": "usual",
+      "file": "words/usual.mp3",
+      "durationMs": 605,
+      "meanDb": -15.8
+    },
+    {
+      "word": "garage",
+      "file": "words/garage.mp3",
+      "durationMs": 668,
+      "meanDb": -15.7
+    },
+    {
+      "word": "pleasure",
+      "file": "words/pleasure.mp3",
+      "durationMs": 402,
+      "meanDb": -16
+    },
+    {
+      "word": "pressure",
+      "file": "words/pressure.mp3",
+      "durationMs": 496,
+      "meanDb": -15.9
     },
     {
       "word": "hello",
@@ -545,10 +1313,52 @@
       "meanDb": -15.9
     },
     {
+      "word": "behind",
+      "file": "words/behind.mp3",
+      "durationMs": 579,
+      "meanDb": -15.8
+    },
+    {
+      "word": "who",
+      "file": "words/who.mp3",
+      "durationMs": 483,
+      "meanDb": -15.9
+    },
+    {
+      "word": "at",
+      "file": "words/at.mp3",
+      "durationMs": 385,
+      "meanDb": -16
+    },
+    {
       "word": "chair",
       "file": "words/chair.mp3",
       "durationMs": 428,
       "meanDb": -16
+    },
+    {
+      "word": "nature",
+      "file": "words/nature.mp3",
+      "durationMs": 540,
+      "meanDb": -15.9
+    },
+    {
+      "word": "teach",
+      "file": "words/teach.mp3",
+      "durationMs": 437,
+      "meanDb": -16
+    },
+    {
+      "word": "choke",
+      "file": "words/choke.mp3",
+      "durationMs": 417,
+      "meanDb": -16.1
+    },
+    {
+      "word": "joke",
+      "file": "words/joke.mp3",
+      "durationMs": 377,
+      "meanDb": -16.1
     },
     {
       "word": "jump",
@@ -557,15 +1367,69 @@
       "meanDb": -16
     },
     {
+      "word": "page",
+      "file": "words/page.mp3",
+      "durationMs": 517,
+      "meanDb": -15.9
+    },
+    {
+      "word": "soldier",
+      "file": "words/soldier.mp3",
+      "durationMs": 551,
+      "meanDb": -15.9
+    },
+    {
+      "word": "bridge",
+      "file": "words/bridge.mp3",
+      "durationMs": 481,
+      "meanDb": -15.9
+    },
+    {
       "word": "man",
       "file": "words/man.mp3",
       "durationMs": 598,
       "meanDb": -15.8
     },
     {
+      "word": "swim",
+      "file": "words/swim.mp3",
+      "durationMs": 411,
+      "meanDb": -16
+    },
+    {
+      "word": "autumn",
+      "file": "words/autumn.mp3",
+      "durationMs": 511,
+      "meanDb": -15.9
+    },
+    {
+      "word": "mat",
+      "file": "words/mat.mp3",
+      "durationMs": 465,
+      "meanDb": -15.9
+    },
+    {
+      "word": "gnat",
+      "file": "words/gnat.mp3",
+      "durationMs": 450,
+      "meanDb": -16
+    },
+    {
       "word": "no",
       "file": "words/no.mp3",
       "durationMs": 416,
+      "meanDb": -16
+    },
+    {
+      "word": "sun",
+      "file": "words/sun.mp3",
+      "durationMs": 382,
+      "meanDb": -16.1
+    },
+    {
+      "word": "so",
+      "file": "words/so.mp3",
+      "durationMs": 398,
       "meanDb": -16
     },
     {
@@ -575,16 +1439,70 @@
       "meanDb": -15.9
     },
     {
+      "word": "finger",
+      "file": "words/finger.mp3",
+      "durationMs": 498,
+      "meanDb": -15.9
+    },
+    {
+      "word": "drink",
+      "file": "words/drink.mp3",
+      "durationMs": 402,
+      "meanDb": -16
+    },
+    {
+      "word": "sin",
+      "file": "words/sin.mp3",
+      "durationMs": 483,
+      "meanDb": -15.9
+    },
+    {
       "word": "like",
       "file": "words/like.mp3",
       "durationMs": 418,
       "meanDb": -16
     },
     {
-      "word": "red",
-      "file": "words/red.mp3",
-      "durationMs": 447,
+      "word": "help",
+      "file": "words/help.mp3",
+      "durationMs": 402,
+      "meanDb": -16
+    },
+    {
+      "word": "feel",
+      "file": "words/feel.mp3",
+      "durationMs": 472,
       "meanDb": -15.9
+    },
+    {
+      "word": "letter",
+      "file": "words/letter.mp3",
+      "durationMs": 454,
+      "meanDb": -16
+    },
+    {
+      "word": "led",
+      "file": "words/led.mp3",
+      "durationMs": 459,
+      "meanDb": -16
+    },
+    {
+      "word": "right",
+      "file": "words/right.mp3",
+      "durationMs": 443,
+      "meanDb": -16.8
+    },
+    {
+      "word": "write",
+      "file": "words/write.mp3",
+      "durationMs": 422,
+      "meanDb": -16.5
+    },
+    {
+      "word": "light",
+      "file": "words/light.mp3",
+      "durationMs": 482,
+      "meanDb": -16
     },
     {
       "word": "we",
@@ -593,10 +1511,52 @@
       "meanDb": -16
     },
     {
+      "word": "one",
+      "file": "words/one.mp3",
+      "durationMs": 462,
+      "meanDb": -16
+    },
+    {
+      "word": "answer",
+      "file": "words/answer.mp3",
+      "durationMs": 532,
+      "meanDb": -15.9
+    },
+    {
+      "word": "wine",
+      "file": "words/wine.mp3",
+      "durationMs": 543,
+      "meanDb": -15.9
+    },
+    {
       "word": "yes",
       "file": "words/yes.mp3",
       "durationMs": 558,
       "meanDb": -15.8
+    },
+    {
+      "word": "unit",
+      "file": "words/unit.mp3",
+      "durationMs": 485,
+      "meanDb": -15.9
+    },
+    {
+      "word": "beauty",
+      "file": "words/beauty.mp3",
+      "durationMs": 479,
+      "meanDb": -16
+    },
+    {
+      "word": "use",
+      "file": "words/use.mp3",
+      "durationMs": 536,
+      "meanDb": -15.9
+    },
+    {
+      "word": "es",
+      "file": "words/es.mp3",
+      "durationMs": 446,
+      "meanDb": -16
     },
     {
       "word": "tree",
@@ -605,9 +1565,57 @@
       "meanDb": -16
     },
     {
+      "word": "country",
+      "file": "words/country.mp3",
+      "durationMs": 531,
+      "meanDb": -15.8
+    },
+    {
+      "word": "track",
+      "file": "words/track.mp3",
+      "durationMs": 460,
+      "meanDb": -16
+    },
+    {
+      "word": "interest",
+      "file": "words/interest.mp3",
+      "durationMs": 587,
+      "meanDb": -15.8
+    },
+    {
+      "word": "train",
+      "file": "words/train.mp3",
+      "durationMs": 504,
+      "meanDb": -15.9
+    },
+    {
+      "word": "drain",
+      "file": "words/drain.mp3",
+      "durationMs": 500,
+      "meanDb": -15.9
+    },
+    {
       "word": "dress",
       "file": "words/dress.mp3",
       "durationMs": 558,
+      "meanDb": -15.8
+    },
+    {
+      "word": "hundred",
+      "file": "words/hundred.mp3",
+      "durationMs": 566,
+      "meanDb": -15.8
+    },
+    {
+      "word": "dry",
+      "file": "words/dry.mp3",
+      "durationMs": 481,
+      "meanDb": -16.2
+    },
+    {
+      "word": "address",
+      "file": "words/address.mp3",
+      "durationMs": 631,
       "meanDb": -15.8
     },
     {
@@ -617,9 +1625,57 @@
       "meanDb": -16.2
     },
     {
+      "word": "hits",
+      "file": "words/hits.mp3",
+      "durationMs": 494,
+      "meanDb": -15.9
+    },
+    {
+      "word": "suits",
+      "file": "words/suits.mp3",
+      "durationMs": 452,
+      "meanDb": -16
+    },
+    {
+      "word": "students",
+      "file": "words/students.mp3",
+      "durationMs": 586,
+      "meanDb": -15.8
+    },
+    {
+      "word": "caps",
+      "file": "words/caps.mp3",
+      "durationMs": 521,
+      "meanDb": -15.9
+    },
+    {
       "word": "beds",
       "file": "words/beds.mp3",
       "durationMs": 515,
+      "meanDb": -15.9
+    },
+    {
+      "word": "needs",
+      "file": "words/needs.mp3",
+      "durationMs": 541,
+      "meanDb": -15.9
+    },
+    {
+      "word": "words",
+      "file": "words/words.mp3",
+      "durationMs": 525,
+      "meanDb": -15.9
+    },
+    {
+      "word": "hands",
+      "file": "words/hands.mp3",
+      "durationMs": 586,
+      "meanDb": -15.8
+    },
+    {
+      "word": "wards",
+      "file": "words/wards.mp3",
+      "durationMs": 551,
       "meanDb": -15.9
     }
   ]

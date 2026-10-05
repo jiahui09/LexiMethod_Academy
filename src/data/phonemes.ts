@@ -114,7 +114,7 @@ const monophthongs: Phoneme[] = [
     tonguePosition: '舌身自然平放、略微抬起，不前不后不高中——中央元音。',
     airflow: '气流最短促平缓，声带轻微振动，一闪而过。',
     commonSpellings: ['a', 'e', 'o', 'u', 'i'],
-    minimalPairs: [P('about', 'a bout', '大约', '一回合')],
+    minimalPairs: [P('about', 'abound', '大约', '大量存在')],
     commonMistakes: ['中文母语者几乎不弱读，把每个音节都读满；非重读音节绝大多数应塌缩成 /ə/。'],
     contrastWith: ['ɜː'],
     geo: vow(0.45, 0.5, 0.2, 0.25, 'central'),

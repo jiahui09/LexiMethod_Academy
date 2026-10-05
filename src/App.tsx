@@ -3,6 +3,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import AppShell from '@/components/layout/AppShell';
 import PageTransition, { RouteLoading } from '@/components/layout/PageTransition';
+import RouteErrorBoundary from '@/components/layout/RouteErrorBoundary';
 import NextStepBar from '@/components/layout/NextStepBar';
 import Backdrop from '@/components/fx/Backdrop';
 import ParticleField from '@/components/fx/ParticleField';
@@ -57,12 +58,15 @@ export default function App() {
       <AppShell>
         <div id="main-content" className="container-page py-6 md:py-10">
           <AnimatePresence mode="wait">
-            {/* key 使每次路由切换都整棵重挂：旧页退场动画 + 新页懒加载占位 */}
-            <Suspense key={location.pathname} fallback={<RouteLoading />}>
-              <PageTransition>
-                <Router />
-              </PageTransition>
-            </Suspense>
+            {/* key 使每次路由切换都整棵重挂：旧页退场动画 + 新页懒加载占位；
+                边界在 Suspense 外侧，懒加载失败与渲染崩溃都会落进降级页 */}
+            <RouteErrorBoundary key={location.pathname}>
+              <Suspense fallback={<RouteLoading />}>
+                <PageTransition>
+                  <Router />
+                </PageTransition>
+              </Suspense>
+            </RouteErrorBoundary>
           </AnimatePresence>
           {/* 每页底部统一「下一步去哪儿」引导 */}
           <NextStepBar />

@@ -61,11 +61,21 @@ async function main() {
     const extra = mIds.filter((id) => !ids.includes(id));
     if (miss.length) err(`manifest 缺音素: ${miss.join(' ')}`);
     if (extra.length) err(`manifest 多音素: ${extra.join(' ')}`);
-    const words = [...new Set(phonemes.map((p) => p.ttsWord))];
+    // 全量词表：ttsWord + exampleWords + 最小对立对（教学中所有会被朗读的词）
+    const words = [
+      ...new Set(
+        phonemes
+          .flatMap((p) => [p.ttsWord, ...p.exampleWords, ...(p.minimalPairs ?? []).flatMap((x) => [x.a, x.b])])
+          .filter(Boolean),
+      ),
+    ];
     const mWords = manifest.words.map((x) => x.word);
     const missW = words.filter((w) => !mWords.includes(w));
-    if (missW.length) err(`manifest 缺例词: ${missW.join(' ')}`);
+    const extraW = mWords.filter((w) => !words.includes(w));
+    if (missW.length) err(`manifest 缺例词（${missW.length}）: ${missW.slice(0, 10).join(' ')}${missW.length > 10 ? ' …' : ''}`);
+    if (extraW.length) err(`manifest 过期例词（数据已删）: ${extraW.join(' ')}`);
     if (manifest.phonemes.length !== 48) err(`manifest 音素条目 ${manifest.phonemes.length} ≠ 48`);
+    if (manifest.words.length !== words.length) err(`manifest 词条目 ${manifest.words.length} ≠ 数据全量 ${words.length}`);
 
     /* 3. 磁盘文件逐一核验 */
     let total = 0;

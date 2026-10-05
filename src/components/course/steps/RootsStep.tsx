@@ -1,6 +1,5 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import gsap from 'gsap';
 import { GitBranch, Volume2, ZoomIn } from 'lucide-react';
 import { words } from '@/data/words';
 import { useMotionTier } from '@/hooks/useMotionTier';
@@ -10,6 +9,7 @@ import { SpeakButton } from '@/components/ui/Bits';
 
 /**
  * 词根词缀步骤：色块飞入拼装（GSAP 时间线）+ 词族树 SVG 路径生长
+ * GSAP 动态引入：只有走到这一步才拉取引擎分包。
  */
 export default function RootsStep() {
   const tier = useMotionTier();
@@ -24,48 +24,61 @@ export default function RootsStep() {
       setAssembled(true);
       return;
     }
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-      tl.from('.morph-block', {
-        x: (i: number) => [-160, 170, -120][i % 3],
-        y: (i: number) => [-40, 60, -80][i % 3],
-        opacity: 0,
-        rotate: (i: number) => [-8, 6, -5][i % 3],
-        duration: 0.7,
-        stagger: 0.16,
-      })
-        .to('.morph-block', {
-          boxShadow: '0 0 34px rgba(255,77,157,0.55)',
-          duration: 0.28,
-          yoyo: true,
-          repeat: 1,
-          onComplete: () => {
-            setAssembled(true);
-            playSfx('correct');
-          },
-        })
-        .from(
-          '.tree-path',
-          {
-            strokeDashoffset: (i: number, el: SVGPathElement) => Number(el.getAttribute('data-len') ?? 200),
-            duration: 0.8,
-            stagger: 0.14,
-          },
-          '-=0.1',
-        )
-        .from(
-          '.tree-node',
-          {
-            scale: 0.4,
+    let disposed = false;
+    let ctx: { revert: () => void } | undefined;
+    import('gsap')
+      .then(({ default: gsap }) => {
+        if (disposed) return;
+        ctx = gsap.context(() => {
+          const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+          tl.from('.morph-block', {
+            x: (i: number) => [-160, 170, -120][i % 3],
+            y: (i: number) => [-40, 60, -80][i % 3],
             opacity: 0,
-            duration: 0.45,
-            stagger: 0.1,
-            ease: 'back.out(2)',
-          },
-          '-=0.9',
-        );
-    }, scope);
-    return () => ctx.revert();
+            rotate: (i: number) => [-8, 6, -5][i % 3],
+            duration: 0.7,
+            stagger: 0.16,
+          })
+            .to('.morph-block', {
+              boxShadow: '0 0 34px rgba(255,77,157,0.55)',
+              duration: 0.28,
+              yoyo: true,
+              repeat: 1,
+              onComplete: () => {
+                setAssembled(true);
+                playSfx('correct');
+              },
+            })
+            .from(
+              '.tree-path',
+              {
+                strokeDashoffset: (i: number, el: SVGPathElement) => Number(el.getAttribute('data-len') ?? 200),
+                duration: 0.8,
+                stagger: 0.14,
+              },
+              '-=0.1',
+            )
+            .from(
+              '.tree-node',
+              {
+                scale: 0.4,
+                opacity: 0,
+                duration: 0.45,
+                stagger: 0.1,
+                ease: 'back.out(2)',
+              },
+              '-=0.9',
+            );
+        }, scope);
+      })
+      .catch(() => {
+        // 引擎分包拉取失败：跳过动画，直接呈现结果态，不卡死教学步骤
+        if (!disposed) setAssembled(true);
+      });
+    return () => {
+      disposed = true;
+      ctx?.revert();
+    };
   }, [tier, word.id]);
 
   const family = word.wordFamily;

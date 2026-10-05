@@ -7,11 +7,11 @@
 | 路径 | 内容 | 规格 |
 | --- | --- | --- |
 | `public/audio/phonemes/*.mp3` | 48 个英语音标的孤立发音 | 22.05kHz 单声道 64kbps，134–405ms |
-| `public/audio/words/*.mp3` | 例词朗读（48 音标 ttsWord 去重后 45 词） | 同上，339–598ms |
+| `public/audio/words/*.mp3` | 例词 + 最小对立对朗读（全量去重 221 词） | 同上，294–668ms |
 | `public/audio/manifest.json` | 溯源清单（时长 / 响度 / 模型 / 校验） | 生成物 |
 | `src/data/phonemeAudio.ts` | 运行时 id → 文件映射 | 生成物，勿手改 |
 
-合计约 324KB（门禁上限 1.5MB）。
+合计约 1.1MB（门禁上限 1.5MB；全站 <2MB）。
 
 ## 生成工具链
 
@@ -22,7 +22,8 @@
 - **复现**：
   ```bash
   npm run gen:audio -- --setup   # 首次：创建 .venv-audio + 下载模型（校验 md5）
-  npm run gen:audio              # 生成全部音频 + manifest + 映射模块
+  npm run gen:audio              # 增量：只合成缺失文件，已有 mp3 直接复用并重新计量
+  npm run gen:audio -- --force   # 全量重建（换音色/换模型后必须）
   ```
 
 ## 许可与用途

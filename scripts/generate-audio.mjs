@@ -5,13 +5,14 @@
  * 输入：src/data/phonemes.ts（48 音标 + ttsWord 例词，经 esbuild 编译后导入）
  * 引擎：piper-tts（工作区 venv .venv-audio）+ en_US-lessac-medium（.models/）
  * 输出：public/audio/phonemes/<slug>.mp3   48 个孤立音素
- *       public/audio/words/<word>.mp3      48 例词去重后逐词
+ *       public/audio/words/<word>.mp3      全部例词 + 最小对立对（去重，约 220 词）
  *       public/audio/manifest.json         溯源清单（时长/响度/许可）
  *       src/data/phonemeAudio.ts           运行时映射模块（勿手改）
  *
  * 用法：
  *   node scripts/generate-audio.mjs --setup   首次：建 venv + 装 piper + 下载模型（校验 md5）
- *   node scripts/generate-audio.mjs           生成全部音频
+ *   node scripts/generate-audio.mjs           增量生成（已有 mp3 直接复用并重新计量）
+ *   node scripts/generate-audio.mjs --force   全量重生成（换音色/换模型后必须）
  *
  * 依赖：python3、ffmpeg/ffprobe、node_modules/.bin/esbuild（随 vite 自带）
  */
@@ -147,30 +148,48 @@ async function main() {
   const noWord = phonemes.filter((p) => !p.ttsWord).map((p) => p.id);
   if (noWord.length) die(`缺 ttsWord: ${noWord.join(' ')}`);
 
-  /* 2. 批量合成（piper 单进程） */
+  /* 2. 增量批量合成（piper 单进程） */
   fs.rmSync(TMP, { recursive: true, force: true });
   fs.mkdirSync(TMP, { recursive: true });
   fs.mkdirSync(OUT_PH_DIR, { recursive: true });
   fs.mkdirSync(OUT_W_DIR, { recursive: true });
 
-  const items = [];
-  for (const p of phonemes) {
-    items.push({ out: path.join(TMP, `ph_${SLUG[p.id]}.wav`), text: `[[${p.id}]]` });
-  }
-  const uniqueWords = [...new Set(phonemes.map((p) => p.ttsWord))];
+  // 全量词表：ttsWord + exampleWords + 最小对立对（教学里所有会被朗读的词）
+  const uniqueWords = [
+    ...new Set(
+      phonemes
+        .flatMap((p) => [p.ttsWord, ...p.exampleWords, ...(p.minimalPairs ?? []).flatMap((x) => [x.a, x.b])])
+        .filter(Boolean),
+    ),
+  ];
   for (const w of uniqueWords) {
-    if (!/^[a-z]+$/.test(w)) die(`ttsWord 含非 a-z 字符: ${w}`);
-    items.push({ out: path.join(TMP, `w_${w}.wav`), text: w });
+    if (!/^[a-z]+$/.test(w)) die(`词表含非 a-z 字符: ${JSON.stringify(w)}`);
   }
-  log(`▸ 合成 ${items.length} 条（音素 ${phonemes.length} + 例词 ${uniqueWords.length}）…`);
-  const spec = JSON.stringify({ model: MODEL, config: MODEL_JSON, items });
-  // cwd=TMP：piper/espeak 会在进程工作目录落会话残渣（如 :memory:.ses），别污染仓库根
-  const r = spawnSync(PIPER_PY, [path.join(ROOT, 'scripts', 'piper_batch.py')], {
-    input: spec, encoding: 'utf8', cwd: TMP, maxBuffer: 32 * 1024 * 1024,
-  });
-  if (r.status !== 0) die(`piper 批量合成失败:\n${r.stderr}`);
-  const batch = JSON.parse(r.stdout.trim());
-  if (batch.errors.length) die(`合成失败:\n${batch.errors.map((e) => `${e.out}: ${e.error}`).join('\n')}`);
+
+  // --force / 模型变更 / 无历史清单 → 全量重生成；否则只合成缺失文件
+  const MANIFEST_PATH = path.join(ROOT, 'public', 'audio', 'manifest.json');
+  const old = fs.existsSync(MANIFEST_PATH) ? JSON.parse(fs.readFileSync(MANIFEST_PATH, 'utf8')) : null;
+  const force = args.includes('--force') || !old || old.engine?.modelMd5 !== MODEL_MD5;
+  const needPh = phonemes.filter((p) => force || !fs.existsSync(path.join(OUT_PH_DIR, `${SLUG[p.id]}.mp3`)));
+  const needW = uniqueWords.filter((w) => force || !fs.existsSync(path.join(OUT_W_DIR, `${w}.mp3`)));
+
+  const items = [
+    ...needPh.map((p) => ({ out: path.join(TMP, `ph_${SLUG[p.id]}.wav`), text: `[[${p.id}]]` })),
+    ...needW.map((w) => ({ out: path.join(TMP, `w_${w}.wav`), text: w })),
+  ];
+  log(`▸ 词表 ${uniqueWords.length} 词；本次合成 ${items.length} 条（音素 ${needPh.length}/48 + 词 ${needW.length}${force ? '，全量' : '，增量'}）…`);
+  if (items.length) {
+    const spec = JSON.stringify({ model: MODEL, config: MODEL_JSON, items });
+    // cwd=TMP：piper/espeak 会在进程工作目录落会话残渣（如 :memory:.ses），别污染仓库根
+    const r = spawnSync(PIPER_PY, [path.join(ROOT, 'scripts', 'piper_batch.py')], {
+      input: spec, encoding: 'utf8', cwd: TMP, maxBuffer: 32 * 1024 * 1024,
+    });
+    if (r.status !== 0) die(`piper 批量合成失败:\n${r.stderr}`);
+    const batch = JSON.parse(r.stdout.trim());
+    if (batch.errors.length) die(`合成失败:\n${batch.errors.map((e) => `${e.out}: ${e.error}`).join('\n')}`);
+  } else {
+    log('  · 全部命中缓存，无需合成');
+  }
 
   /* 3. 修剪 + 响度归一 + 编码 mp3 + 校验 */
   const encode = (rawWav, outMp3) => {
@@ -196,18 +215,30 @@ async function main() {
     else return true;
     return false;
   };
+  /** 增量路径：wav 未合成（已有 mp3）→ 直接对现文件计量，同样过校验 */
+  const measureExisting = (mp3) => ({ dur: ffprobeDur(mp3), meanDb: measure(mp3).mean, bytes: fs.statSync(mp3).size });
 
   for (const p of phonemes) {
     const slug = SLUG[p.id];
     const out = path.join(OUT_PH_DIR, `${slug}.mp3`);
-    const res = encode(path.join(TMP, `ph_${slug}.wav`), out);
+    const wav = path.join(TMP, `ph_${slug}.wav`);
+    const res = fs.existsSync(wav) ? encode(wav, out) : fs.existsSync(out) ? measureExisting(out) : null;
+    if (!res) {
+      failures.push(`音素 /${p.id}/ 合成与缓存均缺失`);
+      continue;
+    }
     if (check(`音素 /${p.id}/`, res, MIN_PH_DUR, MAX_PH_DUR)) {
       phResults.push({ id: p.id, slug, file: `phonemes/${slug}.mp3`, durationMs: Math.round(res.dur * 1000), meanDb: res.meanDb });
     }
   }
   for (const w of uniqueWords) {
     const out = path.join(OUT_W_DIR, `${w}.mp3`);
-    const res = encode(path.join(TMP, `w_${w}.wav`), out);
+    const wav = path.join(TMP, `w_${w}.wav`);
+    const res = fs.existsSync(wav) ? encode(wav, out) : fs.existsSync(out) ? measureExisting(out) : null;
+    if (!res) {
+      failures.push(`词 "${w}" 合成与缓存均缺失`);
+      continue;
+    }
     if (check(`例词 "${w}"`, res, MIN_W_DUR, MAX_W_DUR)) {
       wResults.push({ word: w, file: `words/${w}.mp3`, durationMs: Math.round(res.dur * 1000), meanDb: res.meanDb });
     }
