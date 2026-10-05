@@ -65,15 +65,31 @@ console.log(`  首屏合计      : ${kb(totalBytes)}`);
 
 const all = readdirSync(assets).filter((f) => /\.(js|css)$/.test(f));
 const allBytes = all.reduce((s, f) => s + gzipLen(join(assets, f)), 0);
-console.log(`  全部静态资源  : ${kb(allBytes)}（${all.length} 个，gzip）`);
+console.log(`  JS/CSS 资源   : ${kb(allBytes)}（${all.length} 个，gzip）`);
+
+/* 全量站点口径：dist 全部文件（文本 gzip、音频等二进制按原始字节——压缩产物 gzip 无收益） */
+function walkDist(dir, out = []) {
+  for (const e of readdirSync(dir, { withFileTypes: true })) {
+    const p = join(dir, e.name);
+    if (e.isDirectory()) walkDist(p, out);
+    else out.push(p);
+  }
+  return out;
+}
+const TEXT_EXT = /\.(js|css|html|svg|json|txt|map|md|css\.map|js\.map)$/;
+const siteFiles = walkDist(dist);
+const siteBytes = siteFiles.reduce((s, f) => s + (TEXT_EXT.test(f) ? gzipLen(f) : readFileSync(f).length), 0);
+const audioBytes = siteFiles.filter((f) => f.endsWith('.mp3')).reduce((s, f) => s + readFileSync(f).length, 0);
+console.log(`  全量站点      : ${kb(siteBytes)}（${siteFiles.length} 个，其中音频 ${kb(audioBytes)}）`);
 
 const fails = [];
 if (totalBytes >= 200 * 1024) fails.push(`首屏 ${kb(totalBytes)} ≥ 200 KB`);
 if (cssBytes >= 30 * 1024) fails.push(`首屏 CSS ${kb(cssBytes)} ≥ 30 KB`);
-if (allBytes >= 2 * 1024 * 1024) fails.push(`全部资源 ${kb(allBytes)} ≥ 2 MB`);
+if (allBytes >= 2 * 1024 * 1024) fails.push(`JS/CSS 资源 ${kb(allBytes)} ≥ 2 MB`);
+if (siteBytes >= 2 * 1024 * 1024) fails.push(`全量站点 ${kb(siteBytes)} ≥ 2 MB`);
 
 if (fails.length) {
   console.error(`\n✗ 体积超限：${fails.join('；')}`);
   process.exit(1);
 }
-console.log('\n✓ 体积达标（首屏 <200KB / CSS <30KB / 全量 <2MB）');
+console.log('\n✓ 体积达标（首屏 <200KB / CSS <30KB / 全量站点 <2MB）');

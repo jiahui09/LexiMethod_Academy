@@ -4,6 +4,7 @@ import { Mic, Square, Ear, Eye, Check, X, Volume2, Radio } from 'lucide-react';
 import type { Phoneme } from '@/types';
 import { phonemes } from '@/data/phonemes';
 import { useSpeech, useSpeaking } from '@/hooks/useSpeech';
+import { speakPhoneme } from '@/hooks/usePhonemeAudio';
 import { playSfx } from '@/hooks/useSfx';
 import { useProgress } from '@/store/progressStore';
 import { useReview } from '@/store/reviewStore';
@@ -319,7 +320,12 @@ export function RecordCompare({ phoneme }: { phoneme: Phoneme }) {
         <Mic size={13} aria-hidden /> 录音对比：先听原声，再录自己
       </div>
       <div className="flex flex-wrap items-center gap-2">
-        <NeonButton size="sm" onClick={() => speak(phoneme.ttsWord ?? phoneme.exampleWords[0])}>
+        <NeonButton
+          size="sm"
+          onClick={() => {
+            if (!speakPhoneme(phoneme.id)) speak(phoneme.ttsWord ?? phoneme.exampleWords[0]);
+          }}
+        >
           <Volume2 size={13} aria-hidden /> 听原声
         </NeonButton>
         <NeonButton size="sm" variant="ghost" onClick={start} disabled={state === 'recording'}>

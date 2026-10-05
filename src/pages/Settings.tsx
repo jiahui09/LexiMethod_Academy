@@ -49,7 +49,9 @@ export default function Settings() {
           <div className="mb-1 flex items-center gap-2 text-sm font-semibold text-white">
             <Volume2 size={15} className="text-neon" aria-hidden /> 发音口音
           </div>
-          <p className="mb-3 text-xs text-slate-400">影响所有朗读与听力题的发音风格（系统语音包支持范围内）。</p>
+          <p className="mb-3 text-xs text-slate-400">
+            影响所有朗读与听力题的发音风格（系统语音包支持范围内）。48 个音标本体使用内置离线音频（美式），不随口音切换。
+          </p>
           <div className="grid grid-cols-2 gap-2.5">
             {accentOptions.map((o) => (
               <button

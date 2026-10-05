@@ -1,0 +1,115 @@
+// 自动生成：scripts/generate-audio.mjs（npm run gen:audio）—— 手改无效
+// 音标/例词离线音频映射；文件位于 public/audio/，与页面同源、无外部请求。
+
+/** 音标 id → 音频 slug（public/audio/phonemes/<slug>.mp3） */
+export const PHONEME_AUDIO: Record<string, string> = {
+  "iː": "ii",
+  "ɪ": "ih",
+  "e": "eh",
+  "æ": "ae",
+  "ɜː": "er",
+  "ə": "ax",
+  "ɑː": "aa",
+  "ɒ": "ao",
+  "ɔː": "aw",
+  "ʊ": "ub",
+  "uː": "uu",
+  "ʌ": "av",
+  "eɪ": "ei",
+  "aɪ": "ai",
+  "ɔɪ": "oi",
+  "əʊ": "ou",
+  "aʊ": "au",
+  "ɪə": "ier",
+  "eə": "ear",
+  "ʊə": "uer",
+  "p": "p",
+  "b": "b",
+  "t": "t",
+  "d": "d",
+  "k": "k",
+  "g": "g",
+  "f": "f",
+  "v": "v",
+  "θ": "th",
+  "ð": "dh",
+  "s": "s",
+  "z": "z",
+  "ʃ": "sh",
+  "ʒ": "zh",
+  "h": "h",
+  "tʃ": "ch",
+  "dʒ": "jh",
+  "m": "m",
+  "n": "n",
+  "ŋ": "ng",
+  "l": "l",
+  "r": "r",
+  "w": "w",
+  "j": "y",
+  "tr": "tr",
+  "dr": "dr",
+  "ts": "ts",
+  "dz": "dz",
+};
+
+/** 例词 → 音频（public/audio/words/<word>.mp3；词本身即文件名） */
+export const WORD_AUDIO: Record<string, string> = {
+  "see": "see",
+  "sit": "sit",
+  "bed": "bed",
+  "cat": "cat",
+  "bird": "bird",
+  "about": "about",
+  "car": "car",
+  "hot": "hot",
+  "door": "door",
+  "book": "book",
+  "blue": "blue",
+  "cup": "cup",
+  "day": "day",
+  "my": "my",
+  "boy": "boy",
+  "go": "go",
+  "house": "house",
+  "here": "here",
+  "hair": "hair",
+  "tour": "tour",
+  "pen": "pen",
+  "bad": "bad",
+  "tea": "tea",
+  "dog": "dog",
+  "fish": "fish",
+  "very": "very",
+  "think": "think",
+  "this": "this",
+  "zoo": "zoo",
+  "she": "she",
+  "measure": "measure",
+  "hello": "hello",
+  "chair": "chair",
+  "jump": "jump",
+  "man": "man",
+  "no": "no",
+  "sing": "sing",
+  "like": "like",
+  "red": "red",
+  "we": "we",
+  "yes": "yes",
+  "tree": "tree",
+  "dress": "dress",
+  "cats": "cats",
+  "beds": "beds",
+};
+
+/** 音标离线音频 URL；无映射返回 null（调用方回退浏览器 TTS） */
+export function phonemeAudioUrl(id: string): string | null {
+  const slug = PHONEME_AUDIO[id];
+  return slug ? `${import.meta.env.BASE_URL}audio/phonemes/${slug}.mp3` : null;
+}
+
+/** 例词离线音频 URL；无映射返回 null（调用方回退浏览器 TTS） */
+export function wordAudioUrl(word: string): string | null {
+  const w = WORD_AUDIO[word];
+  return w ? `${import.meta.env.BASE_URL}audio/words/${w}.mp3` : null;
+}

@@ -9,6 +9,7 @@ import { ParticleConverge, Waveform } from '@/components/course/FeedbackFx';
 import { MinimalPairJudge, ListenChooseDrill } from './PhonemeDrills';
 import { SpeakButton, Chip } from '@/components/ui/Bits';
 import { useSpeech, useSpeaking } from '@/hooks/useSpeech';
+import { speakPhoneme, preloadPhoneme } from '@/hooks/usePhonemeAudio';
 import { useMotionTier } from '@/hooks/useMotionTier';
 import { useProgress } from '@/store/progressStore';
 import { useReview } from '@/store/reviewStore';
@@ -35,11 +36,12 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
   const markLearned = useProgress((s) => s.markPhonemeLearned);
   const ensureCard = useReview((s) => s.ensureCard);
 
-  // 换音标 → 回到第一步
+  // 换音标 → 回到第一步 + 预载离线发音
   useEffect(() => {
     setIndex(0);
     setReplay((r) => r + 1);
     setAutoplay(false);
+    preloadPhoneme(phoneme.id);
     ensureCard('phoneme', phoneme.id, `${phoneme.symbol} ${phoneme.exampleWords[0]}`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phoneme.id]);
@@ -86,8 +88,8 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
               </div>
               <p className="max-w-md px-4 text-sm text-slate-300">{phoneme.hintCN}</p>
               <div className="flex items-center gap-2">
-                <SpeakButton text={phoneme.ttsWord ?? phoneme.exampleWords[0]} className="min-h-[44px] min-w-[44px]" />
-                <SpeakButton text={phoneme.ttsWord ?? phoneme.exampleWords[0]} slow className="min-h-[44px] min-w-[44px]" />
+                <SpeakButton text={phoneme.ttsWord ?? phoneme.exampleWords[0]} phonemeId={phoneme.id} label={`播放 ${phoneme.symbol} 发音`} className="min-h-[44px] min-w-[44px]" />
+                <SpeakButton text={phoneme.ttsWord ?? phoneme.exampleWords[0]} phonemeId={phoneme.id} slow label={`慢速播放 ${phoneme.symbol}`} className="min-h-[44px] min-w-[44px]" />
                 <Waveform active={speaking} bars={20} />
               </div>
             </div>
@@ -221,8 +223,8 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
                     <div key={p.id} className="flex items-center gap-2">
                       <span className="ipa text-xl font-bold text-white">{p.symbol}</span>
                       <span className="text-xs text-slate-400">{p.exampleWords[0]}</span>
-                      <SpeakButton text={p.ttsWord ?? p.exampleWords[0]} size="sm" className="min-h-[44px] min-w-[44px]" />
-                      <SpeakButton text={p.ttsWord ?? p.exampleWords[0]} size="sm" slow className="min-h-[44px] min-w-[44px]" />
+                      <SpeakButton text={p.ttsWord ?? p.exampleWords[0]} phonemeId={p.id} label={`播放 ${p.symbol} 发音`} size="sm" className="min-h-[44px] min-w-[44px]" />
+                      <SpeakButton text={p.ttsWord ?? p.exampleWords[0]} phonemeId={p.id} slow label={`慢速播放 ${p.symbol}`} size="sm" className="min-h-[44px] min-w-[44px]" />
                     </div>
                   ))}
                 </div>
@@ -256,8 +258,8 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
             <p className="mt-1 text-xs text-slate-400">{phoneme.hintCN}</p>
           </div>
           <div className="flex items-center gap-2">
-            <SpeakButton text={phoneme.ttsWord ?? phoneme.exampleWords[0]} className="min-h-[44px] min-w-[44px]" />
-            <SpeakButton text={phoneme.ttsWord ?? phoneme.exampleWords[0]} slow className="min-h-[44px] min-w-[44px]" />
+            <SpeakButton text={phoneme.ttsWord ?? phoneme.exampleWords[0]} phonemeId={phoneme.id} label={`播放 ${phoneme.symbol} 发音`} className="min-h-[44px] min-w-[44px]" />
+            <SpeakButton text={phoneme.ttsWord ?? phoneme.exampleWords[0]} phonemeId={phoneme.id} slow label={`慢速播放 ${phoneme.symbol}`} className="min-h-[44px] min-w-[44px]" />
             <button
               type="button"
               onClick={() => {

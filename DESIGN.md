@@ -286,6 +286,7 @@ components:
 - **Do** 所有动效经动画档位降级并尊重 prefers-reduced-motion；氛围粒子不承载信息。
 - **Do** 状态色只表达状态；焦点环对所有可聚焦元素常开。
 - **Do** 新页面复用 PageIntro 骨架：面包屑 → kicker → 标题 → 说明 → 唯一下一步。
+- **Do** 发音使用同源离线音频：48 音标本体与例词优先播 `public/audio/` 内置 mp3（`npm run gen:audio` 生成、`npm run check:audio` 门禁），浏览器语音合成仅作兜底——永不请求外部语音服务。
 
 ### Don't
 

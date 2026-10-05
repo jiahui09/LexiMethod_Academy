@@ -10,9 +10,11 @@
     "preview": "vite preview",
     "size": "node scripts/size.mjs",
     "check:data": "node scripts/checkData.mjs",
+    "check:audio": "node scripts/check-audio.mjs",
+    "gen:audio": "node scripts/generate-audio.mjs",
     "smoke": "node scripts/smoke.mjs",
     "accept": "node scripts/acceptance.mjs",
-    "verify": "npm run build && npm run size && npm run check:data && npm run audit:floor",
+    "verify": "npm run build && npm run size && npm run check:data && npm run check:audio && npm run audit:floor",
     "audit:floor": "node scripts/audit-floor.mjs"
   },
   "dependencies": {

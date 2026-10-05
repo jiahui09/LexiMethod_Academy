@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-04T10:44:02.218Z",
+  "generatedAt": "2026-10-05T06:02:52.693Z",
   "title": "Design System: LexiMethod Academy",
   "extensions": {
     "colorMeta": {
@@ -413,6 +413,11 @@
         "name": "The Glass-Only Rule",
         "body": "容器只有一种材质：玻璃卡（24px 圆角、发丝描边、20px 模糊）。禁止卡中叠卡；玻璃卡本身永不发光，发光只归主 CTA 与成就时刻。",
         "section": "elevation"
+      },
+      {
+        "name": "The Offline Audio Rule",
+        "body": "发音一律使用同源离线音频：48 音标本体与例词优先播 public/audio/ 内置 mp3（npm run gen:audio 生成、check:audio 门禁、约 324KB），浏览器语音合成仅作兜底——永不请求外部语音服务；许可与复现见 NOTICE-AUDIO.md。",
+        "section": "audio"
       }
     ],
     "dos": [

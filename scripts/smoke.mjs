@@ -256,6 +256,55 @@ async function main() {
     if (!stageText.includes('互动判断')) fail('音标 7 步未到达「互动判断」');
     else ok('音标 7 步走完');
 
+    /* 5b. 音标离线音频（manifest 全量可取 + mp3 解码播放 + UI 按钮可用） */
+    console.log('\n[5b] 音标离线音频（48 音素 + 例词）');
+    const audioCheck = await page.evaluate(async () => {
+      const out = { manifest: null, bad: [], played: null, ui: null };
+      try {
+        const mr = await fetch('/audio/manifest.json');
+        if (!mr.ok) {
+          out.manifest = `HTTP ${mr.status}`;
+          return out;
+        }
+        const mf = await mr.json();
+        out.manifest = { phonemes: mf.phonemes.length, words: mf.words.length };
+        for (const x of [...mf.phonemes, ...mf.words]) {
+          const r = await fetch(`/audio/${x.file}`);
+          if (!r.ok) out.bad.push(`${x.file} HTTP ${r.status}`);
+        }
+      } catch (e) {
+        out.manifest = String(e);
+        return out;
+      }
+      try {
+        const a = new Audio('/audio/phonemes/th.mp3');
+        await a.play();
+        await new Promise((r) => setTimeout(r, 400));
+        out.played = { t: a.currentTime, dur: a.duration, err: a.error ? a.error.code : null };
+        a.pause();
+      } catch (e) {
+        out.played = { ex: String(e) };
+      }
+      const btn = Array.from(document.querySelectorAll('button[aria-label*="发音"]')).find((b) =>
+        (b.getAttribute('aria-label') ?? '').includes('/θ/'),
+      );
+      out.ui = btn ? { label: btn.getAttribute('aria-label'), disabled: btn.disabled } : null;
+      if (btn && !btn.disabled) btn.click();
+      await new Promise((r) => setTimeout(r, 250));
+      return out;
+    });
+    if (!audioCheck.manifest || typeof audioCheck.manifest === 'string') fail(`manifest 加载失败: ${audioCheck.manifest}`);
+    else if (audioCheck.manifest.phonemes !== 48) fail(`manifest 音素数 = ${audioCheck.manifest.phonemes}，应为 48`);
+    else ok(`manifest: 48 音素 + ${audioCheck.manifest.words} 例词`);
+    if (audioCheck.bad.length) fail(`音频取失败: ${audioCheck.bad.slice(0, 3).join(', ')}${audioCheck.bad.length > 3 ? '…' : ''}`);
+    else ok('manifest 全部音频文件 HTTP 200');
+    const p = audioCheck.played;
+    if (!p || p.ex || p.err !== null || !(p.t > 0)) fail(`音标 mp3 解码播放失败: ${JSON.stringify(p)}`);
+    else ok(`音标 mp3 解码播放正常（${p.t.toFixed(2)}s / ${p.dur.toFixed(2)}s）`);
+    if (!audioCheck.ui) fail('未找到「播放 /θ/ 发音」按钮');
+    else if (audioCheck.ui.disabled) fail(`音标播放按钮被禁用: ${audioCheck.ui.label}`);
+    else ok(`UI 按钮可用并已触发: ${audioCheck.ui.label}`);
+
     /* 6. 移动端视口不横向溢出 */
     console.log('\n[6] 移动端 375px 无横向滚动');
     await page.setViewport({ width: 375, height: 780, isMobile: true });

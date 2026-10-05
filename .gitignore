@@ -8,3 +8,7 @@ dist
 .impeccable/audit-c*.json
 .impeccable/audit-mine*.json
 .impeccable/touch-dump.txt
+.venv-audio
+.models
+.tmp
+:memory:*.ses

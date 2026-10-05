@@ -5,6 +5,7 @@ import { phonemes, phonemeGroups } from '@/data/phonemes';
 import { playSfx } from '@/hooks/useSfx';
 import { useMotionTier } from '@/hooks/useMotionTier';
 import { useSpeech } from '@/hooks/useSpeech';
+import { speakPhoneme } from '@/hooks/usePhonemeAudio';
 
 type Filter = 'all' | 'vowel' | 'consonant' | 'voiceless' | 'voiced';
 
@@ -83,7 +84,9 @@ export default function PhonemeChart({
                     transition={{ delay: Math.min(0.4, i * 0.02), duration: 0.3 }}
                     onClick={() => {
                       playSfx('tick');
-                      speak(p.ttsWord ?? p.exampleWords[0]);
+                      if (!speakPhoneme(p.id)) {
+                        speak(p.ttsWord ?? p.exampleWords[0]);
+                      }
                       onSelect(p);
                     }}
                     whileHover={{ y: -3, scale: 1.04 }}
@@ -119,7 +122,7 @@ export default function PhonemeChart({
         <span className="flex items-center gap-1.5">
           <span className="h-2 w-2 rounded-full bg-success" /> 已学过
         </span>
-        <span>点击音标：立即朗读例词并进入教学</span>
+        <span>点击音标：立即播放该音标发音并进入教学</span>
       </div>
     </div>
   );

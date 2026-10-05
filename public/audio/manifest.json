@@ -1,0 +1,626 @@
+{
+  "generatedAt": "2026-10-05T05:49:55.111Z",
+  "engine": {
+    "tts": "piper-tts",
+    "model": "en_US-lessac-medium",
+    "modelMd5": "2fc642b535197b6305c7c8f92dc8b24f",
+    "sampleRate": 22050,
+    "bitrate": "64k",
+    "phonemeInput": "espeak [[IPA]]"
+  },
+  "license": {
+    "model": "rhasspy/piper-voices（HuggingFace 卡片标注 MIT）",
+    "dataset": "Lessac BLIZZARD 2013（CSTR/Lessac 研究许可）",
+    "usage": "个人非商业教学用途；商用前须更换音色并重新生成（NOTICE-AUDIO.md）"
+  },
+  "phonemes": [
+    {
+      "id": "iː",
+      "slug": "ii",
+      "file": "phonemes/ii.mp3",
+      "durationMs": 342,
+      "meanDb": -16.1
+    },
+    {
+      "id": "ɪ",
+      "slug": "ih",
+      "file": "phonemes/ih.mp3",
+      "durationMs": 324,
+      "meanDb": -16.2
+    },
+    {
+      "id": "e",
+      "slug": "eh",
+      "file": "phonemes/eh.mp3",
+      "durationMs": 255,
+      "meanDb": -16.4
+    },
+    {
+      "id": "æ",
+      "slug": "ae",
+      "file": "phonemes/ae.mp3",
+      "durationMs": 296,
+      "meanDb": -16.2
+    },
+    {
+      "id": "ɜː",
+      "slug": "er",
+      "file": "phonemes/er.mp3",
+      "durationMs": 256,
+      "meanDb": -16.4
+    },
+    {
+      "id": "ə",
+      "slug": "ax",
+      "file": "phonemes/ax.mp3",
+      "durationMs": 276,
+      "meanDb": -16.3
+    },
+    {
+      "id": "ɑː",
+      "slug": "aa",
+      "file": "phonemes/aa.mp3",
+      "durationMs": 274,
+      "meanDb": -16.3
+    },
+    {
+      "id": "ɒ",
+      "slug": "ao",
+      "file": "phonemes/ao.mp3",
+      "durationMs": 227,
+      "meanDb": -20.2
+    },
+    {
+      "id": "ɔː",
+      "slug": "aw",
+      "file": "phonemes/aw.mp3",
+      "durationMs": 327,
+      "meanDb": -16.1
+    },
+    {
+      "id": "ʊ",
+      "slug": "ub",
+      "file": "phonemes/ub.mp3",
+      "durationMs": 203,
+      "meanDb": -16.7
+    },
+    {
+      "id": "uː",
+      "slug": "uu",
+      "file": "phonemes/uu.mp3",
+      "durationMs": 351,
+      "meanDb": -16.1
+    },
+    {
+      "id": "ʌ",
+      "slug": "av",
+      "file": "phonemes/av.mp3",
+      "durationMs": 272,
+      "meanDb": -16.4
+    },
+    {
+      "id": "eɪ",
+      "slug": "ei",
+      "file": "phonemes/ei.mp3",
+      "durationMs": 318,
+      "meanDb": -16.1
+    },
+    {
+      "id": "aɪ",
+      "slug": "ai",
+      "file": "phonemes/ai.mp3",
+      "durationMs": 296,
+      "meanDb": -16.2
+    },
+    {
+      "id": "ɔɪ",
+      "slug": "oi",
+      "file": "phonemes/oi.mp3",
+      "durationMs": 395,
+      "meanDb": -16
+    },
+    {
+      "id": "əʊ",
+      "slug": "ou",
+      "file": "phonemes/ou.mp3",
+      "durationMs": 405,
+      "meanDb": -16
+    },
+    {
+      "id": "aʊ",
+      "slug": "au",
+      "file": "phonemes/au.mp3",
+      "durationMs": 347,
+      "meanDb": -16.1
+    },
+    {
+      "id": "ɪə",
+      "slug": "ier",
+      "file": "phonemes/ier.mp3",
+      "durationMs": 351,
+      "meanDb": -16.1
+    },
+    {
+      "id": "eə",
+      "slug": "ear",
+      "file": "phonemes/ear.mp3",
+      "durationMs": 325,
+      "meanDb": -16.1
+    },
+    {
+      "id": "ʊə",
+      "slug": "uer",
+      "file": "phonemes/uer.mp3",
+      "durationMs": 289,
+      "meanDb": -16.2
+    },
+    {
+      "id": "p",
+      "slug": "p",
+      "file": "phonemes/p.mp3",
+      "durationMs": 213,
+      "meanDb": -18.2
+    },
+    {
+      "id": "b",
+      "slug": "b",
+      "file": "phonemes/b.mp3",
+      "durationMs": 189,
+      "meanDb": -16.8
+    },
+    {
+      "id": "t",
+      "slug": "t",
+      "file": "phonemes/t.mp3",
+      "durationMs": 155,
+      "meanDb": -17.7
+    },
+    {
+      "id": "d",
+      "slug": "d",
+      "file": "phonemes/d.mp3",
+      "durationMs": 155,
+      "meanDb": -17.1
+    },
+    {
+      "id": "k",
+      "slug": "k",
+      "file": "phonemes/k.mp3",
+      "durationMs": 228,
+      "meanDb": -18.7
+    },
+    {
+      "id": "g",
+      "slug": "g",
+      "file": "phonemes/g.mp3",
+      "durationMs": 178,
+      "meanDb": -16.9
+    },
+    {
+      "id": "f",
+      "slug": "f",
+      "file": "phonemes/f.mp3",
+      "durationMs": 189,
+      "meanDb": -17.3
+    },
+    {
+      "id": "v",
+      "slug": "v",
+      "file": "phonemes/v.mp3",
+      "durationMs": 229,
+      "meanDb": -16.6
+    },
+    {
+      "id": "θ",
+      "slug": "th",
+      "file": "phonemes/th.mp3",
+      "durationMs": 134,
+      "meanDb": -19.8
+    },
+    {
+      "id": "ð",
+      "slug": "dh",
+      "file": "phonemes/dh.mp3",
+      "durationMs": 283,
+      "meanDb": -16.3
+    },
+    {
+      "id": "s",
+      "slug": "s",
+      "file": "phonemes/s.mp3",
+      "durationMs": 143,
+      "meanDb": -17.3
+    },
+    {
+      "id": "z",
+      "slug": "z",
+      "file": "phonemes/z.mp3",
+      "durationMs": 166,
+      "meanDb": -17.1
+    },
+    {
+      "id": "ʃ",
+      "slug": "sh",
+      "file": "phonemes/sh.mp3",
+      "durationMs": 143,
+      "meanDb": -18
+    },
+    {
+      "id": "ʒ",
+      "slug": "zh",
+      "file": "phonemes/zh.mp3",
+      "durationMs": 189,
+      "meanDb": -16.8
+    },
+    {
+      "id": "h",
+      "slug": "h",
+      "file": "phonemes/h.mp3",
+      "durationMs": 143,
+      "meanDb": -17.4
+    },
+    {
+      "id": "tʃ",
+      "slug": "ch",
+      "file": "phonemes/ch.mp3",
+      "durationMs": 166,
+      "meanDb": -17
+    },
+    {
+      "id": "dʒ",
+      "slug": "jh",
+      "file": "phonemes/jh.mp3",
+      "durationMs": 213,
+      "meanDb": -16.7
+    },
+    {
+      "id": "m",
+      "slug": "m",
+      "file": "phonemes/m.mp3",
+      "durationMs": 399,
+      "meanDb": -16
+    },
+    {
+      "id": "n",
+      "slug": "n",
+      "file": "phonemes/n.mp3",
+      "durationMs": 366,
+      "meanDb": -16.1
+    },
+    {
+      "id": "ŋ",
+      "slug": "ng",
+      "file": "phonemes/ng.mp3",
+      "durationMs": 191,
+      "meanDb": -16.8
+    },
+    {
+      "id": "l",
+      "slug": "l",
+      "file": "phonemes/l.mp3",
+      "durationMs": 360,
+      "meanDb": -16.3
+    },
+    {
+      "id": "r",
+      "slug": "r",
+      "file": "phonemes/r.mp3",
+      "durationMs": 276,
+      "meanDb": -16.3
+    },
+    {
+      "id": "w",
+      "slug": "w",
+      "file": "phonemes/w.mp3",
+      "durationMs": 239,
+      "meanDb": -17.2
+    },
+    {
+      "id": "j",
+      "slug": "y",
+      "file": "phonemes/y.mp3",
+      "durationMs": 238,
+      "meanDb": -16.5
+    },
+    {
+      "id": "tr",
+      "slug": "tr",
+      "file": "phonemes/tr.mp3",
+      "durationMs": 225,
+      "meanDb": -16.5
+    },
+    {
+      "id": "dr",
+      "slug": "dr",
+      "file": "phonemes/dr.mp3",
+      "durationMs": 224,
+      "meanDb": -16.5
+    },
+    {
+      "id": "ts",
+      "slug": "ts",
+      "file": "phonemes/ts.mp3",
+      "durationMs": 189,
+      "meanDb": -16.7
+    },
+    {
+      "id": "dz",
+      "slug": "dz",
+      "file": "phonemes/dz.mp3",
+      "durationMs": 237,
+      "meanDb": -16.5
+    }
+  ],
+  "words": [
+    {
+      "word": "see",
+      "file": "words/see.mp3",
+      "durationMs": 439,
+      "meanDb": -15.9
+    },
+    {
+      "word": "sit",
+      "file": "words/sit.mp3",
+      "durationMs": 339,
+      "meanDb": -16.4
+    },
+    {
+      "word": "bed",
+      "file": "words/bed.mp3",
+      "durationMs": 430,
+      "meanDb": -15.9
+    },
+    {
+      "word": "cat",
+      "file": "words/cat.mp3",
+      "durationMs": 352,
+      "meanDb": -16.1
+    },
+    {
+      "word": "bird",
+      "file": "words/bird.mp3",
+      "durationMs": 501,
+      "meanDb": -15.9
+    },
+    {
+      "word": "about",
+      "file": "words/about.mp3",
+      "durationMs": 554,
+      "meanDb": -15.9
+    },
+    {
+      "word": "car",
+      "file": "words/car.mp3",
+      "durationMs": 389,
+      "meanDb": -16.1
+    },
+    {
+      "word": "hot",
+      "file": "words/hot.mp3",
+      "durationMs": 436,
+      "meanDb": -16
+    },
+    {
+      "word": "door",
+      "file": "words/door.mp3",
+      "durationMs": 403,
+      "meanDb": -16
+    },
+    {
+      "word": "book",
+      "file": "words/book.mp3",
+      "durationMs": 406,
+      "meanDb": -16
+    },
+    {
+      "word": "blue",
+      "file": "words/blue.mp3",
+      "durationMs": 452,
+      "meanDb": -16
+    },
+    {
+      "word": "cup",
+      "file": "words/cup.mp3",
+      "durationMs": 389,
+      "meanDb": -16.1
+    },
+    {
+      "word": "day",
+      "file": "words/day.mp3",
+      "durationMs": 434,
+      "meanDb": -16
+    },
+    {
+      "word": "my",
+      "file": "words/my.mp3",
+      "durationMs": 479,
+      "meanDb": -15.9
+    },
+    {
+      "word": "boy",
+      "file": "words/boy.mp3",
+      "durationMs": 426,
+      "meanDb": -16
+    },
+    {
+      "word": "go",
+      "file": "words/go.mp3",
+      "durationMs": 360,
+      "meanDb": -16.1
+    },
+    {
+      "word": "house",
+      "file": "words/house.mp3",
+      "durationMs": 526,
+      "meanDb": -16.3
+    },
+    {
+      "word": "here",
+      "file": "words/here.mp3",
+      "durationMs": 436,
+      "meanDb": -16
+    },
+    {
+      "word": "hair",
+      "file": "words/hair.mp3",
+      "durationMs": 478,
+      "meanDb": -15.9
+    },
+    {
+      "word": "tour",
+      "file": "words/tour.mp3",
+      "durationMs": 401,
+      "meanDb": -16
+    },
+    {
+      "word": "pen",
+      "file": "words/pen.mp3",
+      "durationMs": 438,
+      "meanDb": -16
+    },
+    {
+      "word": "bad",
+      "file": "words/bad.mp3",
+      "durationMs": 438,
+      "meanDb": -16
+    },
+    {
+      "word": "tea",
+      "file": "words/tea.mp3",
+      "durationMs": 363,
+      "meanDb": -16.1
+    },
+    {
+      "word": "dog",
+      "file": "words/dog.mp3",
+      "durationMs": 435,
+      "meanDb": -16
+    },
+    {
+      "word": "fish",
+      "file": "words/fish.mp3",
+      "durationMs": 498,
+      "meanDb": -15.9
+    },
+    {
+      "word": "very",
+      "file": "words/very.mp3",
+      "durationMs": 498,
+      "meanDb": -15.9
+    },
+    {
+      "word": "think",
+      "file": "words/think.mp3",
+      "durationMs": 441,
+      "meanDb": -16
+    },
+    {
+      "word": "this",
+      "file": "words/this.mp3",
+      "durationMs": 518,
+      "meanDb": -15.9
+    },
+    {
+      "word": "zoo",
+      "file": "words/zoo.mp3",
+      "durationMs": 503,
+      "meanDb": -15.9
+    },
+    {
+      "word": "she",
+      "file": "words/she.mp3",
+      "durationMs": 417,
+      "meanDb": -16
+    },
+    {
+      "word": "measure",
+      "file": "words/measure.mp3",
+      "durationMs": 391,
+      "meanDb": -16
+    },
+    {
+      "word": "hello",
+      "file": "words/hello.mp3",
+      "durationMs": 551,
+      "meanDb": -15.9
+    },
+    {
+      "word": "chair",
+      "file": "words/chair.mp3",
+      "durationMs": 428,
+      "meanDb": -16
+    },
+    {
+      "word": "jump",
+      "file": "words/jump.mp3",
+      "durationMs": 385,
+      "meanDb": -16
+    },
+    {
+      "word": "man",
+      "file": "words/man.mp3",
+      "durationMs": 598,
+      "meanDb": -15.8
+    },
+    {
+      "word": "no",
+      "file": "words/no.mp3",
+      "durationMs": 416,
+      "meanDb": -16
+    },
+    {
+      "word": "sing",
+      "file": "words/sing.mp3",
+      "durationMs": 454,
+      "meanDb": -15.9
+    },
+    {
+      "word": "like",
+      "file": "words/like.mp3",
+      "durationMs": 418,
+      "meanDb": -16
+    },
+    {
+      "word": "red",
+      "file": "words/red.mp3",
+      "durationMs": 447,
+      "meanDb": -15.9
+    },
+    {
+      "word": "we",
+      "file": "words/we.mp3",
+      "durationMs": 487,
+      "meanDb": -16
+    },
+    {
+      "word": "yes",
+      "file": "words/yes.mp3",
+      "durationMs": 558,
+      "meanDb": -15.8
+    },
+    {
+      "word": "tree",
+      "file": "words/tree.mp3",
+      "durationMs": 417,
+      "meanDb": -16
+    },
+    {
+      "word": "dress",
+      "file": "words/dress.mp3",
+      "durationMs": 558,
+      "meanDb": -15.8
+    },
+    {
+      "word": "cats",
+      "file": "words/cats.mp3",
+      "durationMs": 522,
+      "meanDb": -16.2
+    },
+    {
+      "word": "beds",
+      "file": "words/beds.mp3",
+      "durationMs": 515,
+      "meanDb": -15.9
+    }
+  ]
+}
