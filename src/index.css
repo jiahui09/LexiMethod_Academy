@@ -388,3 +388,86 @@ html[data-motion='light'] .stress-pulse,
 html[data-motion='light'] .aurora-blob {
   animation-duration: 4s !important;
 }
+
+/* ============================================================
+   辞书版式（Dictionary Edition）—— 教程面 / 音标实验室的纸面世界
+   骨白纸地、墨文、结构蓝、批注红；发丝线分区，无玻璃无辉光。
+   导航壳 / 页脚 / 底导仍为遗留深色世界（阶段二迁移）。
+   ============================================================ */
+.edu-sheet {
+  background: #f7f2e8;
+  color: #16130f;
+  caret-color: #b3311e;
+  /* 抬升只声明一次：纸页浮在深色书桌上 */
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+}
+
+/* 浏览器默认面也要属于这个世界 */
+.edu-sheet ::selection {
+  background: rgba(179, 49, 30, 0.18);
+  color: #16130f;
+}
+.edu-sheet :focus-visible {
+  outline: 2px solid #1e4b7a;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+.edu-sheet .edu-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #d8cfbc transparent;
+}
+.edu-sheet .edu-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.edu-sheet .edu-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.edu-sheet .edu-scroll::-webkit-scrollbar-thumb {
+  background: #d8cfbc;
+  border-radius: 999px;
+}
+.edu-sheet .edu-scroll::-webkit-scrollbar-thumb:hover {
+  background: #bfb3a0;
+}
+
+/* 签名瞬间：批注章落纸（全站唯一编排动作；由 motion tier 在 JS 侧决定是否挂载） */
+@keyframes edu-stamp-in {
+  0% {
+    opacity: 0;
+    transform: scale(1.7) rotate(-16deg);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(0.94) rotate(-7deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(-8deg);
+  }
+}
+.edu-stamp {
+  animation: edu-stamp-in 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* 纸面输入：像表格里的填写线（焦点环由 .edu-sheet :focus-visible 统一给） */
+@layer components {
+  .edu-input {
+    width: 100%;
+    min-height: 44px;
+    border: 1px solid #d8cfbc;
+    border-radius: 3px;
+    background: #fdfbf5;
+    color: #16130f;
+    padding: 8px 12px;
+    font-size: 14.5px;
+    line-height: 1.7;
+    transition: border-color 0.2s ease;
+  }
+  .edu-input::placeholder {
+    color: #6b6456;
+  }
+  .edu-input:hover {
+    border-color: #bfb3a0;
+  }
+}

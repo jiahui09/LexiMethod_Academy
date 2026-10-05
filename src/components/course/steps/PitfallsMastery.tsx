@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { AlertOctagon, Check, PartyPopper, ArrowRight, ShieldCheck } from 'lucide-react';
+import { AlertOctagon, Check, ArrowRight, ShieldCheck } from 'lucide-react';
 import type { Method } from '@/types';
 import { useMotionTier } from '@/hooks/useMotionTier';
 import { playSfx } from '@/hooks/useSfx';
-import NeonButton from '@/components/ui/NeonButton';
-import ConfettiBurst from '@/components/fx/ConfettiBurst';
+import { EduButton } from '@/components/edu';
 import { useProgress } from '@/store/progressStore';
 
 const CATEGORY_FIX: Record<string, string> = {
@@ -18,7 +17,7 @@ const CATEGORY_FIX: Record<string, string> = {
   metacognition: '改正：记录失效的具体场景，明天换一种方法重试并对比效果。',
 };
 
-/** Step 7：常见误区 —— 翻牌揭示 */
+/** Step 7：常见误区 —— 点开词条看页边批注（误区=批注红序号，改正=结构蓝 ✓） */
 export function PitfallsStep({ method }: { method: Method }) {
   const tier = useMotionTier();
   const [flipped, setFlipped] = useState<Set<number>>(new Set());
@@ -35,8 +34,8 @@ export function PitfallsStep({ method }: { method: Method }) {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex items-center gap-2 text-sm font-semibold text-warn">
-        <AlertOctagon size={16} aria-hidden /> 点击卡片查看“怎么改”
+      <div className="flex items-center gap-2 text-[13px] font-semibold text-rubric">
+        <AlertOctagon size={15} aria-hidden /> 点击卡片查看“怎么改”
       </div>
       <div className="grid gap-3 md:grid-cols-2">
         {method.pitfalls.map((p, i) => {
@@ -46,24 +45,21 @@ export function PitfallsStep({ method }: { method: Method }) {
               key={i}
               type="button"
               onClick={() => toggle(i)}
-              initial={tier === 'off' ? false : { opacity: 0, y: 16 }}
+              initial={tier === 'off' ? false : { opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.07, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              whileHover={{ y: -4 }}
-              className="relative overflow-hidden rounded-2xl border p-4 text-left transition-colors duration-300"
-              style={{
-                borderColor: open ? 'rgba(0,230,118,0.45)' : 'rgba(255,77,109,0.3)',
-                background: open ? 'rgba(0,230,118,0.07)' : 'rgba(255,77,109,0.06)',
-              }}
+              className={`relative rounded-[4px] border p-4 text-left transition-colors duration-300 ${
+                open ? 'border-cobalt/45 bg-bone2/70' : 'border-rule bg-bone2/60'
+              }`}
               aria-expanded={open}
             >
-              <div className="mb-1.5 flex items-center gap-2 text-xs font-semibold text-danger">
-                <span className="flex h-5 w-5 items-center justify-center rounded-md bg-danger/20 text-xs">
+              <div className="mb-1.5 flex items-center gap-2 text-xs font-semibold text-rubric">
+                <span className="flex h-5 w-5 items-center justify-center rounded-[2px] border border-rubric font-serif text-xs font-bold tabular-nums text-rubric">
                   {i + 1}
                 </span>
                 误区
               </div>
-              <p className="text-sm leading-relaxed text-slate-200">{p}</p>
+              <p className="text-[14.5px] leading-[1.85] text-paperink">{p}</p>
               <AnimatePresence>
                 {open && (
                   <motion.div
@@ -73,8 +69,8 @@ export function PitfallsStep({ method }: { method: Method }) {
                     transition={{ duration: tier === 'off' ? 0 : 0.32 }}
                     className="overflow-hidden"
                   >
-                    <div className="mt-3 flex items-start gap-2 border-t border-success/25 pt-3 text-xs leading-relaxed text-[#B9FFD9]">
-                      <ShieldCheck size={14} className="mt-0.5 shrink-0 text-success" aria-hidden />
+                    <div className="mt-3 flex items-start gap-2 border-t border-rule pt-3 text-[13px] leading-[1.8] text-cobalt">
+                      <ShieldCheck size={14} className="mt-1 shrink-0 text-cobalt" aria-hidden />
                       {CATEGORY_FIX[method.category] ?? CATEGORY_FIX.phonics}
                     </div>
                   </motion.div>
@@ -88,7 +84,7 @@ export function PitfallsStep({ method }: { method: Method }) {
   );
 }
 
-/** Step 8：掌握标准 —— 达成清单 + 结课彩蛋 */
+/** Step 8：掌握标准 —— 达成清单 + 结课批注（勾选达成 = 结构蓝 ✓；彩纸粒子已除，达标徽记随 burst 重新落纸） */
 export function MasteryStep({ method, onNextMethod }: { method: Method; onNextMethod?: () => void }) {
   const tier = useMotionTier();
   const [checked, setChecked] = useState<Set<number>>(new Set());
@@ -112,10 +108,9 @@ export function MasteryStep({ method, onNextMethod }: { method: Method; onNextMe
   };
 
   return (
-    <div className="relative overflow-hidden rounded-3xl border border-white/12 bg-white/[0.04] p-5 backdrop-blur-xl md:p-6">
-      <ConfettiBurst fireKey={burst} count={110} />
-      <div className="mb-4 flex items-center gap-2 font-display text-lg font-bold text-white">
-        <Check className="text-success" size={18} aria-hidden /> 达到以下标准，才算“学会方法”
+    <div className="relative rounded-[4px] border border-rule bg-bone2/60 p-5 md:p-6">
+      <div className="mb-4 flex items-center gap-2 text-[15px] font-semibold text-paperink">
+        <Check className="text-cobalt" size={17} aria-hidden /> 达到以下标准，才算“学会方法”
       </div>
 
       <ul className="flex flex-col gap-2.5">
@@ -123,56 +118,57 @@ export function MasteryStep({ method, onNextMethod }: { method: Method; onNextMe
           const on = checked.has(i);
           return (
             <li key={i}>
-              <motion.button
+              <button
                 type="button"
                 onClick={() => toggle(i)}
-                whileTap={{ scale: 0.99 }}
-                className={`flex w-full items-start gap-3 rounded-xl border px-4 py-3 text-left transition-all duration-300 ${
-                  on ? 'border-success/60 bg-success/12' : 'border-white/12 bg-white/[0.04] hover:border-neon/45'
+                className={`flex w-full items-start gap-3 rounded-[4px] border px-4 py-3 text-left transition-colors duration-300 ${
+                  on ? 'border-cobalt/55 bg-bone' : 'border-rule bg-bone2/40 hover:border-paperink/45'
                 }`}
                 aria-pressed={on}
               >
                 <span
-                  className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md border transition-all ${
-                    on ? 'border-success bg-success/30 text-success' : 'border-white/25'
+                  className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-[2px] border transition-colors ${
+                    on ? 'border-cobalt bg-cobalt/10 text-cobalt' : 'border-rule'
                   }`}
                 >
                   {on && <Check size={13} aria-hidden />}
                 </span>
-                <span className={`text-sm leading-relaxed ${on ? 'text-white' : 'text-slate-300'}`}>{c}</span>
-              </motion.button>
+                <span className={`text-[14.5px] leading-[1.85] ${on ? 'text-paperink' : 'text-colophon'}`}>{c}</span>
+              </button>
             </li>
           );
         })}
       </ul>
 
       <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
-        <div className="text-xs text-slate-400">
-          完成度 <span className="text-neon tabular-nums">{checked.size}</span> / {method.masteryCriteria.length}
+        <div className="text-xs text-colophon">
+          完成度 <span className="font-serif font-semibold tabular-nums text-cobalt">{checked.size}</span> / {method.masteryCriteria.length}
         </div>
         <AnimatePresence>
           {all && (
             <motion.div
-              initial={tier === 'off' ? false : { opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
+              key={burst}
+              initial={tier === 'off' ? false : { opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
               className="flex items-center gap-3"
             >
-              <span className="flex items-center gap-1.5 rounded-full border border-success/50 bg-success/12 px-3 py-1.5 text-xs font-semibold text-success">
-                <PartyPopper size={13} aria-hidden /> 全部掌握标准达标
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-cobalt/50 px-3 py-1.5 text-xs font-semibold text-cobalt">
+                <Check size={13} aria-hidden /> 全部掌握标准达标
               </span>
               {onNextMethod && (
-                <NeonButton size="sm" onClick={onNextMethod}>
+                <EduButton size="sm" onClick={onNextMethod}>
                   下一模块 <ArrowRight size={14} aria-hidden />
-                </NeonButton>
+                </EduButton>
               )}
             </motion.div>
           )}
         </AnimatePresence>
       </div>
 
-      <p className="mt-4 border-t border-white/8 pt-3 text-xs leading-relaxed text-slate-400">
+      <p className="mt-4 border-t border-rule pt-3 text-[13px] leading-[1.8] text-colophon">
         掌握的定义是“在没有提示的陌生材料上也能做到”。建议：立刻到{' '}
-        <span className="text-neon">实战演练</span> 找一个没学过的词走一遍全流程。
+        <span className="font-semibold text-cobalt">实战演练</span> 找一个没学过的词走一遍全流程。
       </p>
     </div>
   );

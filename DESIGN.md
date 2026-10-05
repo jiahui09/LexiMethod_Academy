@@ -1,7 +1,18 @@
 ---
 name: LexiMethod Academy
-description: 深夜自习室般的暗色霓虹多媒体交互教学系统——授人以渔的英语背词方法学院
+description: 教程面是摊在深色书桌上的一部双解词法书（辞书版式·骨白纸面），导航壳仍是深夜自习室的暗色霓虹——分阶段迁移中的双世界系统
 colors:
+  # ---------- 辞书版式（教程面 / 音标实验室的纸面世界） ----------
+  bone: "#F7F2E8" # 纸地：.edu-sheet 页面底
+  bone2: "#EFE6D2" # 纸面区块：边注卡、警示框、选中底
+  paper-fill: "#FDFBF5" # 纸面填写线：输入框与答题选项底
+  rule: "#D8CFBC" # 发丝线：纸上一切分界
+  paperink: "#16130F" # 正文墨
+  colophon: "#4A443B" # 次级墨（纸地 ≥4.5:1）
+  cobalt: "#1E4B7A" # 结构蓝：书眉 / 导轨 / 链接 / 进度 / 已定（答对、完成）
+  rubric: "#B3311E" # 批注红：纸上唯一功能色（朗读 / 当前 / 重读 / 警示 / 错答）
+  rubric-deep: "#9C2919" # 批注红按压深色
+  # ---------- 遗留深色壳（阶段二迁移，仍在线） ----------
   primary: "#00E5FF"
   secondary: "#7C4DFF"
   tertiary: "#FF4D9D"
@@ -17,6 +28,31 @@ colors:
   neutral-surface: "rgba(255, 255, 255, 0.06)"
   neutral-hairline: "rgba(255, 255, 255, 0.12)"
 typography:
+  # 纸面世界
+  title-paper:
+    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif"
+    fontSize: "26px"
+    fontWeight: 700
+    lineHeight: 1.25
+  entry-title:
+    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif"
+    fontSize: "21px"
+    fontWeight: 700
+    lineHeight: 1.375
+  body-paper:
+    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif"
+    fontSize: "16px"
+    fontWeight: 400
+    lineHeight: 1.9
+  serif:
+    fontFamily: "ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif"
+    fontWeight: 700
+  ipa:
+    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+    fontSize: "13px"
+    fontWeight: 400
+    letterSpacing: "0.01em"
+  # 遗留深色壳
   display:
     fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif"
     fontSize: "clamp(2.25rem, 5vw, 3.75rem)"
@@ -45,6 +81,9 @@ typography:
     fontWeight: 400
     lineHeight: 1.5
 rounded:
+  mark: "2px"
+  control: "3px"
+  sheet: "4px"
   xs: "6px"
   sm: "8px"
   md: "12px"
@@ -59,6 +98,32 @@ spacing:
   lg: "24px"
   section: "40px"
 components:
+  # 纸面世界
+  button-paper:
+    backgroundColor: "transparent"
+    textColor: "{colors.paperink}"
+    typography: "{typography.body-paper}"
+    rounded: "{rounded.control}"
+    padding: "8px 16px"
+  button-paper-primary:
+    backgroundColor: "{colors.rubric}"
+    textColor: "#FBF6EC"
+    typography: "{typography.body-paper}"
+    rounded: "{rounded.control}"
+    padding: "8px 16px"
+  input-paper:
+    backgroundColor: "{colors.paper-fill}"
+    textColor: "{colors.paperink}"
+    typography: "{typography.body-paper}"
+    rounded: "{rounded.control}"
+    padding: "8px 12px"
+  card-paper:
+    backgroundColor: "rgba(239, 230, 210, 0.7)"
+    textColor: "{colors.paperink}"
+    typography: "{typography.body-paper}"
+    rounded: "{rounded.sheet}"
+    padding: "12px 16px"
+  # 遗留深色壳
   button-primary:
     backgroundColor: "#101A35"
     textColor: "#E8FBFF"
@@ -71,12 +136,6 @@ components:
     typography: "{typography.body}"
     rounded: "{rounded.button}"
     padding: "10px 18px"
-  button-solid:
-    backgroundColor: "{colors.primary}"
-    textColor: "#071022"
-    typography: "{typography.body}"
-    rounded: "{rounded.button}"
-    padding: "10px 20px"
   card-glass:
     backgroundColor: "{colors.neutral-surface}"
     textColor: "{colors.neutral-text}"
@@ -106,194 +165,196 @@ components:
 
 ## Overview
 
-**Creative North Star: "深夜自习室（The Midnight Study Hall）"** — 一盏台灯、一块屏幕、一条路径。
+**Creative North Star: "辞书版式（The Dictionary Edition）"** — 方法是词目，步骤是义项，演示是例句，误区是辨析。
 
-这套系统是一张深夜里专注的书桌：底色是夜——固定的深夜蓝渐变、角落里缓慢呼吸的极光光斑；霓虹是屏幕与台灯的微光；玻璃卡是摊在桌上的一张张讲义。学习者是独自前来的，界面的全部职责是把注意力钉在「下一步该学什么」上，而不是展示自己有多热闹。青色是这张书桌上唯一亮着的信号灯：它出现的地方，就是现在要动的地方。
+本站是双世界并存、分阶段迁移的系统。教程面（`/methods/:methodId`、`/lab`）已建成第二个世界：骨白纸满地（#F7F2E8）、墨文承字、发丝线划栏，一册可读可练的双解词法书摊在深色书桌上（`.edu-sheet` 是全站唯一一次抬升，`0 24px 64px rgba(0,0,0,0.5)`）。词头朗读时批注红章斜落纸上——像用红笔在词典上做了记号——是这个世界的签名瞬间。纸面拒绝玻璃、辉光、渐变与眉标（kicker）：标题自己承载重量，标签一律走行内。
 
-密度哲学是**克制而集中**。每屏只有一个发光的主行动点；导航是墙上的便签，最多五张；粒子、极光、彩带属于「氛围层」——夜里偶尔飘过的光尘，归动画档位管理，且彩带只在真正值得庆祝时出现。教学的严谨（方向感、逐步揭示、把原理讲透）才是本站的个性来源，不是堆效果。
+导航壳与其余路由（header / footer / BottomNav / NextStepBar / Home / MethodList / practice / feynman 等）仍是第一世界「深夜自习室」：深夜蓝固定渐变、霓虹青意图信号、玻璃卡容器。它们是**已记录的阶段二迁移**，本轮不迁移；两个世界的规则在同一文件中分区记录，新增页面先判断自己站在纸上还是夜里。
 
-反参考同样明确：拒绝白底日间主题，拒绝营销式大图首屏（工具页的首屏必须是可执行的下一步，不是广告），拒绝经验值、连击、连续天数、等级徽章等角色化成长内容——本站是多媒体交互教学工具（朗读、口型动画、交互练习、即时反馈），反馈只为学习服务，不为留存服务——并拒绝任何外部字体与 CDN 资源，离线可用、零请求是这个项目的硬约束。
+反参考在两个世界同样成立：拒绝白底卡片网格 + 渐变 hero + 进度环的网课站货架感（教程面做一部书，不做课程货架），拒绝经验值 / 连击 / 连续天数 / 等级徽章等角色化成长内容，拒绝任何外部字体与 CDN 资源——离线可用、零请求是硬约束。
 
 **Key Characteristics**
 
-- 深夜蓝固定渐变底 + 霓虹青意图信号 + 紫/粉氛围光
-- 系统字体栈单兵种（display 与 body 同族），中文优先，IPA 与等宽数据用 mono
-- 玻璃卡是唯一的容器语言，圆角家族 6→24px
-- 每屏唯一发光主 CTA，桌面主导航 ≤5 项
-- 状态色恒定：绿=正确/达成，琥珀=提醒，红=错误
-- 无角色化成长系统：不设经验值、连击、连续天数与等级徽章；对错、进度、完成的教学反馈直接服务学习
-- 动效分三层：状态反馈（常驻）→ 氛围层（档位控制）→ 完成时刻（事件触发）
+- 纸面双笔色：批注红（功能/当下）+ 结构蓝（结构/已定），骨白纸与发丝线做地
+- 系统字体单兵种：中文正文系统无衬线 16px/1.9；系统衬线只给英文词头与展示数字；IPA 一律 `.ipa` 等宽（0.01em）
+- 纸面描边 ≤1px（例外：书眉双线 / tab 下划线 / 进度刻线 3px、批注章双环），盒角 4px、控件角 3px
+- 抬升只声明一次（纸页浮于深色书桌）；编排动作只有一个（批注章落纸），内容动画全走 motion tier
+- 状态从不只靠颜色：✓ / ✗ / ▶ 实心三角 / 描边纹样三重编码
+- 深色壳保留原世界：每屏唯一发光 CTA、玻璃卡唯一容器、绿/琥珀/红状态色（仅暗面）
+- 无角色化成长系统；动效分层：状态反馈 → 氛围层（档位）→ 完成时刻
 
 ## Colors
 
-调色板是三层结构：**夜色底、意图信号、状态色**。霓虹青是全站最稀缺的注意力货币。
+调色板按世界分两层：**纸面两支笔 + 纸墨中性色** 是教程面的全部；**霓虹意图色 + 夜色中性** 服务遗留深色壳。
 
 ### Primary
 
-- **Neon Cyan 霓虹青** (#00E5FF): 系统的意图信号——主行动点、当前导航、焦点环、进行中的进度。学习者看到青色即知道「这里是现在要动的地方」。KPI 数字与活跃态可以借用它，但一屏只能有一个发光的主行动点。
-- **Moonlight 月光白** (#E2E8F0): 正文与标题的主文字色，在深夜底上安静可读。
+- **Rubric 批注红** (#B3311E): 纸面唯一的功能色——朗读中、当前义项、重读音节、警示标签、错答回馈、批注章、caret。它标记「此刻要注意这里」，从不铺底、从不写长文。
+  - **Rubric Deep 按压红** (#9C2919): 主按钮 hover / active 的深压色。
+- **Moonlight 月光白** (#E2E8F0): 深色壳的正文与标题文字色（遗留）。
 
 ### Secondary
 
-- **Aurora Violet 极光紫** (#7C4DFF): 氛围与层次——页面渐变的高处光斑、渐变描边的第二段、次级数据可视化。它自己从不单独发出「可点击」暗示，也从不承担玻璃面上的正文（对比度不足）。
-  - **Violet Lit 紫文字变体** (#A98BFF, token `violet-lit`): 当紫必须携带文字（12px 标签、chip、强调词）时的唯一合法形态，玻璃面上 ≥5.5:1。本色只留给边框、填充、光晕、SVG 与 ≥18.66px 粗体大字（3:1 达标）。
+- **Cobalt 结构蓝** (#1E4B7A): 纸面的结构笔——书眉链接、导轨装订线与完成态、页内链接、进度刻线、行内小标（「讲解」「本课要点」）；也是纸面「已定」的状态色：答对 = cobalt 描边/底纹，焦点环 = 2px cobalt。与批注红构成纸上仅有的两支笔。
+  - 深色壳的次级氛围色为 **Aurora Violet 极光紫** (#7C4DFF)，承载文字时只用 lit 变体 (#A98BFF, `violet-lit`, ≥5.5:1)；本色只上边框、填充、光晕与 ≥18.66px 粗体大字。
 
 ### Tertiary
 
-- **Pulse Pink 脉冲粉** (#FF4D9D): 庆祝与个性点缀——完成时刻的呼吸光点、渐变的收尾、重点数据的高亮。稀缺使用，才能保住「被庆祝感」。
-  - **Pink Lit 粉文字变体** (#FF80B5, token `pink-lit`): 粉承担文字时的唯一合法形态（激活开关文字、高亮词），≥4.5:1。本色保留给填充、光晕与描边。
+- **Pulse Pink 脉冲粉** (#FF4D9D): 深色壳的庆祝点缀（完成时刻、渐变收尾），稀缺使用；承载文字只用 #FF80B5 (`pink-lit`, ≥4.5:1)。纸面不用粉。
 
-### Semantic
+### Semantic（深色壳专用）
 
-- **Pass Green 通过绿** (#00E676): 答对、达成、完成态。
-- **Signal Amber 提醒琥珀** (#FFB300): 到期复习提醒、待办警示。
-- **Miss Red 错答红** (#FF4D6D): 错误态、破坏性确认。
+- **Pass Green** (#00E676) 答对/达成、**Signal Amber** (#FFB300) 提醒、**Miss Red** (#FF4D6D) 错误。纸面不引入独立状态色——状态由 cobalt（已定）/ rubric（当下、错）+ 形状编码表达。状态色只说状态，不作装饰。
 
-状态色只表达状态，不作装饰，也不铺大面积背景。
+### Neutral — 纸面
 
-### Neutral
+- **Bone 骨白纸** (#F7F2E8): 纸页地色（`.edu-sheet`）。
+- **Bone2 纸面区块** (#EFE6D2): 边注卡、警示框、进度卡、选中底（多以 /40–/70 透明度上）。
+- **Paper Fill 填写线底** (#FDFBF5): 输入框与答题选项的更亮一档纸。
+- **Rule 发丝线** (#D8CFBC): 一切分界——栏线、盒边、未选中描边、滚动条。
+- **Paper Ink 正文墨** (#16130F): 纸上正文与标题。
+- **Colophon 版本墨** (#4A443B): 次级说明、页边批注、脚注（纸地 ≥4.5:1）。
 
-- **Abyss Navy 深夜底色** (#0B1020): 页面底色渐变起点、移动导航与页脚底。
-- **Deep Field 暗场** (#111936): 渐变中段与抬升面。
-- **Ink Black 墨黑** (#070B18): 最深层与页脚。
-- **Dusk Slate 暮板岩** (#CBD5E1): 次级文字——说明、辅助信息。
-- **Mist Slate 雾板岩** (#94A3B8): **全站允许的最暗文字色**，任何比它更暗的灰阶不得承担文字。
-- **Glass Surface 玻璃面** (rgba(255, 255, 255, 0.06)): 卡片与面板的统一填充。
-- **Glass Hairline 发丝线** (rgba(255, 255, 255, 0.12)): 卡片描边与分隔线。
+### Neutral — 深色壳（遗留）
+
+- **Abyss Navy** (#0B1020) 页底渐变起点、**Deep Field** (#111936) 中段、**Ink Black** (#070B18) 最深层；**Dusk Slate** (#CBD5E1) 次级文字、**Mist Slate** (#94A3B8) 暗面允许的最暗文字色；**Glass Surface** (rgba(255,255,255,0.06)) 与 **Glass Hairline** (rgba(255,255,255,0.12)) 是玻璃卡的填充与描边。
 
 ### Named Rules
 
-**The One Glow Rule.** 发光（glow 阴影 + 渐变描边）只授予一屏之中的唯一主行动点及其焦点态；同屏出现的第二个发光元素必须熄灭，降为幽灵按钮或文字链接。
+**The Two Pens Rule（纸面双笔规则）.** 纸上只有两支笔：批注红说「此刻/注意」（朗读、当前、重读、警示、错、章），结构蓝说「结构/已定」（书眉、导轨、链接、进度、答对、完成）。永不引入第三种功能色，永不让笔色铺满大面积底。
 
-**The State Colors Rule.** 绿、琥珀、红只说状态，不说别的；需要强调时优先回到青色的意图语义。
+**The One Glow Rule（深色壳）.** 发光（glow 阴影 + 渐变描边）只授予一屏之中唯一的主行动点及其焦点态；同屏第二个发光元素必须熄灭，降为幽灵按钮或文字链接。
+
+**The State Colors Rule（深色壳）.** 绿、琥珀、红只说状态，不说别的；需要强调时优先回到青色的意图语义。
 
 ## Typography
 
-**Display Font / Body Font:** 同一个系统字体栈（-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif）。
-**Mono Font:** ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas——用于 IPA 音标、逐字母批改与等宽数字。
+**Display / Body Font:** 同一个系统字体栈（-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif）——中英文正文同族。
+**Serif Font:** 系统衬线（ui-serif, Georgia, Cambria, "Times New Roman", Times, serif）——英文词头、义项编号、音节与展示数字。
+**Label/Mono Font:** ui-monospace, SFMono-Regular, Menlo, Consolas——IPA 转写数据（`.ipa`，letter-spacing 0.01em）与等宽数字。
 
-**Character:** 中文环境下的干净系统黑体。层级靠字重与字号拉开，不靠字体花活；数字一律等宽（tabular）保证统计列对齐。不加载任何外部字体文件是硬约束：离线可用、零请求。
+**Character:** 一部学生词典的排印：标题与词头靠字重和字体族拉开层级，不靠花活；中文正文 16px/1.9 恒静宽舒，行宽封顶 68ch。不加载任何外部字体是硬约束：离线可用、零请求。
 
 ### Hierarchy
 
-- **Display** (700, clamp 36→60px, line-height 1.15, letter-spacing −0.02em): 首页品牌时刻与 404 的巨型标题。全站唯一允许逐字入场的标题。
-- **Title 页/节标题** (700, clamp 24→30px, line-height 1.3): PageIntro 的页面标题与区块大标题；其下紧跟一行说明。
-- **Body 正文** (400, 14→16px, line-height 1.6): 页面说明与教学正文；说明文字以 768px 为列宽上限。
-- **Label 标签** (600, 12px, uppercase, letter-spacing 0.2em): 章节 kicker，青色，两侧各一条 24px 横线；数据卡标签同档。
-- **Mono** (400, 14px): 音标、字母批改、统计数字。
+- **Page Title 卷首题名** (700, 26px → md 32px, line-height ~1.25): 课程页与实验室的 h1，标题自身压场，下接一句 15px 说明。
+- **Entry 词条行** (700, 21px → md 25px): 步题以词目姿态登场——义项号（serif 红）+ 题头 + 英文词头（serif 斜体 18px semibold）+ IPA（`.ipa` 13px colophon）+ 朗读钮。
+- **Narration 讲解正文** (400, 16px, line-height 1.9, max 68ch): 阅读栏本体，行内 13px cobalt 小标「讲解」领起，恒静无饰。
+- **Margin Note 栏外批注** (400, 13px, line-height 1.85, colophon): 页边 apparatus，仅以 `border-t` 发丝线分隔，行内粗体 cobalt 标签（键位/读法/发音/进度）。
+- **IPA 展示** (700, 13px 行内 → text-6xl/7xl = 60→72px 实验室大号音标): 所有转写数据一律 `.ipa` 等宽。
+- **Label 行内小标** (600, 12–13px, cobalt): 「讲解」「本课要点」「本课目录」等——走行内或标题下方，**绝不做眉标（kicker/eyebrow）**。
+- **遗留壳层级（仍在用）:** Display (700, clamp 36→60px)、Title (700, 24→30px)、Body (400, 14→16px)、Label (600, 12px, uppercase, 0.2em)、Mono (400, 14px)。
 
 ### Named Rules
 
-**The Floor Rule.** 12px 与 4.5:1 是任何文字（含 kicker、微标签、图表刻度）的地板，不是目标；紫色不用于玻璃面上的正文（必须携带文字时用 lit 变体 #A98BFF / #FF80B5）。底线由 `npm run audit:floor`（scripts/audit-floor.mjs：对比度/字号/触控/h1/重复 id 逐路由审计）把守，违规归零后并入 `npm run verify` 作为门禁。
+**The IPA Data Rule.** 一切 IPA 转写与音标数据都是数据不是词头：一律 `.ipa` 系统等宽（13px 起，实验室展示到 60–72px），不进衬线。系统衬线只给英文词头与展示数字——契约写「只给英文词头」，实际建造还把义项编号、音节块、章面文字交给衬线（build 为准，此处记录其实际用法）。
+
+**The Floor Rule.** 12px 与 4.5:1 是任何文字（含微标签、图表刻度）的地板，不是目标；暗面正文最暗只到雾板岩 #94A3B8，纸面次级墨最深只到 colophon #4A443B。底线由 `npm run audit:floor`（scripts/audit-floor.mjs：对比度/字号/触控/h1/重复 id 逐路由审计）把守，已并入 `npm run verify` 门禁。
 
 ## Layout
 
-**容器与骨架:** 内容容器 1240px 居中，外边距 16px（<768px）/ 32px（≥768px）。页面骨架自上而下：64px 吸顶毛玻璃 header → 面包屑 → PageIntro（kicker + 标题 + 一句说明 + 唯一「下一步」）→ 内容 → 底部推进条。宽度不足 1024px 时由 56px 的五格底部导航接管，页面内容底部预留 66px，任何固定元素都不得遮挡内容。
+**两个空间模型并存:**
 
-**栅格与节奏:** 内容卡在 md 起两列、统计卡在 lg 起四列；首页区块间距 40px，区块内部 16–24px；移动端一律单列，文字列是唯一不可压缩的主导列。
+- **纸面（教程面）:** 纸页落在 `container-page`（1240px 居中，外边距 16px / ≥768px 32px）之内，四周是深色书桌。课程页三栏栅格：168px 义项导轨（装订线贯穿，md 以下转为页顶横排）｜弹性阅读栏（px-5 py-6 / md:px-8 py-8，正文 68ch）｜232px 栏外 apparatus（xl 才现身，sticky top-24）。实验室同构制式、槽位按内容裁：三 tab 分卷行（选中 = 3px 批注红下划线）→ 380px 音素索引表 + 主栏词条页 + 208px 页边批注（xl）。书眉 `border-b-[3px] border-double` 压顶，左面包屑右动作 + 3px 刻线进度。
+- **深色壳（遗留）:** 64px 吸顶玻璃 header → 面包屑 → PageIntro → 内容 → NextStepBar；<1024px 由 56px 五格底部导航接管，页底预留 66px。`/methods`、`/lab` 路由静音 Backdrop 与 ParticleField，其余路由照常。
 
-**断点:** sm 640 / md 768 / lg 1024 三档为主，1360px 是「超宽屏才显示的低频入口」专用例外断点。
+**栅格与节奏:** 纸面区块间距以 24–32px 与发丝线分隔；首页区块 40px、内部 16–24px（遗留）。移动端一律单列，文字列是唯一不可压缩的主导列。
+
+**断点:** sm 640 / md 768 / lg 1024 / xl 1280 为主；1360px 是遗留「超宽屏低频入口」例外断点。
 
 ### Named Rules
 
-**The Single Focus Rule.** 每屏只有一个前进方向：唯一发光主 CTA；桌面主导航 ≤5 项（其余入口去页脚或更多菜单）；首页首屏可点元素 ≤12；同一决策点可见选项 ≤4。
+**The Single Focus Rule.** 每屏只有一个前进方向：纸面是页眉右侧唯一主动作 + 页脚「下一步/完成本课」；深色壳是唯一发光主 CTA。桌面主导航 ≤5 项；同一决策点可见选项 ≤4。
 
-**The No-Squeeze Rule.** 低于 640px 时页头标题与推进按钮必须上下堆叠，禁止并排挤压成竖排窄字条；320px 起不允许任何横向溢出，正文被容器裁切即算缺陷。
+**The No-Squeeze Rule.** 低于 640px 时页头标题与推进按钮必须上下堆叠，禁止并排挤压成竖排窄字条；320px 起不允许任何横向溢出，正文被容器裁切即算缺陷（纸面导轨小屏横排滚动即此规则的实现）。
 
 ## Elevation & Depth
 
-深度由三层表达，各司其职：
-
-1. **玻璃卡** — 半透明填充 + 发丝描边 + 20px 背景模糊 + 深投影，是唯一承载内容的容器材质。
-2. **意图光晕** — glow 只贴着主行动点与焦点环走，为「现在动这里」造光。
-3. **氛围层** — 固定渐变底、极光光斑与粒子独立于内容层，永远不承载信息，随动画档位整体开合。
+系统是**分世界的混合**：纸面近乎全平——深度靠发丝线、纸色档差（bone / bone2 / paper-fill）与书页本身；深色壳靠玻璃模糊与光晕。纸面上唯一的抬升是页面本身。
 
 ### Shadow Vocabulary
 
-- **Card Lift 卡片浮影** (0 8px 32px rgba(0, 0, 0, 0.35)): 玻璃卡默认。
-- **Intent Glow 意图光晕** (0 0 24px rgba(0, 229, 255, 0.18) + 外圈紫色大晕): 主 CTA hover/焦点。
-- **Focus Ring 焦点环** (2px 青色描边, offset 3px): 所有可聚焦元素的 :focus-visible，永不移除。
-- **Celebration Glow 庆祝光晕** (0 0 48px / 120px 双层大晕): 仅完成时刻。
-- **Inner Hairline 顶边高光** (inset 0 1px 0 rgba(255, 255, 255, 0.06)): 玻璃卡顶边的薄光。
+- **Sheet Lift 纸页抬升** (`box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5)`): `.edu-sheet` 专属——纸页浮在深色书桌上，全系统只此一次，纸面内部任何元素不再投影。
+- **Card Lift 卡片浮影（遗留壳）** (`0 8px 32px rgba(0,0,0,0.35)`): 玻璃卡默认。
+- **Intent Glow 意图光晕（遗留壳）** (`0 0 24px rgba(0,229,255,0.18)` + 外圈紫): 主 CTA hover/焦点。
+- **Focus Ring 焦点环:** 纸面 = 2px cobalt 描边、offset 2px、圆角 2px（`.edu-sheet :focus-visible` 统一给）；深色壳 = 2px 青环 offset 3px。永不移除。
 
 ### Named Rules
 
-**The Glass-Only Rule.** 容器只有一种材质：玻璃卡（24px 圆角、发丝描边、20px 模糊）。禁止卡中叠卡——嵌套层级用内边距与分隔线表达，不叠第二个带独立背景的容器；玻璃卡本身永不发光，发光只归主 CTA 与成就时刻。
-
-### Motion Grammar
-
-- **状态反馈（常驻）**: hover 微起、按压回弹与涟漪、对错抖动、450ms Out-Expo 入场。内容在动效关闭时仍可完整阅读。
-- **氛围层（档位控制）**: 粒子桌面 ≤120 / 移动 ≤40 / 关=0，极光 18s 循环——随动画档位（完整 / 精简 / 关闭 / 跟随系统）整体升降，从不携带信息。
-- **完成时刻（事件触发）**: 彩带与大粒子只在完成课程、全对通关等真实学习里程碑后释放；页面进入不放彩带。
-- 所有动效尊重 prefers-reduced-motion；平滑滚动同样提供减少动态的覆盖。
+**The Single Lift Rule.** 抬升只声明一次：只有 `.edu-sheet` 携带阴影；纸面内部一律平贴——层叠用发丝线与纸色档差表达，不叠影、不叠模糊、不叠第二层独立背景。
 
 ## Shapes
 
-- **圆角家族:** 6px 内嵌件 → 8px 内控件与焦点位 → 12px 导航项与常规控件 → 14px 按钮与输入框 → 16px 次级卡片 → 24px 玻璃面板与英雄卡 → 全圆 pill（chip、徽章、进度环）。
-- **描边:** 发丝线 1px 是默认边界；选中态换青色 40% 描边 + 青色 10% 底；破坏性确认用红色发丝框。
-- **形态语言:** 大圆角的矩形讲义 + 全圆胶囊的可点标签。可点的像胶囊，装内容的像卡片。
-- **装饰几何:** 卡片角落的极光光斑一律裁切在卡片内部（overflow hidden），不外溢到版面。
+- **纸面圆角家族:** 2px 微记号（小徽标）→ 3px 控件（按钮、输入、导轨项、答题选项、chip）→ 4px 纸页与盒（sheet、警示框、进度卡）→ 全圆（批注章、朗读钮、纸面 chip）。方正、克制，像印刷表单。
+- **描边（纸面）:** 发丝线 1px（#D8CFBC）是一切默认边界。**≤1px 的禁令有受批的 3px 例外**：书眉/卷首双线（`border-double` 3px）、分卷 tab 选中下划线 3px、进度刻线 3px、批注章双环 3px。选中/答对换 cobalt 描边，当前/错答换 rubric 描边。
+- **遗留壳圆角家族:** 6 → 8 → 12 → 14（按钮/输入）→ 16 → 24（玻璃面板）→ pill。发丝描边 1px 白 12% 是默认边界。
+- **形态语言:** 纸上可点的像印刷控件（方角、细线、按下微陷），装内容的像纸块（4px 角、发丝线）；深色壳可点的像胶囊，装内容的像玻璃卡。
 
 ## Components
 
 ### Buttons
 
-**Character:** 自信的触感——悬浮微起 1px、按压回弹（缩放 0.95–0.96）、点击涟漪。
+**Character（纸面）:** 印刷表单里的控件——发丝线描边、方正圆角、按下微陷（active:translate-y-px）、无辉光；触控上下文 min-height 44px。
 
-- **Primary 发光主按钮:** 14px 圆角、10×18px 内边距、深底 + 青→紫→粉流动渐变描边、600 字重。hover 时描边流动并升起意图光晕；focus-visible 是 2px 青环。触控上下文中高度 ≥44px。
-- **Ghost 幽灵按钮:** 白色 5% 填充 + 发丝描边，hover 换青色描边。次级动作与「发光点」竞争时一律降为它。
-- **Solid 实底按钮（少用）:** 青→紫渐变底 + 墨黑文字，用于成就等强时刻。
-- **尺寸:** sm（12×6px）仅限桌面密集控件；md（20×10px）默认；lg（28×14px）英雄位。移动端主控件走 md 且不低于 44px 触控地板。
+- **Paper Default:** 透明底 + paperink 文字 + paperink/60 描边（`rounded 3px`, padding 8×16px），hover 翻转为实底（bg-paperink 文字 bone）。
+- **Paper Primary:** 批注红实底 + 米白字（#FBF6EC），hover 转 #9C2919——只授予本页唯一的主行动（完成本课、去费曼关）。
+- **Paper Ghost:** 无描边 colophon 文字，hover 出发丝线——与主动作竞争的次级动作一律降为它。
+- **Legacy Neon（深色壳）:** 14px 圆角渐变描边发光主按钮、白 5% 幽灵按钮；hover 微起 1px、按压 0.96 回弹。
 
-### Chips
+### Chips（纸面）
 
-胶囊标签——题型筛选、难度、目标分组。默认白 5% 底 + 发丝描边 + 暮板岩文字；选中换青底 10% + 青字（即 frontmatter 的 `chip` / `chip-selected`）。触控上下文高度 ≥44px。
+EduChip：全圆、发丝线描边、12px colophon 文字；选中 = 批注红实底米白字（`#B3311E`）。深色壳筛选 chip 维持白 5% 底 + 选中青底 10%。
 
-### Cards & Containers
+### Cards / Containers
 
-**Glass Card** 是全站唯一容器：玻璃面填充、发丝描边、24px 圆角（次级卡 16px）、20px 模糊、20px 内边距、卡片浮影；顶边有一线高光。悬停时地图类卡片可整体上浮 6px 并将描边染成青色。容器内部不再嵌套有独立背景的容器。
+- **EduSheet 纸页（签名）:** `background #F7F2E8` + `color #16130F` + caret 批注红 + 4px 圆角 + 唯一抬升阴影；`::selection` 红染、`:focus-visible` 青环、`.edu-scroll` 发丝线滚动条都在此作用域内统一。是教程面的世界地，纸内不再套有独立背景的容器。
+- **EduCallout 警示/辨析框:** 1px 发丝线盒 + bone2/70 底 + 4px 角；标签行内（note = cobalt，warn = rubric），绝不做眉标。
+- **Legacy Glass Card（深色壳）:** 白 6% 面 + 发丝描边 + 24px 圆角 + 20px 模糊 + 顶边高光；卡中叠卡仍是禁令。
 
-### Inputs
+### Inputs / Fields
 
-14px 圆角、白 5% 底、白 14% 描边、10×14px 内边距；focus 换青色 70% 描边 + 青色 15% 外环微光；答对换绿色描边，答错换红色描边并抖动 0.42s；禁用态 40% 不透明度。占位符 42% 不透明度。
+- **edu-input（纸面）:** paper-fill 底、1px 发丝线、3px 角、min-height 44px、padding 8×12px、14.5px/1.7；hover 描边转深（#bfb3a0），焦点由 `.edu-sheet` 统一给 2px cobalt 环。答对/答错在纸面 = cobalt / rubric 描边与底纹 + ✓/✗ 图标 + shake（0.42s）。
+- **input-neon（深色壳）:** 白 5% 底、14px 角，focus 青环微光，is-correct 绿、is-wrong 红 + shake。
 
 ### Navigation
 
-- **Desktop 顶栏:** 64px 吸顶玻璃条。项 = 12px 圆角、13px 文字、15px 图标；未激活暮板岩，悬停转白；激活为青字 + 底部 2px 青→紫渐变发丝下划线（弹性滑移）。**项数上限 5。**
-- **Bottom Nav (<1024px):** 五格等分、56px 高、标签 12px（地板生效），激活青字。
-- **移动菜单:** 双列玻璃卡网格，激活项 = 青描边 + 青底 10%。
-- **方向感三件套:** 全局 skip link、每页面包屑、激活态导航——学习者任何时刻都知道「我在哪、上一步、下一步」。
+- **纸面书眉 RunningHead（签名）:** `border-b-[3px] border-double border-rule` 压顶，左 = 面包屑（`tone="paper"`：当前段 rubric，hover cobalt），右 = 3px 刻线进度（rule 底 + cobalt 填充，500ms ease-out-expo）+ 步序 tabular 计数 + 行内动作。
+- **义项导轨 EduRail（签名）:** 左栏装订线（1px rule 竖线，cobalt 高亮按进度伸长）；每步 = 编号圆标（当前 rubric 描边红号 / 完成 cobalt 实底白号 / 未到 rule 描边）+ 状态形状（当前 ▶ 实心三角、完成 ✓、未到空号）——状态从不只靠颜色。小屏转页顶横排。
+- **分卷 Tab（实验室）:** 发丝线行内 tab，选中 = 3px 批注红下划线 + paperink 粗体 + rubric 图标；min-height 44px。
+- **遗留壳导航:** 64px 吸顶玻璃条，项 12px 圆角 13px 字，激活青字 + 渐变下划线，≤5 项；<1024px 五格底部导航；方向感三件套（skip link / 面包屑 / 激活态）全局有效。
 
-### Page Header (PageIntro)
+### Signature Components
 
-签名组件，每个新页面复用：面包屑 → 青色 kicker（两侧横线）→ 标题 → 一句说明 → 唯一的「下一步」动作。低于 640px 标题与动作上下堆叠（The No-Squeeze Rule）。
-
-### Progress & Feedback
-
-进度环（SVG 渐变 ID 必须唯一）、步骤控制条、aria-live 反馈区；对与错永远同时给出颜色、文字与图标三重编码。彩带是完成时刻的专属反馈，不随页面进入触发。反馈只为学习服务——不展示经验值、连击与连续天数。
+- **EduEntry 词条行:** 义项号（serif 20px 粗体红）+ 步题（21/25px 粗体墨）+ 英文词头（serif 斜体）+ `.ipa` + 朗读钮。标题自己承载重量，不戴眉标。
+- **EduStamp 批注章:** 红色双环圆章（`border-[3px] border-double #B3311E`，rotate(-8deg)，opacity 0.92，serif 粗体字），落纸动画 `edu-stamp-in` 0.42s cubic-bezier(0.22, 1, 0.36, 1)——**全站唯一编排动作**，由 motion tier 决定是否挂载（off 时静态呈现）；朗读一响盖在词尾，完成本课盖「已读」。
+- **SpeakButton 朗读钮:** 圆形发丝线钮（h-9 w-9，min 44px 触控），朗读中转批注红实心 + spinner，慢速档预染 cobalt/8 底。离线音频优先、语音合成兜底。
+- **EduNarration 讲解:** 68ch 恒静正文 + 行内 cobalt 小标；内容型动画（口型、音节、拼装、词根树）在它上方分区播放，全部 tier-gated。
+- **PageIntro（遗留壳）:** 面包屑 → 标题 → 一句说明 → 唯一「下一步」；其 kicker 用法属遗留壳，不向纸面延伸（见 Do's and Don'ts）。
 
 ## Do's and Don'ts
 
 ### Do
 
-- **Do** 每屏只放一个发光主 CTA，其余推进入口降为幽灵按钮或文字链接。
-- **Do** 文字 ≥12px 且在玻璃面上 ≥4.5:1，最暗只到雾板岩。
-- **Do** 触控上下文的可点目标 ≥44×44px（底部导航项、筛选 chip、进度控件都算）。
-- **Do** 桌面主导航 ≤5 项，多余入口走页脚或更多菜单。
-- **Do** 低于 640px 让页头标题与按钮上下堆叠；320px 起零横向溢出。
-- **Do** 彩带与庆祝粒子只在真实学习里程碑（完成课程、全对通关）后释放。
-- **Do** 反馈直接服务学习：对错、进度、完成状态可庆祝；数值成长指标（经验、连击、天数）不出现。
-- **Do** 所有动效经动画档位降级并尊重 prefers-reduced-motion；氛围粒子不承载信息。
-- **Do** 状态色只表达状态；焦点环对所有可聚焦元素常开。
-- **Do** 新页面复用 PageIntro 骨架：面包屑 → kicker → 标题 → 说明 → 唯一下一步。
-- **Do** 发音使用同源离线音频：48 音标本体与例词优先播 `public/audio/` 内置 mp3（`npm run gen:audio` 生成、`npm run check:audio` 门禁），浏览器语音合成仅作兜底——永不请求外部语音服务。
+- **Do** 在教程面用 `.edu-sheet` 开页：骨白纸地、发丝线分区、纸页是唯一抬升；新路由先判断落在纸上还是夜里。
+- **Do** 只用两支笔：批注红标「当下/功能」（朗读、当前、警示、错、章），结构蓝标「结构/已定」（书眉、导轨、链接、进度、答对）。
+- **Do** 纸面描边保持 ≤1px 发丝线；3px 只出现在受批例外（书眉双线、tab 下划线、进度刻线、批注章双环）。
+- **Do** 所有 IPA 转写走 `.ipa` 等宽；英文词头与展示数字走系统衬线；中文正文 16px/1.9、行长 ≤68ch。
+- **Do** 状态给三重编码：颜色 + 文字/数字 + 形状（✓ / ✗ / ▶ / 描边纹样）；焦点环纸面 2px cobalt、深色壳 2px 青。
+- **Do** 文字 ≥12px、对比 ≥4.5:1；触控上下文可点目标 ≥44×44px（`npm run audit:floor` 门禁把守）。
+- **Do** 编排动作只留批注章；其余内容动画与状态过渡经 motion tier（完整/精简/关闭/跟随系统）与 prefers-reduced-motion 降级，动效关闭时内容仍完整可读。
+- **Do** 反馈直接服务学习：对错、进度、完成可庆祝（批注章落纸只在真实完成时刻）；数值成长指标（经验、连击、天数）不出现。
+- **Do** 每屏只有一个前进方向；桌面主导航 ≤5 项；低于 640px 标题与动作上下堆叠，320px 起零横向溢出。
+- **Do** 发音使用同源离线音频（`public/audio/`，`gen:audio` / `check:audio` 门禁），语音合成仅兜底——永不请求外部语音服务。
+- **Do** 深色壳新屏沿用原世界规则：唯一发光 CTA、玻璃卡容器、PageIntro 骨架（该壳属阶段二迁移范围，迁移前不改动其材质）。
 
 ### Don't
 
-- **Don't** 同屏并置两个发光或渐变描边的主按钮。
-- **Don't** 在玻璃卡里再嵌套有独立背景、描边、模糊的容器（卡中叠卡）。
-- **Don't** 用低于 12px、或比雾板岩更暗的灰承担文字；用紫色在玻璃面上写正文。
-- **Don't** 页面加载即放彩带——无事件的庆祝会让成就反馈贬值。
+- **Don't** 在纸面引入玻璃、辉光、渐变、极光或第二层阴影——纸内只有 `.edu-sheet` 那一次抬升。
+- **Don't** 在纸面使用眉标/kicker（全大写 + 横线的 eyebrow）；标题直接压场，小标签走行内。深色壳遗留的 kicker 用法是既有缺陷，不向任何新面延伸（见文末 drift 说明）。
+- **Don't** 在纸面引入第三种功能色，或用批注红/结构蓝铺大面积底、写长段正文。
+- **Don't** 用颜色单独表达状态；也不要让 IPA 数据进衬线、让词头进等宽。
+- **Don't** 在纸上叠影、叠模糊、卡中叠卡；深色壳同样禁止卡中叠卡。
+- **Don't** 让批注章之外的任何动效成为「编排动作」——页面进入不放彩带、不盖章。
 - **Don't** 引入经验值、连击、连续天数、等级徽章等角色化成长元素——反馈只为学习，不为留存。
 - **Don't** 加载任何外部字体、CDN 或追踪脚本；离线可用、零请求是硬约束。
 - **Don't** 让固定元素（底部导航、吸顶头）遮挡内容，或把页头标题挤成竖排窄字条。

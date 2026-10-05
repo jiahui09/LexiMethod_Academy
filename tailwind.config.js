@@ -23,6 +23,14 @@ export default {
         // 语义表面
         surface: 'rgba(255,255,255,0.06)',
         hairline: 'rgba(255,255,255,0.12)',
+        // 辞书版式（教程面 / 音标实验室的纸面世界，方向契约见 .impeccable/surfaces/tutorial.md）
+        bone: '#F7F2E8', // 纸地
+        bone2: '#EFE6D2', // 纸面区块
+        rule: '#D8CFBC', // 发丝线
+        paperink: '#16130F', // 正文墨
+        colophon: '#4A443B', // 次级墨（纸地 ≥4.5:1）
+        cobalt: '#1E4B7A', // 结构蓝：书眉 / 导轨 / 链接
+        rubric: '#B3311E', // 批注红：唯一功能色（朗读 / 重读 / 当前）
       },
       fontFamily: {
         // 规格约束：只用系统字体栈，不加载任何外部字体文件（离线可用 + 零请求）

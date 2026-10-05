@@ -5,7 +5,7 @@ import { spellingPatterns } from '@/data/spellingPatterns';
 import { phonemes } from '@/data/phonemes';
 import { words } from '@/data/words';
 import QuestionRunner from '@/components/practice/QuestionRunner';
-import NeonButton from '@/components/ui/NeonButton';
+import { EduButton } from '@/components/edu';
 import { phonemeToSpellingQ, spellingToPhonemeQ, syllableQ, stressQ, listenWriteIpaQ } from '@/lib/questionFactory';
 import { shuffleArr } from '@/lib/questionFactory';
 import { useSpeech } from '@/hooks/useSpeech';
@@ -64,24 +64,24 @@ export default function SpellingMapDrill() {
               setDir(d.key);
               setSeed((s) => s + 1);
             }}
-            className={`rounded-2xl border p-4 text-left transition-all duration-300 ${
+            className={`rounded-[4px] border p-4 text-left transition-colors duration-200 ${
               dir === d.key
-                ? 'border-neon bg-neon/12 shadow-[0_0_22px_rgba(0,229,255,0.28)]'
-                : 'border-white/12 bg-white/[0.04] hover:border-neon/50'
+                ? 'border-rubric bg-rubric'
+                : 'border-rule bg-bone2/50 hover:border-cobalt'
             }`}
             aria-pressed={dir === d.key}
           >
-            <div className="mb-1 flex items-center gap-1.5 text-sm font-semibold text-white">
-              <ArrowLeftRight size={14} className={dir === d.key ? 'text-neon' : 'text-slate-400'} aria-hidden />
+            <div className={`mb-1 flex items-center gap-1.5 text-sm font-semibold ${dir === d.key ? 'text-bone' : 'text-paperink'}`}>
+              <ArrowLeftRight size={14} className={dir === d.key ? 'text-bone' : 'text-colophon'} aria-hidden />
               {d.label}
             </div>
-            <div className="text-xs leading-relaxed text-slate-400">{d.desc}</div>
+            <div className={`text-xs leading-relaxed ${dir === d.key ? 'text-bone' : 'text-colophon'}`}>{d.desc}</div>
           </button>
         ))}
       </div>
 
       {/* 题目运行器 */}
-      <QuestionRunner
+      <QuestionRunner tone="paper"
         key={`${dir}-${seed}`}
         questions={questions}
         heading={DIRECTIONS.find((d) => d.key === dir)?.label}
@@ -91,13 +91,13 @@ export default function SpellingMapDrill() {
       <PatternSpotlight />
 
       <div className="flex justify-end">
-        <NeonButton size="sm" variant="ghost" onClick={() => setSeed((s) => s + 7)}>
-          换一组 ↻
-        </NeonButton>
+        <EduButton size="sm" variant="ghost" onClick={() => setSeed((s) => s + 7)}>
+          换一组
+        </EduButton>
       </div>
-      <p className="text-xs text-slate-400">
+      <p className="text-xs leading-relaxed text-colophon">
         提示：听音拼写不熟？切到「听音拼写训练」标签，先写音标、再写单词，逐字母反馈。
-        <button type="button" className="ml-2 text-neon underline" onClick={() => speak('construction')}>
+        <button type="button" className="ml-2 text-cobalt underline" onClick={() => speak('construction')}>
           试听 construction
         </button>
       </p>
@@ -113,10 +113,10 @@ function PatternSpotlight() {
   if (!pat) return null;
 
   return (
-    <section className="rounded-3xl border border-white/12 bg-white/[0.04] p-5">
+    <section className="rounded-[4px] border border-rule bg-bone2/60 p-5">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-2 text-sm font-semibold text-white">
-          <Sparkles size={15} className="text-pink-lit" aria-hidden /> 拼写规则动画
+        <div className="flex items-center gap-2 text-sm font-semibold text-cobalt">
+          <Sparkles size={15} aria-hidden /> 拼写规则动画
         </div>
         <div className="flex flex-wrap gap-1.5">
           {spellingPatterns.slice(0, 10).map((p) => (
@@ -127,8 +127,10 @@ function PatternSpotlight() {
                 playSfx('tick');
                 setPatternId(p.id);
               }}
-              className={`ipa min-h-[44px] min-w-[44px] rounded-lg border px-2.5 py-1 text-xs transition ${
-                p.id === patternId ? 'border-pink bg-pink/18 text-pink-lit' : 'border-white/12 bg-white/5 text-slate-300 hover:border-pink/50'
+              className={`ipa min-h-[44px] min-w-[44px] rounded-[4px] border px-2.5 py-1 text-xs transition-colors duration-200 ${
+                p.id === patternId
+                  ? 'border-rubric bg-rubric text-bone'
+                  : 'border-rule bg-bone2/50 text-colophon hover:border-paperink hover:text-paperink'
               }`}
               aria-pressed={p.id === patternId}
             >
@@ -145,13 +147,13 @@ function PatternSpotlight() {
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ type: 'spring', stiffness: 260, damping: 22 }}
-          className="ipa rounded-2xl border border-pink/50 bg-pink/12 px-6 py-3 text-2xl font-bold text-white shadow-[0_0_24px_rgba(255,77,157,0.3)]"
+          className="ipa rounded-[4px] border border-rule bg-bone2/50 px-6 py-3 text-2xl font-bold text-paperink"
         >
           {pat.pattern}
         </motion.span>
         <motion.span
           key={`l-${pat.id}`}
-          className="h-0.5 w-20 rounded-full bg-gradient-to-r from-pink to-neon"
+          className="h-0.5 w-20 bg-cobalt"
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
@@ -162,7 +164,7 @@ function PatternSpotlight() {
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ type: 'spring', stiffness: 260, damping: 22, delay: 0.35 }}
-          className="ipa rounded-2xl border border-neon/50 bg-neon/12 px-6 py-3 text-2xl font-bold text-white shadow-[0_0_24px_rgba(0,229,255,0.3)]"
+          className="ipa rounded-[4px] border border-cobalt bg-cobalt/[0.06] px-6 py-3 text-2xl font-bold text-cobalt"
         >
           {pat.phoneme}
         </motion.span>
@@ -187,14 +189,14 @@ function PatternSpotlight() {
                 playSfx('tick');
                 speak(w);
               }}
-              className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3 text-left transition hover:border-neon/50"
+              className="flex items-center gap-3 rounded-[4px] border border-rule bg-bone2/50 px-4 py-3 text-left transition-colors duration-200 hover:border-cobalt"
               aria-label={`朗读 ${w}`}
             >
-              <span className="font-display text-base font-semibold text-white">
+              <span className="font-serif text-base font-semibold text-paperink">
                 {idx >= 0 ? (
                   <>
                     {head}
-                    <mark className="rounded bg-pink/20 px-1 text-pink-lit">{mid}</mark>
+                    <mark className="rounded-[2px] bg-cobalt/10 px-1 text-cobalt">{mid}</mark>
                     {tail}
                   </>
                 ) : (
@@ -202,8 +204,8 @@ function PatternSpotlight() {
                 )}
               </span>
               <span className="ml-auto flex items-center gap-2">
-                <AudioWaveform size={14} className="text-neon" aria-hidden />
-                <span className="ipa text-xs text-neon">{pat.phoneme}</span>
+                <AudioWaveform size={14} className="text-colophon" aria-hidden />
+                <span className="ipa text-xs text-cobalt">{pat.phoneme}</span>
               </span>
             </motion.button>
           );
@@ -212,20 +214,20 @@ function PatternSpotlight() {
 
       {/* 例外 */}
       {pat.exceptions.length > 0 && (
-        <div className="rounded-2xl border border-warn/35 bg-warn/[0.07] p-4">
-          <div className="mb-1.5 flex items-center gap-2 text-xs font-semibold text-warn">
+        <div className="rounded-[4px] border border-rubric/35 bg-rubric/[0.06] p-4">
+          <div className="mb-1.5 flex items-center gap-2 text-xs font-semibold text-rubric">
             <AlertTriangle size={13} aria-hidden /> 例外（规则 ≠ 100%）
           </div>
           <div className="flex flex-wrap gap-2 text-sm">
             {pat.exceptions.map((e) => (
-              <span key={e} className="rounded-lg border border-warn/30 bg-warn/10 px-3 py-1.5 text-[#FFE7BD]">
+              <span key={e} className="rounded-[4px] border border-rubric/40 bg-bone2/60 px-3 py-1.5 font-serif text-paperink">
                 {e}
               </span>
             ))}
           </div>
         </div>
       )}
-      <p className="mt-3 text-xs leading-relaxed text-slate-400">{pat.rule}</p>
+      <p className="mt-3 text-xs leading-relaxed text-colophon">{pat.rule}</p>
     </section>
   );
 }

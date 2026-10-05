@@ -9,7 +9,7 @@ export function LightWave() {
   );
 }
 
-/** 音标/发音波形（播放时跳动） */
+/** 发音波形（播放时跳动）—— 使用方都在音标实验室；按调用方笔色平涂，不加辉光 */
 export function Waveform({ active, bars = 24, color = '#00E5FF' }: { active: boolean; bars?: number; color?: string }) {
   return (
     <div className="flex h-10 items-center justify-center gap-[3px]" aria-hidden>
@@ -17,7 +17,7 @@ export function Waveform({ active, bars = 24, color = '#00E5FF' }: { active: boo
         <motion.span
           key={i}
           className="w-[3px] rounded-full"
-          style={{ background: color, boxShadow: `0 0 6px ${color}88`, height: '100%' }}
+          style={{ background: color, height: '100%' }}
           initial={{ scaleY: 0.2, opacity: 0.4 }}
           animate={
             active

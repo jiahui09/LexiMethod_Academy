@@ -106,6 +106,7 @@ export function SpeakButton({
   label,
   size = 'md',
   className = '',
+  tone = 'dark',
 }: {
   text: string;
   phonemeId?: string;
@@ -113,6 +114,8 @@ export function SpeakButton({
   label?: string;
   size?: 'sm' | 'md' | 'lg';
   className?: string;
+  /** 视面：深色默认；辞书纸面传 'paper'（结构蓝描边，朗读中转批注红，无辉光） */
+  tone?: 'dark' | 'paper';
 }) {
   const { speak, supported } = useSpeech();
   const speaking = useSpeaking();
@@ -146,12 +149,21 @@ export function SpeakButton({
       }}
       whileTap={{ scale: 0.88 }}
       className={`inline-flex ${dim} shrink-0 items-center justify-center rounded-full border transition-colors duration-300 disabled:opacity-40 ${className}`}
-      style={{
-        borderColor: slow ? 'rgba(255,179,0,0.5)' : 'rgba(0,229,255,0.45)',
-        background: slow ? 'rgba(255,179,0,0.12)' : 'rgba(0,229,255,0.12)',
-        color: slow ? '#FFB300' : '#00E5FF',
-        boxShadow: speaking ? '0 0 16px rgba(0,229,255,0.4)' : 'none',
-      }}
+      style={
+        tone === 'paper'
+          ? {
+              borderColor: speaking ? 'rgba(179,49,30,0.6)' : slow ? 'rgba(30,75,122,0.55)' : 'rgba(30,75,122,0.45)',
+              background: speaking ? 'rgba(179,49,30,0.07)' : 'rgba(30,75,122,0.06)',
+              color: speaking ? '#B3311E' : '#1E4B7A',
+              boxShadow: 'none',
+            }
+          : {
+              borderColor: slow ? 'rgba(255,179,0,0.5)' : 'rgba(0,229,255,0.45)',
+              background: slow ? 'rgba(255,179,0,0.12)' : 'rgba(0,229,255,0.12)',
+              color: slow ? '#FFB300' : '#00E5FF',
+              boxShadow: speaking ? '0 0 16px rgba(0,229,255,0.4)' : 'none',
+            }
+      }
     >
       {speaking ? <Loader2 size={icon} className="animate-spin" /> : <Volume2 size={icon} />}
     </motion.button>

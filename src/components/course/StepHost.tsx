@@ -1,5 +1,5 @@
 import type { Method, StepAnimation } from '@/types';
-import { ANIMATION_LABELS, getDemo } from './demoConfig';
+import { getDemo } from './demoConfig';
 import EntranceStep from './steps/EntranceStep';
 import PrincipleStep from './steps/PrincipleStep';
 import RuleStep from './steps/RuleStep';
@@ -9,6 +9,8 @@ import WordAnalysisWizard from '@/components/analyze/WordAnalysisWizard';
 import { PitfallsStep, MasteryStep } from './steps/PitfallsMastery';
 import RootsStep from './steps/RootsStep';
 import { MemoryChainStep, ContextStep, SrsTimelineStep, OutputFunnelStep, MetacogStep, GenericStep } from './steps/VariedSteps';
+import { EduEntry } from '@/components/edu';
+import { wordById } from '@/data/words';
 
 type Props = {
   method: Method;
@@ -17,12 +19,14 @@ type Props = {
   onNextMethod?: () => void;
 };
 
-/** 按 animation 键分发渲染器 */
+/** 按 animation 键分发渲染器；步题以词条行（义项编号 + 题头）登场 */
 export default function StepHost({ method, stepIndex, replayKey, onNextMethod }: Props) {
   const step = method.steps[stepIndex];
   if (!step) return null;
   const demo = getDemo(method.id);
   const anim: StepAnimation = step.animation;
+  /** 本课教学词目：实战分析生词即全课词头（词典一页一词头，步是它的义项） */
+  const headword = demo.applicationWord ? wordById[demo.applicationWord] : undefined;
 
   const render = () => {
     switch (anim) {
@@ -39,8 +43,8 @@ export default function StepHost({ method, stepIndex, replayKey, onNextMethod }:
       case 'application':
         return (
           <div className="flex flex-col gap-3">
-            <WordAnalysisWizard wordId={demo.applicationWord ?? 'construction'} compact />
-            <p className="text-xs text-slate-400">
+            <WordAnalysisWizard wordId={demo.applicationWord ?? 'construction'} compact tone="paper" />
+            <p className="text-xs text-colophon">
               每一步都可以点“要提示吗”，但网站不会替你作答 —— 这正是实战与背单词的区别。
             </p>
           </div>
@@ -69,16 +73,14 @@ export default function StepHost({ method, stepIndex, replayKey, onNextMethod }:
 
   return (
     <div className="flex flex-col gap-4">
-      {/* 步骤标题条 */}
-      <div className="flex flex-wrap items-center gap-3">
-        <span
-          className="rounded-full border px-3 py-1 text-xs font-bold uppercase tracking-widest"
-          style={{ color: method.accent ?? '#00E5FF', borderColor: `${method.accent ?? '#00E5FF'}66`, background: `${method.accent ?? '#00E5FF'}1A` }}
-        >
-          Step {stepIndex + 1} · {ANIMATION_LABELS[anim]}
-        </span>
-        <h2 className="font-display text-xl font-bold text-white md:text-2xl">{step.title}</h2>
-      </div>
+      {/* 步题词条行：义项编号 + 题头 + 教学词目（词头 + IPA + 朗读钮；朗读即盖章） */}
+      <EduEntry
+        key={stepIndex}
+        sense={stepIndex + 1}
+        title={step.title}
+        word={headword?.word}
+        ipa={headword?.phoneticUK}
+      />
 
       {/* 分步动画演示（replayKey 变化即重播） */}
       <div key={`${stepIndex}-${replayKey}`}>{render()}</div>

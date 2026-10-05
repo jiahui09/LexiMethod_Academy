@@ -1,26 +1,33 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Route as RouteIcon, MessagesSquare } from 'lucide-react';
+import { Route as RouteIcon, MessagesSquare, FlaskConical } from 'lucide-react';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import { getMethod, methods } from '@/data/methods';
 import StepHost from '@/components/course/StepHost';
 import StepControls from '@/components/course/StepControls';
-import { Narration } from '@/components/ui/Bits';
-import ConfettiBurst from '@/components/fx/ConfettiBurst';
+import { ANIMATION_LABELS } from '@/components/course/demoConfig';
+import {
+  EduSheet,
+  EduRunningHead,
+  EduRail,
+  EduNarration,
+  EduButton,
+  EduStamp,
+} from '@/components/edu';
 import { useProgress } from '@/store/progressStore';
 import { useReview } from '@/store/reviewStore';
-import { useMotionTier } from '@/hooks/useMotionTier';
 import { playSfx } from '@/hooks/useSfx';
 import NotFound from './NotFound';
 
 const EMPTY_STEPS: number[] = [];
 
-/** 方法课程页：分步动画讲解（上一步 / 下一步 / 自动播放 / 重播） */
+/**
+ * 方法课程页（辞书版式）：一部可读可练的书。
+ * 书眉定「我在第几义项」，左导轨是装订线，中栏是恒静阅读面，右栏外是页边批注。
+ */
 export default function MethodCourse() {
   const { methodId } = useParams();
   const navigate = useNavigate();
-  const tier = useMotionTier();
   const method = useMemo(() => getMethod(methodId), [methodId]);
 
   // 支持 /methods/:id?step=n —— 供首页「继续学习」定位到上次学到的那一节
@@ -37,8 +44,6 @@ export default function MethodCourse() {
   const completed = useProgress((s) => (method ? s.completedSteps[method.id] ?? EMPTY_STEPS : EMPTY_STEPS));
   const completeStep = useProgress((s) => s.completeStep);
   const ensureCard = useReview((s) => s.ensureCard);
-
-  const [finishBurst, setFinishBurst] = useState(0);
 
   // 进入某步只登记复习卡；完成由「前进 / 完成本课」显式记账（载入深链只定位，不改进度）
   useEffect(() => {
@@ -58,6 +63,7 @@ export default function MethodCourse() {
   const step = method.steps[index];
   const nextMethod = methods[(methods.indexOf(method) + 1) % methods.length];
   const donePct = Math.round((completed.length / total) * 100);
+  const finished = completed.length >= total;
 
   const goTo = (i: number) => {
     setIndex(i);
@@ -71,167 +77,204 @@ export default function MethodCourse() {
     goTo(index + 1);
   };
 
-  /** 完成本课：真正的完成时刻 —— 记账 + 彩带 + 祝贺音 */
+  /** 完成本课：真正的完成时刻 —— 记账 + 批注章落纸 + 祝贺音 */
   const finish = () => {
     completeStep(method.id, index, total);
-    setFinishBurst((b) => b + 1);
     playSfx('complete');
   };
 
   return (
-    <div className="flex flex-col gap-5">
-      {/* 完成本课时刻的彩带（只在事件触发时放，不随页面加载出现） */}
-      <ConfettiBurst fireKey={finishBurst} count={80} />
-      {/* 页头 */}
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <div className="min-w-0">
-          {/* 方向感：我在哪 —— 地图 › 方法课程 › 这一门 › 第几步 */}
-          <Breadcrumbs
-            items={[
-              { label: '学习地图', to: '/' },
-              { label: '方法课程', to: '/methods' },
-              { label: method.title.split('：')[0] },
-              { label: `第 ${index + 1} 步 / 共 ${total} 步` },
-            ]}
-          />
-          <h1 className="mt-2 flex flex-wrap items-center gap-3 font-display text-2xl font-bold text-white md:text-3xl">
-            {method.title}
-            <span
-              className="rounded-full border px-2.5 py-1 text-xs font-bold uppercase tracking-widest"
-              style={{ color: method.accent, borderColor: `${method.accent}66`, background: `${method.accent}18` }}
-            >
-              {method.category}
+    <EduSheet className="overflow-hidden">
+      {/* 书眉：面包屑 + 本页动作；右上刻线进度永远回答「我在第几义项」 */}
+      <EduRunningHead
+        left={
+          <>
+            <Breadcrumbs
+              tone="paper"
+              items={[
+                { label: '学习地图', to: '/' },
+                { label: '方法课程', to: '/methods' },
+                { label: method.title.split('：')[0] },
+              ]}
+            />
+          </>
+        }
+        right={
+          <>
+            <span className="hidden items-center gap-2 sm:flex" aria-hidden>
+              <span className="relative block h-[3px] w-28 bg-rule">
+                <span
+                  className="absolute left-0 top-0 h-[3px] bg-cobalt transition-[width] duration-500 ease-out-expo"
+                  style={{ width: `${donePct}%` }}
+                />
+              </span>
             </span>
-          </h1>
-          <p className="mt-1.5 max-w-3xl text-sm text-slate-300/85">{method.subtitle}</p>
-        </div>
-
-        <div className="glass flex flex-wrap items-center gap-3 px-4 py-3">
-          <div className="text-right">
-            <div className="text-xs uppercase tracking-widest text-slate-400">本课进度</div>
-            <div className="font-display text-xl font-bold text-neon tabular-nums">{donePct}%</div>
-            <div className="text-xs text-slate-400 tabular-nums" data-testid="course-step">
+            <span className="text-xs font-semibold tabular-nums text-paperink" data-testid="course-step">
               第 {index + 1} 步 / 共 {total} 步
-            </div>
-          </div>
-          <div className="flex gap-1" aria-hidden>
-            {method.steps.map((_, i) => (
-              <span
-                key={i}
-                className="w-1.5 rounded-full transition-all duration-300"
-                style={{
-                  height: completed.includes(i) ? 22 : 12,
-                  background: completed.includes(i) ? '#00E676' : i === index ? '#00E5FF' : 'rgba(255,255,255,0.18)',
-                  boxShadow: i === index ? '0 0 8px #00E5FF' : 'none',
-                }}
-              />
-            ))}
-          </div>
-          <Link
-            to={`/feynman?method=${method.id}`}
-            onClick={() => playSfx('reveal')}
-            className="flex min-h-[44px] items-center gap-1.5 rounded-xl border px-3 py-2 text-xs transition hover:-translate-y-0.5"
-            style={{ color: method.accent ?? '#00E5FF', borderColor: `${method.accent ?? '#00E5FF'}66`, background: `${method.accent ?? '#00E5FF'}14` }}
-            aria-label={`进入费曼关：${method.title}`}
-          >
-            <MessagesSquare size={13} aria-hidden /> 费曼关
-          </Link>
-          <button
-            type="button"
-            onClick={() => {
-              playSfx('click');
-              navigate(`/methods/${nextMethod.id}`);
-              setIndex(0);
-            }}
-            className="flex min-h-[44px] items-center gap-1.5 rounded-xl border border-white/12 px-3 py-2 text-xs text-slate-300 transition hover:border-neon/50 hover:text-neon"
-            aria-label={`前往下一方法：${nextMethod.title}`}
-          >
-            <RouteIcon size={13} aria-hidden /> 下一方法
-          </button>
-        </div>
-      </div>
-
-      {/* 步骤主体 */}
-      <motion.section
-        className="glass p-5 md:p-7"
-        initial={tier === 'off' ? false : { opacity: 0, y: 20, filter: 'blur(6px)' }}
-        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        aria-live="polite"
-      >
-        <StepHost method={method} stepIndex={index} replayKey={replayKey} onNextMethod={() => navigate(`/methods/${nextMethod.id}`)} />
-
-        {/* 旁白文本：不依赖动画传达信息 */}
-        <div className="mt-5">
-          <Narration text={step.content} />
-        </div>
-
-        {/* 控制条 */}
-        <StepControls
-          index={index}
-          total={total}
-          autoplay={autoplay}
-          completed={completed}
-          onChange={goTo}
-          onNext={advance}
-          onFinish={finish}
-          onToggleAutoplay={() => setAutoplay((a) => !a)}
-          onReplay={() => {
-            playSfx('reveal');
-            setReplayKey((k) => k + 1);
-          }}
-        />
-
-        {/* 完成祝贺：本课 8/8 走完才出现（完成时刻，合法彩带/祝贺） */}
-        {completed.length >= total && (
-          <div
-            className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-success/40 bg-success/10 px-4 py-3"
-            role="status"
-            data-testid="course-finished"
-          >
-            <p className="text-sm text-white">
-              本课完成：{total} / {total} 步已走完。下一步去「费曼关」用自己的话讲一遍，才算真的会。
-            </p>
-            <div className="flex flex-wrap gap-2">
-              <Link
-                to={`/feynman?method=${method.id}`}
-                onClick={() => playSfx('click')}
-                className="inline-flex min-h-[44px] items-center gap-1.5 rounded-xl border border-neon/45 bg-neon/10 px-3.5 py-2 text-xs font-medium text-neon transition-all hover:-translate-y-0.5 hover:bg-neon/15"
-              >
-                <MessagesSquare size={13} aria-hidden /> 去费曼关
-              </Link>
-              <button
-                type="button"
-                onClick={() => {
-                  playSfx('click');
-                  navigate(`/methods/${nextMethod.id}`);
-                }}
-                className="inline-flex min-h-[44px] items-center gap-1.5 rounded-xl border border-white/15 px-3.5 py-2 text-xs text-slate-300 transition hover:border-neon/40 hover:text-white"
-              >
-                <RouteIcon size={13} aria-hidden /> 下一方法
-              </button>
-            </div>
-          </div>
-        )}
-      </motion.section>
-
-      {/* 方法要点速览 */}
-      <section className="grid gap-3 md:grid-cols-3">
-        {method.principles.slice(0, 3).map((p, i) => (
-          <motion.div
-            key={i}
-            initial={tier === 'off' ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 + i * 0.05, duration: 0.45 }}
-            className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-slate-300"
-          >
-            <span className="mb-1 block text-xs font-bold uppercase tracking-widest" style={{ color: method.accent }}>
-              原理 {i + 1}
             </span>
-            {p}
-          </motion.div>
-        ))}
-      </section>
-    </div>
+            <Link
+              to={`/feynman?method=${method.id}`}
+              onClick={() => playSfx('reveal')}
+              aria-label={`进入费曼关：${method.title}`}
+              className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[3px] border border-transparent px-3 py-1.5 text-sm font-medium text-colophon transition-colors hover:border-rule hover:text-paperink"
+            >
+              <MessagesSquare size={14} aria-hidden /> 费曼关
+            </Link>
+            <EduButton
+              size="sm"
+              variant="ghost"
+              onClick={() => {
+                playSfx('click');
+                navigate(`/methods/${nextMethod.id}`);
+                setIndex(0);
+              }}
+              aria-label={`前往下一方法：${nextMethod.title}`}
+            >
+              <RouteIcon size={14} aria-hidden /> 下一方法
+            </EduButton>
+          </>
+        }
+      />
+
+      <div className="grid grid-cols-[minmax(0,1fr)] md:grid-cols-[minmax(0,168px)_minmax(0,1fr)] xl:grid-cols-[minmax(0,168px)_minmax(0,1fr)_minmax(0,232px)]">
+        {/* 义项导轨：装订线（唯一的进度轴线），小屏横排 */}
+        <aside className="min-w-0 border-b border-rule px-3 py-3 md:border-b-0 md:border-r md:px-2 md:py-5">
+          <EduRail
+            labels={method.steps.map((s) => ANIMATION_LABELS[s.animation])}
+            titles={method.steps.map((s) => s.title)}
+            index={index}
+            completed={completed}
+            onChange={goTo}
+          />
+        </aside>
+
+        {/* 阅读栏：卷首题名 → 步题词条 → 讲解 → 刻线导览 */}
+        <div className="min-w-0 px-5 py-6 md:px-8 md:py-8">
+          <header className="mb-6 border-b border-rule pb-5">
+            <h1 className="text-[26px] font-bold leading-tight text-paperink md:text-[32px]">{method.title}</h1>
+            <p className="mt-2 max-w-[68ch] text-[15px] leading-[1.85] text-colophon">{method.subtitle}</p>
+            <p className="mt-2 text-[13px] text-cobalt">
+              卷：{method.category} · 共 {total} 步 · 约 {method.durationMin} 分钟
+            </p>
+          </header>
+
+          <section aria-live="polite">
+            <StepHost
+              method={method}
+              stepIndex={index}
+              replayKey={replayKey}
+              onNextMethod={() => navigate(`/methods/${nextMethod.id}`)}
+            />
+
+            {/* 旁白文本：动画之外的信息载体 */}
+            <div className="mt-5">
+              <EduNarration text={step.content} />
+            </div>
+
+            {/* 页脚刻线导览 */}
+            <StepControls
+              index={index}
+              total={total}
+              autoplay={autoplay}
+              completed={completed}
+              onChange={goTo}
+              onNext={advance}
+              onFinish={finish}
+              onToggleAutoplay={() => setAutoplay((a) => !a)}
+              onReplay={() => {
+                playSfx('reveal');
+                setReplayKey((k) => k + 1);
+              }}
+            />
+
+            {/* 完成时刻：批注章落纸（全课走完才出现） */}
+            {finished && (
+              <div
+                className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-[4px] border border-cobalt/45 bg-bone2/70 px-4 py-3"
+                role="status"
+                data-testid="course-finished"
+              >
+                <div className="flex min-w-0 items-center gap-3">
+                  <EduStamp label="已读" size={64} />
+                  <p className="text-sm leading-relaxed text-paperink">
+                    本课完成：{total} / {total} 步已走完。下一步去「费曼关」用自己的话讲一遍，才算真的会。
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  <EduButton
+                    size="sm"
+                    variant="primary"
+                    onClick={() => {
+                      playSfx('click');
+                      navigate(`/feynman?method=${method.id}`);
+                    }}
+                  >
+                    <MessagesSquare size={14} aria-hidden /> 去费曼关
+                  </EduButton>
+                  <EduButton
+                    size="sm"
+                    onClick={() => {
+                      playSfx('click');
+                      navigate(`/methods/${nextMethod.id}`);
+                    }}
+                  >
+                    <RouteIcon size={14} aria-hidden /> 下一方法
+                  </EduButton>
+                  <EduButton
+                    size="sm"
+                    onClick={() => {
+                      playSfx('click');
+                      navigate('/lab/phonemes');
+                    }}
+                  >
+                    <FlaskConical size={14} aria-hidden /> 去实验室
+                  </EduButton>
+                </div>
+              </div>
+            )}
+          </section>
+
+          {/* 本课要点：发丝线清单，不装盒 */}
+          <section className="mt-8 border-t border-rule pt-5">
+            <h3 className="mb-2.5 text-[13px] font-semibold text-cobalt">本课要点</h3>
+            <ul className="max-w-[68ch] list-disc space-y-1.5 pl-5 text-[14.5px] leading-[1.85] text-colophon marker:text-rubric">
+              {method.principles.slice(0, 3).map((p, i) => (
+                <li key={i}>{p}</li>
+              ))}
+            </ul>
+          </section>
+        </div>
+
+        {/* 栏外 apparatus：页边批注 */}
+        <aside className="hidden border-l border-rule px-5 py-6 xl:block">
+          <div className="sticky top-24 flex flex-col gap-5">
+            <div className="border-t border-rule pt-2.5 text-[13px] leading-[1.85] text-colophon">
+              <b className="mr-1.5 font-semibold text-cobalt">键位</b>
+              键盘 ← / → 可翻页；开启「自动播放」按时间线走完本课。
+            </div>
+            <div className="border-t border-rule pt-2.5 text-[13px] leading-[1.85] text-colophon">
+              <b className="mr-1.5 font-semibold text-cobalt">读法</b>
+              先读右栏步题与讲解，再点开演示动手做；动画看懂了不等于会，练习做对才算数。
+            </div>
+            <div className="border-t border-rule pt-2.5 text-[13px] leading-[1.85] text-colophon">
+              <b className="mr-1.5 font-semibold text-cobalt">发音</b>
+              词目与例词旁的小喇叭播的是站内离线音频；句子走浏览器朗读兜底，断网也能上这一页。
+            </div>
+            <div className="border-t border-rule pt-2.5 text-[13px] leading-[1.85] text-colophon">
+              <b className="mr-1.5 font-semibold text-cobalt">进度</b>
+              走完本课 {total} 步后去
+              <Link to="/feynman" className="text-cobalt underline underline-offset-4 hover:text-rubric">
+                费曼关
+              </Link>
+              用自己的话讲一遍，再到
+              <Link to="/lab/phonemes" className="text-cobalt underline underline-offset-4 hover:text-rubric">
+                音标实验室
+              </Link>
+              三个分卷里验收听辨拼。
+            </div>
+          </div>
+        </aside>
+      </div>
+    </EduSheet>
   );
 }

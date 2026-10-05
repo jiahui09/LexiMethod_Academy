@@ -12,6 +12,7 @@ import NeonButton from '@/components/ui/NeonButton';
 import { SpeakButton } from '@/components/ui/Bits';
 import ConfettiBurst from '@/components/fx/ConfettiBurst';
 import { LightWave } from '@/components/course/FeedbackFx';
+import { EduButton, EduStamp } from '@/components/edu';
 import TokenPlacer from '@/components/course/TokenPlacer';
 
 type Props = {
@@ -21,6 +22,8 @@ type Props = {
   record?: boolean;
   trackMistakes?: boolean;
   heading?: string;
+  /** 视面：深色（/practice 等）默认；嵌入纸面卷（音标实验室）传 'paper' */
+  tone?: 'dark' | 'paper';
 };
 
 function shuffle<T>(arr: T[]): T[] {
@@ -40,7 +43,9 @@ export default function QuestionRunner({
   record = true,
   trackMistakes = true,
   heading,
+  tone = 'dark',
 }: Props) {
+  const paper = tone === 'paper';
   const tier = useMotionTier();
   const { speak, stop, supported } = useSpeech();
   const recordAnswer = useProgress((s) => s.recordAnswer);
@@ -128,36 +133,64 @@ export default function QuestionRunner({
     const pct = results.length ? Math.round((correct / results.length) * 100) : 0;
     const wrongList = questions.filter((_, i) => results[i] && !results[i].correct);
     return (
-      <div className="relative overflow-hidden rounded-3xl border border-neon/30 bg-white/[0.04] p-6 text-center">
-        <ConfettiBurst fireKey={burst} count={70} />
-        <div className="font-display text-4xl font-bold text-white tabular-nums">{pct}%</div>
-        <p className="mt-1 text-sm text-slate-300">
-          答对 <span className="text-success">{correct}</span> / {results.length}（正确率{' '}
-          <span className="text-success tabular-nums">{pct}%</span>）
+      <div
+        className={`relative p-6 text-center ${
+          paper ? 'rounded-[4px] border border-rule bg-bone/60' : 'overflow-hidden rounded-3xl border border-neon/30 bg-white/[0.04]'
+        }`}
+      >
+        {!paper && <ConfettiBurst fireKey={burst} count={70} />}
+        {paper && (
+          <div className="mb-3 flex justify-center">
+            <EduStamp label="已阅" />
+          </div>
+        )}
+        <div className={`text-4xl font-bold tabular-nums ${paper ? 'font-serif text-paperink' : 'font-display text-white'}`}>{pct}%</div>
+        <p className={`mt-1 text-sm ${paper ? 'text-colophon' : 'text-slate-300'}`}>
+          答对 <span className={paper ? 'text-cobalt' : 'text-success'}>{correct}</span> / {results.length}（正确率{' '}
+          <span className={`tabular-nums ${paper ? 'text-cobalt' : 'text-success'}`}>{pct}%</span>）
         </p>
         {wrongList.length > 0 && (
-          <div className="mx-auto mt-4 max-w-xl rounded-2xl border border-warn/30 bg-warn/[0.07] p-4 text-left text-xs text-slate-300">
-            <div className="mb-1.5 font-semibold text-warn">错题已加入复习中心（间隔重复队列）</div>
+          <div
+            className={`mx-auto mt-4 max-w-xl p-4 text-left text-xs ${
+              paper
+                ? 'rounded-[4px] border border-rubric/45 bg-rubric/[0.05] text-colophon'
+                : 'rounded-2xl border border-warn/30 bg-warn/[0.07] text-slate-300'
+            }`}
+          >
+            <div className={`mb-1.5 font-semibold ${paper ? 'text-rubric' : 'text-warn'}`}>错题已加入复习中心（间隔重复队列）</div>
             <ul className="space-y-1">
               {wrongList.slice(0, 4).map((wq) => (
                 <li key={wq.id} className="flex flex-wrap gap-2">
-                  <span className="text-white">{wq.prompt.slice(0, 30)}</span>
-                  <span className="ipa text-neon">{wq.answer}</span>
+                  <span className={paper ? 'text-paperink' : 'text-white'}>{wq.prompt.slice(0, 30)}</span>
+                  <span className={`ipa ${paper ? 'text-cobalt' : 'text-neon'}`}>{wq.answer}</span>
                 </li>
               ))}
             </ul>
           </div>
         )}
         <div className="mt-5 flex flex-wrap justify-center gap-3">
-          <NeonButton
-            onClick={() => {
-              playSfx('click');
-              reset();
-              setIdx(0);
-            }}
-          >
-            <RefreshCw size={14} aria-hidden /> 再来一组
-          </NeonButton>
+          {paper ? (
+            <EduButton
+              variant="primary"
+              onClick={() => {
+                playSfx('click');
+                reset();
+                setIdx(0);
+              }}
+            >
+              <RefreshCw size={14} aria-hidden /> 再来一组
+            </EduButton>
+          ) : (
+            <NeonButton
+              onClick={() => {
+                playSfx('click');
+                reset();
+                setIdx(0);
+              }}
+            >
+              <RefreshCw size={14} aria-hidden /> 再来一组
+            </NeonButton>
+          )}
         </div>
       </div>
     );
@@ -167,11 +200,23 @@ export default function QuestionRunner({
   const writeType = isWriteType(q.type);
 
   return (
-    <div className="relative overflow-hidden rounded-3xl border border-white/12 bg-white/[0.04] p-5 backdrop-blur-xl md:p-6">
+    <div
+      className={`relative p-5 md:p-6 ${
+        paper ? 'rounded-[4px] border border-rule bg-bone/60' : 'overflow-hidden rounded-3xl border border-white/12 bg-white/[0.04] backdrop-blur-xl'
+      }`}
+    >
       {/* 头部：题号 / 题型 */}
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-2 text-xs text-slate-400">
-          <span className="rounded-md bg-neon/15 px-2 py-0.5 font-semibold text-neon">{TYPE_LABELS[q.type]}</span>
+        <div className={`flex items-center gap-2 text-xs ${paper ? 'text-colophon' : 'text-slate-400'}`}>
+          <span
+            className={
+              paper
+                ? 'rounded-[3px] border border-cobalt/45 px-2 py-0.5 font-semibold text-cobalt'
+                : 'rounded-md bg-neon/15 px-2 py-0.5 font-semibold text-neon'
+            }
+          >
+            {TYPE_LABELS[q.type]}
+          </span>
           <span className="tabular-nums">
             {idx + 1} / {total}
           </span>
@@ -180,17 +225,17 @@ export default function QuestionRunner({
         <div className="flex items-center gap-3">
           {q.speak && supported && (
             <div className="flex items-center gap-1.5">
-              <SpeakButton text={q.speak} label="常速播放" className="min-h-[44px] min-w-[44px]" />
-              <SpeakButton text={q.speak} slow label="慢速播放" className="min-h-[44px] min-w-[44px]" />
+              <SpeakButton text={q.speak} label="常速播放" tone={tone} className="min-h-[44px] min-w-[44px]" />
+              <SpeakButton text={q.speak} slow label="慢速播放" tone={tone} className="min-h-[44px] min-w-[44px]" />
             </div>
           )}
         </div>
       </div>
 
       {/* 进度条 */}
-      <div className="mb-5 h-1.5 overflow-hidden rounded-full bg-white/8" aria-hidden>
+      <div className={`mb-5 h-1.5 overflow-hidden rounded-full ${paper ? 'bg-rule' : 'bg-white/8'}`} aria-hidden>
         <motion.div
-          className="h-full rounded-full bg-gradient-to-r from-neon via-violet to-pink"
+          className={`h-full rounded-full ${paper ? 'bg-cobalt' : 'bg-gradient-to-r from-neon via-violet to-pink'}`}
           animate={{ width: `${((idx + (status !== 'idle' ? 1 : 0)) / total) * 100}%` }}
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         />
@@ -199,14 +244,18 @@ export default function QuestionRunner({
       {/* 题干 */}
       <div className="mb-4 flex items-start justify-between gap-3">
         <div>
-          <p className="font-display text-lg font-semibold text-white md:text-xl">{q.prompt}</p>
-          <p className="mt-1 text-xs text-slate-400">{q.narration}</p>
+          <p className={`text-lg font-semibold md:text-xl ${paper ? 'text-paperink' : 'font-display text-white'}`}>{q.prompt}</p>
+          <p className={`mt-1 text-xs ${paper ? 'text-colophon' : 'text-slate-400'}`}>{q.narration}</p>
         </div>
         {q.speak && !isChoice && (
           <button
             type="button"
             onClick={() => speak(q.speak!, { slow: q.speakSlow })}
-            className="flex min-h-[44px] items-center gap-1.5 rounded-xl border border-neon/40 bg-neon/10 px-3 py-2 text-xs text-neon hover:bg-neon/20 transition"
+            className={`flex min-h-[44px] items-center gap-1.5 border px-3 py-2 text-xs transition ${
+              paper
+                ? 'rounded-[3px] border-rule text-colophon hover:border-paperink hover:text-paperink'
+                : 'rounded-xl border-neon/40 bg-neon/10 text-neon hover:bg-neon/20'
+            }`}
           >
             <Headphones size={14} aria-hidden /> 播放
           </button>
@@ -232,26 +281,44 @@ export default function QuestionRunner({
                   transition={{ delay: i * 0.05 }}
                   whileHover={reveal ? undefined : { scale: 1.015, y: -2 }}
                   whileTap={reveal ? undefined : { scale: 0.98 }}
-                  className={`relative flex items-center justify-between gap-3 overflow-hidden rounded-2xl border px-4 py-3.5 text-left transition-all duration-300 ${
-                    reveal && isRight
-                      ? 'border-success/70 bg-success/12 shadow-[0_0_20px_rgba(0,230,118,0.25)]'
-                      : reveal && chosen
-                        ? 'border-danger/70 bg-danger/12 animate-shake'
-                        : reveal
-                          ? 'border-white/10 bg-white/[0.03] opacity-60'
-                          : 'border-white/15 bg-white/[0.05] hover:border-neon/55 hover:bg-neon/[0.07]'
+                  className={`relative flex items-center justify-between gap-3 overflow-hidden border px-4 py-3.5 text-left transition-all duration-300 ${
+                    paper
+                      ? `rounded-[4px] ${
+                          reveal && isRight
+                            ? 'border-cobalt bg-cobalt/[0.07]'
+                            : reveal && chosen
+                              ? 'border-rubric bg-rubric/[0.07] animate-shake'
+                              : reveal
+                                ? 'border-rule bg-transparent opacity-60'
+                                : 'border-rule bg-[#FDFBF5] hover:border-cobalt hover:bg-cobalt/[0.04]'
+                        }`
+                      : `rounded-2xl ${
+                          reveal && isRight
+                            ? 'border-success/70 bg-success/12 shadow-[0_0_20px_rgba(0,230,118,0.25)]'
+                            : reveal && chosen
+                              ? 'border-danger/70 bg-danger/12 animate-shake'
+                              : reveal
+                                ? 'border-white/10 bg-white/[0.03] opacity-60'
+                                : 'border-white/15 bg-white/[0.05] hover:border-neon/55 hover:bg-neon/[0.07]'
+                        }`
                   }`}
                 >
                   <span className="flex items-center gap-2.5">
-                    <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-white/8 text-xs font-bold text-slate-300">
+                    <span
+                      className={`flex h-6 w-6 items-center justify-center text-xs font-bold ${
+                        paper ? 'rounded-[3px] border border-rule bg-bone2 text-cobalt' : 'rounded-lg bg-white/8 text-slate-300'
+                      }`}
+                    >
                       {String.fromCharCode(65 + i)}
                     </span>
-                    <span className={`font-display font-semibold text-white ${c.sub ? '' : 'ipa text-base'}`}>{c.label}</span>
-                    {c.sub && <span className="text-xs text-slate-400">{c.sub}</span>}
+                    <span className={`font-semibold ${paper ? 'text-paperink' : 'font-display text-white'} ${c.sub ? '' : 'ipa text-base'}`}>
+                      {c.label}
+                    </span>
+                    {c.sub && <span className={`text-xs ${paper ? 'text-colophon' : 'text-slate-400'}`}>{c.sub}</span>}
                   </span>
-                  {reveal && isRight && <Check size={17} className="text-success" aria-hidden />}
-                  {reveal && chosen && !isRight && <X size={17} className="text-danger" aria-hidden />}
-                  {status === 'correct' && chosen && <LightWave />}
+                  {reveal && isRight && <Check size={17} className={paper ? 'text-cobalt' : 'text-success'} aria-hidden />}
+                  {reveal && chosen && !isRight && <X size={17} className={paper ? 'text-rubric' : 'text-danger'} aria-hidden />}
+                  {!paper && status === 'correct' && chosen && <LightWave />}
                 </motion.button>
               );
             })}
@@ -269,8 +336,10 @@ export default function QuestionRunner({
             <div className="flex gap-2">
               <input
                 ref={inputRef}
-                className={`input-neon font-mono text-base ${
-                  status === 'correct' ? 'is-correct' : status === 'wrong' ? 'is-wrong' : ''
+                className={`font-mono text-base ${
+                  paper
+                    ? `edu-input ${status === 'correct' ? 'border-cobalt' : status === 'wrong' ? 'border-rubric' : ''}`
+                    : `input-neon ${status === 'correct' ? 'is-correct' : status === 'wrong' ? 'is-wrong' : ''}`
                 }`}
                 value={given}
                 onChange={(e) => setGiven(e.target.value)}
@@ -280,9 +349,15 @@ export default function QuestionRunner({
                 autoComplete="off"
                 spellCheck={false}
               />
-              <NeonButton type="submit" disabled={status !== 'idle' || !given.trim()}>
-                {status === 'idle' ? '提交' : status === 'correct' ? '正确' : '已批改'}
-              </NeonButton>
+              {paper ? (
+                <EduButton type="submit" variant="primary" disabled={status !== 'idle' || !given.trim()}>
+                  {status === 'idle' ? '提交' : status === 'correct' ? '正确' : '已批改'}
+                </EduButton>
+              ) : (
+                <NeonButton type="submit" disabled={status !== 'idle' || !given.trim()}>
+                  {status === 'idle' ? '提交' : status === 'correct' ? '正确' : '已批改'}
+                </NeonButton>
+              )}
             </div>
 
             {/* 逐字母反馈 */}
@@ -294,10 +369,16 @@ export default function QuestionRunner({
                     initial={tier === 'off' ? false : { scale: 0.5, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ delay: i * 0.06 }}
-                    className={`flex h-9 w-8 items-center justify-center rounded-lg border font-mono text-sm font-semibold ${
-                      l.status === 'same'
-                        ? 'border-success/70 bg-success/15 text-success shadow-[0_0_12px_rgba(0,230,118,0.35)]'
-                        : 'border-danger/70 bg-danger/12 text-danger animate-shake'
+                    className={`flex h-9 w-8 items-center justify-center border font-mono text-sm font-semibold ${
+                      paper
+                        ? `rounded-[3px] ${
+                            l.status === 'same' ? 'border-cobalt bg-cobalt/[0.08] text-cobalt' : 'border-rubric bg-rubric/[0.08] text-rubric animate-shake'
+                          }`
+                        : `rounded-lg ${
+                            l.status === 'same'
+                              ? 'border-success/70 bg-success/15 text-success shadow-[0_0_12px_rgba(0,230,118,0.35)]'
+                              : 'border-danger/70 bg-danger/12 text-danger animate-shake'
+                          }`
                     }`}
                   >
                     {l.char}
@@ -316,6 +397,7 @@ export default function QuestionRunner({
             answer={q.answer}
             instructions="点击（或拖拽）上方拼块，按正确顺序放入下方槽位。"
             ruleHint={q.hint}
+            tone={tone}
             onResult={(ok, g) => commit(ok ? q.answer : g)}
           />
         )}
@@ -328,6 +410,7 @@ export default function QuestionRunner({
             answer={q.answer}
             instructions="把前缀、词根、后缀按构词顺序放入槽位（悬停可看含义）。"
             ruleHint={q.hint}
+            tone={tone}
             onResult={(ok, g) => commit(ok ? q.answer : g)}
           />
         )}
@@ -345,18 +428,28 @@ export default function QuestionRunner({
                     disabled={reveal}
                     onClick={() => commit(String(i))}
                     whileHover={reveal ? undefined : { y: -3 }}
-                    className={`rounded-2xl border px-5 py-4 font-display text-lg font-bold transition-all ${
-                      right
-                        ? 'border-success bg-success/15 text-success'
-                        : reveal && chosen
-                          ? 'border-danger bg-danger/12 text-danger animate-shake'
-                          : 'border-white/18 bg-white/[0.05] text-slate-200 hover:border-neon/60 hover:shadow-neon'
+                    className={`border px-5 py-4 text-lg font-bold transition-all ${
+                      paper
+                        ? `rounded-[4px] ${
+                            right
+                              ? 'border-cobalt bg-cobalt/[0.08] text-cobalt'
+                              : reveal && chosen
+                                ? 'border-rubric bg-rubric/[0.08] text-rubric animate-shake'
+                                : 'border-rule bg-[#FDFBF5] text-paperink hover:border-cobalt'
+                          }`
+                        : `rounded-2xl font-display ${
+                            right
+                              ? 'border-success bg-success/15 text-success'
+                              : reveal && chosen
+                                ? 'border-danger bg-danger/12 text-danger animate-shake'
+                                : 'border-white/18 bg-white/[0.05] text-slate-200 hover:border-neon/60 hover:shadow-neon'
+                          }`
                     }`}
                     aria-label={`第 ${i + 1} 音节 ${s}${right ? ' 正确' : ''}`}
                   >
                     {s}
                   </motion.button>
-                  <span className="text-xs text-slate-400">#{i}</span>
+                  <span className={`text-xs ${paper ? 'text-colophon' : 'text-slate-400'}`}>#{i}</span>
                 </div>
               );
             })}
@@ -371,10 +464,10 @@ export default function QuestionRunner({
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            className={`mt-4 rounded-2xl border p-4 text-sm ${
-              status === 'correct'
-                ? 'border-success/45 bg-success/10 text-[#B9FFD9]'
-                : 'border-warn/40 bg-warn/[0.08] text-[#FFE7BD]'
+            className={`mt-4 border p-4 text-sm ${
+              paper
+                ? `rounded-[4px] ${status === 'correct' ? 'border-cobalt/60 bg-cobalt/[0.06] text-paperink' : 'border-rubric/60 bg-rubric/[0.06] text-paperink'}`
+                : `rounded-2xl ${status === 'correct' ? 'border-success/45 bg-success/10 text-[#B9FFD9]' : 'border-warn/40 bg-warn/[0.08] text-[#FFE7BD]'}`
             }`}
             role="status"
             aria-live="polite"
@@ -382,17 +475,18 @@ export default function QuestionRunner({
             <div className="mb-1 flex items-center gap-2 font-semibold">
               {status === 'correct' ? (
                 <>
-                  <Check size={15} className="text-success" /> 回答正确
+                  <Check size={15} className={paper ? 'text-cobalt' : 'text-success'} /> 回答正确
                 </>
               ) : (
                 <>
-                  <X size={15} className="text-warn" /> 正确答案：<span className="ipa text-white">{q.answer}</span>
+                  <X size={15} className={paper ? 'text-rubric' : 'text-warn'} /> 正确答案：
+                  <span className={`ipa ${paper ? 'text-paperink' : 'text-white'}`}>{q.answer}</span>
                 </>
               )}
             </div>
             {status === 'wrong' && (
               <div className="mb-1.5 flex items-start gap-1.5 text-xs">
-                <Lightbulb size={13} className="mt-0.5 shrink-0 text-warn" aria-hidden />
+                <Lightbulb size={13} className={`mt-0.5 shrink-0 ${paper ? 'text-rubric' : 'text-warn'}`} aria-hidden />
                 {q.hint}
               </div>
             )}
@@ -407,13 +501,21 @@ export default function QuestionRunner({
           type="button"
           onClick={() => speak(q.speak ?? q.prompt, { slow: true })}
           disabled={!supported}
-          className="flex min-h-[44px] items-center gap-1.5 text-xs text-slate-400 transition hover:text-neon disabled:opacity-40"
+          className={`flex min-h-[44px] items-center gap-1.5 text-xs transition disabled:opacity-40 ${
+            paper ? 'text-colophon hover:text-cobalt' : 'text-slate-400 hover:text-neon'
+          }`}
         >
           <Turtle size={13} aria-hidden /> 慢速再听一遍
         </button>
-        <NeonButton onClick={next} disabled={status === 'idle'}>
-          {idx + 1 >= total ? '查看结果' : '下一题'} <ArrowRight size={14} aria-hidden />
-        </NeonButton>
+        {paper ? (
+          <EduButton variant="primary" onClick={next} disabled={status === 'idle'}>
+            {idx + 1 >= total ? '查看结果' : '下一题'} <ArrowRight size={14} aria-hidden />
+          </EduButton>
+        ) : (
+          <NeonButton onClick={next} disabled={status === 'idle'}>
+            {idx + 1 >= total ? '查看结果' : '下一题'} <ArrowRight size={14} aria-hidden />
+          </NeonButton>
+        )}
       </div>
     </div>
   );

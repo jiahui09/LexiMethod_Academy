@@ -44,11 +44,16 @@ function Router() {
 
 export default function App() {
   const location = useLocation();
+  // 辞书版式纸面世界（课程页 / 音标实验室）：静音极光与粒子，深色书桌只留桌面本身。
+  // 其余路由仍为遗留霓虹世界（阶段二迁移中）。
+  const paperWorld =
+    location.pathname.startsWith('/lab') ||
+    (/^\/methods\/[^/]+$/.test(location.pathname) && !location.pathname.endsWith('/compare'));
 
   return (
     <>
-      <Backdrop />
-      <ParticleField />
+      {!paperWorld && <Backdrop />}
+      {!paperWorld && <ParticleField />}
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-neon focus:px-4 focus:py-2 focus:text-[#04121c]"

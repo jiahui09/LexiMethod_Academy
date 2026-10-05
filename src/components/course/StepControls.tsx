@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Play, Pause, RotateCcw, Check } from 'lucide-react';
-import NeonButton from '@/components/ui/NeonButton';
+import EduButton from '@/components/edu/Button';
 import { useMotionTier } from '@/hooks/useMotionTier';
 import { playSfx } from '@/hooks/useSfx';
 
@@ -12,17 +12,19 @@ type Props = {
   total: number;
   autoplay: boolean;
   completed: number[];
-  /** 圆点/回退：直接跳转，不记完成 */
+  /** 回退 / 直接跳转：不记完成（步跳主责在义项导轨，这里保底可退） */
   onChange: (i: number) => void;
   /** 前进（下一步 / 自动播放 / →）：由父组件决定先记完成再跳 */
   onNext?: () => void;
-  /** 最后一步的「完成本课」：完成时刻（彩带/祝贺由此触发） */
+  /** 最后一步的「完成本课」：完成时刻（批注章/祝贺由此触发） */
   onFinish?: () => void;
   onToggleAutoplay: () => void;
   onReplay: () => void;
+  /** 页脚提示（默认为课程导轨文案；实验室复用时传无导轨版本） */
+  hint?: string;
 };
 
-/** 课程控制条：上一步 / 下一步 / 完成本课 / 自动播放 / 重播 + 步骤圆点 */
+/** 页脚刻线导览：上一步 / 下一步 / 完成本课 / 自动播放 / 重播 + 页码 */
 export default function StepControls({
   index,
   total,
@@ -33,6 +35,7 @@ export default function StepControls({
   onFinish,
   onToggleAutoplay,
   onReplay,
+  hint = '提示：可用键盘 ← / → 翻页；导轨（小屏在页顶）可直接跳到任意一步；开启“自动播放”按时间线自动推进。',
 }: Props) {
   const tier = useMotionTier();
   const barRef = useRef<HTMLDivElement>(null);
@@ -66,60 +69,30 @@ export default function StepControls({
   }, [index, total, onNext, onChange]);
 
   return (
-    <div className="glass mt-5 flex flex-col gap-4 p-4 md:p-5">
-      {/* 自动播放进度条 */}
-      <div className="h-1 w-full overflow-hidden rounded-full bg-white/8" aria-hidden="true">
+    <div className="mt-7 flex flex-col gap-4 border-t border-rule pt-4">
+      {/* 自动播放刻线：读秒即进度 */}
+      <div className="h-[3px] w-full overflow-hidden bg-rule" aria-hidden="true">
         <motion.div
           key={`${index}-${autoplay ? 'a' : 'm'}`}
           ref={barRef}
-          className="h-full rounded-full bg-gradient-to-r from-neon via-violet to-pink"
+          className="h-full bg-rubric"
           initial={{ width: autoplay ? '0%' : `${(index / Math.max(1, total - 1)) * 100}%` }}
           animate={{ width: autoplay ? '100%' : `${(index / Math.max(1, total - 1)) * 100}%` }}
           transition={autoplay && tier !== 'off' ? { duration: AUTOPLAY_MS / 1000, ease: 'linear' } : { duration: 0.35 }}
-          style={{ opacity: autoplay ? 1 : 0.55 }}
+          style={{ opacity: autoplay ? 1 : 0.4 }}
         />
       </div>
 
-      {/* 步骤圆点 */}
-      <div className="flex flex-wrap items-center gap-2" role="tablist" aria-label="课程步骤">
-        {Array.from({ length: total }).map((_, i) => {
-          const done = completed.includes(i);
-          const activeDot = i === index;
-          return (
-            <button
-              key={i}
-              type="button"
-              role="tab"
-              aria-selected={activeDot}
-              aria-label={`第 ${i + 1} 步${done ? '（已完成）' : ''}`}
-              onClick={() => {
-                playSfx('click');
-                onChange(i);
-              }}
-              className="group flex items-center justify-center gap-1.5 rounded-full border px-2.5 py-1 text-xs transition-all duration-300 min-h-[44px] min-w-[44px]"
-              style={{
-                borderColor: activeDot ? 'rgba(0,229,255,0.75)' : done ? 'rgba(0,230,118,0.4)' : 'rgba(255,255,255,0.14)',
-                background: activeDot ? 'rgba(0,229,255,0.16)' : 'rgba(255,255,255,0.04)',
-                color: activeDot ? '#00E5FF' : done ? '#00E676' : 'rgba(203,213,225,0.75)',
-                boxShadow: activeDot ? '0 0 14px rgba(0,229,255,0.35)' : 'none',
-              }}
-            >
-              {done && !activeDot ? <Check size={11} aria-hidden /> : null}
-              {i + 1}
-            </button>
-          );
-        })}
-      </div>
-
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-2">
-          <NeonButton size="sm" variant="ghost" onClick={() => onChange(index - 1)} disabled={index === 0} aria-label="上一步">
+        <div className="flex flex-wrap items-center gap-2">
+          <EduButton size="sm" variant="ghost" onClick={() => onChange(index - 1)} disabled={index === 0} aria-label="上一步">
             <ChevronLeft size={15} aria-hidden /> 上一步
-          </NeonButton>
+          </EduButton>
           {isLast ? (
             onFinish ? (
-              <NeonButton
+              <EduButton
                 size="sm"
+                variant="primary"
                 onClick={() => onFinish?.()}
                 disabled={allDone}
                 aria-label="完成本课"
@@ -132,26 +105,20 @@ export default function StepControls({
                 ) : (
                   <>完成本课</>
                 )}
-              </NeonButton>
+              </EduButton>
             ) : (
               /* 无 onFinish 的复用方（如音标实验室）：末步不渲染死按钮，完成态由其自身逻辑接管 */
               null
             )
           ) : (
-            <NeonButton
-              size="sm"
-              onClick={() => {
-                onNext?.();
-              }}
-              aria-label="下一步"
-            >
+            <EduButton size="sm" onClick={() => onNext?.()} aria-label="下一步">
               下一步 <ChevronRight size={15} aria-hidden />
-            </NeonButton>
+            </EduButton>
           )}
         </div>
 
-        <div className="flex items-center gap-2">
-          <NeonButton size="sm" variant="ghost" onClick={onToggleAutoplay} aria-pressed={autoplay}>
+        <div className="flex flex-wrap items-center gap-2">
+          <EduButton size="sm" variant="ghost" onClick={onToggleAutoplay} aria-pressed={autoplay}>
             {autoplay ? (
               <>
                 <Pause size={14} aria-hidden /> 暂停自动播放
@@ -161,18 +128,20 @@ export default function StepControls({
                 <Play size={14} aria-hidden /> 自动播放
               </>
             )}
-          </NeonButton>
-          <NeonButton size="sm" variant="ghost" onClick={onReplay} aria-label="重播本步动画">
+          </EduButton>
+          <EduButton size="sm" variant="ghost" onClick={onReplay} aria-label="重播本步动画">
             <RotateCcw size={14} aria-hidden /> 重播
-          </NeonButton>
+          </EduButton>
         </div>
 
-        <span className="text-xs tabular-nums text-slate-400">
+        <span className="text-xs tabular-nums text-colophon">
           {index + 1} / {total}
         </span>
       </div>
 
-      <p className="text-xs text-slate-400">提示：可用键盘 ← / → 翻页；开启“自动播放”将按时间线自动推进每一步。</p>
+      <p className="text-xs text-colophon">
+        {hint}
+      </p>
     </div>
   );
 }

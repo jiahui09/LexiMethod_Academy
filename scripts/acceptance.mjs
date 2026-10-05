@@ -271,7 +271,7 @@ consoleErrors = [];
 
 console.log('[6] 听音拼写训练（听写流程）');
 await goto('/lab/dictation');
-const hasInput = await page.$('input.input-neon');
+const hasInput = await page.$('input.edu-input');
 if (hasInput) {
   // 听写页题目由工厂实时生成，题干里内嵌词或音标：据此反查期望答案并断言判对
   const promptText = await page.evaluate(() => {
@@ -286,8 +286,8 @@ if (hasInput) {
       ? words.find((w) => w.phoneticUK === wordHit[1])?.word
       : undefined;
   if (expected) {
-    await page.click('input.input-neon');
-    await page.type('input.input-neon', expected, { delay: 12 });
+    await page.click('input.edu-input');
+    await page.type('input.edu-input', expected, { delay: 12 });
     await clickText('button', '提交');
     await sleep(700);
     const judged = await waitBody('回答正确', 3000);

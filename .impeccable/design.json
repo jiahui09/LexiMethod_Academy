@@ -1,13 +1,158 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-05T06:27:30.475Z",
+  "generatedAt": "2026-10-05T11:50:40.000Z",
   "title": "Design System: LexiMethod Academy",
   "extensions": {
     "colorMeta": {
+      "bone": {
+        "role": "neutral",
+        "displayName": "Bone 骨白纸",
+        "canonical": "#F7F2E8",
+        "note": "辞书版式纸地：.edu-sheet 页面底",
+        "tonalRamp": [
+          "oklch(0.15 0.02 85)",
+          "oklch(0.27 0.03 85)",
+          "oklch(0.39 0.04 85)",
+          "oklch(0.50 0.05 85)",
+          "oklch(0.62 0.05 85)",
+          "oklch(0.74 0.04 85)",
+          "oklch(0.85 0.03 85)",
+          "oklch(0.95 0.02 85)"
+        ]
+      },
+      "bone2": {
+        "role": "neutral",
+        "displayName": "Bone2 纸面区块",
+        "canonical": "#EFE6D2",
+        "note": "边注卡、警示框、进度卡、选中底（多以 /40–/70 透明度上）",
+        "tonalRamp": [
+          "oklch(0.15 0.02 82)",
+          "oklch(0.27 0.03 82)",
+          "oklch(0.39 0.04 82)",
+          "oklch(0.50 0.05 82)",
+          "oklch(0.62 0.05 82)",
+          "oklch(0.74 0.04 82)",
+          "oklch(0.85 0.03 82)",
+          "oklch(0.94 0.03 82)"
+        ]
+      },
+      "paper-fill": {
+        "role": "neutral",
+        "displayName": "Paper Fill 填写线底",
+        "canonical": "#FDFBF5",
+        "note": "纸面输入框与答题选项的更亮一档纸",
+        "tonalRamp": [
+          "oklch(0.15 0.01 90)",
+          "oklch(0.27 0.02 90)",
+          "oklch(0.39 0.02 90)",
+          "oklch(0.50 0.02 90)",
+          "oklch(0.62 0.02 90)",
+          "oklch(0.74 0.02 90)",
+          "oklch(0.86 0.015 90)",
+          "oklch(0.97 0.01 90)"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Rule 发丝线",
+        "canonical": "#D8CFBC",
+        "note": "纸上一切分界：栏线、盒边、未选中描边、滚动条",
+        "tonalRamp": [
+          "oklch(0.15 0.02 80)",
+          "oklch(0.27 0.03 80)",
+          "oklch(0.39 0.03 80)",
+          "oklch(0.50 0.04 80)",
+          "oklch(0.62 0.04 80)",
+          "oklch(0.74 0.04 80)",
+          "oklch(0.85 0.03 80)",
+          "oklch(0.93 0.03 80)"
+        ]
+      },
+      "paperink": {
+        "role": "neutral",
+        "displayName": "Paper Ink 正文墨",
+        "canonical": "#16130F",
+        "note": "纸上正文与标题",
+        "tonalRamp": [
+          "oklch(0.13 0.01 70)",
+          "oklch(0.22 0.015 70)",
+          "oklch(0.32 0.02 70)",
+          "oklch(0.42 0.025 70)",
+          "oklch(0.55 0.03 70)",
+          "oklch(0.68 0.03 70)",
+          "oklch(0.82 0.025 70)",
+          "oklch(0.95 0.015 70)"
+        ]
+      },
+      "colophon": {
+        "role": "neutral",
+        "displayName": "Colophon 版本墨",
+        "canonical": "#4A443B",
+        "note": "次级说明、页边批注、脚注（纸地 ≥4.5:1）",
+        "tonalRamp": [
+          "oklch(0.14 0.01 75)",
+          "oklch(0.24 0.015 75)",
+          "oklch(0.34 0.02 75)",
+          "oklch(0.45 0.025 75)",
+          "oklch(0.57 0.03 75)",
+          "oklch(0.69 0.03 75)",
+          "oklch(0.82 0.025 75)",
+          "oklch(0.95 0.015 75)"
+        ]
+      },
+      "cobalt": {
+        "role": "secondary",
+        "displayName": "Cobalt 结构蓝",
+        "canonical": "#1E4B7A",
+        "note": "纸面结构笔：书眉 / 导轨 / 链接 / 进度 / 已定（答对、完成）；焦点环 2px",
+        "tonalRamp": [
+          "oklch(0.15 0.05 255)",
+          "oklch(0.25 0.07 255)",
+          "oklch(0.35 0.09 255)",
+          "oklch(0.45 0.10 255)",
+          "oklch(0.55 0.11 255)",
+          "oklch(0.66 0.10 255)",
+          "oklch(0.78 0.08 255)",
+          "oklch(0.92 0.04 255)"
+        ]
+      },
+      "rubric": {
+        "role": "primary",
+        "displayName": "Rubric 批注红",
+        "canonical": "#B3311E",
+        "note": "纸面唯一功能色：朗读 / 当前 / 重读 / 警示 / 错 / 批注章 / caret",
+        "tonalRamp": [
+          "oklch(0.15 0.06 35)",
+          "oklch(0.26 0.09 35)",
+          "oklch(0.37 0.12 35)",
+          "oklch(0.48 0.14 35)",
+          "oklch(0.58 0.16 35)",
+          "oklch(0.68 0.15 35)",
+          "oklch(0.80 0.11 35)",
+          "oklch(0.93 0.05 35)"
+        ]
+      },
+      "rubric-deep": {
+        "role": "primary",
+        "displayName": "Rubric Deep 按压红",
+        "canonical": "#9C2919",
+        "note": "纸面主按钮 hover / active 深压色",
+        "tonalRamp": [
+          "oklch(0.13 0.05 35)",
+          "oklch(0.23 0.08 35)",
+          "oklch(0.33 0.11 35)",
+          "oklch(0.43 0.13 35)",
+          "oklch(0.53 0.15 35)",
+          "oklch(0.64 0.14 35)",
+          "oklch(0.77 0.11 35)",
+          "oklch(0.92 0.05 35)"
+        ]
+      },
       "primary": {
         "role": "primary",
-        "displayName": "Neon Cyan 霓虹青",
+        "displayName": "Neon Cyan 霓虹青（遗留深色壳）",
         "canonical": "#00E5FF",
+        "note": "深色壳意图信号；教程面（/methods/:id、/lab）静音其氛围层",
         "tonalRamp": [
           "oklch(0.15 0.02 200)",
           "oklch(0.27 0.05 200)",
@@ -21,7 +166,7 @@
       },
       "secondary": {
         "role": "secondary",
-        "displayName": "Aurora Violet 极光紫",
+        "displayName": "Aurora Violet 极光紫（遗留深色壳）",
         "canonical": "#7C4DFF",
         "tonalRamp": [
           "oklch(0.15 0.03 285)",
@@ -38,11 +183,11 @@
         "role": "secondary-text",
         "displayName": "Violet Lit 紫文字变体",
         "canonical": "#A98BFF",
-        "note": "token violet-lit: 紫承载文字的唯一合法形态, 玻璃面 ≥5.5:1; 本色仅用于边框/填充/光晕/SVG/≥18.66px粗体大字"
+        "note": "token violet-lit: 深色壳紫承载文字的唯一合法形态, ≥5.5:1; 本色仅用于边框/填充/光晕/SVG/≥18.66px粗体大字"
       },
       "tertiary": {
         "role": "tertiary",
-        "displayName": "Pulse Pink 脉冲粉",
+        "displayName": "Pulse Pink 脉冲粉（遗留深色壳）",
         "canonical": "#FF4D9D",
         "tonalRamp": [
           "oklch(0.15 0.03 355)",
@@ -59,11 +204,11 @@
         "role": "tertiary-text",
         "displayName": "Pink Lit 粉文字变体",
         "canonical": "#FF80B5",
-        "note": "token pink-lit: 粉承载文字的唯一合法形态, ≥4.5:1; 本色仅用于填充/光晕/描边"
+        "note": "token pink-lit: 深色壳粉承载文字的唯一合法形态, ≥4.5:1; 本色仅用于填充/光晕/描边"
       },
       "success": {
         "role": "semantic",
-        "displayName": "Pass Green 通过绿",
+        "displayName": "Pass Green 通过绿（深色壳）",
         "canonical": "#00E676",
         "tonalRamp": [
           "oklch(0.15 0.03 155)",
@@ -78,7 +223,7 @@
       },
       "warn": {
         "role": "semantic",
-        "displayName": "Signal Amber 提醒琥珀",
+        "displayName": "Signal Amber 提醒琥珀（深色壳）",
         "canonical": "#FFB300",
         "tonalRamp": [
           "oklch(0.15 0.03 80)",
@@ -93,7 +238,7 @@
       },
       "danger": {
         "role": "semantic",
-        "displayName": "Miss Red 错答红",
+        "displayName": "Miss Red 错答红（深色壳）",
         "canonical": "#FF4D6D",
         "tonalRamp": [
           "oklch(0.15 0.03 25)",
@@ -183,7 +328,7 @@
       },
       "neutral-text-min": {
         "role": "neutral",
-        "displayName": "Mist Slate 雾板岩（文字地板）",
+        "displayName": "Mist Slate 雾板岩（暗面文字地板）",
         "canonical": "#94A3B8",
         "tonalRamp": [
           "oklch(0.15 0.01 245)",
@@ -203,190 +348,239 @@
       },
       "neutral-hairline": {
         "role": "neutral",
-        "displayName": "Glass Hairline 发丝线",
+        "displayName": "Glass Hairline 发丝线（深色壳）",
         "canonical": "rgba(255, 255, 255, 0.12)"
       }
     },
     "typographyMeta": {
+      "title-paper": {
+        "displayName": "Page Title 卷首题名",
+        "purpose": "教程面 h1：26px→md 32px 粗体，标题自身压场，下接 15px 说明；每路由唯一 h1。"
+      },
+      "entry-title": {
+        "displayName": "Entry 词条行",
+        "purpose": "步题词目形态：义项号 + 题头 21/25px + serif 斜体词头 + .ipa + 朗读钮；不戴眉标。"
+      },
+      "body-paper": {
+        "displayName": "Narration 讲解正文",
+        "purpose": "教程面阅读栏本体：16px/1.9，行长 ≤68ch，行内 13px cobalt 小标领起，恒静。"
+      },
+      "serif": {
+        "displayName": "System Serif 系统衬线",
+        "purpose": "英文词头与展示数字（义项编号、音节、章面文字）；IPA 数据不进衬线。"
+      },
+      "ipa": {
+        "displayName": ".ipa 转写数据",
+        "purpose": "一切 IPA 音标数据：系统等宽、letter-spacing 0.01em，13px 行内至 60–72px 实验室展示。"
+      },
       "display": {
-        "displayName": "Display",
+        "displayName": "Display（深色壳）",
         "purpose": "首页品牌时刻与 404 的巨型标题；全站唯一允许逐字入场的标题。"
       },
       "title": {
-        "displayName": "Title",
+        "displayName": "Title（深色壳）",
         "purpose": "PageIntro 页面标题与区块大标题（24→30px）。"
       },
       "body": {
-        "displayName": "Body",
-        "purpose": "教学正文与页面说明；列宽以 768px 封顶。"
+        "displayName": "Body（深色壳）",
+        "purpose": "深色壳教学正文与页面说明；列宽以 768px 封顶。"
       },
       "label": {
-        "displayName": "Label",
-        "purpose": "章节 kicker、全大写英文标签与数据卡标签。"
+        "displayName": "Label（深色壳）",
+        "purpose": "深色壳章节 kicker、全大写英文标签与数据卡标签——不向纸面延伸。"
       },
       "mono": {
-        "displayName": "Mono",
-        "purpose": "IPA 音标、逐字母批改与等宽数字。"
+        "displayName": "Mono（深色壳）",
+        "purpose": "深色壳 IPA 音标、逐字母批改与等宽数字。"
       }
     },
     "shadows": [
       {
+        "name": "sheet-lift",
+        "value": "0 24px 64px rgba(0, 0, 0, 0.5)",
+        "purpose": "唯一抬升：.edu-sheet 纸页浮在深色书桌上；纸面内部任何元素不再投影（Single Lift Rule）。"
+      },
+      {
         "name": "card-lift",
         "value": "0 8px 32px rgba(0,0,0,0.35)",
-        "purpose": "玻璃卡默认浮影。"
+        "purpose": "【深色壳】玻璃卡默认浮影。"
       },
       {
         "name": "glow-sm",
         "value": "0 0 12px rgba(0,229,255,0.22)",
-        "purpose": "小型意图高光：logo 徽章、实底按钮。"
+        "purpose": "【深色壳】小型意图高光：logo 徽章、实底按钮。"
       },
       {
         "name": "intent-glow",
         "value": "0 0 24px rgba(0,229,255,0.18), 0 0 64px rgba(124,77,255,0.12)",
-        "purpose": "主 CTA 的 hover/焦点光晕（One Glow Rule 的专属光）。"
+        "purpose": "【深色壳】主 CTA 的 hover/焦点光晕（One Glow Rule 的专属光）。"
       },
       {
         "name": "celebration-glow",
         "value": "0 0 48px rgba(0,229,255,0.25), 0 0 120px rgba(124,77,255,0.18)",
-        "purpose": "成就时刻专属大光晕。"
+        "purpose": "【深色壳】成就时刻专属大光晕。"
       },
       {
-        "name": "neon-pop",
-        "value": "0 0 20px rgba(0,229,255,0.45)",
-        "purpose": "logo 与激活下划线的强发光。"
+        "name": "focus-ring-paper",
+        "value": "outline: 2px solid #1E4B7A; outline-offset: 2px; border-radius: 2px",
+        "purpose": "纸面焦点环：.edu-sheet :focus-visible 统一给出，永不移除。"
+      },
+      {
+        "name": "focus-ring-dark",
+        "value": "outline: 2px solid #00E5FF; outline-offset: 3px",
+        "purpose": "深色壳焦点环。"
       }
     ],
     "motion": [
       {
+        "name": "edu-stamp",
+        "value": "0.42s cubic-bezier(0.22, 1, 0.36, 1), keyframes scale(1.7)/rotate(-16deg) → scale(0.94)/rotate(-7deg) → scale(1)/rotate(-8deg)",
+        "purpose": "全站唯一编排动作：批注红章落纸（朗读盖词尾、完成盖「已读」）；motion tier off 时静态呈现（不挂 .edu-stamp）。"
+      },
+      {
         "name": "ease-standard",
         "value": "cubic-bezier(0.22, 1, 0.36, 1)",
-        "purpose": "状态过渡与入场的默认缓动（Out Expo）。"
+        "purpose": "两个世界共用的 Out-Expo：状态过渡、导轨装订线伸长（500ms）、刻线进度。"
       },
       {
-        "name": "spring-nav",
-        "value": "spring(stiffness: 320, damping: 30)",
-        "purpose": "导航激活下划线的弹性滑移。"
-      },
-      {
-        "name": "press-feedback",
-        "value": "scale(0.95), spring(stiffness: 260, damping: 24)",
-        "purpose": "按压回弹与点击涟漪。"
+        "name": "content-anim-tier-gated",
+        "value": "framer-motion transitions 0.4–0.5s, ease [0.22,1,0.36,1], mounted only when tier !== 'off'",
+        "purpose": "内容型动画（口型、音节块、gsap 拼装、词根树、tab 换卷 fade）全部由 motion tier 开关，动效关闭时内容仍完整可读。"
       },
       {
         "name": "shake",
         "value": "0.42s cubic-bezier(0.36, 0.07, 0.19, 0.97)",
-        "purpose": "答错抖动。"
+        "purpose": "答错抖动（两个世界共用；纸面错误同时给 rubric 描边 + ✗）。"
       },
       {
-        "name": "ambient-aurora",
-        "value": "18s ease-in-out infinite",
-        "purpose": "极光背景循环；氛围层，随动画档位升降。"
+        "name": "press-feedback",
+        "value": "active: translate-y-px（纸面）/ scale(0.96)（深色壳按钮）",
+        "purpose": "按压反馈；纸面控件下陷一像素，不做缩放弹跳。"
       },
       {
-        "name": "ambient-particles",
-        "value": "desktop ≤120 / mobile ≤40 / off = 0",
-        "purpose": "粒子氛围层，随动画档位（完整/精简/关闭/跟随系统）控制，从不承载信息。"
+        "name": "tier-system",
+        "value": "完整 / light（4s 慢速氛围） / off（animation:none） / 跟随 prefers-reduced-motion",
+        "purpose": "动画档位全局开合氛围层与内容动画；html[data-motion] 切换。"
       },
       {
         "name": "celebration",
         "value": "event-triggered only",
-        "purpose": "彩带与大粒子只在完成课程、全对通关等真实学习里程碑后释放；页面进入不触发。反馈只为学习，不引入角色化成长指标。"
+        "purpose": "彩带与大粒子只在完成课程、全对通关等真实学习里程碑后释放；页面进入不触发（深色壳）。"
+      },
+      {
+        "name": "ambient-aurora",
+        "value": "18s ease-in-out infinite",
+        "purpose": "【深色壳】极光背景循环；教程面（/methods/:id、/lab）静音 Backdrop 与 ParticleField。"
       }
     ],
     "breakpoints": [
-      {
-        "name": "sm",
-        "value": "640px"
-      },
-      {
-        "name": "md",
-        "value": "768px"
-      },
-      {
-        "name": "lg",
-        "value": "1024px"
-      },
-      {
-        "name": "wide",
-        "value": "1360px",
-        "purpose": "超宽屏低频入口的例外断点。"
-      }
-    ]
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px", "purpose": "教程面栏外 apparatus（232px/208px）与实验室双栏现身处。" },
+      { "name": "wide", "value": "1360px", "purpose": "【深色壳】超宽屏低频入口的例外断点。" }
+    ],
+    "layout": {
+      "container-page": { "maxWidth": "1240px", "padding": "16px → 32px @768px" },
+      "course-grid": { "rail": "168px", "reading": "1fr (max 68ch)", "apparatus": "232px @xl", "note": "导轨 md 以下转页顶横排" },
+      "lab-grid": { "chart": "380px @xl", "main": "1fr", "apparatus": "208px @xl" }
+    }
   },
   "components": [
     {
-      "name": "Primary Button 发光主按钮",
+      "name": "Paper Primary Button 纸面主按钮",
       "kind": "button",
-      "refersTo": "button-primary",
-      "description": "一屏唯一的发光主行动点（One Glow Rule）。",
-      "html": "<button class=\"ds-btn-primary\">开始旗舰课</button>",
-      "css": ".ds-btn-primary{position:relative;border-radius:14px;padding:10px 18px;font:600 14px/1.4 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;color:#E8FBFF;background:linear-gradient(#101A35,#101A35) padding-box,linear-gradient(120deg,#00E5FF,#7C4DFF,#FF4D9D,#00E5FF) border-box;border:1px solid transparent;background-size:100% 100%,300% 100%;background-position:0 0,0 0;cursor:pointer;transition:transform .25s cubic-bezier(.22,1,.36,1),box-shadow .35s cubic-bezier(.22,1,.36,1),background-position .6s cubic-bezier(.22,1,.36,1)}.ds-btn-primary:hover{background-position:0 0,100% 0;transform:translateY(-1px);box-shadow:0 0 24px rgba(0,229,255,.18),0 0 64px rgba(124,77,255,.12)}.ds-btn-primary:active{transform:scale(.96)}.ds-btn-primary:focus-visible{outline:2px solid #00E5FF;outline-offset:3px}.ds-btn-primary:disabled{opacity:.4;cursor:not-allowed;box-shadow:none;transform:none}"
+      "refersTo": "button-paper-primary",
+      "description": "批注红实底——只授予本页唯一的主行动（完成本课、去费曼关）。",
+      "html": "<button class=\"ds-btn-paper-primary\">完成本课</button>",
+      "css": ".ds-btn-paper-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:8px 16px;border:1px solid #B3311E;border-radius:3px;background:#B3311E;color:#FBF6EC;font:400 16px/1.9 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;cursor:pointer;transition:background .2s ease,border-color .2s ease}.ds-btn-paper-primary:hover{background:#9C2919;border-color:#9C2919}.ds-btn-paper-primary:active{transform:translateY(1px)}.ds-btn-paper-primary:focus-visible{outline:2px solid #1E4B7A;outline-offset:2px}.ds-btn-paper-primary:disabled{opacity:.45;cursor:not-allowed}"
     },
     {
-      "name": "Ghost Button 幽灵按钮",
+      "name": "Paper Button 纸面常规按钮",
       "kind": "button",
-      "refersTo": "button-ghost",
-      "description": "次级动作；与发光点竞争时，主按钮一律降为它。",
-      "html": "<button class=\"ds-btn-ghost\">返回课程</button>",
-      "css": ".ds-btn-ghost{border-radius:14px;padding:10px 18px;font:600 14px/1.4 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;color:rgba(226,240,255,.85);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);cursor:pointer;transition:border-color .25s cubic-bezier(.22,1,.36,1),color .25s cubic-bezier(.22,1,.36,1),transform .25s cubic-bezier(.22,1,.36,1)}.ds-btn-ghost:hover{border-color:rgba(0,229,255,.5);color:#fff;transform:translateY(-1px)}.ds-btn-ghost:active{transform:scale(.96)}.ds-btn-ghost:focus-visible{outline:2px solid #00E5FF;outline-offset:3px}"
+      "refersTo": "button-paper",
+      "description": "印刷表单控件：发丝线描边、方正圆角、按下微陷；hover 翻转为墨实底。ghost 变体去描边只留 colophon 文字。",
+      "html": "<button class=\"ds-btn-paper\">下一步</button> <button class=\"ds-btn-paper ds-btn-paper--ghost\">上一步</button>",
+      "css": ".ds-btn-paper{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:8px 16px;border:1px solid rgba(22,19,15,.6);border-radius:3px;background:transparent;color:#16130F;font:400 16px/1.9 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;cursor:pointer;transition:background .2s ease,color .2s ease,border-color .2s ease}.ds-btn-paper:hover{background:#16130F;color:#F7F2E8}.ds-btn-paper:active{transform:translateY(1px)}.ds-btn-paper:focus-visible{outline:2px solid #1E4B7A;outline-offset:2px}.ds-btn-paper:disabled{opacity:.45;cursor:not-allowed}.ds-btn-paper--ghost{border-color:transparent;color:#4A443B}.ds-btn-paper--ghost:hover{background:transparent;border-color:#D8CFBC;color:#16130F}"
     },
     {
-      "name": "Glass Card 玻璃卡",
+      "name": "Paper Input 纸面填写线",
+      "kind": "input",
+      "refersTo": "input-paper",
+      "description": "像表格里的填写线：paper-fill 底 + 发丝线 + 3px 角；焦点环由 .edu-sheet 统一给 2px cobalt。",
+      "html": "<input class=\"ds-input-paper\" placeholder=\"写下你的答案\">",
+      "css": ".ds-input-paper{width:100%;min-height:44px;padding:8px 12px;border:1px solid #D8CFBC;border-radius:3px;background:#FDFBF5;color:#16130F;font:400 14.5px/1.7 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;transition:border-color .2s ease}.ds-input-paper::placeholder{color:#6B6456}.ds-input-paper:hover{border-color:#BFB3A0}.ds-input-paper:focus-visible{outline:2px solid #1E4B7A;outline-offset:2px}.ds-input-paper.is-correct{border-color:#1E4B7A;background:rgba(30,75,122,.06)}.ds-input-paper.is-wrong{border-color:#B3311E;background:rgba(179,49,30,.06);animation:ds-shake .42s cubic-bezier(.36,.07,.19,.97)}@keyframes ds-shake{0%,100%{transform:translateX(0)}15%{transform:translateX(-7px)}30%{transform:translateX(6px)}45%{transform:translateX(-5px)}60%{transform:translateX(4px)}80%{transform:translateX(-2px)}}"
+    },
+    {
+      "name": "EduSheet 纸页",
+      "kind": "card",
+      "refersTo": "card-paper",
+      "description": "教程面的世界地：骨白纸地 + 唯一抬升；红 caret、青焦点环、发丝线滚动条都在此作用域统一。",
+      "html": "<div class=\"ds-edu-sheet\"><p class=\"ds-edu-kicker\">讲解</p><p class=\"ds-edu-body\">把单词拆成可理解的零件，见词知义。先读步题与讲解，再点开演示动手做。</p><div class=\"ds-edu-callout\"><b>误区</b> 看懂动画不等于会，练习做对才算数。</div></div>",
+      "css": ".ds-edu-sheet{position:relative;background:#F7F2E8;color:#16130F;border-radius:4px;box-shadow:0 24px 64px rgba(0,0,0,.5);caret-color:#B3311E;padding:24px 32px}.ds-edu-sheet ::selection{background:rgba(179,49,30,.18);color:#16130F}.ds-edu-sheet :focus-visible{outline:2px solid #1E4B7A;outline-offset:2px;border-radius:2px}.ds-edu-kicker{margin:0 0 8px;font:600 13px/1.4 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;color:#1E4B7A}.ds-edu-body{margin:0;max-width:68ch;font:400 16px/1.9 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;color:#16130F}.ds-edu-callout{margin-top:16px;padding:12px 16px;border:1px solid #D8CFBC;border-radius:4px;background:rgba(239,230,210,.7);font:400 15px/1.85 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;color:#16130F}.ds-edu-callout b{margin-right:6px;color:#B3311E}"
+    },
+    {
+      "name": "EduEntry 词条行",
+      "kind": "custom",
+      "refersTo": "entry-title",
+      "description": "步题的标准词目形态（签名组件）：义项号 + 题头 + serif 斜体词头 + .ipa + 朗读钮；朗读一响盖红章。",
+      "html": "<div class=\"ds-edu-entry\"><span class=\"ds-entry-sense\">03</span><h2 class=\"ds-entry-title\">规则演示</h2><span class=\"ds-entry-word\">construction<em class=\"ds-entry-ipa\">/kənˈstrʌkʃn/</em><button class=\"ds-speak\" aria-label=\"朗读 construction\">&#128266;</button></span></div>",
+      "css": ".ds-edu-entry{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:12px;row-gap:6px}.ds-entry-sense{font:700 20px/1 ui-serif,Georgia,Cambria,'Times New Roman',Times,serif;font-variant-numeric:tabular-nums;color:#B3311E}.ds-entry-title{margin:0;font:700 25px/1.375 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;color:#16130F}.ds-entry-word{display:inline-flex;align-items:baseline;gap:8px;font:600 italic 18px/1.4 ui-serif,Georgia,Cambria,'Times New Roman',Times,serif;color:#16130F}.ds-entry-ipa{font:400 13px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.01em;color:#4A443B;font-style:normal}.ds-speak{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;min-width:44px;min-height:44px;border:1px solid rgba(22,19,15,.35);border-radius:9999px;background:transparent;color:#16130F;cursor:pointer;transition:border-color .2s ease,background .2s ease,color .2s ease}.ds-speak:hover{border-color:rgba(30,75,122,.55);color:#1E4B7A}.ds-speak:focus-visible{outline:2px solid #1E4B7A;outline-offset:2px}"
+    },
+    {
+      "name": "EduStamp 批注章",
+      "kind": "custom",
+      "refersTo": "rubric",
+      "description": "签名瞬间：红色双环圆章斜落纸上（全站唯一编排动作）；tier off 时静态呈现。",
+      "html": "<span class=\"ds-edu-stamp\">已读</span>",
+      "css": ".ds-edu-stamp{display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border:3px double #B3311E;border-radius:9999px;color:#B3311E;opacity:.92;transform:rotate(-8deg);text-align:center;font:700 15px/1.2 ui-serif,Georgia,Cambria,'Times New Roman',Times,serif;animation:ds-edu-stamp-in .42s cubic-bezier(.22,1,.36,1) both}@keyframes ds-edu-stamp-in{0%{opacity:0;transform:scale(1.7) rotate(-16deg)}60%{opacity:1;transform:scale(.94) rotate(-7deg)}100%{opacity:1;transform:scale(1) rotate(-8deg)}}@media (prefers-reduced-motion:reduce){.ds-edu-stamp{animation:none}}"
+    },
+    {
+      "name": "EduRail 义项导轨",
+      "kind": "nav",
+      "refersTo": "cobalt",
+      "description": "左栏装订线（全站唯一进度轴线）；状态从不只靠颜色：当前 = ▶ 三角 + 红号，完成 = ✓，未到 = 空号。",
+      "html": "<nav class=\"ds-edu-rail\" aria-label=\"课程步骤\"><span class=\"ds-rail-line\" aria-hidden=\"true\"><span class=\"ds-rail-fill\" style=\"height:28%\"></span></span><ol><li><button class=\"is-done\" aria-label=\"第 1 步（已完成）\"><span class=\"ds-rail-num\">01</span><span class=\"ds-rail-label\">方法登场</span>&#10003;</button></li><li><button class=\"is-active\" aria-current=\"step\" aria-label=\"第 2 步\"><span class=\"ds-rail-num\">02</span><span class=\"ds-rail-label\">规则演示</span><svg width=\"9\" height=\"10\" viewBox=\"0 0 9 10\"><path d=\"M0 0 L9 5 L0 10 Z\" fill=\"currentColor\"/></svg></button></li><li><button aria-label=\"第 3 步\"><span class=\"ds-rail-num\">03</span><span class=\"ds-rail-label\">映射练习</span></button></li></ol></nav>",
+      "css": ".ds-edu-rail{position:relative;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif}.ds-edu-rail ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}.ds-rail-line{position:absolute;left:15px;top:8px;bottom:8px;width:1px;background:#D8CFBC}.ds-rail-fill{position:absolute;left:0;top:0;width:1px;background:#1E4B7A;transition:height .5s cubic-bezier(.22,1,.36,1)}.ds-edu-rail button{display:flex;width:100%;align-items:center;gap:10px;min-height:44px;padding:6px 8px;border:0;border-radius:3px;background:transparent;text-align:left;cursor:pointer;transition:background .2s ease}.ds-edu-rail button:hover{background:rgba(239,230,210,.7)}.ds-edu-rail button.is-active{background:#EFE6D2}.ds-rail-num{position:relative;display:inline-flex;width:28px;height:28px;align-items:center;justify-content:center;border:1px solid #D8CFBC;border-radius:9999px;background:#F7F2E8;font:700 12px/1 ui-serif,Georgia,serif;font-variant-numeric:tabular-nums;color:#4A443B}.is-active .ds-rail-num{border-color:#B3311E;color:#B3311E}.is-done .ds-rail-num{background:#1E4B7A;border-color:#1E4B7A;color:#F7F2E8}.ds-rail-label{font-size:12.5px;color:#4A443B}.is-active .ds-rail-label{font-weight:600;color:#16130F}.ds-edu-rail svg{color:#B3311E}.ds-edu-rail button:focus-visible{outline:2px solid #1E4B7A;outline-offset:2px}"
+    },
+    {
+      "name": "Glass Card 玻璃卡（深色壳）",
       "kind": "card",
       "refersTo": "card-glass",
-      "description": "全站唯一容器材质（Glass-Only Rule）；卡中叠卡是禁令。",
-      "html": "<div class=\"ds-card-glass\"><p class=\"ds-card-kicker\">LESSON 01</p><h3 class=\"ds-card-title\">词根词缀</h3><p class=\"ds-card-body\">把单词拆成可理解的零件，见词知义。</p></div>",
-      "css": ".ds-card-glass{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:20px;box-shadow:0 8px 32px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.06);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);color:#E2E8F0;font:400 14px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;overflow:hidden;transition:transform .35s cubic-bezier(.22,1,.36,1),border-color .35s cubic-bezier(.22,1,.36,1)}.ds-card-glass:hover{transform:translateY(-6px);border-color:rgba(0,229,255,.4)}.ds-card-kicker{margin:0 0 8px;font:600 12px/1.4 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#00E5FF}.ds-card-title{margin:0 0 8px;font:700 20px/1.3 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;color:#fff}.ds-card-body{margin:0;color:#CBD5E1}"
+      "description": "遗留深色壳唯一容器材质（Glass-Only Rule）；阶段二迁移前保持不动。",
+      "html": "<div class=\"ds-card-glass\"><h3 class=\"ds-card-title\">词根词缀</h3><p class=\"ds-card-body\">把单词拆成可理解的零件，见词知义。</p></div>",
+      "css": ".ds-card-glass{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:20px;box-shadow:0 8px 32px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.06);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);color:#E2E8F0;font:400 14px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif}.ds-card-title{margin:0 0 8px;font:700 20px/1.3 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;color:#fff}.ds-card-body{margin:0;color:#CBD5E1}"
     },
     {
-      "name": "Neon Input 霓虹输入框",
-      "kind": "input",
-      "refersTo": "input-neon",
-      "description": "焦点转青；答对转绿，答错转红并抖动。",
-      "html": "<input class=\"ds-input-neon\" placeholder=\"phonetic\" value=\"neon\"><input class=\"ds-input-neon is-correct\" value=\"correct\"><input class=\"ds-input-neon is-wrong\" value=\"wrong\">",
-      "css": ".ds-input-neon{border-radius:14px;padding:10px 14px;font:400 14px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;color:#EAF6FF;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);outline:none;transition:border-color .25s cubic-bezier(.22,1,.36,1),box-shadow .25s cubic-bezier(.22,1,.36,1)}.ds-input-neon::placeholder{color:rgba(148,163,184,.42)}.ds-input-neon:focus{border-color:rgba(0,229,255,.7);box-shadow:0 0 0 3px rgba(0,229,255,.15),0 0 18px rgba(0,229,255,.18)}.ds-input-neon.is-correct{border-color:#00E676}.ds-input-neon.is-wrong{border-color:#FF4D6D;animation:ds-shake .42s cubic-bezier(.36,.07,.19,.97)}@keyframes ds-shake{0%,100%{transform:translateX(0)}15%{transform:translateX(-7px)}30%{transform:translateX(6px)}45%{transform:translateX(-5px)}60%{transform:translateX(4px)}80%{transform:translateX(-2px)}}"
-    },
-    {
-      "name": "Filter Chip 筛选胶囊",
-      "kind": "chip",
-      "refersTo": "chip",
-      "description": "题型/难度筛选；选中态换青。触控上下文 ≥44px。",
-      "html": "<span class=\"ds-chip\">全部</span><span class=\"ds-chip ds-chip--selected\">听辨</span>",
-      "css": ".ds-chip{display:inline-flex;align-items:center;border-radius:9999px;padding:6px 12px;font:400 14px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;color:#CBD5E1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);cursor:pointer;transition:color .25s cubic-bezier(.22,1,.36,1),border-color .25s cubic-bezier(.22,1,.36,1),background .25s cubic-bezier(.22,1,.36,1)}.ds-chip:hover{color:#fff;border-color:rgba(0,229,255,.4)}.ds-chip:focus-visible{outline:2px solid #00E5FF;outline-offset:3px}.ds-chip--selected{color:#00E5FF;background:rgba(0,229,255,.1);border-color:rgba(0,229,255,.4)}"
-    },
-    {
-      "name": "Top Nav Item 桌面导航项",
-      "kind": "nav",
-      "refersTo": "components.chip",
-      "description": "主导航上限 5 项（Single Focus Rule）；激活态青字 + 渐变发丝下划线。",
-      "html": "<nav class=\"ds-topnav\"><a class=\"ds-nav-item\" href=\"#\">地图</a><a class=\"ds-nav-item\" href=\"#\">课程</a><a class=\"ds-nav-item\" href=\"#\">实验室</a><a class=\"ds-nav-item is-active\" href=\"#\">训练</a><a class=\"ds-nav-item\" href=\"#\">复习</a></nav>",
-      "css": ".ds-topnav{display:flex;gap:4px}.ds-nav-item{position:relative;display:inline-flex;align-items:center;border-radius:12px;padding:8px 12px;font:500 13px/1.4 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;color:#CBD5E1;text-decoration:none;transition:color .3s cubic-bezier(.22,1,.36,1)}.ds-nav-item:hover{color:#fff}.ds-nav-item:focus-visible{outline:2px solid #00E5FF;outline-offset:3px}.ds-nav-item.is-active{color:#00E5FF}.ds-nav-item.is-active::after{content:\"\";position:absolute;left:8px;right:8px;bottom:-2px;height:2px;border-radius:9999px;background:linear-gradient(90deg,#00E5FF,#7C4DFF);box-shadow:0 0 8px #00E5FF}"
-    },
-    {
-      "name": "Bottom Nav Item 底部导航格",
-      "kind": "nav",
-      "refersTo": "components.chip",
-      "description": "与顶栏主导航同名同序的五格；标签 ≥12px，当前项青字高亮。",
-      "html": "<a class=\"ds-bottom-item\" href=\"#\">课程</a><a class=\"ds-bottom-item is-active\" href=\"#\">训练</a>",
-      "css": ".ds-bottom-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:56px;padding:8px 0;font:600 12px/1.4 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;color:#94A3B8;text-decoration:none;transition:color .25s cubic-bezier(.22,1,.36,1)}.ds-bottom-item:hover{color:#CBD5E1}.ds-bottom-item:focus-visible{outline:2px solid #00E5FF;outline-offset:-3px;border-radius:12px}.ds-bottom-item.is-active{color:#00E5FF}"
+      "name": "Primary Neon Button 发光主按钮（深色壳）",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "深色壳一屏唯一的发光主行动点（One Glow Rule）。",
+      "html": "<button class=\"ds-btn-neon\">开始旗舰课</button>",
+      "css": ".ds-btn-neon{position:relative;isolation:isolate;border-radius:14px;padding:10px 18px;min-height:44px;font:600 14px/1.4 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;color:#E8FBFF;background:linear-gradient(#101A35,#101A35) padding-box,linear-gradient(120deg,#00E5FF,#7C4DFF,#FF4D9D,#00E5FF) border-box;border:1px solid transparent;background-size:100% 100%,300% 100%;cursor:pointer;transition:transform .25s cubic-bezier(.22,1,.36,1),box-shadow .35s cubic-bezier(.22,1,.36,1),background-position .6s cubic-bezier(.22,1,.36,1)}.ds-btn-neon:hover{background-position:0 0,100% 0;transform:translateY(-1px);box-shadow:0 0 24px rgba(0,229,255,.18),0 0 64px rgba(124,77,255,.12)}.ds-btn-neon:active{transform:scale(.96)}.ds-btn-neon:focus-visible{outline:2px solid #00E5FF;outline-offset:3px}.ds-btn-neon:disabled{opacity:.4;cursor:not-allowed;box-shadow:none;transform:none}"
     }
   ],
   "narrative": {
-    "northStar": "深夜自习室（The Midnight Study Hall）— 一盏台灯、一块屏幕、一条路径。",
-    "overview": "这套系统是一张深夜里专注的书桌：底色是夜——固定的深夜蓝渐变、角落里缓慢呼吸的极光光斑；霓虹是屏幕与台灯的微光；玻璃卡是摊在桌上的一张张讲义。学习者是独自前来的，界面的全部职责是把注意力钉在「下一步该学什么」上，而不是展示自己有多热闹。青色是这张书桌上唯一亮着的信号灯：它出现的地方，就是现在要动的地方。\n\n密度哲学是克制而集中。每屏只有一个发光的主行动点；导航是墙上的便签，最多五张；粒子、极光、彩带属于「氛围层」——夜里偶尔飘过的光尘，归动画档位管理，且彩带只在真正值得庆祝时出现。教学的严谨（方向感、逐步揭示、把原理讲透）才是本站的个性来源，不是堆效果。\n\n反参考同样明确：拒绝白底日间主题，拒绝营销式大图首屏（工具页的首屏必须是可执行的下一步，不是广告），拒绝经验值、连击、连续天数、等级徽章等角色化成长内容——本站是多媒体交互教学工具（朗读、口型动画、交互练习、即时反馈），反馈只为学习服务，不为留存服务——并拒绝任何外部字体与 CDN 资源，离线可用、零请求是这个项目的硬约束。",
+    "northStar": "辞书版式（The Dictionary Edition）— 方法是词目，步骤是义项，演示是例句，误区是辨析。",
+    "overview": "本站是双世界并存、分阶段迁移的系统。教程面（/methods/:methodId、/lab）已建成第二个世界：骨白纸满地（#F7F2E8）、墨文承字、发丝线划栏，一册可读可练的双解词法书摊在深色书桌上（.edu-sheet 是全站唯一一次抬升，0 24px 64px rgba(0,0,0,0.5)）。词头朗读时批注红章斜落纸上——像用红笔在词典上做了记号——是这个世界的签名瞬间。纸面拒绝玻璃、辉光、渐变与眉标（kicker）：标题自己承载重量，标签一律走行内。\n\n导航壳与其余路由（header / footer / BottomNav / NextStepBar / Home / MethodList / practice / feynman 等）仍是第一世界「深夜自习室」：深夜蓝固定渐变、霓虹青意图信号、玻璃卡容器。它们是已记录的阶段二迁移，本轮不迁移；两个世界的规则在同一文件中分区记录，新增页面先判断自己站在纸上还是夜里。\n\n反参考在两个世界同样成立：拒绝白底卡片网格 + 渐变 hero + 进度环的网课站货架感（教程面做一部书，不做课程货架），拒绝经验值 / 连击 / 连续天数 / 等级徽章等角色化成长内容，拒绝任何外部字体与 CDN 资源——离线可用、零请求是硬约束。",
     "keyCharacteristics": [
-      "深夜蓝固定渐变底 + 霓虹青意图信号 + 紫/粉氛围光",
-      "系统字体栈单兵种（display 与 body 同族），中文优先，IPA 与等宽数据用 mono",
-      "玻璃卡是唯一的容器语言，圆角家族 6→24px",
-      "每屏唯一发光主 CTA，桌面主导航 ≤5 项",
-      "状态色恒定：绿=正确/达成，琥珀=提醒，红=错误",
-      "无角色化成长系统：不设经验值、连击、连续天数与等级徽章；对错、进度、完成的教学反馈直接服务学习",
-      "动效分三层：状态反馈（常驻）→ 氛围层（档位控制）→ 完成时刻（事件触发）"
+      "纸面双笔色：批注红（功能/当下）+ 结构蓝（结构/已定），骨白纸与发丝线做地",
+      "系统字体单兵种：中文正文系统无衬线 16px/1.9；系统衬线只给英文词头与展示数字；IPA 一律 .ipa 等宽（0.01em）",
+      "纸面描边 ≤1px（例外：书眉双线 / tab 下划线 / 进度刻线 3px、批注章双环），盒角 4px、控件角 3px",
+      "抬升只声明一次（纸页浮于深色书桌）；编排动作只有一个（批注章落纸），内容动画全走 motion tier",
+      "状态从不只靠颜色：✓ / ✗ / ▶ 实心三角 / 描边纹样三重编码",
+      "深色壳保留原世界：每屏唯一发光 CTA、玻璃卡唯一容器、绿/琥珀/红状态色（仅暗面）",
+      "无角色化成长系统；动效分层：状态反馈 → 氛围层（档位）→ 完成时刻"
     ],
     "rules": [
       {
+        "name": "The Two Pens Rule",
+        "body": "纸上只有两支笔：批注红说「此刻/注意」（朗读、当前、重读、警示、错、章），结构蓝说「结构/已定」（书眉、导轨、链接、进度、答对、完成）。永不引入第三种功能色，永不让笔色铺满大面积底。",
+        "section": "colors"
+      },
+      {
         "name": "The One Glow Rule",
-        "body": "发光（glow 阴影 + 渐变描边）只授予一屏之中的唯一主行动点及其焦点态；同屏出现的第二个发光元素必须熄灭，降为幽灵按钮或文字链接。",
+        "body": "发光（glow 阴影 + 渐变描边）只授予一屏之中唯一的主行动点及其焦点态；同屏第二个发光元素必须熄灭，降为幽灵按钮或文字链接。",
         "section": "colors"
       },
       {
@@ -395,51 +589,54 @@
         "section": "colors"
       },
       {
+        "name": "The IPA Data Rule",
+        "body": "一切 IPA 转写与音标数据都是数据不是词头：一律 .ipa 系统等宽（13px 起，实验室展示到 60–72px），不进衬线。系统衬线只给英文词头与展示数字——契约写「只给英文词头」，实际建造还把义项编号、音节块、章面文字交给衬线（build 为准，此处记录其实际用法）。",
+        "section": "typography"
+      },
+      {
         "name": "The Floor Rule",
-        "body": "12px 与 4.5:1 是任何文字（含 kicker、微标签、图表刻度）的地板，不是目标；紫色不用于玻璃面上的正文，必须携带文字时用 lit 变体 #A98BFF / #FF80B5。触控目标 ≥44×44px（390px 视口）。底线由 npm run audit:floor 逐路由审计把守，违规归零后并入 npm run verify 门禁。",
+        "body": "12px 与 4.5:1 是任何文字（含微标签、图表刻度）的地板，不是目标；暗面正文最暗只到雾板岩 #94A3B8，纸面次级墨最深只到 colophon #4A443B。底线由 npm run audit:floor（scripts/audit-floor.mjs：对比度/字号/触控/h1/重复 id 逐路由审计）把守，已并入 npm run verify 门禁。",
         "section": "typography"
       },
       {
         "name": "The Single Focus Rule",
-        "body": "每屏只有一个前进方向：唯一发光主 CTA；桌面主导航 ≤5 项；首页首屏可点元素 ≤12；同一决策点可见选项 ≤4。",
+        "body": "每屏只有一个前进方向：纸面是页眉右侧唯一主动作 + 页脚「下一步/完成本课」；深色壳是唯一发光主 CTA。桌面主导航 ≤5 项；同一决策点可见选项 ≤4。",
         "section": "layout"
       },
       {
         "name": "The No-Squeeze Rule",
-        "body": "低于 640px 时页头标题与推进按钮必须上下堆叠，禁止并排挤压成竖排窄字条；320px 起不允许任何横向溢出，正文被容器裁切即算缺陷。",
+        "body": "低于 640px 时页头标题与推进按钮必须上下堆叠，禁止并排挤压成竖排窄字条；320px 起不允许任何横向溢出，正文被容器裁切即算缺陷（纸面导轨小屏横排滚动即此规则的实现）。",
         "section": "layout"
       },
       {
-        "name": "The Glass-Only Rule",
-        "body": "容器只有一种材质：玻璃卡（24px 圆角、发丝描边、20px 模糊）。禁止卡中叠卡；玻璃卡本身永不发光，发光只归主 CTA 与成就时刻。",
+        "name": "The Single Lift Rule",
+        "body": "抬升只声明一次：只有 .edu-sheet 携带阴影；纸面内部一律平贴——层叠用发丝线与纸色档差表达，不叠影、不叠模糊、不叠第二层独立背景。",
         "section": "elevation"
-      },
-      {
-        "name": "The Offline Audio Rule",
-        "body": "发音一律使用同源离线音频：48 音标本体与全部例词/最小对立对（词全集 926 词，单源 word-universe.mjs）优先播 public/audio/ 内置 mp3（npm run gen:audio 增量生成、--force 全量重建、check:audio 门禁、约 3.7MB/974 条），浏览器语音合成仅作兜底——永不请求外部语音服务；许可与复现见 NOTICE-AUDIO.md。",
-        "section": "audio"
       }
     ],
     "dos": [
-      "每屏只放一个发光主 CTA，其余推进入口降为幽灵按钮或文字链接。",
-      "文字 ≥12px 且在玻璃面上 ≥4.5:1，最暗只到雾板岩。",
-      "触控上下文的可点目标 ≥44×44px。",
-      "桌面主导航 ≤5 项，多余入口走页脚或更多菜单。",
-      "低于 640px 让页头标题与按钮上下堆叠；320px 起零横向溢出。",
-      "彩带与庆祝粒子只在真实学习里程碑（完成课程、全对通关）后释放。",
-      "反馈直接服务学习：对错、进度、完成状态可庆祝；数值成长指标（经验、连击、天数）不出现。",
-      "所有动效经动画档位降级并尊重 prefers-reduced-motion。",
-      "状态色只表达状态；焦点环对所有可聚焦元素常开。",
-      "新页面复用 PageIntro 骨架：面包屑 → kicker → 标题 → 说明 → 唯一下一步。"
+      "在教程面用 .edu-sheet 开页：骨白纸地、发丝线分区、纸页是唯一抬升；新路由先判断落在纸上还是夜里。",
+      "只用两支笔：批注红标「当下/功能」（朗读、当前、警示、错、章），结构蓝标「结构/已定」（书眉、导轨、链接、进度、答对）。",
+      "纸面描边保持 ≤1px 发丝线；3px 只出现在受批例外（书眉双线、tab 下划线、进度刻线、批注章双环）。",
+      "所有 IPA 转写走 .ipa 等宽；英文词头与展示数字走系统衬线；中文正文 16px/1.9、行长 ≤68ch。",
+      "状态给三重编码：颜色 + 文字/数字 + 形状（✓ / ✗ / ▶ / 描边纹样）；焦点环纸面 2px cobalt、深色壳 2px 青。",
+      "文字 ≥12px、对比 ≥4.5:1；触控上下文可点目标 ≥44×44px（npm run audit:floor 门禁把守）。",
+      "编排动作只留批注章；其余内容动画与状态过渡经 motion tier（完整/精简/关闭/跟随系统）与 prefers-reduced-motion 降级，动效关闭时内容仍完整可读。",
+      "反馈直接服务学习：对错、进度、完成可庆祝（批注章落纸只在真实完成时刻）；数值成长指标（经验、连击、天数）不出现。",
+      "每屏只有一个前进方向；桌面主导航 ≤5 项；低于 640px 标题与动作上下堆叠，320px 起零横向溢出。",
+      "发音使用同源离线音频（public/audio/，gen:audio / check:audio 门禁），语音合成仅兜底——永不请求外部语音服务。",
+      "深色壳新屏沿用原世界规则：唯一发光 CTA、玻璃卡容器、PageIntro 骨架（该壳属阶段二迁移范围，迁移前不改动其材质）。"
     ],
     "donts": [
-      "同屏并置两个发光或渐变描边的主按钮。",
-      "在玻璃卡里再嵌套有独立背景、描边、模糊的容器（卡中叠卡）。",
-      "用低于 12px、或比雾板岩更暗的灰承担文字；用紫色在玻璃面上写正文。",
-      "页面加载即放彩带——无事件的庆祝会让成就反馈贬值。",
+      "在纸面引入玻璃、辉光、渐变、极光或第二层阴影——纸内只有 .edu-sheet 那一次抬升。",
+      "在纸面使用眉标/kicker（全大写 + 横线的 eyebrow）；标题直接压场，小标签走行内。深色壳遗留的 kicker 用法是既有缺陷，不向任何新面延伸（见文末 drift 说明）。",
+      "在纸面引入第三种功能色，或用批注红/结构蓝铺大面积底、写长段正文。",
+      "用颜色单独表达状态；也不要让 IPA 数据进衬线、让词头进等宽。",
+      "在纸上叠影、叠模糊、卡中叠卡；深色壳同样禁止卡中叠卡。",
+      "让批注章之外的任何动效成为「编排动作」——页面进入不放彩带、不盖章。",
       "引入经验值、连击、连续天数、等级徽章等角色化成长元素——反馈只为学习，不为留存。",
-      "加载任何外部字体、CDN 或追踪脚本。",
-      "让固定元素遮挡内容，或把页头标题挤成竖排窄字条。",
+      "加载任何外部字体、CDN 或追踪脚本；离线可用、零请求是硬约束。",
+      "让固定元素（底部导航、吸顶头）遮挡内容，或把页头标题挤成竖排窄字条。",
       "在工具页使用营销式大图 hero——首屏必须是可执行的下一步。"
     ]
   }

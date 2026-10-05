@@ -1,12 +1,16 @@
 import { motion } from 'framer-motion';
-import { Volume2, Lightbulb, Zap } from 'lucide-react';
+import { Volume2, Lightbulb } from 'lucide-react';
 import { useMotionTier } from '@/hooks/useMotionTier';
 import { useSpeech } from '@/hooks/useSpeech';
 import { playSfx } from '@/hooks/useSfx';
 import { getDemo } from '../demoConfig';
 import type { Method } from '@/types';
 
-/** Step 3：规则演示 —— 音节划分 + 重音脉冲 + 点击朗读 */
+/**
+ * 步 3：规则演示 —— 音节块 + 重音批注 + 点击朗读。
+ * 重读是功能状态：批注红承载（含「重音」形状标签），纹样与颜色同时编码；
+ * 背景脉冲与辉光已除，内容动画（音节块入场、量条推进）保留。
+ */
 export default function RuleStep({ method }: { method: Method }) {
   const tier = useMotionTier();
   const { speak, supported } = useSpeech();
@@ -15,31 +19,23 @@ export default function RuleStep({ method }: { method: Method }) {
 
   if (!demo) {
     return (
-      <div className="flex flex-col gap-3">
+      <ol className="flex flex-col divide-y divide-rule border-y border-rule">
         {method.principles.map((p, i) => (
-          <motion.div
-            key={i}
-            initial={tier === 'off' ? false : { opacity: 0, x: -16 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: i * 0.08, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            className="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/[0.05] px-4 py-3"
-          >
-            <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-violet/20 text-xs font-bold text-violet-lit">
-              {i + 1}
-            </span>
-            <p className="text-sm leading-relaxed text-slate-200">{p}</p>
-          </motion.div>
+          <li key={i} className="flex items-start gap-3 px-1 py-3">
+            <span className="font-serif text-sm font-bold text-rubric">{i + 1}</span>
+            <p className="text-[14.5px] leading-[1.85] text-paperink">{p}</p>
+          </li>
         ))}
-      </div>
+      </ol>
     );
   }
 
   return (
     <div className="flex flex-col gap-5">
-      {/* 规则标题 */}
+      {/* 规则标题 + 朗读（词典发音行） */}
       <div className="flex flex-wrap items-center gap-3">
-        <span className="flex items-center gap-2 rounded-full border border-violet/40 bg-violet/12 px-3 py-1 text-xs font-semibold text-violet-lit">
-          <Lightbulb size={12} aria-hidden /> {demo.ruleTitle}
+        <span className="flex items-center gap-2 text-[13px] font-semibold text-cobalt">
+          <Lightbulb size={13} aria-hidden /> {demo.ruleTitle}
         </span>
         <button
           type="button"
@@ -48,12 +44,12 @@ export default function RuleStep({ method }: { method: Method }) {
             speak(demo.word);
           }}
           disabled={!supported}
-          className="flex items-center gap-2 rounded-full border border-neon/40 bg-neon/10 px-3 py-1 text-xs text-neon transition hover:bg-neon/20 disabled:opacity-40"
+          className="inline-flex min-h-[36px] items-center gap-1.5 rounded-full border border-[rgba(22,19,15,0.35)] px-3 py-1 text-xs text-paperink transition-colors hover:border-rubric hover:text-rubric disabled:opacity-40"
           aria-label={`播放 ${demo.word} 的发音`}
         >
           <Volume2 size={13} aria-hidden /> 朗读 {demo.word}（点击可听）
         </button>
-        <span className="ipa text-sm text-slate-400">{demo.ipa}</span>
+        <span className="ipa text-sm text-colophon">{demo.ipa}</span>
       </div>
 
       {/* 音节块 */}
@@ -65,28 +61,27 @@ export default function RuleStep({ method }: { method: Method }) {
               key={`${syl}-${i}`}
               type="button"
               role="listitem"
-              initial={tier === 'off' ? false : { opacity: 0, y: 24, scale: 0.86 }}
-              animate={{ opacity: stressed ? 1 : 0.62, y: 0, scale: 1 }}
-              transition={{ delay: 0.2 + i * 0.12, type: 'spring', stiffness: 260, damping: 24 }}
+              initial={tier === 'off' ? false : { opacity: 0, y: 16 }}
+              animate={{ opacity: stressed ? 1 : 0.6, y: 0 }}
+              transition={{ delay: 0.1 + i * 0.1, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
               onClick={() => {
                 playSfx(stressed ? 'correct' : 'tick');
                 speak(syl);
               }}
-              className={`group relative flex flex-col items-center gap-1 rounded-2xl border px-5 py-4 backdrop-blur-md transition-all duration-300 hover:opacity-100 ${
-                stressed ? 'stress-pulse border-neon/70 bg-neon/15' : 'border-white/15 bg-white/[0.05]'
+              className={`relative flex flex-col items-center gap-1 rounded-[4px] border px-5 py-4 transition-colors duration-200 hover:opacity-100 ${
+                stressed ? 'border-rubric bg-rubric/[0.07]' : 'border-rule bg-bone2/50'
               }`}
               aria-label={`${syl}${stressed ? '（重读音节）' : ''}，点击朗读`}
-              whileHover={{ opacity: 1 }}
             >
-              <span
-                className={`font-display text-xl font-bold ${stressed ? 'text-neon' : 'text-slate-200'}`}
-                style={stressed && tier !== 'off' ? { textShadow: '0 0 18px rgba(0,229,255,0.75)' } : undefined}
-              >
-                {syl}
-              </span>
-              <span className="ipa text-xs text-slate-400">{demo.syllableIpa[i]}</span>
+              <span className={`font-serif text-xl font-bold ${stressed ? 'text-rubric' : 'text-paperink'}`}>{syl}</span>
+              <span className="ipa text-xs text-colophon">{demo.syllableIpa[i]}</span>
               {stressed && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-neon px-2 py-0.5 text-xs font-bold uppercase tracking-wider text-[#04121c]">
+                <span
+                  className={`absolute -top-3 left-1/2 -translate-x-1/2 rounded-[2px] bg-rubric px-2 py-0.5 text-xs font-bold text-[#FBF6EC] ${
+                    tier === 'off' ? '' : 'edu-stamp'
+                  }`}
+                  style={tier === 'off' ? { transform: 'rotate(-8deg)' } : undefined}
+                >
                   重音
                 </span>
               )}
@@ -95,38 +90,36 @@ export default function RuleStep({ method }: { method: Method }) {
         })}
       </div>
 
-      {/* 规则文字 */}
-      <div className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm leading-relaxed text-slate-300">
+      {/* 规则文字：双细线夹注 */}
+      <div className="border-y-[3px] border-double border-rule py-3 text-[14.5px] leading-[1.85] text-paperink">
         {demo.ruleText}
       </div>
 
-      {/* 对比条：重读 vs 弱读 */}
-      <div className="grid gap-3 md:grid-cols-2">
-        <div className="rounded-2xl border border-neon/25 bg-neon/[0.06] p-4">
-          <div className="mb-2 flex items-center gap-2 text-xs font-semibold text-neon">
-            <Zap size={13} aria-hidden /> 重读音节：/{stressedIpa}/
-          </div>
-          <div className="h-2 rounded-full bg-white/8">
+      {/* 对比：重读 vs 弱读（发丝线分栏，量条为数据非装饰） */}
+      <div className="grid gap-x-6 gap-y-4 border-t border-rule pt-4 md:grid-cols-2">
+        <div>
+          <div className="mb-2 flex items-center gap-2 text-xs font-semibold text-rubric">重读音节：/{stressedIpa}/</div>
+          <div className="h-1.5 w-full bg-rule">
             <motion.div
-              className="h-full rounded-full bg-gradient-to-r from-neon to-violet"
+              className="h-full bg-rubric"
               initial={tier === 'off' ? false : { width: 0 }}
               animate={{ width: '82%' }}
-              transition={{ delay: 0.7, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ delay: 0.5, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             />
           </div>
-          <p className="mt-2 text-xs text-slate-400">音量更大、音长更长、音高更突出</p>
+          <p className="mt-2 text-xs text-colophon">音量更大、音长更长、音高更突出</p>
         </div>
-        <div className="rounded-2xl border border-white/12 bg-white/[0.04] p-4">
-          <div className="mb-2 text-xs font-semibold text-slate-300">非重读音节：弱读为 /ə/ 或短元音</div>
-          <div className="h-2 rounded-full bg-white/8">
+        <div>
+          <div className="mb-2 text-xs font-semibold text-colophon">非重读音节：弱读为 /ə/ 或短元音</div>
+          <div className="h-1.5 w-full bg-rule">
             <motion.div
-              className="h-full rounded-full bg-slate-500/70"
+              className="h-full bg-colophon/50"
               initial={tier === 'off' ? false : { width: 0 }}
               animate={{ width: '34%' }}
-              transition={{ delay: 0.85, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ delay: 0.65, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             />
           </div>
-          <p className="mt-2 text-xs text-slate-400">con 的 o、tion 的 e，都不读“饱满”</p>
+          <p className="mt-2 text-xs text-colophon">con 的 o、tion 的 e，都不读“饱满”</p>
         </div>
       </div>
     </div>

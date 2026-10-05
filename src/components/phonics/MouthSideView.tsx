@@ -35,10 +35,11 @@ function closurePoint(place: Articulation['place']): [number, number] {
 }
 
 /**
- * 口腔侧视图动画：
- * - 下颌开合 / 唇形圆展 / 舌位高低前后（由 geo 参数驱动）
+ * 口腔侧视图动画（辞书版式：印刷解剖图）：
+ * - 下颌开合 / 唇形圆展 / 舌位高低前后（由 geo 参数驱动）——动画逻辑原样保留
  * - 气流粒子：肺 → 咽 → 口腔/鼻腔；受阻点聚集，摩擦缝挤出
- * - 声带振动：浊音脉冲发光，清音静止
+ * - 声带振动：浊音脉冲，清音静止
+ * 配色：墨 = 轮廓，结构蓝 = 器官/结构标注，批注红 = 气流与发音焦点；无发光、无模糊、无渐变。
  */
 export default function MouthSideView({ geo, voiced, playing = true, showFront = true }: Props) {
   const tier = useMotionTier();
@@ -60,53 +61,32 @@ export default function MouthSideView({ geo, voiced, playing = true, showFront =
   const blockedPath = `M 268 268 L 268 205 C 268 172, 258 152, 238 140 C ${180 + cx / 4} 126, ${cx + 70} 122, ${cx + 6} ${cy + 6}`;
   const flowPath = closure >= 0.98 ? blockedPath : nasalFlow ? nasalPath : oralPath;
 
-  const flowColor = geo.manner === 'plosive' ? '#FFB300' : nasalFlow ? '#7C4DFF' : '#00E5FF';
+  // 纸面印刷图：气流 = 批注红（唯一功能色）
+  const flowColor = '#B3311E';
 
   return (
-    <div className="relative overflow-hidden rounded-3xl border border-white/12 bg-[#080D1F]/70 backdrop-blur-md">
+    <div className="relative overflow-hidden rounded-[4px] border border-rule bg-bone2/60">
       <svg viewBox="0 0 420 270" className="w-full" role="img" aria-label="口腔侧视图动画：展示舌位、口型与气流">
-        <defs>
-          <linearGradient id="tongue-grad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#FF4D9D" stopOpacity="0.95" />
-            <stop offset="100%" stopColor="#7C4DFF" stopOpacity="0.75" />
-          </linearGradient>
-          <radialGradient id="tongue-hot" cx="50%" cy="50%">
-            <stop offset="0%" stopColor="#00E5FF" stopOpacity="0.95" />
-            <stop offset="100%" stopColor="#00E5FF" stopOpacity="0" />
-          </radialGradient>
-          <linearGradient id="air-grad" x1="0" y1="1" x2="0" y2="0">
-            <stop offset="0%" stopColor={flowColor} stopOpacity="0.25" />
-            <stop offset="100%" stopColor={flowColor} stopOpacity="0.9" />
-          </linearGradient>
-          <filter id="soft-glow" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="4" result="b" />
-            <feMerge>
-              <feMergeNode in="b" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-        </defs>
-
         {/* 鼻腔 */}
         <path
           d="M 66 86 C 96 74, 136 70, 172 80 C 204 88, 220 106, 236 128 L 250 140"
-          fill="rgba(124,77,255,0.10)"
-          stroke="rgba(124,77,255,0.55)"
+          fill="rgba(30,75,122,0.07)"
+          stroke="rgba(30,75,122,0.5)"
           strokeWidth={1.5}
         />
         {/* 上颚（硬腭→软腭） */}
         <path
           d="M 74 118 C 100 100, 140 96, 176 100 C 210 104, 234 116, 250 136 C 258 148, 262 158, 262 170"
           fill="none"
-          stroke="rgba(226,240,255,0.75)"
+          stroke="rgba(22,19,15,0.7)"
           strokeWidth={4}
           strokeLinecap="round"
         />
-        {/* 软腭开合（鼻音时下垂，打开鼻腔通道） */}
+        {/* 软腭开合（鼻音时下垂，打开鼻腔通道）——结构标注为结构蓝 */}
         <motion.path
           d="M 246 132 C 256 144, 260 156, 258 168"
           fill="none"
-          stroke={nasalFlow ? '#7C4DFF' : 'rgba(226,240,255,0.75)'}
+          stroke={nasalFlow ? '#1E4B7A' : 'rgba(22,19,15,0.7)'}
           strokeWidth={4}
           strokeLinecap="round"
           animate={{ rotate: nasalFlow ? 14 : -4, opacity: 1 }}
@@ -115,13 +95,13 @@ export default function MouthSideView({ geo, voiced, playing = true, showFront =
         />
 
         {/* 上齿 */}
-        <path d="M 92 116 L 104 116 L 98 130 Z" fill="rgba(248,250,252,0.9)" />
+        <path d="M 92 116 L 104 116 L 98 130 Z" fill="#F7F2E8" stroke="rgba(22,19,15,0.55)" strokeWidth={1} />
         {/* 下齿（随下颌下移） */}
         <motion.g animate={{ y: jawY * 0.85 }} transition={{ duration: dur, ease: [0.22, 1, 0.36, 1] }}>
-          <path d="M 94 150 L 106 150 L 100 137 Z" fill="rgba(248,250,252,0.85)" />
+          <path d="M 94 150 L 106 150 L 100 137 Z" fill="#F7F2E8" stroke="rgba(22,19,15,0.55)" strokeWidth={1} />
         </motion.g>
 
-        {/* 舌：整体随前后/高低移动，形体随舌高缩放 */}
+        {/* 舌：整体随前后/高低移动，形体随舌高缩放（结构蓝墨线） */}
         <motion.g
           animate={{ x: tongueX, y: tongueY, scaleY: tongueScaleY }}
           style={{ originX: '170px', originY: '180px' }}
@@ -129,18 +109,17 @@ export default function MouthSideView({ geo, voiced, playing = true, showFront =
         >
           <path
             d="M 92 178 C 104 156, 132 146, 168 146 C 208 146, 238 158, 246 178 C 250 192, 244 204, 230 208 L 110 208 C 96 204, 88 192, 92 178 Z"
-            fill="url(#tongue-grad)"
-            stroke="rgba(255,155,198,0.8)"
+            fill="rgba(30,75,122,0.12)"
+            stroke="#1E4B7A"
             strokeWidth={1.5}
-            filter="url(#soft-glow)"
           />
-          {/* 舌位高光（发音焦点） */}
+          {/* 舌位焦点（发音焦点 = 批注红） */}
           <motion.ellipse
             cx={geo.tongueFront > 0.6 ? 118 : geo.tongueFront > 0.4 ? 168 : 222}
             cy={geo.tongueHigh > 0.5 ? 158 : 182}
             rx={34}
             ry={16}
-            fill="#00E5FF"
+            fill="#B3311E"
             opacity={0.5}
             animate={{ opacity: playing ? [0.3, 0.75, 0.3] : 0.35 }}
             transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
@@ -151,7 +130,7 @@ export default function MouthSideView({ geo, voiced, playing = true, showFront =
         <motion.path
           d="M 76 138 C 86 176, 96 200, 120 214 C 156 234, 214 236, 252 224"
           fill="none"
-          stroke="rgba(226,240,255,0.55)"
+          stroke="rgba(22,19,15,0.55)"
           strokeWidth={4}
           strokeLinecap="round"
           animate={{ y: jawY, rotate: geo.jawOpen * 5 }}
@@ -161,14 +140,14 @@ export default function MouthSideView({ geo, voiced, playing = true, showFront =
 
         {/* 唇（侧视：圆展 → 外突/贴合） */}
         <motion.g animate={{ x: -lipOut }} transition={{ duration: dur }}>
-          <path d={`M 74 112 C 66 116, 62 122, 64 128 C 58 134, 62 142, 72 146`} fill="none" stroke="#FF9BC6" strokeWidth={5} strokeLinecap="round" />
+          <path d={`M 74 112 C 66 116, 62 122, 64 128 C 58 134, 62 142, 72 146`} fill="none" stroke="rgba(22,19,15,0.8)" strokeWidth={5} strokeLinecap="round" />
         </motion.g>
 
         {/* 气流粒子 */}
         {playing && (
           <g aria-hidden>
             {[0, 1, 2, 3, 4, 5].map((i) => (
-              <circle key={i} r={4 - (i % 2)} fill={flowColor} opacity={0.85} filter="url(#soft-glow)">
+              <circle key={i} r={4 - (i % 2)} fill={flowColor} opacity={0.85}>
                 <animateMotion
                   dur={`${1.8 + (i % 3) * 0.35}s`}
                   begin={`${-i * 0.3}s`}
@@ -198,7 +177,7 @@ export default function MouthSideView({ geo, voiced, playing = true, showFront =
                     cy={cy}
                     r={4}
                     fill="none"
-                    stroke="#FFB300"
+                    stroke="#B3311E"
                     strokeWidth={2}
                   >
                     {/* r 属性用 SMIL 动画：framer-motion 会把 r 写成 "undefined" 触发浏览器报错 */}
@@ -218,7 +197,6 @@ export default function MouthSideView({ geo, voiced, playing = true, showFront =
                 cy={cy}
                 r={5}
                 fill={flowColor}
-                filter="url(#soft-glow)"
               >
                 {tier !== 'off' && (
                   <>
@@ -233,45 +211,44 @@ export default function MouthSideView({ geo, voiced, playing = true, showFront =
 
         {/* 声带 */}
         <g>
-          <line x1={256} y1={206} x2={282} y2={206} stroke="rgba(226,240,255,0.7)" strokeWidth={3} strokeLinecap="round" />
-          <line x1={256} y1={214} x2={282} y2={214} stroke="rgba(226,240,255,0.7)" strokeWidth={3} strokeLinecap="round" />
+          <line x1={256} y1={206} x2={282} y2={206} stroke="rgba(22,19,15,0.7)" strokeWidth={3} strokeLinecap="round" />
+          <line x1={256} y1={214} x2={282} y2={214} stroke="rgba(22,19,15,0.7)" strokeWidth={3} strokeLinecap="round" />
           {voiced ? (
             <motion.ellipse
               cx={269}
               cy={210}
               rx={13}
               ry={9}
-              fill="#00E676"
+              fill="#B3311E"
               opacity={0.65}
               animate={playing ? { opacity: [0.25, 0.9, 0.25], scale: [0.85, 1.2, 0.85] } : { opacity: 0.3 }}
               transition={{ duration: 0.34, repeat: Infinity, ease: 'easeInOut' }}
               style={{ originX: '269px', originY: '210px' }}
-              filter="url(#soft-glow)"
             />
           ) : (
-            <text x={269} y={236} textAnchor="middle" fill="#94A3B8" fontSize={10}>
+            <text x={269} y={236} textAnchor="middle" fill="#4A443B" fontSize={10}>
               不振动
             </text>
           )}
         </g>
 
         {/* 标注 */}
-        <text x={300} y={40} fill="#64748B" fontSize={11} fontFamily="ui-monospace, monospace">
+        <text x={300} y={40} fill="#4A443B" fontSize={11} fontFamily="ui-monospace, monospace">
           {geo.nasal ? '气流 → 鼻腔' : closure >= 0.9 ? `气流受阻 @ ${geo.place}` : closure > 0.4 ? '气流摩擦挤出' : '气流 → 口腔'}
         </text>
-        <text x={300} y={58} fill={voiced ? '#00E676' : '#64748B'} fontSize={11} fontFamily="ui-monospace, monospace">
+        <text x={300} y={58} fill={voiced ? '#B3311E' : '#4A443B'} fontSize={11} fontFamily="ui-monospace, monospace">
           声带：{voiced ? '振动（浊音）' : '静止（清音）'}
         </text>
-        <text x={20} y={258} fill="#64748B" fontSize={10}>
+        <text x={20} y={258} fill="#4A443B" fontSize={10}>
           侧面剖视 · 舌位高光 = 发音焦点
         </text>
       </svg>
 
       {/* 正视口型（唇形圆展） */}
       {showFront && (
-        <div className="absolute right-3 top-3 rounded-2xl border border-white/12 bg-black/40 p-2 backdrop-blur-md">
+        <div className="absolute right-3 top-3 rounded-[4px] border border-rule bg-bone2/95 p-2">
           <svg width={96} height={78} viewBox="0 0 96 78" role="img" aria-label="正面口型">
-            <text x={48} y={12} textAnchor="middle" fill="#64748B" fontSize={9}>
+            <text x={48} y={12} textAnchor="middle" fill="#4A443B" fontSize={9}>
               正面口型
             </text>
             {/* 上唇 */}
@@ -280,7 +257,9 @@ export default function MouthSideView({ geo, voiced, playing = true, showFront =
               cy={34 + jawY * 0.25}
               rx={30 - geo.lipRound * 14}
               ry={9 + geo.jawOpen * 2}
-              fill="#FF9BC6"
+              fill="#F7F2E8"
+              stroke="rgba(22,19,15,0.7)"
+              strokeWidth={1}
               /* rx 用 CSS 过渡：framer-motion 动画 SVG 几何属性会写入 "undefined" 并触发浏览器报错 */
               style={{ transition: `rx ${dur}s ease, ry ${dur}s ease` }}
             />
@@ -290,8 +269,8 @@ export default function MouthSideView({ geo, voiced, playing = true, showFront =
               cy={44 + jawY * 0.3}
               rx={26 - geo.lipRound * 15 + geo.jawOpen * 4}
               ry={3 + geo.jawOpen * 14}
-              fill="#050A18"
-              stroke="rgba(255,155,198,0.8)"
+              fill="#16130F"
+              stroke="rgba(22,19,15,0.55)"
               strokeWidth={2}
               transition={{ duration: dur }}
             />
@@ -301,16 +280,18 @@ export default function MouthSideView({ geo, voiced, playing = true, showFront =
               cy={58 + jawY * 0.45}
               rx={30 - geo.lipRound * 14}
               ry={9}
-              fill="#F472B6"
+              fill="#F7F2E8"
+              stroke="rgba(22,19,15,0.7)"
+              strokeWidth={1}
               transition={{ duration: dur }}
             />
-            {/* 舌尖可见（前元音/齿音时露出） */}
+            {/* 舌尖可见（前元音/齿音时露出）——发音焦点走批注红 */}
             <motion.ellipse
               cx={48}
               cy={47 + jawY * 0.3 - geo.tongueHigh * 4}
               rx={12 + geo.tongueFront * 6}
               ry={3 + geo.jawOpen * 4}
-              fill="url(#tongue-grad)"
+              fill="#B3311E"
               animate={{ opacity: geo.tongueFront > 0.55 || geo.place === 'dental' ? 0.95 : 0.25 }}
               transition={{ duration: dur }}
             />
