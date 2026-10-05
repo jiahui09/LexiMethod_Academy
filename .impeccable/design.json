@@ -398,7 +398,7 @@
       {
         "name": "sheet-lift",
         "value": "0 24px 64px rgba(0, 0, 0, 0.5)",
-        "purpose": "唯一抬升：.edu-sheet 纸页浮在深色书桌上；纸面内部任何元素不再投影（Single Lift Rule）。"
+        "purpose": "唯一抬升：.edu-sheet 纸页浮在纸面地上；纸面内部任何元素不再投影（Single Lift Rule）。"
       },
       {
         "name": "card-lift",
@@ -470,20 +470,49 @@
       {
         "name": "ambient-aurora",
         "value": "18s ease-in-out infinite",
-        "purpose": "【深色壳】极光背景循环；教程面（/methods/:id、/lab）静音 Backdrop 与 ParticleField。"
+        "purpose": "【已退役】Backdrop 极光背景与 ParticleField 已被全站停用（App 不再挂载）；其 CSS 动效定义留待阶段三清理。"
       }
     ],
     "breakpoints": [
-      { "name": "sm", "value": "640px" },
-      { "name": "md", "value": "768px" },
-      { "name": "lg", "value": "1024px" },
-      { "name": "xl", "value": "1280px", "purpose": "教程面栏外 apparatus（232px/208px）与实验室双栏现身处。" },
-      { "name": "wide", "value": "1360px", "purpose": "【深色壳】超宽屏低频入口的例外断点。" }
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px",
+        "purpose": "教程面栏外 apparatus（232px/208px）与实验室双栏现身处。"
+      },
+      {
+        "name": "wide",
+        "value": "1360px",
+        "purpose": "【深色壳】超宽屏低频入口的例外断点。"
+      }
     ],
     "layout": {
-      "container-page": { "maxWidth": "1240px", "padding": "16px → 32px @768px" },
-      "course-grid": { "rail": "168px", "reading": "1fr (max 68ch)", "apparatus": "232px @xl", "note": "导轨 md 以下转页顶横排" },
-      "lab-grid": { "chart": "380px @xl", "main": "1fr", "apparatus": "208px @xl" }
+      "container-page": {
+        "maxWidth": "1240px",
+        "padding": "16px → 32px @768px"
+      },
+      "course-grid": {
+        "rail": "168px",
+        "reading": "1fr (max 68ch)",
+        "apparatus": "232px @xl",
+        "note": "导轨 md 以下转页顶横排"
+      },
+      "lab-grid": {
+        "chart": "380px @xl",
+        "main": "1fr",
+        "apparatus": "208px @xl"
+      }
     }
   },
   "components": [
@@ -547,7 +576,7 @@
       "name": "Glass Card 玻璃卡（深色壳）",
       "kind": "card",
       "refersTo": "card-glass",
-      "description": "遗留深色壳唯一容器材质（Glass-Only Rule）；阶段二迁移前保持不动。",
+      "description": "遗留深色内容地唯一容器材质（Glass-Only Rule）；阶段三迁移前保持不动。",
       "html": "<div class=\"ds-card-glass\"><h3 class=\"ds-card-title\">词根词缀</h3><p class=\"ds-card-body\">把单词拆成可理解的零件，见词知义。</p></div>",
       "css": ".ds-card-glass{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:20px;box-shadow:0 8px 32px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.06);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);color:#E2E8F0;font:400 14px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif}.ds-card-title{margin:0 0 8px;font:700 20px/1.3 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;color:#fff}.ds-card-body{margin:0;color:#CBD5E1}"
     },
@@ -558,16 +587,24 @@
       "description": "深色壳一屏唯一的发光主行动点（One Glow Rule）。",
       "html": "<button class=\"ds-btn-neon\">开始旗舰课</button>",
       "css": ".ds-btn-neon{position:relative;isolation:isolate;border-radius:14px;padding:10px 18px;min-height:44px;font:600 14px/1.4 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;color:#E8FBFF;background:linear-gradient(#101A35,#101A35) padding-box,linear-gradient(120deg,#00E5FF,#7C4DFF,#FF4D9D,#00E5FF) border-box;border:1px solid transparent;background-size:100% 100%,300% 100%;cursor:pointer;transition:transform .25s cubic-bezier(.22,1,.36,1),box-shadow .35s cubic-bezier(.22,1,.36,1),background-position .6s cubic-bezier(.22,1,.36,1)}.ds-btn-neon:hover{background-position:0 0,100% 0;transform:translateY(-1px);box-shadow:0 0 24px rgba(0,229,255,.18),0 0 64px rgba(124,77,255,.12)}.ds-btn-neon:active{transform:scale(.96)}.ds-btn-neon:focus-visible{outline:2px solid #00E5FF;outline-offset:3px}.ds-btn-neon:disabled{opacity:.4;cursor:not-allowed;box-shadow:none;transform:none}"
+    },
+    {
+      "name": "ThumbIndex 切口拇指索引",
+      "kind": "navigation",
+      "refersTo": "thumb-index",
+      "description": "书口上的 8 枚索引贴，一贴一课（src/components/layout/ThumbIndex.tsx）。xl 以上 variant=edge 贴纸页右缘竖排 sticky；窄屏 variant=inline 行内横排可滚。四态纹样与列表「你在这里」同源（currentId 由页面 nextPos 传入）：已学=cobalt 描边+✓；当前（唯一）=rubric 实底+▶；进行中=rubric 描边+▷ 空心；未到=发丝线空贴。",
+      "html": "<nav aria-label=\"方法课程\" class=\"ds-thumbindex\"><a class=\"ds-thumb done\" href=\"/methods/phonics-syllables\">✓ 自然拼读</a><a class=\"ds-thumb active\" href=\"/methods/phonetic-spelling\">▶ 音标拼写</a><a class=\"ds-thumb todo\" href=\"/methods/roots-affixes\">词根词缀</a></nav>",
+      "css": ".ds-thumbindex{display:flex;flex-direction:column;gap:6px}.ds-thumb{display:flex;align-items:center;gap:8px;min-height:44px;min-width:44px;padding:8px 14px;border:1px solid #D8CFBC;border-radius:3px 0 0 3px;color:#4A443B;font-size:13px;text-decoration:none}.ds-thumb.done{border-color:#1E4B7A;color:#1E4B7A}.ds-thumb.active{background:#B3311E;border-color:#B3311E;color:#F7F2E8}.ds-thumb.todo{border-color:#D8CFBC;color:#4A443B}"
     }
   ],
   "narrative": {
     "northStar": "辞书版式（The Dictionary Edition）— 方法是词目，步骤是义项，演示是例句，误区是辨析。",
-    "overview": "本站是双世界并存、分阶段迁移的系统。教程面（/methods/:methodId、/lab）已建成第二个世界：骨白纸满地（#F7F2E8）、墨文承字、发丝线划栏，一册可读可练的双解词法书摊在深色书桌上（.edu-sheet 是全站唯一一次抬升，0 24px 64px rgba(0,0,0,0.5)）。词头朗读时批注红章斜落纸上——像用红笔在词典上做了记号——是这个世界的签名瞬间。纸面拒绝玻璃、辉光、渐变与眉标（kicker）：标题自己承载重量，标签一律走行内。\n\n导航壳与其余路由（header / footer / BottomNav / NextStepBar / Home / MethodList / practice / feynman 等）仍是第一世界「深夜自习室」：深夜蓝固定渐变、霓虹青意图信号、玻璃卡容器。它们是已记录的阶段二迁移，本轮不迁移；两个世界的规则在同一文件中分区记录，新增页面先判断自己站在纸上还是夜里。\n\n反参考在两个世界同样成立：拒绝白底卡片网格 + 渐变 hero + 进度环的网课站货架感（教程面做一部书，不做课程货架），拒绝经验值 / 连击 / 连续天数 / 等级徽章等角色化成长内容，拒绝任何外部字体与 CDN 资源——离线可用、零请求是硬约束。",
+    "overview": "本站是双世界并存、分阶段迁移的系统。教程面（/methods/:methodId、/lab）已建成第二个世界：骨白纸满地（#F7F2E8）、墨文承字、发丝线划栏，一册可读可练的双解词法书摊在骨白纸面上（.edu-sheet 是全站唯一一次抬升，0 24px 64px rgba(0,0,0,0.5)）。词头朗读时批注红章斜落纸上——像用红笔在词典上做了记号——是这个世界的签名瞬间。纸面拒绝玻璃、辉光、渐变与眉标（kicker）：标题自己承载重量，标签一律走行内。\n\n导航壳与首屏路由（header / footer / BottomNav / NextStepBar / Home / MethodList）已迁入纸面世界：骨白书眉（3px 双线压顶）、批注红 3px 刻线激活态、衬线刊记页脚、发丝线行的首页与方法列表——纸面把深色桌面一起接管（body 即 #F7F2E8，.edu-sheet 仍是唯一抬升的纸页）。剩余功能页（practice / feynman / review / stats / settings / toolbox 等）过渡期为深色内容嵌在纸面壳内（hasPaperGround 给它们垫 bg-abyss 地），是已记录的阶段三迁移；两个世界的规则在同一文件中分区记录，新增页面先判断自己站在纸上还是夜里。\n\n反参考在两个世界同样成立：拒绝白底卡片网格 + 渐变 hero + 进度环的网课站货架感（教程面做一部书，不做课程货架），拒绝经验值 / 连击 / 连续天数 / 等级徽章等角色化成长内容，拒绝任何外部字体与 CDN 资源——离线可用、零请求是硬约束。",
     "keyCharacteristics": [
       "纸面双笔色：批注红（功能/当下）+ 结构蓝（结构/已定），骨白纸与发丝线做地",
       "系统字体单兵种：中文正文系统无衬线 16px/1.9；系统衬线只给英文词头与展示数字；IPA 一律 .ipa 等宽（0.01em）",
       "纸面描边 ≤1px（例外：书眉双线 / tab 下划线 / 进度刻线 3px、批注章双环），盒角 4px、控件角 3px",
-      "抬升只声明一次（纸页浮于深色书桌）；编排动作只有一个（批注章落纸），内容动画全走 motion tier",
+      "抬升只声明一次（纸页浮于纸面地）；编排动作只有一个（批注章落纸），内容动画全走 motion tier",
       "状态从不只靠颜色：✓ / ✗ / ▶ 实心三角 / 描边纹样三重编码",
       "深色壳保留原世界：每屏唯一发光 CTA、玻璃卡唯一容器、绿/琥珀/红状态色（仅暗面）",
       "无角色化成长系统；动效分层：状态反馈 → 氛围层（档位）→ 完成时刻"
@@ -625,7 +662,7 @@
       "反馈直接服务学习：对错、进度、完成可庆祝（批注章落纸只在真实完成时刻）；数值成长指标（经验、连击、天数）不出现。",
       "每屏只有一个前进方向；桌面主导航 ≤5 项；低于 640px 标题与动作上下堆叠，320px 起零横向溢出。",
       "发音使用同源离线音频（public/audio/，gen:audio / check:audio 门禁），语音合成仅兜底——永不请求外部语音服务。",
-      "深色壳新屏沿用原世界规则：唯一发光 CTA、玻璃卡容器、PageIntro 骨架（该壳属阶段二迁移范围，迁移前不改动其材质）。"
+      "新屏一律落在纸面世界（.edu-sheet 骨白纸地 + 发丝线分区 + Edu 家族）；遗留功能页的深色内容是阶段三迁移的过渡态（hasPaperGround 垫地），其 PageIntro / 玻璃卡 / 发光 CTA 只在该地存活，不向纸面延伸。"
     ],
     "donts": [
       "在纸面引入玻璃、辉光、渐变、极光或第二层阴影——纸内只有 .edu-sheet 那一次抬升。",

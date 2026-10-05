@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 /* ============================================================
-   LexiMethod Academy — 设计系统基座
-   暗色霓虹 + 玻璃拟态 + 极光渐变
+   LexiMethod Academy — 设计系统基站
+   骨白纸地（辞书版式全站地面）+ 遗留深色组件层（阶段二迁移中）
    ============================================================ */
 
 :root {
@@ -30,20 +30,16 @@ html {
 }
 
 body {
-  @apply font-sans text-slate-200 antialiased;
-  background:
-    radial-gradient(1200px 700px at 12% -8%, rgba(124, 77, 255, 0.22), transparent 58%),
-    radial-gradient(1000px 640px at 105% 2%, rgba(0, 229, 255, 0.14), transparent 55%),
-    radial-gradient(900px 900px at 50% 120%, rgba(255, 77, 157, 0.1), transparent 60%),
-    linear-gradient(180deg, #0b1020 0%, #111936 55%, #0b1020 100%);
-  background-attachment: fixed;
+  @apply font-sans text-paperink antialiased;
+  /* 全站地面：骨白纸（旧极光渐变书桌随 Backdrop / ParticleField 一并退役） */
+  background: #f7f2e8;
   min-height: 100vh;
   overflow-x: hidden;
 }
 
 ::selection {
-  background: rgba(0, 229, 255, 0.28);
-  color: #ffffff;
+  background: rgba(179, 49, 30, 0.18);
+  color: #16130f;
 }
 
 /* ---------------- 滚动条 ---------------- */
@@ -52,17 +48,14 @@ body {
   height: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.03);
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, rgba(0, 229, 255, 0.5), rgba(124, 77, 255, 0.5));
+  background: #d8cfbc;
   border-radius: 999px;
-  border: 2px solid transparent;
-  background-clip: padding-box;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, rgba(0, 229, 255, 0.8), rgba(124, 77, 255, 0.8));
-  background-clip: padding-box;
+  background: #bfb3a0;
 }
 
 /* ---------------- 可访问性 ---------------- */
@@ -70,6 +63,15 @@ body {
   outline: 2px solid var(--neon);
   outline-offset: 3px;
   border-radius: 8px;
+}
+
+/* 纸面壳件（书眉 / 页脚 / 引导条 / 底导 / 降级页）走纸面焦点环：
+   全局青环只留给仍在迁移中的遗留深色内容（DESIGN.md 焦点环分世界） */
+.paper-chrome:focus-visible,
+.paper-chrome :focus-visible {
+  outline: 2px solid #1e4b7a;
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 .sr-only {
@@ -390,15 +392,16 @@ html[data-motion='light'] .aurora-blob {
 }
 
 /* ============================================================
-   辞书版式（Dictionary Edition）—— 教程面 / 音标实验室的纸面世界
+   辞书版式（Dictionary Edition）—— 全站纸面世界
    骨白纸地、墨文、结构蓝、批注红；发丝线分区，无玻璃无辉光。
-   导航壳 / 页脚 / 底导仍为遗留深色世界（阶段二迁移）。
+   导航壳 / 页脚 / 底导 / 引导条已随阶段二迁入纸面；
+   遗留功能页（训练等）过渡期以深色内容块嵌在纸面地里（阶段三迁移）。
    ============================================================ */
 .edu-sheet {
   background: #f7f2e8;
   color: #16130f;
   caret-color: #b3311e;
-  /* 抬升只声明一次：纸页浮在深色书桌上 */
+  /* 抬升只声明一次：纸页浮在纸面地（body 即 #F7F2E8） */
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
 }
 

@@ -1,45 +1,31 @@
 import { useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import {
-  Sparkles,
-  AudioLines,
   ArrowRight,
-  Trophy,
-  Target,
+  AudioLines,
   BookOpenText,
-  Layers,
+  Check,
+  MapPin,
   MessagesSquare,
   Minus,
   Plus,
   RotateCcw,
-  MapPin,
+  Target,
 } from 'lucide-react';
-import type { LucideIcon } from 'lucide-react';
 import { methods } from '@/data/methods';
 import { useProgress, useOverallProgress } from '@/store/progressStore';
 import { useReview } from '@/store/reviewStore';
-import ProgressRing from '@/components/ui/ProgressRing';
-import NeonButton from '@/components/ui/NeonButton';
-import { ParticleConverge } from '@/components/course/FeedbackFx';
-import { SectionHeading } from '@/components/ui/Bits';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
-import { StaggerGroup, StaggerItem } from '@/components/ui/Cards';
-import { useMotionTier } from '@/hooks/useMotionTier';
+import ThumbIndex from '@/components/layout/ThumbIndex';
+import { EduSheet, EduRunningHead, EduButton, EduNote } from '@/components/edu';
 import { playSfx } from '@/hooks/useSfx';
 
-const ICONS: Record<string, LucideIcon> = {
-  AudioLines,
-  Sparkles,
-  Target,
-  BookOpenText,
-  Layers,
-  Trophy,
-};
-
-/** 首页 / 学习地图 */
+/**
+ * 首页 / 学习地图（辞书版式）：一部词典的门厅页。
+ * 书眉定位（面包屑 + 刻线），首屏是续学词条，其下 8 门方法排成词条列表，
+ * 右缘 2/12 是切口拇指索引贴（签名件），窄屏降级为列表上方的行内贴条。
+ */
 export default function Home() {
-  const tier = useMotionTier();
   const navigate = useNavigate();
   const progress = useProgress();
   const overall = useOverallProgress(methods.length);
@@ -51,18 +37,6 @@ export default function Home() {
     () => methods.every((m) => (progress.completedSteps[m.id] ?? []).length === 0),
     [progress.completedSteps],
   );
-
-  const title = 'LexiMethod Academy';
-  /** 按词分组（词内逐字入场、词间不拆断）：移动端 Academy 不再断成 Aca/demy；i 为全局字符位，保持原延迟节奏 */
-  const titleWords = (() => {
-    const words = title.split(' ');
-    let offset = 0;
-    return words.map((word) => {
-      const chars = word.split('').map((ch, ci) => ({ ch, i: offset + ci }));
-      offset += word.length + 1;
-      return chars;
-    });
-  })();
 
   /**
    * 「上次剩余的学习内容」唯一推算口径：
@@ -88,427 +62,442 @@ export default function Home() {
       : '开始第一课';
   const heroTarget = nextPos.finished ? '/analyze' : `/methods/${nextPos.method.id}?step=${nextPos.step}`;
 
+  /** 续学词条的词头与刻线进度（与 hero 同一口径） */
+  const headword = nextPos.finished ? '全部课程完成' : shortTitle(nextPos.method);
+  const heroDone = nextPos.finished
+    ? nextPos.method.steps.length
+    : progress.completedSteps[nextPos.method.id]?.length ?? 0;
+  const heroPct = Math.min(100, Math.round((heroDone / nextPos.method.steps.length) * 100));
+
   return (
-    <div className="flex flex-col gap-10 pb-6">
-      <Breadcrumbs items={[{ label: '学习地图' }]} />
-
-      {/* ---------- HERO ---------- */}
-      <section className="relative overflow-hidden rounded-[32px] border border-white/10 bg-white/[0.03] px-6 py-12 md:py-16">
-        <div
-          className="absolute left-1/2 top-1/2 h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl"
-          style={{ background: 'radial-gradient(circle, rgba(0,229,255,0.35), rgba(124,77,255,0.2) 55%, transparent 75%)' }}
-          aria-hidden
-        />
-        <ParticleConverge active={tier !== 'off'} count={34} />
-
-        <div className="relative z-10 mx-auto max-w-3xl text-center">
-          <motion.div
-            initial={tier === 'off' ? false : { opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="mb-4 inline-flex items-center gap-2 rounded-full border border-neon/40 bg-neon/10 px-4 py-1.5 text-xs text-neon"
-          >
-            <Sparkles size={13} aria-hidden /> 授人以渔 · 教方法，而不是堆词表
-          </motion.div>
-
-          {/* 标题逐字弹入（按词分组，词内不拆断） */}
-          <h1 className="flex flex-wrap items-baseline justify-center gap-x-2.5 font-display text-4xl font-bold leading-tight md:gap-x-4 md:text-6xl">
-            {titleWords.map((word, wi) => (
-              <span key={wi} className="inline-block whitespace-nowrap">
-                {word.map(({ ch, i }) => (
-                  <motion.span
-                    key={i}
-                    className={`inline-block ${i < 11 ? 'text-white' : 'text-gradient'}`}
-                    initial={tier === 'off' ? false : { opacity: 0, y: 34, scale: 0.7, rotate: -6 }}
-                    animate={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
-                    transition={{ delay: 0.2 + i * 0.045, type: 'spring', stiffness: 300, damping: 20 }}
-                    style={{ textShadow: '0 0 32px rgba(0,229,255,0.35)' }}
-                  >
-                    {ch}
-                  </motion.span>
-                ))}
+    <EduSheet>
+      {/* 书眉：我在哪 + 整本书读到哪（刻线 = 8 门总进度） */}
+      <EduRunningHead
+        left={<Breadcrumbs tone="paper" items={[{ label: '学习地图' }]} />}
+        right={
+          <>
+            <span className="hidden items-center gap-2 sm:flex" aria-hidden>
+              <span className="relative block h-[3px] w-24 bg-rule">
+                <span
+                  className="absolute left-0 top-0 h-[3px] bg-cobalt transition-[width] duration-500 ease-out-expo"
+                  style={{ width: `${Math.round(overall * 100)}%` }}
+                />
               </span>
-            ))}
-          </h1>
+            </span>
+            <span className="text-xs font-semibold tabular-nums text-paperink">
+              {progress.completedMethods.length}/{methods.length}
+            </span>
+          </>
+        }
+      />
 
-          <motion.p
-            initial={tier === 'off' ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9, duration: 0.5 }}
-            className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-slate-300/90 md:text-base"
-          >
-            学会后你能：<b className="text-neon">看到生词读出来</b> · <b className="text-violet-lit">听到发音拼出来</b> ·{' '}
-            <b className="text-pink-lit">拆开词根猜意思</b> · 用科学的复习与输出把被动词汇变成主动词汇。
-          </motion.p>
-
-          <motion.div
-            initial={tier === 'off' ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.05, duration: 0.5 }}
-            className="mt-7 flex flex-wrap items-center justify-center gap-3"
-          >
-            <NeonButton size="lg" onClick={() => { playSfx('click'); navigate(heroTarget); }} data-testid="hero-resume">
-              {heroLabel} <ArrowRight size={16} aria-hidden />
-            </NeonButton>
-            <NeonButton size="lg" variant="ghost" onClick={() => { playSfx('click'); navigate('/lab/phonemes'); }}>
-              <AudioLines size={16} aria-hidden /> 进入音标实验室
-            </NeonButton>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ---------- 数据条（首访空态不渲染，避免一屏 0/0/0/0 的空账本） ---------- */}
-      {!isFirstVisit && (
-      <section className="grid gap-4 md:grid-cols-[repeat(4,1fr)]">
-        <div className="glass flex items-center gap-4 p-5">
-          <ProgressRing value={overall} size={104} label="总进度" delay={0.1} />
-          <div>
-            <div className="text-xs uppercase tracking-widest text-slate-400">方法课程</div>
-            <div className="font-display text-xl font-bold text-white">
-              {progress.completedMethods.length}
-              <span className="text-sm text-slate-400"> / {methods.length}</span>
-            </div>
-            <div className="text-xs text-slate-400">模块已完成</div>
-          </div>
-        </div>
-
-        <div className="glass flex flex-col justify-center gap-1 p-5">
-          <div className="flex items-center gap-2 text-success">
-            <AudioLines size={18} aria-hidden />
-            <span className="font-display text-3xl font-bold tabular-nums">{progress.phonemesLearned.length}</span>
-            <span className="text-xs text-slate-400">/48 音标已学</span>
-          </div>
-          <div className="text-xs text-slate-400">实战分析过 {progress.analyzedWords.length} 个词</div>
-        </div>
-
-        <div className="glass flex flex-col justify-center gap-1 p-5">
-          <div className="flex items-center gap-2 text-warn">
-            <Target size={18} aria-hidden />
-            <span className="font-display text-3xl font-bold tabular-nums">{mistakeCount}</span>
-            <span className="text-xs text-slate-400">道错题待订正</span>
-          </div>
-          <div className="text-xs text-slate-400">复习中心会按遗忘曲线排期</div>
-        </div>
-
-        <div className="glass flex flex-col justify-center gap-1 p-5">
-          <div className="flex items-center gap-2 text-neon">
-            <BookOpenText size={18} aria-hidden />
-            <span className="font-display text-3xl font-bold tabular-nums">{dueCount}</span>
-            <span className="text-xs text-slate-400">张到期复习卡</span>
-          </div>
-          <div className="text-xs text-slate-400">
-            <Link to="/review" className="text-neon underline">
-              去复习中心 →
-            </Link>
-          </div>
-        </div>
-      </section>
-      )}
-
-      {/* ---------- 我的进度 · 继续学习（唯一进度调节入口） ---------- */}
-      <section
-        className="glass relative overflow-hidden p-5 md:p-6"
-        data-testid="progress-panel"
-        aria-labelledby="progress-panel-title"
-      >
-        <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
-          <div>
-            <div className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400">My Progress</div>
-            <h2 id="progress-panel-title" className="font-display text-xl font-bold text-white">
-              我的进度 · 继续学习
-            </h2>
-          </div>
-          <p className="max-w-md text-xs leading-relaxed text-slate-400">
-            <b className="text-neon">本站零存储</b>：不写浏览器存储、不自动续学，刷新后回到 0。
-            把节数调到你上次学到的位置，从那里接着往下走。
-          </p>
-        </div>
-
-        {/* 首访引导：三步上手（浅色描边，CTA 为描边款，不是发光主按钮） */}
-        {isFirstVisit && (
-          <div className="mb-4 flex flex-wrap items-center gap-x-5 gap-y-3 rounded-2xl border border-white/15 bg-white/[0.03] px-4 py-3.5">
-            <ol className="flex min-w-0 flex-1 flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-300">
-              <li className="flex items-center gap-1.5">
-                <span className="flex h-5 w-5 items-center justify-center rounded-full border border-neon/50 text-xs font-bold text-neon">1</span>
-                看方法课
-              </li>
-              <li aria-hidden className="text-slate-400">→</li>
-              <li className="flex items-center gap-1.5">
-                <span className="flex h-5 w-5 items-center justify-center rounded-full border border-neon/50 text-xs font-bold text-neon">2</span>
-                做对应训练
-              </li>
-              <li aria-hidden className="text-slate-400">→</li>
-              <li className="flex items-center gap-1.5">
-                <span className="flex h-5 w-5 items-center justify-center rounded-full border border-neon/50 text-xs font-bold text-neon">3</span>
-                到期复习
-              </li>
-            </ol>
-            <p className="basis-full text-xs leading-relaxed text-slate-400 md:basis-auto">
-              进度只存在这次会话里：学过的内容会自动排进复习队列，刷新即归零、不上传任何个人数据。
+      <div className="xl:grid xl:grid-cols-12">
+        {/* 正文 10/12 */}
+        <div className="min-w-0 px-5 py-6 md:px-8 md:py-8 xl:col-span-10 xl:border-r xl:border-rule">
+          {/* ---------- HERO：续学词条 ---------- */}
+          <section className="border-b border-rule pb-6">
+            <h1 className="font-serif text-[26px] font-bold leading-tight text-paperink md:text-[32px]">
+              LexiMethod Academy
+            </h1>
+            <p className="mt-2 max-w-[68ch] text-[15px] leading-[1.85] text-colophon">
+              学会后你能：<b className="font-semibold text-cobalt">看到生词读出来</b> ·{' '}
+              <b className="font-semibold text-cobalt">听到发音拼出来</b> ·{' '}
+              <b className="font-semibold text-cobalt">拆开词根猜意思</b> · 用科学的复习与输出把被动词汇变成主动词汇。
             </p>
-            <Link
-              to="/methods"
-              className="inline-flex min-h-[44px] shrink-0 items-center gap-1.5 rounded-xl border border-neon/45 bg-neon/10 px-4 py-2.5 text-sm font-medium text-neon transition-all hover:-translate-y-0.5 hover:bg-neon/15"
-            >
-              去看方法课 <ArrowRight size={14} aria-hidden />
-            </Link>
-          </div>
-        )}
 
-        {/* 首访时空库的「继续学习」大卡与 hero 主 CTA 重复，隐藏它（进度行仍全部保留） */}
-        <div className={`grid gap-5 ${isFirstVisit ? '' : 'lg:grid-cols-[minmax(0,330px)_minmax(0,1fr)]'}`}>
-          {/* 左：当前位置 + 继续学习 */}
-          {!isFirstVisit && (
-          <div className="flex flex-col gap-4 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-            <div className="flex items-center gap-4">
-              <ProgressRing value={overall} size={104} label="总进度" />
-              <div className="min-w-0">
-                <div className="text-xs text-slate-400">当前推进到</div>
-                <div className="font-display text-lg font-bold text-white" data-testid="resume-title">
-                  {nextPos.finished ? '全部课程完成' : shortTitle(nextPos.method)}
+            {/* 词条行：xl 时零存储声明退到页边做栏外批注，窄屏折行到行内 */}
+            <div className="mt-5 flex flex-col gap-4 xl:flex-row xl:items-start xl:gap-8">
+              <div className="min-w-0 flex-1">
+                <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-t border-rule pt-4">
+                  <h2 className="font-serif text-[21px] font-bold leading-snug text-paperink md:text-[25px]">
+                    {headword}
+                  </h2>
+                  <span className="text-sm tabular-nums text-colophon">
+                    第 {nextPos.step + 1} 步 / 共 {nextPos.method.steps.length} 步
+                  </span>
                 </div>
-                <div className="text-xs text-slate-400" data-testid="resume-step">
-                  {nextPos.finished
-                    ? '反复实战 + 费曼关，把方法变成手感'
-                    : `第 ${nextPos.step + 1} 步 / 共 ${nextPos.method.steps.length} 步 · ${
-                        nextPos.method.steps[nextPos.step]?.title ?? ''
-                      }`}
+
+                {/* 进度刻线：发丝线槽 + 结构蓝填充 */}
+                <span className="mt-3 block h-[3px] w-full max-w-md bg-rule" aria-hidden>
+                  <span
+                    className="block h-[3px] bg-cobalt transition-[width] duration-500 ease-out-expo"
+                    style={{ width: `${heroPct}%` }}
+                  />
+                </span>
+
+                <div className="mt-4 flex flex-wrap items-center gap-3">
+                  <EduButton
+                    variant="primary"
+                    sfx={false}
+                    data-testid="hero-resume"
+                    onClick={() => {
+                      playSfx('click');
+                      navigate(heroTarget);
+                    }}
+                  >
+                    {heroLabel} <ArrowRight size={15} aria-hidden />
+                  </EduButton>
                 </div>
               </div>
+
+              {/* 零存储声明：xl 页边批注 / 窄屏行内 */}
+              <div data-testid="zero-storage-note" className="xl:w-64 xl:shrink-0">
+                <EduNote>
+                  <b className="font-semibold text-cobalt">本站零存储</b>：不写浏览器存储、不自动续学，刷新后回到 0。
+                  把节数调到你上次学到的位置，从那里接着往下走。
+                </EduNote>
+              </div>
             </div>
+          </section>
 
-            <NeonButton
-              className="w-full"
-              data-testid="resume-btn"
-              onClick={() => {
-                playSfx('click');
-                navigate(heroTarget);
-              }}
-            >
-              <MapPin size={15} aria-hidden />
-              {nextPos.finished ? '去实战演练' : nextPos.started ? `从第 ${nextPos.step + 1} 步继续` : '从这里开始学'}
-              <ArrowRight size={15} aria-hidden />
-            </NeonButton>
-
-            <p className="text-xs leading-relaxed text-slate-400">
-              指哪学哪：进度由你自己调节，站点不替你猜。调完直接跳到那一节。
-            </p>
+          {/* ---------- 切口贴降级（<xl）：列表上方的行内横排贴条 ---------- */}
+          <div className="mt-6 xl:hidden">
+            <ThumbIndex variant="inline" currentId={nextPos.method.id} />
           </div>
+
+          {/* ---------- 8 门方法词条列表 ---------- */}
+          <section className="mt-8">
+            <h2 className="text-[21px] font-bold leading-snug text-paperink md:text-[25px]">
+              学习地图：8 个方法模块，一条路径走通
+            </h2>
+            <p className="mt-2 max-w-[68ch] text-[15px] leading-[1.85] text-colophon">
+              按顺序学习：发音与拼写 → 音节与重读 → 词根词缀 → 记忆策略 → 语境输入 → 间隔复习 → 主动输出 → 元认知。每一步都有原理、动画演示、练习、实战、误区与掌握标准。
+            </p>
+
+            <ol className="mt-4 border-t border-rule">
+              {methods.map((m, i) => {
+                const done = progress.completedMethods.includes(m.id);
+                const steps = progress.completedSteps[m.id] ?? [];
+                const isCurrent = !done && !nextPos.finished && nextPos.method.id === m.id;
+                return (
+                  <li key={m.id}>
+                    <Link
+                      to={`/methods/${m.id}`}
+                      data-testid="data-method-row"
+                      onClick={() => playSfx('click')}
+                      className="group flex min-h-[44px] flex-wrap items-center gap-x-3 gap-y-1.5 border-b border-rule px-2 py-2.5 transition-colors hover:bg-bone2/60"
+                    >
+                      <span className="font-serif text-lg font-bold tabular-nums text-rubric" aria-hidden>
+                        {String(i + 1).padStart(2, '0')}
+                      </span>
+                      <h3 className="font-serif text-[17px] font-bold leading-snug text-paperink md:text-[19px]">
+                        {m.title}
+                      </h3>
+                      {/* 点线 leaders */}
+                      <span
+                        className="hidden min-w-10 flex-1 translate-y-[6px] border-b border-dotted border-rule sm:block"
+                        aria-hidden
+                      />
+
+                      {/* 进度状态纹样：形状 + 颜色 + 数字，从不只靠颜色 */}
+                      {isCurrent && (
+                        <span
+                          data-testid="map-you-are-here"
+                          className="flex items-center gap-1 rounded-[2px] border border-rubric px-1.5 py-0.5 text-xs font-medium text-rubric"
+                        >
+                          <MapPin size={11} aria-hidden /> 你在这里
+                        </span>
+                      )}
+                      <span className="flex shrink-0 items-center gap-1.5 text-xs font-medium">
+                        {done ? (
+                          <span className="flex items-center gap-1 text-cobalt">
+                            <Check size={13} strokeWidth={2.5} aria-hidden />
+                            已完成
+                          </span>
+                        ) : !done && steps.length > 0 ? (
+                          <span className="flex items-center gap-1 text-rubric">进行中</span>
+                        ) : null}
+                        <span
+                          className={`tabular-nums ${
+                            done ? 'text-cobalt' : isCurrent || steps.length > 0 ? 'text-rubric' : 'text-colophon'
+                          }`}
+                        >
+                          {steps.length}/{m.steps.length}
+                        </span>
+                      </span>
+
+                      {/* 右缘入口 */}
+                      <span
+                        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[3px] border border-rule text-colophon transition-colors group-hover:border-paperink group-hover:bg-bone group-hover:text-paperink"
+                        aria-hidden
+                      >
+                        <ArrowRight size={15} />
+                      </span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ol>
+          </section>
+
+          {/* ---------- 数据条（首访空态不渲染，避免一屏 0/0/0/0 的空账本） ---------- */}
+          {!isFirstVisit && (
+            <section className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              <div className="rounded-[4px] border border-rule bg-bone2/50 p-4">
+                <div className="text-xs text-colophon">方法课程</div>
+                <div className="mt-1 font-serif text-3xl font-bold tabular-nums text-paperink">
+                  {progress.completedMethods.length}
+                  <span className="text-sm text-colophon"> / {methods.length}</span>
+                </div>
+                <div className="text-xs text-colophon">模块已完成</div>
+              </div>
+
+              <div className="rounded-[4px] border border-rule bg-bone2/50 p-4">
+                <div className="flex items-center gap-2 text-cobalt">
+                  <AudioLines size={18} aria-hidden />
+                  <span className="font-serif text-3xl font-bold tabular-nums">{progress.phonemesLearned.length}</span>
+                  <span className="text-xs text-colophon">/48 音标已学</span>
+                </div>
+                <div className="text-xs text-colophon">实战分析过 {progress.analyzedWords.length} 个词</div>
+              </div>
+
+              <div className="rounded-[4px] border border-rule bg-bone2/50 p-4">
+                <div className="flex items-center gap-2 text-rubric">
+                  <Target size={18} aria-hidden />
+                  <span className="font-serif text-3xl font-bold tabular-nums">{mistakeCount}</span>
+                  <span className="text-xs text-colophon">道错题待订正</span>
+                </div>
+                <div className="text-xs text-colophon">复习中心会按遗忘曲线排期</div>
+              </div>
+
+              <div className="rounded-[4px] border border-rule bg-bone2/50 p-4">
+                <div className="flex items-center gap-2 text-rubric">
+                  <BookOpenText size={18} aria-hidden />
+                  <span className="font-serif text-3xl font-bold tabular-nums">{dueCount}</span>
+                  <span className="text-xs text-colophon">张到期复习卡</span>
+                </div>
+                <div className="text-xs">
+                  <Link
+                    to="/review"
+                    className="inline-flex min-h-[44px] items-center text-cobalt underline decoration-rule underline-offset-4 transition-colors hover:text-paperink"
+                  >
+                    去复习中心 →
+                  </Link>
+                </div>
+              </div>
+            </section>
           )}
 
-          {/* 右：逐课调节（每门课 = 前 n 节已完成） */}
-          <div className="grid gap-2 sm:grid-cols-2">
-            {methods.map((m, i) => {
-              const done = progress.completedSteps[m.id]?.length ?? 0;
-              const total = m.steps.length;
-              const pct = Math.round((done / total) * 100);
-              return (
-                <div
-                  key={m.id}
-                  data-method-row={m.id}
-                  className="flex items-center justify-between gap-3 rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2"
+          {/* ---------- 我的进度 · 继续学习（唯一进度调节入口） ---------- */}
+          <section
+            className="mt-8 rounded-[4px] border border-rule bg-bone2/50 p-4 md:p-5"
+            data-testid="progress-panel"
+            aria-labelledby="progress-panel-title"
+          >
+            <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
+              <h2 id="progress-panel-title" className="text-[21px] font-bold text-paperink">
+                我的进度 · 继续学习
+              </h2>
+              <p className="max-w-md text-xs leading-relaxed text-colophon">
+                <b className="font-semibold text-cobalt">本站零存储</b>：不写浏览器存储、不自动续学，刷新后回到 0。
+                把节数调到你上次学到的位置，从那里接着往下走。
+              </p>
+            </div>
+
+            {/* 首访引导：三步上手（发丝线夹行，不做卡中卡；CTA 为描边款，不是主行动） */}
+            {isFirstVisit && (
+              <div className="mb-4 flex flex-wrap items-center gap-x-5 gap-y-3 border-y border-rule py-3.5">
+                <ol className="flex min-w-0 flex-1 flex-wrap items-center gap-x-3 gap-y-1 text-xs text-colophon">
+                  <li className="flex items-center gap-1.5">
+                    <span className="flex h-5 w-5 items-center justify-center rounded-full border border-cobalt text-xs font-bold tabular-nums text-cobalt">1</span>
+                    看方法课
+                  </li>
+                  <li aria-hidden className="text-colophon">→</li>
+                  <li className="flex items-center gap-1.5">
+                    <span className="flex h-5 w-5 items-center justify-center rounded-full border border-cobalt text-xs font-bold tabular-nums text-cobalt">2</span>
+                    做对应训练
+                  </li>
+                  <li aria-hidden className="text-colophon">→</li>
+                  <li className="flex items-center gap-1.5">
+                    <span className="flex h-5 w-5 items-center justify-center rounded-full border border-cobalt text-xs font-bold tabular-nums text-cobalt">3</span>
+                    到期复习
+                  </li>
+                </ol>
+                <p className="basis-full text-xs leading-relaxed text-colophon md:basis-auto">
+                  进度只存在这次会话里：学过的内容会自动排进复习队列，刷新即归零、不上传任何个人数据。
+                </p>
+                <Link
+                  to="/methods"
+                  className="inline-flex min-h-[44px] shrink-0 items-center gap-1.5 rounded-[3px] border border-rule px-4 py-2.5 text-sm font-medium text-cobalt transition-colors hover:border-paperink hover:text-paperink"
                 >
-                  <div className="min-w-0 flex-1">
-                    <div className="truncate text-xs text-white">
-                      <span className="mr-1.5 text-xs font-bold tabular-nums text-slate-400">
-                        0{i + 1}
-                      </span>
-                      {shortTitle(m)}
+                  去看方法课 <ArrowRight size={14} aria-hidden />
+                </Link>
+              </div>
+            )}
+
+            {/* 首访时空库的「继续学习」大卡与 hero 主 CTA 重复，隐藏它（进度行仍全部保留） */}
+            <div className={`grid gap-5 ${isFirstVisit ? '' : 'lg:grid-cols-[minmax(0,330px)_minmax(0,1fr)]'}`}>
+              {/* 左：当前位置 + 继续学习（发丝线分栏，不做卡中卡） */}
+              {!isFirstVisit && (
+                <div className="flex flex-col gap-4 border-b border-rule pb-4 lg:border-b-0 lg:border-r lg:border-rule lg:pr-5 lg:pb-0">
+                  <div className="min-w-0">
+                    <div className="text-xs text-colophon">当前推进到</div>
+                    <div className="font-serif text-lg font-bold text-paperink" data-testid="resume-title">
+                      {nextPos.finished ? '全部课程完成' : shortTitle(nextPos.method)}
                     </div>
-                    <div className="mt-1.5 h-1 w-full rounded-full bg-white/10" aria-hidden>
-                      <div
-                        className="h-1 rounded-full transition-all duration-300"
-                        style={{ width: `${pct}%`, background: m.accent }}
-                      />
+                    <div className="text-xs text-colophon" data-testid="resume-step">
+                      {nextPos.finished
+                        ? '反复实战 + 费曼关，把方法变成手感'
+                        : `第 ${nextPos.step + 1} 步 / 共 ${nextPos.method.steps.length} 步 · ${
+                            nextPos.method.steps[nextPos.step]?.title ?? ''
+                          }`}
                     </div>
                   </div>
 
-                  <div className="flex shrink-0 items-center gap-1">
-                    <button
-                      type="button"
-                      data-step-dec={i}
-                      aria-label={`减少《${shortTitle(m)}》已完成节数`}
-                      onClick={() => {
-                        playSfx('tick');
-                        progress.setMethodProgress(m.id, Math.max(0, done - 1), total);
-                      }}
-                      className="flex h-11 w-11 items-center justify-center rounded-lg border border-white/12 bg-white/5 text-slate-300 transition hover:border-white/30 hover:text-white disabled:opacity-30"
-                      disabled={done === 0}
-                    >
-                      <Minus size={13} aria-hidden />
-                    </button>
-                    <span className="w-11 text-center text-xs tabular-nums text-slate-300" data-step-count={i}>
-                      {done}/{total}
-                    </span>
-                    <button
-                      type="button"
-                      data-step-inc={i}
-                      aria-label={`增加《${shortTitle(m)}》已完成节数`}
-                      onClick={() => {
-                        playSfx('tick');
-                        progress.setMethodProgress(m.id, Math.min(total, done + 1), total);
-                      }}
-                      className="flex h-11 w-11 items-center justify-center rounded-lg border border-white/12 bg-white/5 text-slate-300 transition hover:border-white/30 hover:text-white disabled:opacity-30"
-                      disabled={done === total}
-                    >
-                      <Plus size={13} aria-hidden />
-                    </button>
-                    <button
-                      type="button"
-                      data-step-reset={i}
-                      aria-label={`清空《${shortTitle(m)}》进度`}
-                      onClick={() => {
-                        playSfx('wrong');
-                        progress.resetMethod(m.id);
-                      }}
-                      className="flex h-11 w-11 items-center justify-center rounded-lg border border-white/12 bg-white/5 text-slate-400 transition hover:border-danger/50 hover:text-danger"
-                      disabled={done === 0}
-                      title="清空该课进度"
-                    >
-                      <RotateCcw size={12} aria-hidden />
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ---------- 学习地图 ---------- */}
-      <section>
-        <SectionHeading
-          kicker="Learning Map"
-          title="学习地图：8 个方法模块，一条路径走通"
-          desc="按顺序学习：发音与拼写 → 音节与重读 → 词根词缀 → 记忆策略 → 语境输入 → 间隔复习 → 主动输出 → 元认知。每一步都有原理、动画演示、练习、实战、误区与掌握标准。"
-        />
-
-        <div className="relative">
-          {/* 路径线 */}
-          <svg className="pointer-events-none absolute inset-0 hidden h-full w-full md:block" aria-hidden preserveAspectRatio="none">
-            <defs>
-              <linearGradient id="path-grad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#00E5FF" stopOpacity="0.55" />
-                <stop offset="50%" stopColor="#7C4DFF" stopOpacity="0.5" />
-                <stop offset="100%" stopColor="#FF4D9D" stopOpacity="0.45" />
-              </linearGradient>
-            </defs>
-            <motion.path
-              d="M 0 40 C 120 40, 260 62, 480 62"
-              fill="none"
-              stroke="url(#path-grad)"
-              strokeWidth={3}
-              strokeDasharray="10 8"
-              initial={tier === 'off' ? undefined : { pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 1.6, ease: 'easeInOut' }}
-              style={{ display: 'none' }}
-            />
-          </svg>
-
-          <StaggerGroup className="grid gap-4 md:grid-cols-2" stagger={0.06}>
-            {methods.map((m, i) => {
-              const done = progress.completedMethods.includes(m.id);
-              const steps = progress.completedSteps[m.id] ?? [];
-              const pct = Math.round((steps.length / m.steps.length) * 100);
-              const Icon = ICONS[m.category] ?? Sparkles;
-              const locked = i > 0 && !progress.completedMethods.includes(methods[i - 1].id) && !done && steps.length === 0;
-              return (
-                <StaggerItem key={m.id}>
-                  <motion.div
-                    whileHover={{ y: -6 }}
-                    className="group relative h-full overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-5 backdrop-blur-md transition-all duration-500 hover:border-[color:var(--acc)] hover:shadow-[0_0_30px_rgba(0,229,255,0.18)]"
-                    style={{ ['--acc' as string]: m.accent }}
+                  <EduButton
+                    sfx={false}
+                    className="w-full"
+                    data-testid="resume-btn"
+                    onClick={() => {
+                      playSfx('click');
+                      navigate(heroTarget);
+                    }}
                   >
-                    <div className="mb-3 flex items-start justify-between gap-3">
-                      <div className="flex items-center gap-3">
-                        <span
-                          className="flex h-11 w-11 items-center justify-center rounded-2xl border"
-                          style={{ borderColor: `${m.accent}66`, background: `${m.accent}18`, color: m.accent }}
-                        >
-                          <Icon size={19} />
-                        </span>
-                        <div>
-                          <div className="flex items-center gap-2">
-                            <span className="text-xs font-bold tabular-nums text-slate-400">0{i + 1}</span>
-                            {done && (
-                              <span className="rounded-full bg-success/15 px-2 py-0.5 text-xs font-bold text-success">已完成</span>
-                            )}
-                            {!done && steps.length > 0 && (
-                              <span className="rounded-full bg-neon/15 px-2 py-0.5 text-xs font-bold text-neon">进行中</span>
-                            )}
-                            {!done && !nextPos.finished && nextPos.method.id === m.id && (
-                              <span
-                                className="flex items-center gap-1 rounded-full border border-neon/40 bg-neon/10 px-2 py-0.5 text-xs font-bold text-neon"
-                                data-testid="map-you-are-here"
-                              >
-                                <MapPin size={10} aria-hidden /> 你在这里
-                              </span>
-                            )}
-                          </div>
-                          <h3 className="font-display text-lg font-bold text-white group-hover:text-[color:var(--acc)]">
-                            {m.title}
-                          </h3>
+                    <MapPin size={15} aria-hidden />
+                    {nextPos.finished ? '去实战演练' : nextPos.started ? `从第 ${nextPos.step + 1} 步继续` : '从这里开始学'}
+                    <ArrowRight size={15} aria-hidden />
+                  </EduButton>
+
+                  <p className="text-xs leading-relaxed text-colophon">
+                    指哪学哪：进度由你自己调节，站点不替你猜。调完直接跳到那一节。
+                  </p>
+                </div>
+              )}
+
+              {/* 右：逐课调节（每门课 = 前 n 节已完成；发丝线行，不做卡中卡） */}
+              <div className="grid gap-x-6 sm:grid-cols-2">
+                {methods.map((m, i) => {
+                  const done = progress.completedSteps[m.id]?.length ?? 0;
+                  const total = m.steps.length;
+                  const pct = Math.round((done / total) * 100);
+                  return (
+                    <div
+                      key={m.id}
+                      data-method-row={m.id}
+                      className="border-b border-rule py-2"
+                    >
+                      <div className="min-w-0">
+                        <div className="truncate text-xs text-paperink">
+                          <span className="mr-1.5 text-xs font-bold tabular-nums text-colophon">
+                            0{i + 1}
+                          </span>
+                          {shortTitle(m)}
+                        </div>
+                        <div className="mt-1.5 h-[3px] w-full bg-rule" aria-hidden>
+                          <div
+                            className="h-[3px] bg-cobalt transition-all duration-300"
+                            style={{ width: `${pct}%` }}
+                          />
                         </div>
                       </div>
-                      <span className={`text-xs ${locked ? 'text-slate-400' : 'text-slate-400'}`}>
-                        {locked ? '建议按顺序' : `${m.durationMin ?? 20} 分钟`}
-                      </span>
-                    </div>
 
-                    <p className="mb-3 text-xs leading-relaxed text-slate-400">{m.subtitle}</p>
-
-                    <div className="mb-3 h-1.5 overflow-hidden rounded-full bg-white/8">
-                      <motion.div
-                        className="h-full rounded-full"
-                        style={{ background: `linear-gradient(90deg, ${m.accent}, #7C4DFF)` }}
-                        initial={{ width: 0 }}
-                        animate={{ width: `${pct}%` }}
-                        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                      />
+                      {/* 调节组独占一行：窄屏下 4×44px 控件不挤压标题，也不撑破纸页 */}
+                      <div className="mt-2 flex items-center justify-end gap-1">
+                        <button
+                          type="button"
+                          data-step-dec={i}
+                          aria-label={`减少《${shortTitle(m)}》已完成节数`}
+                          onClick={() => {
+                            playSfx('tick');
+                            progress.setMethodProgress(m.id, Math.max(0, done - 1), total);
+                          }}
+                          className="flex h-11 w-11 items-center justify-center rounded-[3px] border border-rule text-colophon transition-colors hover:border-paperink hover:text-paperink disabled:opacity-40"
+                          disabled={done === 0}
+                        >
+                          <Minus size={13} aria-hidden />
+                        </button>
+                        <span className="w-11 text-center text-xs tabular-nums text-paperink" data-step-count={i}>
+                          {done}/{total}
+                        </span>
+                        <button
+                          type="button"
+                          data-step-inc={i}
+                          aria-label={`增加《${shortTitle(m)}》已完成节数`}
+                          onClick={() => {
+                            playSfx('tick');
+                            progress.setMethodProgress(m.id, Math.min(total, done + 1), total);
+                          }}
+                          className="flex h-11 w-11 items-center justify-center rounded-[3px] border border-rule text-colophon transition-colors hover:border-paperink hover:text-paperink disabled:opacity-40"
+                          disabled={done === total}
+                        >
+                          <Plus size={13} aria-hidden />
+                        </button>
+                        <button
+                          type="button"
+                          data-step-reset={i}
+                          aria-label={`清空《${shortTitle(m)}》进度`}
+                          onClick={() => {
+                            playSfx('wrong');
+                            progress.resetMethod(m.id);
+                          }}
+                          className="flex h-11 w-11 items-center justify-center rounded-[3px] border border-rule text-colophon transition-colors hover:border-rubric hover:text-rubric disabled:opacity-40"
+                          disabled={done === 0}
+                          title="清空该课进度"
+                        >
+                          <RotateCcw size={12} aria-hidden />
+                        </button>
+                      </div>
                     </div>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
 
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs text-slate-400">
-                        {steps.length} / {m.steps.length} 步 · {m.pitfalls.length} 个误区清单
-                      </span>
-                      <Link
-                        to={`/methods/${m.id}`}
-                        className="inline-flex min-h-[44px] items-center gap-1 rounded-xl border border-white/12 px-3 py-1.5 text-xs text-slate-300 transition group-hover:border-[color:var(--acc)] group-hover:text-white"
-                      >
-                        {pct > 0 ? '继续学习' : '进入课程'} <ArrowRight size={12} aria-hidden />
-                      </Link>
-                    </div>
-                  </motion.div>
-                </StaggerItem>
-              );
-            })}
-          </StaggerGroup>
+          {/* ---------- 底部入口 ---------- */}
+          <section className="mt-8 rounded-[4px] border border-rule bg-bone2/50 p-5 text-center md:p-8">
+            <h2 className="text-[21px] font-bold leading-snug text-paperink md:text-[25px]">
+              今天就用一个生词检验方法
+            </h2>
+            <p className="mx-auto mt-2 max-w-[68ch] text-[15px] leading-[1.85] text-colophon">
+              打开「实战演练」，输入任何没学过的词：网站只给步骤与提示，答案由你自己推导，最后再与词典核对。
+            </p>
+            <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
+              <EduButton
+                sfx={false}
+                onClick={() => {
+                  playSfx('click');
+                  navigate('/analyze');
+                }}
+              >
+                <Target size={15} aria-hidden /> 实战演练
+              </EduButton>
+              <EduButton
+                sfx={false}
+                onClick={() => {
+                  playSfx('click');
+                  navigate('/practice');
+                }}
+              >
+                互动训练 11 种题型
+              </EduButton>
+              <EduButton
+                sfx={false}
+                onClick={() => {
+                  playSfx('click');
+                  navigate('/feynman');
+                }}
+              >
+                <MessagesSquare size={15} aria-hidden /> 费曼关 · 讲出来才算会
+              </EduButton>
+              <EduButton
+                sfx={false}
+                onClick={() => {
+                  playSfx('click');
+                  navigate('/lab/phonemes');
+                }}
+              >
+                <AudioLines size={15} aria-hidden /> 进入音标实验室
+              </EduButton>
+            </div>
+          </section>
         </div>
-      </section>
 
-      {/* ---------- 底部 CTA ---------- */}
-      <section className="glass relative overflow-hidden p-6 text-center md:p-10">
-        <div className="mx-auto max-w-2xl">
-          <h2 className="font-display text-2xl font-bold text-white md:text-3xl">
-            今天就用 <span className="text-gradient">一个生词</span> 检验方法
-          </h2>
-          <p className="mt-3 text-sm text-slate-300/85">
-            打开「实战演练」，输入任何没学过的词：网站只给步骤与提示，答案由你自己推导，最后再与词典核对。
-          </p>
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
-            <NeonButton onClick={() => { playSfx('click'); navigate('/analyze'); }}>
-              <Target size={15} aria-hidden /> 实战演练
-            </NeonButton>
-            <NeonButton variant="ghost" onClick={() => { playSfx('click'); navigate('/practice'); }}>
-              互动训练 11 种题型
-            </NeonButton>
-            <NeonButton variant="ghost" onClick={() => { playSfx('click'); navigate('/feynman'); }}>
-              <MessagesSquare size={15} aria-hidden /> 费曼关 · 讲出来才算会
-            </NeonButton>
-          </div>
-        </div>
-      </section>
-    </div>
+        {/* ---------- 签名件：右缘 2/12 切口拇指索引 ---------- */}
+        <aside className="hidden xl:block xl:col-span-2">
+          <ThumbIndex variant="edge" currentId={nextPos.method.id} />
+        </aside>
+      </div>
+    </EduSheet>
   );
 }

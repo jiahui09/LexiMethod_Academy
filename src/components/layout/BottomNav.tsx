@@ -26,7 +26,7 @@ export default function BottomNav() {
     <nav
       aria-label="底部导航"
       data-testid="bottom-nav"
-      className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-[#0B1020]/95 backdrop-blur-xl lg:hidden"
+      className="paper-chrome fixed inset-x-0 bottom-0 z-40 border-t border-rule bg-bone lg:hidden"
     >
       <ul className="mx-auto grid max-w-lg grid-cols-5">
         {ITEMS.map((item) => {
@@ -38,12 +38,14 @@ export default function BottomNav() {
                 to={item.to}
                 end={item.end}
                 aria-current={on ? 'page' : undefined}
-                className={`flex flex-col items-center gap-0.5 py-2.5 text-xs transition-colors ${
-                  on ? 'text-neon' : 'text-slate-400 hover:text-slate-200'
+                className={`relative flex min-h-[44px] flex-col items-center justify-center gap-0.5 py-2.5 text-xs transition-colors ${
+                  on ? 'font-semibold text-rubric' : 'text-colophon hover:text-paperink'
                 }`}
               >
                 <Icon size={18} aria-hidden />
                 {item.label}
+                {/* 形状通道：与桌面书眉同款 3px 批注红刻线，当前项不只靠颜色（DESIGN 三重编码） */}
+                {on && <span aria-hidden className="absolute inset-x-3 bottom-0 h-[3px] bg-rubric" />}
               </NavLink>
             </li>
           );

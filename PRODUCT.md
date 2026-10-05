@@ -43,7 +43,7 @@ web
 
 ## Evidence on Hand
 
-- 8 门方法课与全部教学文案已成稿：`src/data/methods.ts`（每课 9 步结构）。
+- 8 门方法课与全部教学文案已成稿：`src/data/methods.ts`（每课 8 步结构）。
 - 48 音标数据与词全集：`src/data/phonemes.ts`（ttsWord/例词/最小对立对）、`scripts/word-universe.mjs`（926 词，8 数据源）。
 - 离线音频已生成：`public/audio/`（phonemes ×48 + words ×926 + manifest.json）、运行时映射 `src/data/phonemeAudio.ts`。
 - 题库与词例数据：`src/data/{quizBanks,rules,spellingPatterns,affixes,words,tools,feynman}.ts`。

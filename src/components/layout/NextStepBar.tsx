@@ -85,30 +85,30 @@ export default function NextStepBar() {
 
   return (
     <div
-      className="glass mt-8 flex flex-wrap items-center justify-between gap-3 px-4 py-3"
+      className="paper-chrome mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-rule bg-bone px-4 py-3"
       data-testid="next-step-bar"
       aria-label="下一步引导"
     >
-      <span className="flex items-center gap-2 text-xs text-slate-400">
-        <span className="h-px w-5 bg-neon/60" aria-hidden />
+      <span className="flex items-center gap-2 text-xs text-colophon">
+        <span className="h-px w-5 bg-rule" aria-hidden />
         下一步去哪儿？
       </span>
       <div className="flex flex-wrap items-center gap-2">
         <Link
           to={primary.to}
-          className="inline-flex min-h-[44px] items-center gap-1.5 rounded-xl border border-neon/40 bg-neon/10 px-3.5 py-2 text-[13px] font-medium text-neon transition-all hover:-translate-y-0.5 hover:bg-neon/15"
+          className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[3px] border border-rubric bg-rubric px-3.5 py-2 text-[13px] font-medium text-[#FBF6EC] transition-colors hover:border-[#9C2919] hover:bg-[#9C2919] active:translate-y-px"
         >
           {primary.label} <ArrowRight size={13} aria-hidden />
         </Link>
         <Link
           to={secondary.to}
-          className="inline-flex min-h-[44px] items-center gap-1.5 rounded-xl border border-white/12 bg-white/5 px-3.5 py-2 text-[13px] text-slate-300 transition hover:border-white/30 hover:text-white"
+          className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[3px] border border-rule px-3.5 py-2 text-[13px] text-cobalt transition-colors hover:border-paperink hover:text-paperink"
         >
           {secondary.label}
         </Link>
         <Link
           to="/"
-          className="inline-flex min-h-[44px] items-center gap-1.5 rounded-xl px-3 py-2 text-[13px] text-slate-400 transition hover:text-white"
+          className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[3px] px-3 py-2 text-[13px] text-cobalt transition-colors hover:text-paperink"
         >
           <MapIcon size={13} aria-hidden /> 回学习地图
         </Link>
