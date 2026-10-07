@@ -1,6 +1,6 @@
 ---
 name: LexiMethod Academy
-description: 全站是一册摊在骨白纸面上的双解词法书（辞书版式）：书眉壳、首页与方法列表已迁入纸面世界；遗留功能页（训练/费曼/复习等）过渡期以深色内容嵌在纸面壳内——阶段三待迁的双世界系统
+description: 全站是一册摊在骨白纸面上的双解词法书（辞书版式）：全站一整块连续纸面（零抬升、零辉光、无深色地）+ 右缘书口切口脊（ForeEdge）承载全站索引与进度——阶段三收口后的单一世界
 colors:
   # ---------- 辞书版式（教程面 / 音标实验室的纸面世界） ----------
   bone: "#F7F2E8" # 纸地：.edu-sheet 页面底
@@ -167,9 +167,9 @@ components:
 
 **Creative North Star: "辞书版式（The Dictionary Edition）"** — 方法是词目，步骤是义项，演示是例句，误区是辨析。
 
-本站是双世界并存、分阶段迁移的系统。教程面（`/methods/:methodId`、`/lab`）已建成第二个世界：骨白纸满地（#F7F2E8）、墨文承字、发丝线划栏，一册可读可练的双解词法书摊在骨白纸面上（`.edu-sheet` 是全站唯一一次抬升，`0 24px 64px rgba(0,0,0,0.5)`）。词头朗读时批注红章斜落纸上——像用红笔在词典上做了记号——是这个世界的签名瞬间。纸面拒绝玻璃、辉光、渐变与眉标（kicker）：标题自己承载重量，标签一律走行内。
+全站是一个单一世界：辞书纸面满地（#F7F2E8，含全部功能页）——教程面（`/methods/:methodId`、`/lab`）与功能页同处这块纸地、墨文承字、发丝线划栏，一册可读可练的双解词法书摊在骨白纸面上（阶段三起零抬升：`.edu-sheet` 与地同色同层，浮纸卡双层已消灭）。词头朗读时批注红章斜落纸上——像用红笔在词典上做了记号——是这个世界的签名瞬间。纸面拒绝玻璃、辉光、渐变与眉标（kicker）：标题自己承载重量，标签一律走行内。
 
-导航壳与首屏路由（header / footer / BottomNav / NextStepBar / Home / MethodList）已迁入纸面世界：骨白书眉（3px 双线压顶）、批注红 3px 刻线激活态、衬线刊记页脚、发丝线行的首页与方法列表——纸面把深色桌面一起接管（body 即 #F7F2E8，`.edu-sheet` 仍是唯一抬升的纸页）。剩余功能页（practice / feynman / review / stats / settings / toolbox 等）**过渡期为深色内容嵌在纸面壳内**（`hasPaperGround` 给它们垫 `bg-abyss` 地），是已记录的阶段三迁移；两个世界的规则在同一文件中分区记录，新增页面先判断自己站在纸上还是夜里。
+导航壳与首屏路由（header / footer / BottomNav / NextStepBar / Home / MethodList）已迁入纸面世界：骨白书眉（3px 双线压顶）、批注红 3px 刻线激活态、衬线刊记页脚、发丝线行的首页与方法列表——纸面把深色桌面一起接管（body 即 #F7F2E8，`.edu-sheet` 与地同层、零抬升）。**阶段三收口：全部功能页（practice / analyze / feynman / review / stats / settings / toolbox / 404）已迁入纸面，`hasPaperGround` 双地判定与 `bg-abyss` 垫地退役，全站不再有夜里；新增页面只有一种站位——纸上。**
 
 反参考在两个世界同样成立：拒绝白底卡片网格 + 渐变 hero + 进度环的网课站货架感（教程面做一部书，不做课程货架），拒绝经验值 / 连击 / 连续天数 / 等级徽章等角色化成长内容，拒绝任何外部字体与 CDN 资源——离线可用、零请求是硬约束。
 
@@ -178,14 +178,14 @@ components:
 - 纸面双笔色：批注红（功能/当下）+ 结构蓝（结构/已定），骨白纸与发丝线做地
 - 系统字体单兵种：中文正文系统无衬线 16px/1.9；系统衬线只给英文词头与展示数字；IPA 一律 `.ipa` 等宽（0.01em）
 - 纸面描边 ≤1px（例外：书眉双线 / tab 下划线 / 进度刻线 3px、批注章双环），盒角 4px、控件角 3px
-- 抬升只声明一次（纸页浮于纸面地）；编排动作只有一个（批注章落纸），内容动画全走 motion tier
+- 抬升为零（纸页即地，无阴影无浮卡）；编排动作只有一个（批注章落纸），内容动画全走 motion tier
 - 状态从不只靠颜色：✓ / ✗ / ▶ 实心三角 / 描边纹样三重编码
-- 深色壳保留原世界：每屏唯一发光 CTA、玻璃卡唯一容器、绿/琥珀/红状态色（仅暗面）
+- 深色世界样式已整体退场（`.glass` / `.btn-neon` / `.input-neon` / 辉光 / 渐变随阶段三从 `index.css` 清除，`shake` 保留——逐字母反馈唯一动效）
 - 无角色化成长系统；动效分层：状态反馈 → 氛围层（档位）→ 完成时刻
 
 ## Colors
 
-调色板按世界分两层：**纸面两支笔 + 纸墨中性色** 是全站的世界地（body 即骨白纸）；**霓虹意图色 + 夜色中性** 仅服务阶段三待迁的深色内容页（`hasPaperGround` 垫地的遗留路由）。
+调色板按世界分两层：**纸面两支笔 + 纸墨中性色**是全站唯一的世界地（body 即骨白纸）；**霓虹意图色 + 夜色中性已随阶段三退场**（下节保留值仅供历史查阅，代码中零引用）。
 
 ### Primary
 
@@ -256,7 +256,7 @@ components:
 **两个空间模型并存:**
 
 - **纸面（教程面）:** 纸页落在 `container-page`（1240px 居中，外边距 16px / ≥768px 32px）之内，四周是骨白纸地（body 即 #F7F2E8）。课程页三栏栅格：168px 义项导轨（装订线贯穿，md 以下转为页顶横排）｜弹性阅读栏（px-5 py-6 / md:px-8 py-8，正文 68ch）｜232px 栏外 apparatus（xl 才现身，sticky top-24）。实验室同构制式、槽位按内容裁：三 tab 分卷行（选中 = 3px 批注红下划线）→ 380px 音素索引表 + 主栏词条页 + 208px 页边批注（xl）。书眉 `border-b-[3px] border-double` 压顶，左面包屑右动作 + 3px 刻线进度。
-- **深色内容地（阶段三待迁）:** 骨白书眉 → 面包屑 → PageIntro → 深色内容（`hasPaperGround` 给遗留路由垫 `bg-abyss`）→ NextStepBar；<1024px 由 56px 五格底部导航接管，页底预留 66px。Backdrop 与 ParticleField 已全站退役（App 不再挂载，组件文件留待阶段三清理），遗留路由只剩纯色深地。
+- **深色内容地（阶段三待迁）:** 骨白书眉 → 面包屑/卷首 → 连续纸面内容（全站单一地，右缘书口脊 xl+ 常驻）→ NextStepBar；<1024px 由 56px 五格底部导航接管，页底预留 66px。Backdrop / ParticleField / ConfettiBurst / ProgressRing 组件文件已删除。
 
 **栅格与节奏:** 纸面区块间距以 24–32px 与发丝线分隔；首页区块 40px、内部 16–24px（遗留）。移动端一律单列，文字列是唯一不可压缩的主导列。
 
@@ -270,18 +270,18 @@ components:
 
 ## Elevation & Depth
 
-系统是**分世界的混合**：纸面近乎全平——深度靠发丝线、纸色档差（bone / bone2 / paper-fill）与书页本身；深色壳靠玻璃模糊与光晕。纸面上唯一的抬升是页面本身。
+系统是**单一纸面世界**：深度只靠发丝线、纸色档差（bone / bone2 / paper-fill）与书页本身——全站零抬升、零辉光、零玻璃；纸面上唯一的层是页面本身。
 
 ### Shadow Vocabulary
 
-- **Sheet Lift 纸页抬升** (`box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5)`): `.edu-sheet` 专属——纸页浮在纸面地上，全系统只此一次，纸面内部任何元素不再投影。
+- **Sheet Lift 纸页抬升（已废除，阶段三）:** 历史值 `box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5)` 已从 `.edu-sheet` 移除——用户裁定「拒绝割裂感」后全站零抬升，纸页与地同层，任何元素不得投影。
 - **Card Lift 卡片浮影（遗留壳）** (`0 8px 32px rgba(0,0,0,0.35)`): 玻璃卡默认。
 - **Intent Glow 意图光晕（遗留壳）** (`0 0 24px rgba(0,229,255,0.18)` + 外圈紫): 主 CTA hover/焦点。
 - **Focus Ring 焦点环:** 纸面 = 2px cobalt 描边、offset 2px、圆角 2px（`.edu-sheet :focus-visible` 统一给）；深色壳 = 2px 青环 offset 3px。永不移除。
 
 ### Named Rules
 
-**The Single Lift Rule.** 抬升只声明一次：只有 `.edu-sheet` 携带阴影；纸面内部一律平贴——层叠用发丝线与纸色档差表达，不叠影、不叠模糊、不叠第二层独立背景。
+**The Zero Lift Rule.** 抬升为零：全站无一处阴影；层叠只用发丝线与纸色档差（bone / bone2 / paper-fill）表达——不叠影、不叠模糊、不叠第二层独立背景（同底色浮卡即割裂，已消灭）。
 
 ## Shapes
 
@@ -307,7 +307,7 @@ EduChip：全圆、发丝线描边、12px colophon 文字；选中 = 批注红�
 
 ### Cards / Containers
 
-- **EduSheet 纸页（签名）:** `background #F7F2E8` + `color #16130F` + caret 批注红 + 4px 圆角 + 唯一抬升阴影；`::selection` 红染、`:focus-visible` 青环、`.edu-scroll` 发丝线滚动条都在此作用域内统一。是教程面的世界地，纸内不再套有独立背景的容器。
+- **EduSheet 纸页（世界地）:** `background #F7F2E8` + `color #16130F` + caret 批注红；**零抬升、无圆角**（阶段三与地同层）。`::selection` 红染、`:focus-visible` 结构蓝环、`.edu-scroll` 发丝线滚动条都在此作用域内统一；纸内不再套有独立背景的容器。
 - **EduCallout 警示/辨析框:** 1px 发丝线盒 + bone2/70 底 + 4px 角；标签行内（note = cobalt，warn = rubric），绝不做眉标。
 - **Legacy Glass Card（深色壳）:** 白 6% 面 + 发丝描边 + 24px 圆角 + 20px 模糊 + 顶边高光；卡中叠卡仍是禁令。
 
@@ -321,7 +321,7 @@ EduChip：全圆、发丝线描边、12px colophon 文字；选中 = 批注红�
 - **纸面书眉 RunningHead（签名）:** `border-b-[3px] border-double border-rule` 压顶，左 = 面包屑（`tone="paper"`：当前段 rubric，hover cobalt），右 = 3px 刻线进度（rule 底 + cobalt 填充，500ms ease-out-expo）+ 步序 tabular 计数 + 行内动作。
 - **义项导轨 EduRail（签名）:** 左栏装订线（1px rule 竖线，cobalt 高亮按进度伸长）；每步 = 编号圆标（当前 rubric 描边红号 / 完成 cobalt 实底白号 / 未到 rule 描边）+ 状态形状（当前 ▶ 实心三角、完成 ✓、未到空号）——状态从不只靠颜色。小屏转页顶横排。
 - **分卷 Tab（实验室）:** 发丝线行内 tab，选中 = 3px 批注红下划线 + paperink 粗体 + rubric 图标；min-height 44px。
-- **切口拇指索引 ThumbIndex（签名）:** 书口上的 8 枚索引贴，一贴一课（`src/components/layout/ThumbIndex.tsx`）。xl 以上 `variant="edge"` 贴纸页右缘竖排 sticky（左侧圆角像切口，齐书口发丝线）；窄屏降级 `variant="inline"` 行内横排可滚。状态四态纹样（与列表「你在这里」同源，`currentId` 由页面 nextPos 传入，组件不自造口径）：已学 = cobalt 描边 + ✓ 实心勾；当前（唯一）= rubric 实底 + ▶ 实心三角；进行中 = rubric 描边 + ▷ 空心三角；未到 = 发丝线空贴——四态各有底/描边 + 形状 + 字色三重编码。
+- **切口拇指索引 ThumbIndex（签名）:** 书口上的 8 枚索引贴，一贴一课（`src/components/layout/ThumbIndex.tsx`）。**阶段三上收：** 全站书口脊改由 `ForeEdge`（`src/components/layout/ForeEdge.tsx`）在 App 层右缘 sticky 承担——上层 7 枚功能页切口贴（当前=红实底▶、本会话到过=蓝✓、未到=发丝空贴），下层按页映射书的结构（/methods=8 方法四态贴、课页=该课 8 步刻痕、其余=续学课步位，零进度空置）；`ThumbIndex` 只保留窄屏 `inline` 行内横排降级。状态四态纹样（与列表「你在这里」同源，`currentId` 由页面 nextPos 传入，组件不自造口径）：已学 = cobalt 描边 + ✓ 实心勾；当前（唯一）= rubric 实底 + ▶ 实心三角；进行中 = rubric 描边 + ▷ 空心三角；未到 = 发丝线空贴——四态各有底/描边 + 形状 + 字色三重编码。
 - **纸面书眉 / 页脚 / 底导 / NextStepBar（已迁壳）:** header = 3px 双线压顶 + 批注红 3px 刻线激活（与分卷 Tab 同一受批 3px）；footer = 衬线刊记 + cobalt 链接；BottomNav 当前项 = 字重 + 颜色 + 3px 批注红刻线（形状通道与桌面书眉同款）；NextStepBar 纸面按钮组。
 - **遗留壳导航:** 64px 吸顶玻璃条，项 12px 圆角 13px 字，激活青字 + 渐变下划线，≤5 项；<1024px 五格底部导航；方向感三件套（skip link / 面包屑 / 激活态）全局有效。（仅遗留给阶段三的深色内容地）
 
@@ -337,7 +337,7 @@ EduChip：全圆、发丝线描边、12px colophon 文字；选中 = 批注红�
 
 ### Do
 
-- **Do** 在教程面用 `.edu-sheet` 开页：骨白纸地、发丝线分区、纸页是唯一抬升；新路由先判断落在纸上还是夜里。
+- **Do** 用 `.edu-sheet` 开页：骨白纸地、发丝线分区、零抬升；全站只有纸这一种地面，新路由直接落纸。
 - **Do** 只用两支笔：批注红标「当下/功能」（朗读、当前、警示、错、章），结构蓝标「结构/已定」（书眉、导轨、链接、进度、答对）。
 - **Do** 纸面描边保持 ≤1px 发丝线；3px 只出现在受批例外（书眉双线、tab 下划线、进度刻线、批注章双环）。
 - **Do** 所有 IPA 转写走 `.ipa` 等宽；英文词头与展示数字走系统衬线；中文正文 16px/1.9、行长 ≤68ch。
@@ -347,11 +347,11 @@ EduChip：全圆、发丝线描边、12px colophon 文字；选中 = 批注红�
 - **Do** 反馈直接服务学习：对错、进度、完成可庆祝（批注章落纸只在真实完成时刻）；数值成长指标（经验、连击、天数）不出现。
 - **Do** 每屏只有一个前进方向；桌面主导航 ≤5 项；低于 640px 标题与动作上下堆叠，320px 起零横向溢出。
 - **Do** 发音使用同源离线音频（`public/audio/`，`gen:audio` / `check:audio` 门禁），语音合成仅兜底——永不请求外部语音服务。
-- **Do** 新屏一律落在纸面世界（`.edu-sheet` 骨白纸地 + 发丝线分区 + Edu 家族）；遗留功能页的深色内容是阶段三迁移的过渡态（`hasPaperGround` 垫地），其 PageIntro / 玻璃卡 / 发光 CTA 只在该地存活，不向纸面延伸。
+- **Do** 新屏一律落在纸面世界（`.edu-sheet` 骨白纸地 + 发丝线分区 + Edu 家族 + 右缘 ForeEdge 书口脊）；深色世界的 PageIntro 眉标 / 玻璃卡 / 发光 CTA 已整体退役，不得复活。
 
 ### Don't
 
-- **Don't** 在纸面引入玻璃、辉光、渐变、极光或第二层阴影——纸内只有 `.edu-sheet` 那一次抬升。
+- **Don't** 引入玻璃、辉光、渐变、极光或任何阴影（含第二层背景）——全站零抬升是阶段三契约。
 - **Don't** 在纸面使用眉标/kicker（全大写 + 横线的 eyebrow）；标题直接压场，小标签走行内。深色壳遗留的 kicker 用法是既有缺陷，不向任何新面延伸（见文末 drift 说明）。
 - **Don't** 在纸面引入第三种功能色，或用批注红/结构蓝铺大面积底、写长段正文。
 - **Don't** 用颜色单独表达状态；也不要让 IPA 数据进衬线、让词头进等宽。

@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Check, X, Mic, Square, Trash2, MessageCircleQuestion, Lightbulb } from 'lucide-react';
-import { Chip, Narration } from '@/components/ui/Bits';
-import PageIntro from '@/components/layout/PageIntro';
+import { Check, X, Mic, Square, Trash2, MessageCircleQuestion, Lightbulb, ArrowRight } from 'lucide-react';
+import { EduChip, EduNarration } from '@/components/edu';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import NeonButton from '@/components/ui/NeonButton';
 import { feynmanTasks, feynmanTask } from '@/data/feynman';
 import { methods } from '@/data/methods';
@@ -81,7 +81,7 @@ function judge(text: string, keywords: string[], score: number, rated: boolean):
   };
 }
 
-/** 费曼关：用自己的话把刚学的规则讲出来，通过四项检查与自评 */
+/** 费曼关：用自己的话把刚学的规则讲出来，通过四项检查与自评（辞书纸面版式） */
 export default function Feynman() {
   const tier = useMotionTier();
   const [params, setParams] = useSearchParams();
@@ -176,36 +176,57 @@ export default function Feynman() {
 
   return (
     <div className="flex flex-col gap-6">
-      <PageIntro
-        crumbs={[
-          { label: '学习地图', to: '/' },
-          { label: '方法课程', to: '/methods' },
-          { label: '费曼关' },
-        ]}
-        kicker="Feynman Gate"
-        title="费曼关：讲得出来，才算学会"
-        desc="学完一课，用自己的话把规则讲一遍——讲解会在“提取”阶段暴露假记忆。四项检查 + 自评量表都过关，掌握标准才加上费曼这一项。讲解只存在于本次会话（零存储）。"
-        next={{ label: '复习中心', to: '/review' }}
-      />
+      {/* 卷首题名：面包屑 + 词头 h1（纸面上方绝不做眉标）+ 唯一去向 */}
+      <header className="border-b border-rule pb-5">
+        <Breadcrumbs
+          tone="paper"
+          items={[
+            { label: '学习地图', to: '/' },
+            { label: '方法课程', to: '/methods' },
+            { label: '费曼关' },
+          ]}
+        />
+        <div className="mt-2 flex flex-wrap items-end justify-between gap-4">
+          <div className="min-w-0">
+            <h1 className="text-2xl font-bold leading-tight text-paperink md:text-3xl">
+              费曼关：讲得出来，才算学会
+            </h1>
+            <p className="mt-2 max-w-[68ch] text-[15px] leading-[1.85] text-colophon">
+              学完一课，用自己的话把规则讲一遍——讲解会在“提取”阶段暴露假记忆。四项检查 + 自评量表都过关，掌握标准才加上费曼这一项。讲解只存在于本次会话（零存储）。
+            </p>
+          </div>
+          <Link
+            to="/review"
+            className="inline-flex min-h-[44px] shrink-0 items-center gap-1.5 rounded-[3px] border border-rule px-4 py-2.5 text-sm text-paperink transition-colors hover:bg-bone2"
+          >
+            下一步 · 复习中心 <ArrowRight size={14} aria-hidden />
+          </Link>
+        </div>
+      </header>
 
       {/* 课次选择 */}
       <div className="flex flex-wrap gap-2" role="tablist" aria-label="选择要讲解的课次">
         {feynmanTasks.map((t, i) => (
-          <Chip key={t.methodId} active={t.methodId === methodId} onClick={() => switchMethod(t.methodId)} className="min-h-[44px]">
+          <EduChip
+            key={t.methodId}
+            active={t.methodId === methodId}
+            onClick={() => switchMethod(t.methodId)}
+            className="min-h-[44px]"
+          >
             {i + 1}. {methods.find((m) => m.id === t.methodId)?.title.split('：')[0] ?? t.methodId}
-          </Chip>
+          </EduChip>
         ))}
       </div>
 
       <div className="grid gap-5 lg:grid-cols-[1.4fr_1fr]">
         {/* 左：讲解区 */}
-        <motion.section className="glass p-5 md:p-6" {...anim}>
+        <motion.section className="rounded-[3px] border border-rule bg-bone2/50 p-5 md:p-6" {...anim}>
           <div className="mb-2 flex items-start justify-between gap-3">
             <div>
-              <div className="text-xs font-bold uppercase tracking-widest text-neon">讲解任务</div>
-              <p className="mt-1 text-sm text-slate-200">{task.prompt}</p>
+              <div className="text-xs font-semibold text-colophon">讲解任务</div>
+              <p className="mt-1 text-sm text-paperink">{task.prompt}</p>
             </div>
-            <span className="shrink-0 rounded-full border border-white/12 px-2.5 py-1 text-xs text-slate-400">
+            <span className="shrink-0 rounded-[2px] border border-rule px-2.5 py-1 text-xs text-colophon">
               已通过 {passedCount} 次
             </span>
           </div>
@@ -215,12 +236,12 @@ export default function Feynman() {
               <span
                 key={k}
                 data-kw={k}
-                className={`rounded-full border px-2.5 py-1 text-xs ${
+                className={`rounded-[2px] border px-2.5 py-1 text-xs ${
                   result
                     ? result.hits.includes(k)
-                      ? 'border-success/60 bg-success/10 text-success'
-                      : 'border-danger/50 bg-danger/10 text-danger'
-                    : 'border-neon/40 bg-neon/10 text-neon'
+                      ? 'border-cobalt/60 bg-cobalt/[0.06] font-semibold text-cobalt'
+                      : 'border-rubric/60 bg-rubric/[0.06] font-semibold text-rubric'
+                    : 'border-rule text-colophon'
                 }`}
               >
                 {k}
@@ -229,12 +250,12 @@ export default function Feynman() {
             ))}
           </div>
 
-          <div className="mt-3 grid gap-1.5 text-xs text-slate-400">
+          <div className="mt-3 grid gap-1.5 text-xs text-colophon">
             <span>· {task.exampleHint}</span>
             <span>· {task.exceptionHint}</span>
           </div>
 
-          <label className="mt-4 block text-xs font-semibold text-slate-300" htmlFor="feynman-text">
+          <label className="mt-4 block text-xs font-semibold text-colophon" htmlFor="feynman-text">
             你的讲解（建议 60~150 字，口语化即可）
           </label>
           <textarea
@@ -243,16 +264,16 @@ export default function Feynman() {
             onChange={(e) => setText(e.target.value)}
             rows={7}
             placeholder="例如：单词是声音块不是字母串，每个音节里必须有一个元音核心……"
-            className="mt-1.5 w-full resize-y rounded-2xl border border-white/12 bg-white/[0.04] p-3.5 text-sm leading-relaxed text-slate-100 outline-none transition focus:border-neon/60"
+            className="edu-input mt-1.5 w-full resize-y"
           />
-          <div className="mt-1 flex justify-between text-xs text-slate-400">
+          <div className="mt-1 flex justify-between text-xs text-colophon">
             <span>已输入 {text.trim().length} 字</span>
             <span>要求：关键词 ≥ {KEYWORD_NEED} · 例子词 ≥ {EXAMPLE_WORD_NEED} · 自评 ≥ {SELF_SCORE_NEED}/20</span>
           </div>
 
           {/* 录音：可选，仅内存 */}
-          <div className="mt-4 flex flex-wrap items-center gap-2.5 rounded-2xl border border-white/10 bg-white/[0.03] p-3">
-            <div className="flex items-center gap-2 text-xs text-slate-400">
+          <div className="mt-4 flex flex-wrap items-center gap-2.5 border-t border-rule pt-3">
+            <div className="flex items-center gap-2 text-xs text-colophon">
               <Mic size={14} aria-hidden /> 录音（可选）：录下你的讲解自己听一遍，不满意就重录。
             </div>
             <div className="flex items-center gap-2">
@@ -271,7 +292,7 @@ export default function Feynman() {
                   <button
                     type="button"
                     aria-label="销毁录音"
-                    className="rounded-lg border border-white/12 p-1.5 text-slate-400 transition hover:border-danger/50 hover:text-danger"
+                    className="flex h-11 w-11 items-center justify-center rounded-[3px] border border-rule text-colophon transition-colors hover:border-rubric hover:text-rubric"
                     onClick={() => {
                       URL.revokeObjectURL(recUrl);
                       setRecUrl(null);
@@ -284,23 +305,23 @@ export default function Feynman() {
               )}
             </div>
             {recState === 'denied' && (
-              <span className="w-full text-xs text-warn">未获得麦克风权限，已降级为纯文字讲解；你仍可正常通过费曼关。</span>
+              <span className="w-full text-xs text-rubric">未获得麦克风权限，已降级为纯文字讲解；你仍可正常通过费曼关。</span>
             )}
             {recState === 'unsupported' && (
-              <span className="w-full text-xs text-warn">当前浏览器不支持录音，改用文字讲解即可。</span>
+              <span className="w-full text-xs text-rubric">当前浏览器不支持录音，改用文字讲解即可。</span>
             )}
-            {recMs > 0 && recState === 'idle' && <span className="text-xs text-slate-400">本段录音 {(recMs / 1000).toFixed(1)}s，仅保存在内存</span>}
+            {recMs > 0 && recState === 'idle' && <span className="text-xs text-colophon">本段录音 {(recMs / 1000).toFixed(1)}s，仅保存在内存</span>}
           </div>
 
           {/* 自评量表 */}
           <div className="mt-4">
-            <div className="mb-2 flex items-center gap-2 text-xs font-semibold text-slate-300">
-              <Lightbulb size={14} className="text-warn" aria-hidden /> 自评量表（1 = 完全没有，5 = 可以教别人）
+            <div className="mb-2 flex items-center gap-2 text-xs font-semibold text-colophon">
+              <Lightbulb size={14} className="text-rubric" aria-hidden /> 自评量表（1 = 完全没有，5 = 可以教别人）
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col divide-y divide-rule">
               {SELF_ITEMS.map((label, i) => (
-                <div key={label} className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-white/8 bg-white/[0.03] px-3 py-2">
-                  <span className="text-xs text-slate-300">{label}</span>
+                <div key={label} className="flex flex-wrap items-center justify-between gap-2 py-2">
+                  <span className="text-xs text-colophon">{label}</span>
                   <div className="flex gap-1" role="group" aria-label={label}>
                     {[1, 2, 3, 4, 5].map((v) => (
                       <button
@@ -314,10 +335,10 @@ export default function Feynman() {
                           playSfx('tick');
                           setRatings((r) => r.map((x, idx) => (idx === i ? v : x)));
                         }}
-                        className={`h-11 w-11 rounded-lg border text-xs transition ${
+                        className={`h-11 w-11 rounded-[3px] border text-xs transition-colors ${
                           ratings[i] === v
-                            ? 'border-neon bg-neon/20 text-neon shadow-[0_0_10px_rgba(0,229,255,0.3)]'
-                            : 'border-white/12 text-slate-400 hover:border-neon/50'
+                            ? 'border-rubric bg-rubric/[0.08] font-semibold text-rubric'
+                            : 'border-rule text-colophon hover:border-paperink hover:text-paperink'
                         }`}
                       >
                         {v}
@@ -333,16 +354,16 @@ export default function Feynman() {
             <NeonButton onClick={submit} disabled={!text.trim()} className="disabled:cursor-not-allowed disabled:opacity-40">
               提交费曼关
             </NeonButton>
-            <span className="text-xs text-slate-400">自评 {score}/20{rated ? '' : '（尚未全部评分）'}</span>
+            <span className="text-xs text-colophon">自评 {score}/20{rated ? '' : '（尚未全部评分）'}</span>
           </div>
         </motion.section>
 
         {/* 右：检查结果 / 对照 / 追问 / 历史 */}
         <motion.section className="flex flex-col gap-4" {...anim}>
           {!result && (
-            <div className="glass p-5 text-sm leading-relaxed text-slate-400">
-              <div className="mb-2 flex items-center gap-2 text-xs font-semibold text-white">
-                <MessageCircleQuestion size={14} className="text-neon" aria-hidden /> 还没有提交
+            <div className="rounded-[3px] border border-rule bg-bone2/50 p-5 text-sm leading-relaxed text-colophon">
+              <div className="mb-2 flex items-center gap-2 text-xs font-semibold text-paperink">
+                <MessageCircleQuestion size={14} className="text-cobalt" aria-hidden /> 还没有提交
               </div>
               四项要求里至少达标 3 项即通过：讲清规则、举出 3 个例子、说明 1 个例外、自评达标。
               未通过不会扣分，但会给出标准解释对照，请照着再讲一遍。
@@ -351,30 +372,30 @@ export default function Feynman() {
 
           {result && (
             <div
-              className={`glass p-5 ${result.passed ? 'border-[rgba(0,230,118,0.45)] shadow-[0_0_26px_rgba(0,230,118,0.16)]' : 'border-[rgba(255,77,109,0.35)]'}`}
+              className={`rounded-[3px] border bg-bone2/50 p-5 ${result.passed ? 'border-cobalt/60' : 'border-rubric/60'}`}
             >
-              <div className={`mb-3 font-display text-lg font-bold ${result.passed ? 'text-success' : 'text-danger'}`}>
+              <div className={`mb-3 text-lg font-bold ${result.passed ? 'text-cobalt' : 'text-rubric'}`}>
                 {result.passed ? '费曼关通过 ✓ 掌握标准 +1' : '还差一点 —— 请对照标准解释再讲一遍'}
               </div>
               <ul className="flex flex-col gap-2">
                 {result.checks.map((c) => (
                   <li key={c.key} className="flex items-start gap-2 text-sm">
-                    <span className={`mt-0.5 ${c.ok ? 'text-success' : 'text-danger'}`}>{c.ok ? <Check size={15} aria-hidden /> : <X size={15} aria-hidden />}</span>
-                    <span className={c.ok ? 'text-slate-200' : 'text-slate-400'}>
+                    <span className={`mt-0.5 ${c.ok ? 'text-cobalt' : 'text-rubric'}`}>{c.ok ? <Check size={15} aria-hidden /> : <X size={15} aria-hidden />}</span>
+                    <span className={c.ok ? 'text-paperink' : 'text-colophon'}>
                       <b className="font-semibold">{c.label}</b>
-                      <span className="block text-xs text-slate-400">{c.detail}</span>
+                      <span className="block text-xs text-colophon">{c.detail}</span>
                     </span>
                   </li>
                 ))}
               </ul>
-              <div className="mt-3 text-xs text-slate-400">
+              <div className="mt-3 text-xs text-colophon">
                 关键词命中 {result.hits.length}/{task.keywords.length}
-                {result.missing.length > 0 && <>，还差：<b className="text-warn">{result.missing.join('、')}</b></>}
+                {result.missing.length > 0 && <>，还差：<b className="text-rubric">{result.missing.join('、')}</b></>}
               </div>
               <button
                 type="button"
                 onClick={() => setShowModel((v) => !v)}
-                className="mt-3 text-xs text-neon underline underline-offset-4 hover:text-white"
+                className="mt-3 inline-flex min-h-[44px] items-center text-xs text-cobalt underline underline-offset-4 transition-colors hover:text-paperink"
               >
                 {showModel ? '收起标准解释对照' : '看标准解释对照'}
               </button>
@@ -382,15 +403,15 @@ export default function Feynman() {
           )}
 
           {showModel && (
-            <Narration text={task.modelAnswer} className="text-xs" />
+            <EduNarration text={task.modelAnswer} className="text-xs" />
           )}
 
-          <div className="glass p-5">
-            <div className="mb-2 text-xs font-semibold text-white">虚拟学生的追问（可以试着口头回答）</div>
-            <ul className="flex flex-col gap-2 text-sm text-slate-300">
+          <div className="rounded-[3px] border border-rule bg-bone2/50 p-5">
+            <div className="mb-2 text-xs font-semibold text-paperink">虚拟学生的追问（可以试着口头回答）</div>
+            <ul className="flex flex-col gap-2 text-sm text-colophon">
               {task.studentQuestions.map((q) => (
                 <li key={q} className="flex gap-2">
-                  <span className="text-neon">Q</span>
+                  <span className="font-serif font-semibold text-rubric">Q</span>
                   {q}
                 </li>
               ))}
@@ -398,13 +419,13 @@ export default function Feynman() {
           </div>
 
           {records.length > 0 && (
-            <div className="glass p-5">
-              <div className="mb-2 text-xs font-semibold text-white">最近的讲解记录</div>
-              <ul className="flex flex-col gap-1.5 text-xs text-slate-400">
+            <div className="rounded-[3px] border border-rule bg-bone2/50 p-5">
+              <div className="mb-2 text-xs font-semibold text-paperink">最近的讲解记录</div>
+              <ul className="flex flex-col gap-1.5 text-xs text-colophon">
                 {records.slice(0, 5).map((r) => (
                   <li key={r.at} className="flex items-center justify-between gap-2">
                     <span className="truncate">{new Date(r.at).toLocaleString('zh-CN', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' })} · {r.methodId}</span>
-                    <span className={r.passed ? 'text-success' : 'text-warn'}>
+                    <span className={r.passed ? 'text-cobalt' : 'text-rubric'}>
                       {r.passed ? '通过' : '未过'} · 关键词 {r.hits}/{r.total}
                     </span>
                   </li>

@@ -41,9 +41,9 @@ export default function MethodList() {
         }
       />
 
-      <div className="xl:grid xl:grid-cols-12">
+      <div>
         {/* 正文 10/12 */}
-        <div className="min-w-0 px-5 py-6 md:px-8 md:py-8 xl:col-span-10 xl:border-r xl:border-rule">
+        <div className="min-w-0 px-5 py-6 md:px-8 md:py-8">
           {/* 卷首题名 */}
           <header className="border-b border-rule pb-5">
             <h1 className="text-[26px] font-bold leading-tight text-paperink md:text-[32px]">
@@ -107,7 +107,7 @@ export default function MethodList() {
 
           {/* 切口贴降级（<xl）：列表上方的行内横排贴条 */}
           <div className="mt-6 xl:hidden">
-            <ThumbIndex variant="inline" currentId={next.id} />
+            <ThumbIndex currentId={next.id} />
           </div>
 
           {/* 8 条完整方法词条 */}
@@ -188,10 +188,6 @@ export default function MethodList() {
           </ol>
         </div>
 
-        {/* 签名件：右缘 2/12 切口拇指索引 */}
-        <aside className="hidden xl:block xl:col-span-2">
-          <ThumbIndex variant="edge" currentId={next.id} />
-        </aside>
       </div>
     </EduSheet>
   );

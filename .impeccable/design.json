@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-05T11:50:40.000Z",
+  "generatedAt": "2026-10-07T05:26:53.000Z",
   "title": "Design System: LexiMethod Academy",
   "extensions": {
     "colorMeta": {
@@ -573,33 +573,33 @@
       "css": ".ds-edu-rail{position:relative;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif}.ds-edu-rail ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}.ds-rail-line{position:absolute;left:15px;top:8px;bottom:8px;width:1px;background:#D8CFBC}.ds-rail-fill{position:absolute;left:0;top:0;width:1px;background:#1E4B7A;transition:height .5s cubic-bezier(.22,1,.36,1)}.ds-edu-rail button{display:flex;width:100%;align-items:center;gap:10px;min-height:44px;padding:6px 8px;border:0;border-radius:3px;background:transparent;text-align:left;cursor:pointer;transition:background .2s ease}.ds-edu-rail button:hover{background:rgba(239,230,210,.7)}.ds-edu-rail button.is-active{background:#EFE6D2}.ds-rail-num{position:relative;display:inline-flex;width:28px;height:28px;align-items:center;justify-content:center;border:1px solid #D8CFBC;border-radius:9999px;background:#F7F2E8;font:700 12px/1 ui-serif,Georgia,serif;font-variant-numeric:tabular-nums;color:#4A443B}.is-active .ds-rail-num{border-color:#B3311E;color:#B3311E}.is-done .ds-rail-num{background:#1E4B7A;border-color:#1E4B7A;color:#F7F2E8}.ds-rail-label{font-size:12.5px;color:#4A443B}.is-active .ds-rail-label{font-weight:600;color:#16130F}.ds-edu-rail svg{color:#B3311E}.ds-edu-rail button:focus-visible{outline:2px solid #1E4B7A;outline-offset:2px}"
     },
     {
-      "name": "Glass Card 玻璃卡（深色壳）",
-      "kind": "card",
-      "refersTo": "card-glass",
-      "description": "遗留深色内容地唯一容器材质（Glass-Only Rule）；阶段三迁移前保持不动。",
-      "html": "<div class=\"ds-card-glass\"><h3 class=\"ds-card-title\">词根词缀</h3><p class=\"ds-card-body\">把单词拆成可理解的零件，见词知义。</p></div>",
-      "css": ".ds-card-glass{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:20px;box-shadow:0 8px 32px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.06);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);color:#E2E8F0;font:400 14px/1.6 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif}.ds-card-title{margin:0 0 8px;font:700 20px/1.3 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;color:#fff}.ds-card-body{margin:0;color:#CBD5E1}"
-    },
-    {
-      "name": "Primary Neon Button 发光主按钮（深色壳）",
+      "name": "NeonButton 发光钮（阶段三已纸面化）",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "深色壳一屏唯一的发光主行动点（One Glow Rule）。",
-      "html": "<button class=\"ds-btn-neon\">开始旗舰课</button>",
-      "css": ".ds-btn-neon{position:relative;isolation:isolate;border-radius:14px;padding:10px 18px;min-height:44px;font:600 14px/1.4 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;color:#E8FBFF;background:linear-gradient(#101A35,#101A35) padding-box,linear-gradient(120deg,#00E5FF,#7C4DFF,#FF4D9D,#00E5FF) border-box;border:1px solid transparent;background-size:100% 100%,300% 100%;cursor:pointer;transition:transform .25s cubic-bezier(.22,1,.36,1),box-shadow .35s cubic-bezier(.22,1,.36,1),background-position .6s cubic-bezier(.22,1,.36,1)}.ds-btn-neon:hover{background-position:0 0,100% 0;transform:translateY(-1px);box-shadow:0 0 24px rgba(0,229,255,.18),0 0 64px rgba(124,77,255,.12)}.ds-btn-neon:active{transform:scale(.96)}.ds-btn-neon:focus-visible{outline:2px solid #00E5FF;outline-offset:3px}.ds-btn-neon:disabled{opacity:.4;cursor:not-allowed;box-shadow:none;transform:none}"
+      "description": "原深色壳发光主按钮；阶段三就地纸面化：去辉光/渐变/硬阴影，主=rubric 实底 hover:#9C2919、次=border-rule 描边，min-h 44px rounded-[3px]，sfx 接线不变。深色 One Glow Rule 已退役。",
+      "html": "<button class=\"ds-btn-neon\">开始训练</button>",
+      "css": ".ds-btn-neon{border:1px solid #B3311E;border-radius:3px;background:#B3311E;color:#FBF6EC;min-height:44px;padding:10px 18px;font:600 14px/1.4 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC',system-ui,sans-serif;cursor:pointer;transition:background-color .2s}.ds-btn-neon:hover{background:#9C2919;border-color:#9C2919}.ds-btn-neon:disabled{opacity:.4;cursor:not-allowed}"
     },
     {
       "name": "ThumbIndex 切口拇指索引",
       "kind": "navigation",
       "refersTo": "thumb-index",
-      "description": "书口上的 8 枚索引贴，一贴一课（src/components/layout/ThumbIndex.tsx）。xl 以上 variant=edge 贴纸页右缘竖排 sticky；窄屏 variant=inline 行内横排可滚。四态纹样与列表「你在这里」同源（currentId 由页面 nextPos 传入）：已学=cobalt 描边+✓；当前（唯一）=rubric 实底+▶；进行中=rubric 描边+▷ 空心；未到=发丝线空贴。",
+      "description": "窄屏降级件：列表上方的行内横排贴条（src/components/layout/ThumbIndex.tsx，variant=edge 已退役）。全站书口脊上收到 ForeEdge。四态纹样与列表「你在这里」同源（currentId 由页面 nextPos 传入）：已学=cobalt 描边+✓；当前（唯一）=rubric 实底+▶；进行中=rubric 描边+▷ 空心；未到=发丝线空贴——底/描边+形状+字色三重编码。",
       "html": "<nav aria-label=\"方法课程\" class=\"ds-thumbindex\"><a class=\"ds-thumb done\" href=\"/methods/phonics-syllables\">✓ 自然拼读</a><a class=\"ds-thumb active\" href=\"/methods/phonetic-spelling\">▶ 音标拼写</a><a class=\"ds-thumb todo\" href=\"/methods/roots-affixes\">词根词缀</a></nav>",
       "css": ".ds-thumbindex{display:flex;flex-direction:column;gap:6px}.ds-thumb{display:flex;align-items:center;gap:8px;min-height:44px;min-width:44px;padding:8px 14px;border:1px solid #D8CFBC;border-radius:3px 0 0 3px;color:#4A443B;font-size:13px;text-decoration:none}.ds-thumb.done{border-color:#1E4B7A;color:#1E4B7A}.ds-thumb.active{background:#B3311E;border-color:#B3311E;color:#F7F2E8}.ds-thumb.todo{border-color:#D8CFBC;color:#4A443B}"
+    },
+    {
+      "name": "ForeEdge 书口切口脊（阶段三签名）",
+      "kind": "navigation",
+      "refersTo": "fore-edge",
+      "description": "全站右缘常驻书口脊（src/components/layout/ForeEdge.tsx，App 层 xl+ sticky top-24）。上层 7 枚功能页切口贴：当前页=rubric 实底+▶、本会话到过=cobalt 描边+✓、未到=发丝线空贴（aria-current 标当前）。下层按页映射书的结构：/methods=8 方法四态贴、/methods/:id=该课 8 步刻痕（?step= 当前步）、其余=续学课步位（实心=已学 cobalt、描边=进行中 rubric、空=未到），零进度空置。触控≥44px，无进度时不自造口径。",
+      "html": "<nav aria-label=\"书口：功能页与步位\" class=\"ds-foreedge\"><a aria-current=\"page\" class=\"ds-edge active\" href=\"/practice\">▶ 训练</a><a class=\"ds-edge done\" href=\"/review\">✓ 复习</a><span class=\"ds-edge-gap\"></span><a class=\"ds-notch done\" href=\"/methods/phonics-syllables?step=0\">✓ 1</a><a class=\"ds-notch active\" href=\"/methods/phonics-syllables?step=1\">▶ 2</a></nav>",
+      "css": ".ds-foreedge{display:flex;flex-direction:column;gap:6px;width:96px}.ds-edge,.ds-notch{display:flex;align-items:center;gap:6px;min-height:44px;padding:0 10px;border:1px solid #D8CFBC;border-right:0;border-radius:3px 0 0 3px;font:400 13px/1.3 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC',system-ui,sans-serif;color:#4A443B;background:#F7F2E8;text-decoration:none}.ds-edge.active,.ds-notch.active{background:#B3311E;border-color:#B3311E;color:#FBF6EC}.ds-edge.done{border-color:#1E4B7A;color:#1E4B7A}.ds-notch.done{background:#1E4B7A;border-color:#1E4B7A;color:#FBF6EC}"
     }
   ],
   "narrative": {
     "northStar": "辞书版式（The Dictionary Edition）— 方法是词目，步骤是义项，演示是例句，误区是辨析。",
-    "overview": "本站是双世界并存、分阶段迁移的系统。教程面（/methods/:methodId、/lab）已建成第二个世界：骨白纸满地（#F7F2E8）、墨文承字、发丝线划栏，一册可读可练的双解词法书摊在骨白纸面上（.edu-sheet 是全站唯一一次抬升，0 24px 64px rgba(0,0,0,0.5)）。词头朗读时批注红章斜落纸上——像用红笔在词典上做了记号——是这个世界的签名瞬间。纸面拒绝玻璃、辉光、渐变与眉标（kicker）：标题自己承载重量，标签一律走行内。\n\n导航壳与首屏路由（header / footer / BottomNav / NextStepBar / Home / MethodList）已迁入纸面世界：骨白书眉（3px 双线压顶）、批注红 3px 刻线激活态、衬线刊记页脚、发丝线行的首页与方法列表——纸面把深色桌面一起接管（body 即 #F7F2E8，.edu-sheet 仍是唯一抬升的纸页）。剩余功能页（practice / feynman / review / stats / settings / toolbox 等）过渡期为深色内容嵌在纸面壳内（hasPaperGround 给它们垫 bg-abyss 地），是已记录的阶段三迁移；两个世界的规则在同一文件中分区记录，新增页面先判断自己站在纸上还是夜里。\n\n反参考在两个世界同样成立：拒绝白底卡片网格 + 渐变 hero + 进度环的网课站货架感（教程面做一部书，不做课程货架），拒绝经验值 / 连击 / 连续天数 / 等级徽章等角色化成长内容，拒绝任何外部字体与 CDN 资源——离线可用、零请求是硬约束。",
+    "overview": "全站是一个单一世界：辞书纸面（The Dictionary Edition）——方法是词目，步骤是义项，演示是例句，误区是辨析。骨白纸满地（#F7F2E8，body 即地）、墨文承字、发丝线划栏，一册可读可练的双解词法书摊在纸面上；阶段三收口后 `.edu-sheet` 与地同层、零抬升（浮纸卡双层已消灭），全部功能页（practice/analyze/feynman/review/stats/settings/toolbox/404）迁入纸面，`hasPaperGround` 双地判定退役，全站不再有夜里。\n\n全站签名件是右缘书口切口脊（ForeEdge，xl+ sticky）：上层 7 枚功能页切口贴（当前=批注红实底▶、本会话到过=结构蓝✓、未到=发丝空贴），下层按页映射书的结构（/methods=8 方法四态贴、课页=该课 8 步刻痕、其余=续学课步位，零进度空置）；窄屏由页眉/底导/页内行内贴条降级。词头朗读时批注红章斜落纸上是唯一的编排瞬间。纸面拒绝玻璃、辉光、渐变与眉标（kicker）：标题自己承载重量，标签一律走行内。\n\n反参考同样成立：拒绝白底卡片网格 + 渐变 hero + 进度环的网课站货架感（做一部书，不做课程货架），拒绝经验值 / 连击 / 连续天数 / 等级徽章等角色化成长内容，拒绝任何外部字体与 CDN 资源——离线可用、零请求是硬约束。",
     "keyCharacteristics": [
       "纸面双笔色：批注红（功能/当下）+ 结构蓝（结构/已定），骨白纸与发丝线做地",
       "系统字体单兵种：中文正文系统无衬线 16px/1.9；系统衬线只给英文词头与展示数字；IPA 一律 .ipa 等宽（0.01em）",

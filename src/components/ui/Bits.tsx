@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 import { Volume2, Loader2 } from 'lucide-react';
 import { useSpeech, useSpeaking } from '@/hooks/useSpeech';
@@ -7,65 +6,13 @@ import { wordAudioUrl } from '@/data/phonemeAudio';
 import { useMotionTier } from '@/hooks/useMotionTier';
 import { playSfx } from '@/hooks/useSfx';
 
-/** 小标签 / 芯片 */
-export function Chip({
-  children,
-  active = false,
-  onClick,
-  tone = 'cyan',
-  className = '',
-}: {
-  children: React.ReactNode;
-  active?: boolean;
-  onClick?: () => void;
-  tone?: 'cyan' | 'violet' | 'pink' | 'green' | 'amber';
-  className?: string;
-}) {
-  const tones: Record<string, string> = {
-    cyan: '#00E5FF',
-    violet: '#A98BFF',
-    pink: '#FF4D9D',
-    green: '#00E676',
-    amber: '#FFB300',
-  };
-  const color = tones[tone];
-  const Tag = onClick ? 'button' : 'div';
-  return (
-    <Tag
-      onClick={
-        onClick
-          ? () => {
-              playSfx('click');
-              onClick();
-            }
-          : undefined
-      }
-      type={onClick ? 'button' : undefined}
-      className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition-all duration-300 ${
-        onClick ? 'cursor-pointer hover:-translate-y-0.5' : ''
-      } ${className}`}
-      style={{
-        color: active ? '#04121c' : color,
-        background: active ? color : `${color}18`,
-        border: `1px solid ${active ? color : `${color}55`}`,
-        boxShadow: active ? `0 0 16px ${color}66` : 'none',
-      }}
-      aria-pressed={onClick ? active : undefined}
-    >
-      {children}
-    </Tag>
-  );
-}
-
 /** 区块标题 */
 export function SectionHeading({
-  kicker,
   title,
   desc,
   align = 'left',
   as = 'h2',
 }: {
-  kicker?: string;
   title: string;
   desc?: string;
   align?: 'left' | 'center';
@@ -85,15 +32,8 @@ export function SectionHeading({
   const Tag = as;
   return (
     <motion.div className={`mb-6 ${align === 'center' ? 'text-center' : ''}`} {...anim}>
-      {kicker && (
-        <div className={`mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-neon ${align === 'center' ? 'justify-center' : ''}`}>
-          <span className="h-px w-6 bg-neon/60" />
-          {kicker}
-          <span className="h-px w-6 bg-neon/60" />
-        </div>
-      )}
-      <Tag className="font-display text-2xl font-bold text-white md:text-3xl">{title}</Tag>
-      {desc && <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-300/80 md:text-base">{desc}</p>}
+      <Tag className="text-2xl font-bold text-paperink md:text-3xl">{title}</Tag>
+      {desc && <p className="mt-2 max-w-3xl text-sm leading-relaxed text-colophon md:text-base">{desc}</p>}
     </motion.div>
   );
 }
@@ -106,7 +46,7 @@ export function SpeakButton({
   label,
   size = 'md',
   className = '',
-  tone = 'dark',
+  tone = 'paper',
 }: {
   text: string;
   phonemeId?: string;
@@ -114,7 +54,7 @@ export function SpeakButton({
   label?: string;
   size?: 'sm' | 'md' | 'lg';
   className?: string;
-  /** 视面：深色默认；辞书纸面传 'paper'（结构蓝描边，朗读中转批注红，无辉光） */
+  /** 视面：整站已统一辞书纸面（默认 'paper'：结构蓝描边，朗读中转批注红，无辉光） */
   tone?: 'dark' | 'paper';
 }) {
   const { speak, supported } = useSpeech();
@@ -167,15 +107,5 @@ export function SpeakButton({
     >
       {speaking ? <Loader2 size={icon} className="animate-spin" /> : <Volume2 size={icon} />}
     </motion.button>
-  );
-}
-
-/** 旁白文本：动画之外的信息载体（可访问性） */
-export function Narration({ text, className = '' }: { text: string; className?: string }) {
-  return (
-    <p className={`border-l-2 border-neon/50 bg-white/[0.04] px-4 py-3 text-sm leading-relaxed text-slate-300/90 ${className}`}>
-      <span className="mr-2 text-xs font-bold uppercase tracking-wider text-neon/80">讲解</span>
-      {text}
-    </p>
   );
 }

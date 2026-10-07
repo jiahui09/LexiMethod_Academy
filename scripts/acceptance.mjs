@@ -182,7 +182,7 @@ for (const tab of TYPE_TABS) {
     // 返回整页文本与控件标记。prompt 在同类题内会重复（8 道最小对立对共用一个题干），
     // 单靠 prompt 反查会定位到错误题目，必须优先用每题唯一的 narration 定位。
     const body = document.body.innerText;
-    const hasInput = !!document.querySelector('input.input-neon');
+    const hasInput = !!document.querySelector('input.edu-input');
     const hasPool = !!document.querySelector('[aria-label="可选拼块"]');
     const stressGroup = !!document.querySelector('[aria-label="选择重音音节"]');
     return { body, hasInput, hasPool, stressGroup };
@@ -250,8 +250,8 @@ for (const tab of TYPE_TABS) {
     check(`「${tab}」按答案拼装判对`, correct, okAll ? (correct ? '' : '答题后未出现「回答正确」反馈') : '拼块/槽位缺失');
   } else if (handle.hasInput && q) {
     // 听写类：题干相同，靠 narration 定位后输入该题的标准答案
-    await page.click('input.input-neon');
-    await page.type('input.input-neon', q.answer, { delay: 12 });
+    await page.click('input.edu-input');
+    await page.type('input.edu-input', q.answer, { delay: 12 });
     await clickText('button', '提交');
     await sleep(600);
     const correct = await answeredCorrectly();
@@ -314,7 +314,7 @@ while (guard++ < 14) {
     if (dict && !dict.disabled) { dict.click(); return 'reveal'; }
     const option = [...document.querySelectorAll('button[aria-pressed]')].find((b) => /^(名词|动词|形容词|副词)/.test(b.textContent.trim()));
     if (option) { option.click(); return 'choice'; }
-    const input = document.querySelector('input.input-neon[aria-label], textarea.input-neon[aria-label]');
+    const input = document.querySelector('input.edu-input[aria-label], textarea.edu-input[aria-label]');
     if (input && !input.value) {
       const proto = input.tagName === 'TEXTAREA' ? HTMLTextAreaElement.prototype : HTMLInputElement.prototype;
       Object.getOwnPropertyDescriptor(proto, 'value').set.call(input, 'con-struc-tion');
@@ -333,7 +333,7 @@ while (guard++ < 14) {
   }
 }
 await page.evaluate(() => {
-  const input = document.querySelector('input.input-neon[aria-label], textarea.input-neon[aria-label]');
+  const input = document.querySelector('input.edu-input[aria-label], textarea.edu-input[aria-label]');
   if (input && !input.value) {
     const proto = input.tagName === 'TEXTAREA' ? HTMLTextAreaElement.prototype : HTMLInputElement.prototype;
     Object.getOwnPropertyDescriptor(proto, 'value').set.call(input, 'con-struc-tion');

@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Dumbbell, ListRestart, BarChart3 } from 'lucide-react';
+import { Dumbbell, ListRestart, BarChart3, Check, X } from 'lucide-react';
 import type { Question, QuestionType } from '@/types';
 import { quizBanks } from '@/data/quizBanks';
 import { words } from '@/data/words';
@@ -9,7 +9,7 @@ import { spellingPatterns } from '@/data/spellingPatterns';
 import QuestionRunner from '@/components/practice/QuestionRunner';
 import PageIntro from '@/components/layout/PageIntro';
 import { StaggerGroup, StaggerItem } from '@/components/ui/Cards';
-import NeonButton from '@/components/ui/NeonButton';
+import { EduButton } from '@/components/edu';
 import { TYPE_LABELS } from '@/lib/answers';
 import {
   listenWriteWordQ,
@@ -72,7 +72,6 @@ export default function Practice() {
     <div className="flex flex-col gap-6">
       <PageIntro
         crumbs={[{ label: '学习地图', to: '/' }, { label: '互动训练' }]}
-        kicker="Practice"
         title="互动训练：11 种题型，练的是方法不是手速"
         desc="听音选音标、看口型猜音标、音标⇄拼写双向、听音写音标/单词（逐字母反馈）、音节划分、重音定位、最小对立对、词缀组装、语境选词 —— 每道题都附带原理讲解，错题自动进复习中心。"
         next={{ label: '复习中心（到期卡片）', to: '/review' }}
@@ -80,32 +79,32 @@ export default function Practice() {
 
       {/* 概览 */}
       <div className="grid gap-4 sm:grid-cols-3">
-        <div className="glass p-5">
-          <div className="text-xs uppercase tracking-widest text-slate-400">累计作答</div>
-          <div className="font-display text-3xl font-bold text-white tabular-nums">{totalAnswered}</div>
-          <div className="text-xs text-slate-400">正确 {totalCorrect}</div>
+        <div className="rounded-[3px] border border-rule bg-bone2/50 p-5">
+          <div className="text-xs text-colophon">累计作答</div>
+          <div className="font-serif text-3xl font-bold text-paperink tabular-nums">{totalAnswered}</div>
+          <div className="text-xs text-colophon">正确 {totalCorrect}</div>
         </div>
-        <div className="glass p-5">
-          <div className="text-xs uppercase tracking-widest text-slate-400">总正确率</div>
-          <div className="font-display text-3xl font-bold text-neon tabular-nums">
+        <div className="rounded-[3px] border border-rule bg-bone2/50 p-5">
+          <div className="text-xs text-colophon">总正确率</div>
+          <div className="font-serif text-3xl font-bold text-cobalt tabular-nums">
             {totalAnswered ? Math.round((totalCorrect / totalAnswered) * 100) : 0}%
           </div>
-          <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-white/8">
+          <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-rule">
             <motion.div
-              className="h-full rounded-full bg-gradient-to-r from-neon to-violet"
+              className="h-full rounded-full bg-cobalt"
               initial={{ width: 0 }}
               animate={{ width: `${totalAnswered ? (totalCorrect / totalAnswered) * 100 : 0}%` }}
               transition={{ duration: 0.8 }}
             />
           </div>
         </div>
-        <div className="glass p-5">
-          <div className="text-xs uppercase tracking-widest text-slate-400">覆盖题型</div>
-          <div className="font-display text-3xl font-bold text-success tabular-nums">
+        <div className="rounded-[3px] border border-rule bg-bone2/50 p-5">
+          <div className="text-xs text-colophon">覆盖题型</div>
+          <div className="font-serif text-3xl font-bold text-paperink tabular-nums">
             {TYPES.filter((t) => (stats[t]?.total ?? 0) > 0).length}
-            <span className="text-base text-slate-400"> / 11</span>
+            <span className="text-base text-colophon"> / 11</span>
           </div>
-          <div className="text-xs text-slate-400">全题型都练过 = 方法闭环</div>
+          <div className="text-xs text-colophon">全题型都练过 = 方法闭环</div>
         </div>
       </div>
 
@@ -118,8 +117,10 @@ export default function Practice() {
             setType('mixed');
             setSeed((s) => s + 1);
           }}
-          className={`flex min-h-[44px] items-center gap-1.5 rounded-full border px-4 py-2 text-xs font-medium transition-all duration-300 ${
-            type === 'mixed' ? 'border-neon bg-neon/18 text-neon shadow-[0_0_16px_rgba(0,229,255,0.3)]' : 'border-white/14 bg-white/5 text-slate-300 hover:border-neon/45'
+          className={`flex min-h-[44px] items-center gap-1.5 rounded-[3px] border px-4 py-2 text-xs font-medium transition-colors duration-200 ${
+            type === 'mixed'
+              ? 'border-rubric bg-rubric text-bone'
+              : 'border-rule bg-transparent text-paperink hover:bg-bone2'
           }`}
           aria-pressed={type === 'mixed'}
         >
@@ -134,8 +135,10 @@ export default function Practice() {
               setType(t);
               setSeed((s) => s + 1);
             }}
-            className={`min-h-[44px] rounded-full border px-3.5 py-2 text-xs transition-all duration-300 ${
-              type === t ? 'border-violet bg-violet/20 text-white shadow-[0_0_16px_rgba(124,77,255,0.35)]' : 'border-white/14 bg-white/5 text-slate-300 hover:border-violet/50'
+            className={`min-h-[44px] rounded-[3px] border px-3.5 py-2 text-xs transition-colors duration-200 ${
+              type === t
+                ? 'border-rubric bg-rubric text-bone'
+                : 'border-rule bg-transparent text-paperink hover:bg-bone2'
             }`}
             aria-pressed={type === t}
           >
@@ -148,8 +151,8 @@ export default function Practice() {
       <QuestionRunner key={`${type}-${seed}`} questions={questions} heading={type === 'mixed' ? '综合训练' : TYPE_LABELS[type]} />
 
       <div className="flex justify-end">
-        <NeonButton
-          variant="ghost"
+        <EduButton
+          variant="default"
           size="sm"
           onClick={() => {
             playSfx('reveal');
@@ -157,13 +160,13 @@ export default function Practice() {
           }}
         >
           <ListRestart size={14} aria-hidden /> 换一批题
-        </NeonButton>
+        </EduButton>
       </div>
 
       {/* 分题型成绩 */}
       <section>
-        <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-white">
-          <BarChart3 size={15} className="text-neon" aria-hidden /> 分题型成绩
+        <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-paperink">
+          <BarChart3 size={15} className="text-rubric" aria-hidden /> 分题型成绩
         </div>
         <StaggerGroup className="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3" stagger={0.04}>
           {TYPES.map((t) => {
@@ -171,16 +174,29 @@ export default function Practice() {
             const pct = s.total ? Math.round((s.correct / s.total) * 100) : 0;
             return (
               <StaggerItem key={t}>
-                <div className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3">
+                <div className="rounded-[3px] border border-rule bg-bone2/50 px-4 py-3">
                   <div className="mb-1.5 flex items-center justify-between text-xs">
-                    <span className="text-slate-300">{TYPE_LABELS[t]}</span>
-                    <span className={`tabular-nums ${pct >= 80 ? 'text-success' : pct >= 50 ? 'text-warn' : 'text-slate-400'}`}>
+                    <span className="text-paperink">{TYPE_LABELS[t]}</span>
+                    <span
+                      className={`flex items-center gap-1 tabular-nums ${
+                        !s.total
+                          ? 'text-colophon'
+                          : pct >= 80
+                            ? 'text-cobalt'
+                            : pct >= 50
+                              ? 'text-colophon'
+                              : 'text-rubric'
+                      }`}
+                    >
+                      {/* 状态不只靠颜色：达标上勾、掉档打叉 */}
+                      {s.total > 0 && pct >= 80 && <Check size={13} strokeWidth={2.5} aria-hidden />}
+                      {s.total > 0 && pct < 50 && <X size={13} strokeWidth={2.5} aria-hidden />}
                       {s.total ? `${pct}%` : '未练习'}
                     </span>
                   </div>
-                  <div className="h-1.5 overflow-hidden rounded-full bg-white/8">
+                  <div className="h-1.5 overflow-hidden rounded-full bg-rule">
                     <motion.div
-                      className="h-full rounded-full bg-gradient-to-r from-neon to-violet"
+                      className="h-full rounded-full bg-cobalt"
                       initial={{ width: 0 }}
                       animate={{ width: `${pct}%` }}
                       transition={{ duration: 0.7 }}
@@ -193,7 +209,7 @@ export default function Practice() {
         </StaggerGroup>
       </section>
 
-      <p className="text-xs text-slate-400">
+      <p className="text-xs text-colophon">
         目标线：单题型正确率 ≥ 80%。达标意味着这套「音 → 形 → 义」通路已自动化，可以换更难的词继续练（实战演练页）。
       </p>
     </div>

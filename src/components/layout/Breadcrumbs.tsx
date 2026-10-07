@@ -11,7 +11,7 @@ export type Crumb = { label: string; to?: string };
 export default function Breadcrumbs({
   items,
   className = '',
-  tone = 'dark',
+  tone = 'paper',
 }: {
   items: Crumb[];
   className?: string;
@@ -23,20 +23,20 @@ export default function Breadcrumbs({
     <nav
       aria-label="面包屑"
       data-testid="breadcrumbs"
-      className={`flex flex-wrap items-center gap-1.5 text-xs ${paper ? 'text-colophon' : 'text-slate-400'} ${className}`}
+      className={`flex flex-wrap items-center gap-1.5 text-xs ${'text-colophon'} ${className}`}
     >
       {items.map((c, i) => {
         const last = i === items.length - 1;
         return (
           <span key={`${c.label}-${i}`} className="flex items-center gap-1.5">
             {i > 0 && (
-              <ChevronRight size={11} className={paper ? 'text-colophon/60' : 'text-slate-400'} aria-hidden />
+              <ChevronRight size={11} className={'text-colophon/60'} aria-hidden />
             )}
             {c.to && !last ? (
               <Link
                 to={c.to}
                 className={`inline-flex min-h-[44px] items-center transition-colors ${
-                  paper ? 'hover:text-cobalt' : 'hover:text-neon'
+                  'hover:text-cobalt'
                 }`}
               >
                 {c.label}
@@ -44,7 +44,7 @@ export default function Breadcrumbs({
             ) : (
               <span
                 aria-current={last ? 'page' : undefined}
-                className={last ? (paper ? 'text-rubric' : 'text-neon') : undefined}
+                className={last ? 'text-rubric' : undefined}
               >
                 {c.label}
               </span>

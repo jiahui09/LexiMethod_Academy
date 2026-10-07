@@ -11,12 +11,22 @@ type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 const sizes = {
-  sm: 'px-3 py-1.5 text-sm rounded-xl',
-  md: 'px-5 py-2.5 text-sm rounded-[14px]',
-  lg: 'px-7 py-3.5 text-base rounded-2xl',
+  sm: 'px-3 py-1.5 text-sm',
+  md: 'px-5 py-2.5 text-sm',
+  lg: 'px-7 py-3.5 text-base',
 };
 
-/** 霓虹按钮：渐变描边 + hover 光晕 + 点击 ripple + 按压回弹 */
+/** 主形态：批注红实底米白字（无辉光、无渐变、无硬阴影）；次形态：发丝线描边纸面钮 */
+const variants: Record<NonNullable<Props['variant']>, string> = {
+  neon: 'border-rubric bg-rubric text-bone hover:bg-[#9C2919] hover:border-[#9C2919]',
+  solid: 'border-rubric bg-rubric text-bone hover:bg-[#9C2919] hover:border-[#9C2919]',
+  ghost: 'border border-rule text-paperink hover:bg-bone2',
+};
+
+const base =
+  'relative inline-flex min-h-[44px] items-center justify-center gap-2 rounded-[3px] border font-medium transition-colors duration-200 active:translate-y-px disabled:cursor-not-allowed disabled:opacity-45';
+
+/** 纸面按钮：沿用原导出名与全部 props API，内部改为辞书纸面（发丝线 / 批注红 / 方正圆角） */
 export default function NeonButton({
   variant = 'neon',
   size = 'md',
@@ -37,40 +47,18 @@ export default function NeonButton({
 
   const handleClick = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
-      const el = ref.current;
-      if (el && tier !== 'off') {
-        const rect = el.getBoundingClientRect();
-        const dot = document.createElement('span');
-        const d = Math.max(rect.width, rect.height);
-        dot.className = 'ripple-dot';
-        dot.style.width = `${d}px`;
-        dot.style.height = `${d}px`;
-        dot.style.left = `${e.clientX - rect.left - d / 2}px`;
-        dot.style.top = `${e.clientY - rect.top - d / 2}px`;
-        el.appendChild(dot);
-        window.setTimeout(() => dot.remove(), 620);
-      }
       if (sfx) playSfx('click');
       onClick?.(e);
     },
-    [onClick, sfx, tier],
+    [onClick, sfx],
   );
-
-  const base =
-    variant === 'neon'
-      ? 'btn-neon'
-      : variant === 'ghost'
-        ? 'btn-ghost'
-        : 'rounded-[14px] px-5 py-2.5 text-sm font-semibold text-[#071022] bg-gradient-to-r from-[#00E5FF] to-[#7C4DFF] shadow-glow-sm transition hover:brightness-110 active:scale-95 cursor-pointer border-0';
 
   return (
     <motion.button
       ref={ref}
       type="button"
-      className={`${base} ${sizes[size]} relative overflow-hidden inline-flex items-center justify-center gap-2 ${className}`}
-      whileTap={tier === 'off' ? undefined : { scale: 0.95 }}
-      whileHover={tier === 'off' ? undefined : { y: -1 }}
-      transition={{ type: 'spring', stiffness: 260, damping: 24 }}
+      className={`${base} ${variants[variant]} ${sizes[size]} ${className}`}
+      whileTap={tier === 'off' ? undefined : { scale: 0.97 }}
       onClick={handleClick}
       {...rest}
     >

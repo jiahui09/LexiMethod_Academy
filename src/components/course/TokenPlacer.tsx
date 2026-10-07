@@ -2,7 +2,6 @@ import { useEffect, useState, type DragEvent as ReactDragEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useMotionTier } from '@/hooks/useMotionTier';
 import { playSfx } from '@/hooks/useSfx';
-import { LightWave } from './FeedbackFx';
 
 export type Piece = { id: string; text: string; hint?: string };
 
@@ -15,7 +14,7 @@ type Props = {
   onResult?: (correct: boolean, given: string) => void;
   /** 全部就位后的提示文案 */
   ruleHint: string;
-  /** 视面：practice 深色面默认；纸面（辞书版式）传 'paper' */
+  /** 视面：保留对外 API（历史深色面分支已整体迁入辞书纸面，两面同视） */
   tone?: 'dark' | 'paper';
 };
 
@@ -32,7 +31,7 @@ function shuffle<T extends { id: string }>(arr: T[]): T[] {
 
 /**
  * 拖拽/点选拼块：桌面支持原生拖拽，移动端点击“选中→放入”（键盘可达）
- * 全部就位即判定：错误 = 红色抖动 + 规则提示；深色面正确 = 绿色光波，纸面正确 = 结构蓝描边
+ * 全部就位即判定：错误 = 红色抖动 + 规则提示；正确 = 结构蓝描边（辞书纸面）
  */
 export default function TokenPlacer({
   pieces,
@@ -45,7 +44,6 @@ export default function TokenPlacer({
   tone = 'dark',
 }: Props) {
   const tier = useMotionTier();
-  const paper = tone === 'paper';
   // pieces 每次渲染可能是新数组：用稳定 key 决定是否重置，避免无限洗牌
   const piecesKey = pieces.map((p) => p.id).join('|');
   const [pool, setPool] = useState<Piece[]>(() => shuffle(pieces));
@@ -134,8 +132,8 @@ export default function TokenPlacer({
 
   return (
     <div className="flex flex-col gap-4">
-      <p className={`text-sm ${paper ? 'text-paperink' : 'text-slate-300/85'}`}>
-        <span className={paper ? 'mr-2 text-xs font-semibold text-cobalt' : 'mr-2 rounded-md bg-neon/15 px-2 py-0.5 text-xs font-bold text-neon'}>练习</span>
+      <p className="text-sm text-paperink">
+        <span className="mr-2 text-xs font-semibold text-cobalt">练习</span>
         {instructions}
       </p>
 
@@ -158,32 +156,22 @@ export default function TokenPlacer({
               }}
               animate={
                 status === 'correct'
-                  ? paper
-                    ? { borderColor: 'rgba(30,75,122,0.95)', x: 0 }
-                    : { boxShadow: '0 0 26px rgba(0,230,118,0.6)', borderColor: 'rgba(0,230,118,0.9)' }
+                  ? { borderColor: 'rgba(30,75,122,0.95)', x: 0 }
                   : status === 'wrong'
                     ? { x: [0, -5, 5, -4, 0] }
-                    : paper
-                      ? { x: 0 }
-                      : { boxShadow: '0 0 0 rgba(0,0,0,0)' }
+                    : { x: 0 }
               }
               transition={{ duration: 0.4 }}
-              className={`relative flex min-w-[76px] min-h-[56px] items-center justify-center border px-4 py-4 font-serif text-lg font-semibold transition-colors ${
-                paper
-                  ? `rounded-[4px] ${piece ? 'border-paperink/55 bg-[#FDFBF5] text-paperink' : 'border-dashed border-rule bg-transparent text-colophon/70'} ${
-                      picked && !piece ? 'border-rubric bg-rubric/[0.07]' : ''
-                    }`
-                  : `rounded-2xl font-display backdrop-blur-md ${piece ? 'border-neon/50 bg-neon/10 text-white' : 'border-dashed border-white/25 bg-white/[0.04] text-slate-400'} ${
-                      picked && !piece ? 'border-solid border-neon/70 bg-neon/10 ring-2 ring-neon/30' : ''
-                    }`
-              }`}
+              className={`relative flex min-w-[76px] min-h-[56px] items-center justify-center rounded-[4px] border px-4 py-4 font-serif text-lg font-semibold transition-colors ${
+                piece
+                  ? 'border-paperink/55 bg-[#FDFBF5] text-paperink'
+                  : 'border-dashed border-rule bg-transparent text-colophon/70'
+              } ${picked && !piece ? 'border-rubric bg-rubric/[0.07]' : ''}`}
               aria-label={`第 ${i + 1} 个槽位${piece ? `：${piece.text}` : '（空）'}`}
             >
               {piece ? piece.text : '?'}
             </motion.button>
-            {i < slots.length - 1 && (
-              <span className={paper ? 'text-colophon' : 'text-slate-400'}>{gapToken === '-' ? '·' : gapToken}</span>
-            )}
+            {i < slots.length - 1 && <span className="text-colophon">{gapToken === '-' ? '·' : gapToken}</span>}
           </div>
         ))}
 
@@ -210,18 +198,10 @@ export default function TokenPlacer({
                 }
               }}
               onClick={() => handlePick(piece, 'pool')}
-              className={`cursor-grab border px-4 py-2.5 text-base font-semibold active:cursor-grabbing ${
-                paper
-                  ? `rounded-[4px] font-serif transition-colors ${
-                      picked?.piece.id === piece.id
-                        ? 'border-rubric bg-rubric/[0.08] text-rubric'
-                        : 'border-rule bg-[#FDFBF5] text-paperink hover:border-paperink'
-                    }`
-                  : `rounded-xl font-display backdrop-blur-md transition-all ${
-                      picked?.piece.id === piece.id
-                        ? 'border-neon bg-neon/20 text-white shadow-neon'
-                        : 'border-white/15 bg-white/[0.06] text-slate-200 hover:border-neon/50 hover:-translate-y-0.5'
-                    }`
+              className={`min-h-[44px] cursor-grab rounded-[4px] border px-4 py-2.5 font-serif text-base font-semibold transition-colors active:cursor-grabbing ${
+                picked?.piece.id === piece.id
+                  ? 'border-rubric bg-rubric/[0.08] text-rubric'
+                  : 'border-rule bg-[#FDFBF5] text-paperink hover:border-paperink'
               }`}
               aria-pressed={picked?.piece.id === piece.id}
             >
@@ -230,7 +210,7 @@ export default function TokenPlacer({
           ))}
         </AnimatePresence>
         {pool.length === 0 && (
-          <span className={`text-xs ${paper ? 'text-colophon' : 'text-slate-400'}`}>（拼块已全部放入，点击槽位可取回）</span>
+          <span className="text-xs text-colophon">（拼块已全部放入，点击槽位可取回）</span>
         )}
       </div>
 
@@ -241,43 +221,37 @@ export default function TokenPlacer({
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            className={`border px-4 py-3 text-sm ${
-              paper
-                ? `rounded-[4px] ${status === 'correct' ? 'border-cobalt/60 bg-cobalt/[0.06] text-paperink' : 'border-rubric/60 bg-rubric/[0.06] text-paperink'}`
-                : `rounded-2xl ${status === 'correct' ? 'border-success/45 bg-success/10 text-[#B9FFD9]' : 'border-danger/45 bg-danger/10 text-[#FFC9D2]'}`
+            className={`rounded-[4px] border px-4 py-3 text-sm ${
+              status === 'correct' ? 'border-cobalt/60 bg-cobalt/[0.06] text-paperink' : 'border-rubric/60 bg-rubric/[0.06] text-paperink'
             }`}
             role="status"
           >
-            <strong className={`mr-2 ${paper ? (status === 'correct' ? 'text-cobalt' : 'text-rubric') : ''}`}>
+            <strong className={`mr-2 ${status === 'correct' ? 'text-cobalt' : 'text-rubric'}`}>
               {status === 'correct' ? '✓ 正确！' : '✕ 还不对'}
             </strong>
             {status === 'correct' ? ruleHint : (
               <>
-                你的答案：<code className={`font-mono ${paper ? 'text-paperink' : 'text-white/90'}`}>{given}</code> ·{' '}
+                你的答案：<code className="font-mono text-paperink">{given}</code> ·{' '}
                 <button
                   type="button"
                   onClick={reset}
-                  className={paper ? 'underline underline-offset-4 hover:text-cobalt' : 'underline hover:text-white'}
+                  className="inline-flex min-h-[44px] items-center underline underline-offset-4 transition-colors hover:text-cobalt"
                 >
                   重来
                 </button>
-                <div className={`mt-1 text-xs ${paper ? 'text-colophon' : 'text-slate-300/80'}`}>提示：{ruleHint}</div>
+                <div className="mt-1 text-xs text-colophon">提示：{ruleHint}</div>
               </>
             )}
           </motion.div>
         )}
       </AnimatePresence>
 
-      <div className={`flex items-center justify-between text-xs ${paper ? 'text-colophon' : 'text-slate-400'}`}>
+      <div className="flex items-center justify-between text-xs text-colophon">
         <span>尝试次数：{attempts}</span>
         <button
           type="button"
           onClick={reset}
-          className={
-            paper
-              ? 'min-h-[44px] rounded-[3px] border border-rule px-3 py-1 transition-colors hover:border-paperink hover:text-paperink'
-              : 'min-h-[44px] rounded-lg border border-white/12 px-3 py-1 transition hover:border-neon/50 hover:text-neon'
-          }
+          className="min-h-[44px] rounded-[3px] border border-rule px-3 py-1 transition-colors hover:border-paperink hover:text-paperink"
         >
           重新出题
         </button>

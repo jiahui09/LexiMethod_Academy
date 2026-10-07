@@ -5,6 +5,7 @@ import AppShell from '@/components/layout/AppShell';
 import PageTransition, { RouteLoading } from '@/components/layout/PageTransition';
 import RouteErrorBoundary from '@/components/layout/RouteErrorBoundary';
 import NextStepBar from '@/components/layout/NextStepBar';
+import ForeEdge from '@/components/layout/ForeEdge';
 
 const Home = lazy(() => import('@/pages/Home'));
 const MethodList = lazy(() => import('@/pages/MethodList'));
@@ -18,20 +19,6 @@ const Review = lazy(() => import('@/pages/Review'));
 const Stats = lazy(() => import('@/pages/Stats'));
 const Settings = lazy(() => import('@/pages/Settings'));
 const NotFound = lazy(() => import('@/pages/NotFound'));
-
-/**
- * 纸面地判定（辞书版式）：全站地面是骨白纸，首页 / 方法列表 / 课程页 / 音标实验室
- * 落在纸上；其余路由（训练 / 实战演练 / 费曼关 / 工具箱 / 复习 / 统计 / 设置 / 404）
- * 是遗留深色内容，过渡期整块嵌进纸面壳（阶段三再迁移），见 .impeccable/surfaces。
- */
-function hasPaperGround(pathname: string) {
-  return (
-    pathname === '/' ||
-    pathname === '/methods' ||
-    pathname.startsWith('/lab') ||
-    (/^\/methods\/[^/]+$/.test(pathname) && !pathname.endsWith('/compare'))
-  );
-}
 
 /** 路由 → 页面（懒加载，避免首屏包过大） */
 function Router() {
@@ -56,7 +43,6 @@ function Router() {
 
 export default function App() {
   const location = useLocation();
-  const paperGround = hasPaperGround(location.pathname);
 
   return (
     <>
@@ -67,24 +53,25 @@ export default function App() {
         跳到主要内容
       </a>
       <AppShell>
-        {/* 遗留功能页没有自己的深色地：过渡期由壳给一整块深色内容地嵌进纸面（阶段三迁移） */}
-        <div
-          id="main-content"
-          className={`container-page py-6 md:py-10 ${paperGround ? '' : 'bg-abyss text-slate-200'}`}
-        >
-          <AnimatePresence mode="wait">
-            {/* key 使每次路由切换都整棵重挂：旧页退场动画 + 新页懒加载占位；
-                边界在 Suspense 外侧，懒加载失败与渲染崩溃都会落进降级页 */}
-            <RouteErrorBoundary key={location.pathname}>
-              <Suspense fallback={<RouteLoading dark={!paperGround} />}>
-                <PageTransition>
-                  <Router />
-                </PageTransition>
-              </Suspense>
-            </RouteErrorBoundary>
-          </AnimatePresence>
-          {/* 每页底部统一「下一步去哪儿」引导 */}
-          <NextStepBar />
+        {/* 整站一整块连续纸面（阶段三：双地判定退役）；书口脊常驻右缘，正文 flex-1 */}
+        <div className="container-page flex items-start gap-6 py-6 md:py-10">
+          <div id="main-content" className="min-w-0 flex-1">
+            <AnimatePresence mode="wait">
+              {/* key 使每次路由切换都整棵重挂：旧页退场动画 + 新页懒加载占位；
+                  边界在 Suspense 外侧，懒加载失败与渲染崩溃都会落进降级页 */}
+              <RouteErrorBoundary key={location.pathname}>
+                <Suspense fallback={<RouteLoading />}>
+                  <PageTransition>
+                    <Router />
+                  </PageTransition>
+                </Suspense>
+              </RouteErrorBoundary>
+            </AnimatePresence>
+            {/* 每页底部统一「下一步去哪儿」引导 */}
+            <NextStepBar />
+          </div>
+          {/* 全站书口脊：7 枚功能页切口贴 + 课内步位刻痕（xl+ 常驻；<xl 由页眉/底导/页内贴条降级） */}
+          <ForeEdge />
         </div>
       </AppShell>
     </>

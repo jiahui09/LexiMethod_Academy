@@ -1,13 +1,6 @@
 import { motion } from 'framer-motion';
 
 /** 绿色光波（判定正确时掠过） */
-export function LightWave() {
-  return (
-    <span aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-      <span className="light-wave absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-success/40 to-transparent" />
-    </span>
-  );
-}
 
 /** 发音波形（播放时跳动）—— 使用方都在音标实验室；按调用方笔色平涂，不加辉光 */
 export function Waveform({ active, bars = 24, color = '#00E5FF' }: { active: boolean; bars?: number; color?: string }) {

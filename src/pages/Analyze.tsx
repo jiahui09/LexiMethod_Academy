@@ -1,8 +1,9 @@
 import { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Search, History, Eye, Shuffle, BookOpenCheck } from 'lucide-react';
+import { Search, History, Eye, Shuffle, BookOpenCheck, ArrowRight, Check } from 'lucide-react';
 import WordAnalysisWizard from '@/components/analyze/WordAnalysisWizard';
-import PageIntro from '@/components/layout/PageIntro';
+import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import { StaggerGroup, StaggerItem } from '@/components/ui/Cards';
 import NeonButton from '@/components/ui/NeonButton';
 import { words } from '@/data/words';
@@ -12,7 +13,7 @@ import { useMotionTier } from '@/hooks/useMotionTier';
 
 const QUICK = ['incomprehensible', 'transportation', 'photograph', 'decision'];
 
-/** 实战演练：六步词分析向导（只给提示，不给答案） */
+/** 实战演练：六步词分析向导（只给提示，不给答案）——辞书纸面版式 */
 export default function Analyze() {
   const tier = useMotionTier();
   const [input, setInput] = useState('');
@@ -33,13 +34,26 @@ export default function Analyze() {
 
   return (
     <div className="flex flex-col gap-6">
-      <PageIntro
-        crumbs={[{ label: '学习地图', to: '/' }, { label: '实战演练' }]}
-        kicker="Real-world Drill"
-        title="实战演练：拿一个没学过的词走完 6 步"
-        desc="目标不是查到答案，而是练出推导链：定词性 → 划音节与重音 → 拆词根词缀 → 猜词义 → 与词典核对 → 放进语境输出。全程网站只给提示，绝不替你作答。"
-        next={{ label: '费曼关：讲一遍', to: '/feynman' }}
-      />
+      {/* 卷首题名：面包屑 + 词头 h1（纸面上方绝不做眉标）+ 唯一去向 */}
+      <header className="border-b border-rule pb-5">
+        <Breadcrumbs tone="paper" items={[{ label: '学习地图', to: '/' }, { label: '实战演练' }]} />
+        <div className="mt-2 flex flex-wrap items-end justify-between gap-4">
+          <div className="min-w-0">
+            <h1 className="text-2xl font-bold leading-tight text-paperink md:text-3xl">
+              实战演练：拿一个没学过的词走完 6 步
+            </h1>
+            <p className="mt-2 max-w-[68ch] text-[15px] leading-[1.85] text-colophon">
+              目标不是查到答案，而是练出推导链：定词性 → 划音节与重音 → 拆词根词缀 → 猜词义 → 与词典核对 → 放进语境输出。全程网站只给提示，绝不替你作答。
+            </p>
+          </div>
+          <Link
+            to="/feynman"
+            className="inline-flex min-h-[44px] shrink-0 items-center gap-1.5 rounded-[3px] border border-rule px-4 py-2.5 text-sm text-paperink transition-colors hover:bg-bone2"
+          >
+            下一步 · 费曼关：讲一遍 <ArrowRight size={14} aria-hidden />
+          </Link>
+        </div>
+      </header>
 
       {/* 输入 */}
       <motion.form
@@ -50,10 +64,10 @@ export default function Analyze() {
           e.preventDefault();
           start(input);
         }}
-        className="glass flex flex-wrap items-center gap-3 p-4"
+        className="flex flex-wrap items-center gap-3 rounded-[3px] border border-rule bg-bone2/50 p-4"
       >
-        <label htmlFor="analyze-input" className="flex items-center gap-2 text-sm text-slate-300">
-          <Search size={15} className="text-neon" aria-hidden />
+        <label htmlFor="analyze-input" className="flex items-center gap-2 text-sm text-colophon">
+          <Search size={15} className="text-rubric" aria-hidden />
           输入任意单词：
         </label>
         <input
@@ -61,7 +75,7 @@ export default function Analyze() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="例如：unpredictable / meteorological"
-          className="input-neon min-w-[240px] flex-1"
+          className="edu-input min-w-[240px] flex-1"
           autoComplete="off"
           spellCheck={false}
         />
@@ -81,7 +95,7 @@ export default function Analyze() {
       </motion.form>
 
       {/* 快捷词 */}
-      <div className="flex flex-wrap items-center gap-2 text-xs text-slate-400">
+      <div className="flex flex-wrap items-center gap-2 text-xs text-colophon">
         <span className="flex items-center gap-1.5">
           <Eye size={13} aria-hidden /> 课程里的实战词：
         </span>
@@ -94,12 +108,12 @@ export default function Analyze() {
               setInput(w);
               start(w);
             }}
-            className="min-h-[44px] rounded-lg border border-neon/35 bg-neon/[0.08] px-3 py-1.5 text-xs text-neon transition hover:border-neon/70"
+            className="min-h-[44px] rounded-[3px] border border-rule px-3 py-1.5 text-xs text-paperink transition-colors hover:border-cobalt hover:text-cobalt"
           >
             {w}
           </button>
         ))}
-        <span className="mx-1 h-4 w-px bg-white/10" aria-hidden />
+        <span className="mx-1 h-4 w-px bg-rule" aria-hidden />
         <span>或从词库挑：</span>
         {words.slice(0, 6).map((w) => (
           <button
@@ -110,7 +124,7 @@ export default function Analyze() {
               setInput(w.word);
               start(w.word);
             }}
-            className="min-h-[44px] rounded-lg border border-violet/35 bg-violet/[0.08] px-3 py-1.5 text-xs text-violet-lit transition hover:border-violet/70"
+            className="min-h-[44px] rounded-[3px] border border-rule px-3 py-1.5 font-serif text-xs text-paperink transition-colors hover:border-cobalt hover:text-cobalt"
           >
             {w.word}
           </button>
@@ -122,12 +136,12 @@ export default function Analyze() {
 
       {/* 历史记录 */}
       <section className="grid gap-4 lg:grid-cols-2">
-        <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-5">
-          <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-white">
-            <History size={15} className="text-pink-lit" aria-hidden /> 分析历史（{analyzed.length}）
+        <div className="rounded-[3px] border border-rule bg-bone2/50 p-5">
+          <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-paperink">
+            <History size={15} className="text-cobalt" aria-hidden /> 分析历史（{analyzed.length}）
           </div>
           <div className="flex flex-wrap gap-2">
-            {analyzed.length === 0 && <p className="text-xs text-slate-400">完成一次分析后会记录在这里。</p>}
+            {analyzed.length === 0 && <p className="text-xs text-colophon">完成一次分析后会记录在这里。</p>}
             {analyzed.map((a, i) => (
               <button
                 key={`${a.word}-${i}`}
@@ -137,18 +151,18 @@ export default function Analyze() {
                   setInput(a.word);
                   start(a.word);
                 }}
-                className="flex min-h-[44px] items-center gap-2 rounded-xl border border-white/12 bg-white/[0.05] px-3 py-2 text-xs transition hover:border-pink/60"
+                className="flex min-h-[44px] items-center gap-2 rounded-[3px] border border-rule px-3 py-2 text-xs transition-colors hover:border-cobalt"
               >
-                <span className="font-semibold text-white">{a.word}</span>
-                <span className="text-slate-400">{new Date(a.at).toLocaleDateString('zh-CN')}</span>
+                <span className="font-serif font-semibold text-paperink">{a.word}</span>
+                <span className="text-colophon">{new Date(a.at).toLocaleDateString('zh-CN')}</span>
               </button>
             ))}
           </div>
         </div>
 
-        <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-5">
-          <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-white">
-            <BookOpenCheck size={15} className="text-success" aria-hidden /> 实战检查清单
+        <div className="rounded-[3px] border border-rule bg-bone2/50 p-5">
+          <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-paperink">
+            <BookOpenCheck size={15} className="text-cobalt" aria-hidden /> 实战检查清单
           </div>
           <StaggerGroup className="grid gap-2" stagger={0.05}>
             {[
@@ -159,9 +173,9 @@ export default function Analyze() {
               '能把新词放进自己造的句子里，完成一次输出',
             ].map((t, i) => (
               <StaggerItem key={i}>
-                <div className="flex items-start gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-3 py-2.5 text-xs text-slate-300">
-                  <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded border border-success/50 text-xs text-success">
-                    ✓
+                <div className="flex items-start gap-2 border-t border-rule py-2.5 text-xs text-colophon">
+                  <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center border border-cobalt text-cobalt">
+                    <Check size={11} aria-hidden />
                   </span>
                   {t}
                 </div>
