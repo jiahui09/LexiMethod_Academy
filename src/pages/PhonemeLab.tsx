@@ -1,142 +1,152 @@
 import { useState } from 'react';
 import { Link, NavLink, Navigate, useParams } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { AudioLines, ArrowLeftRight, Headphones, ArrowRight } from 'lucide-react';
+import { ChevronRight, ArrowRight } from 'lucide-react';
 import PhonemeChart from '@/components/phonics/PhonemeChart';
 import PhonemeStage from '@/components/phonics/PhonemeStage';
 import SpellingMapDrill from '@/components/phonics/SpellingMapDrill';
 import DictationTrainer from '@/components/phonics/DictationTrainer';
 import { phonemes } from '@/data/phonemes';
 import { useProgress } from '@/store/progressStore';
-import { useMotionTier } from '@/hooks/useMotionTier';
-import Breadcrumbs from '@/components/layout/Breadcrumbs';
-import { EduSheet, EduRunningHead, EduNote } from '@/components/edu';
+import { EduRunningHead } from '@/components/edu';
+import { STAGE_META, deepen, type StageId } from '@/lib/stages';
 
-const TABS = [
-  { key: 'phonemes', label: '音标发音教学', icon: AudioLines, desc: '48 个音标 · 口型 / 舌位 / 气流 / 声带动画' },
-  { key: 'mapping', label: '音标拼写对应', icon: ArrowLeftRight, desc: '音标 ⇄ 字母组合 双向训练 + 规则动画' },
-  { key: 'dictation', label: '听音拼写训练', icon: Headphones, desc: '先写音标，再写单词 · 逐字母反馈' },
+const TABS: { key: string; label: string; desc: string; stage: StageId }[] = [
+  { key: 'phonemes', label: '音标发音教学', desc: '48 个音标 · 口型 / 舌位 / 气流 / 声带动画', stage: 'pathway' },
+  { key: 'mapping', label: '音标拼写对应', desc: '音标 ⇄ 字母组合 双向训练 + 规则动画', stage: 'encode' },
+  { key: 'dictation', label: '听音拼写训练', desc: '先写音标，再写单词 · 逐字母反馈', stage: 'retrieve' },
 ];
 
+/** 面包屑（页眉右槽与顶栏共用的定位感；直接子 span 供方向感审计计数） */
+function LabCrumbs({ tabLabel }: { tabLabel: string }) {
+  return (
+    <nav aria-label="面包屑" className="flex flex-wrap items-center gap-1.5 text-xs text-ink2">
+      <span>
+        <Link to="/methods" className="inline-flex min-h-[44px] items-center transition-colors hover:text-ink">
+          手册总目
+        </Link>
+      </span>
+      <span aria-hidden className="text-ink2/60">
+        <ChevronRight size={11} />
+      </span>
+      <span>
+        <NavLink to="/lab/phonemes" className="inline-flex min-h-[44px] items-center transition-colors hover:text-ink">
+          音标实验室
+        </NavLink>
+      </span>
+      <span aria-hidden className="text-ink2/60">
+        <ChevronRight size={11} />
+      </span>
+      <span aria-current="page" className="font-semibold text-ink">
+        {tabLabel}
+      </span>
+    </nav>
+  );
+}
+
 /**
- * 音标实验室：三个子模块（辞书版式）。
- * 书眉给面包屑与刻线进度；题名直接开场，不做眉标；
- * 三卷 tab 走发丝线下划线（选中 = 批注红下划线）；主栏读词条页，栏外是页边批注。
+ * 音标实验室：三个分卷，页顶一卷一色的卡板章节带（压膜活页手册）。
+ * 书眉载面包屑与进度机器计数；带内分卷链接以粗细与刻线双重编码当前卷；
+ * 主栏读叶面页，栏外是页边批注。
  */
 export default function PhonemeLab() {
   const { tab = 'phonemes' } = useParams();
-  const tier = useMotionTier();
   const learned = useProgress((s) => s.phonemesLearned);
   const [selectedId, setSelectedId] = useState(phonemes[0]?.id ?? '');
-  const [chartKey, setChartKey] = useState(0);
 
   if (!TABS.some((t) => t.key === tab)) return <Navigate to="/lab/phonemes" replace />;
 
+  const current = TABS.find((t) => t.key === tab) ?? TABS[0];
+  const stage = STAGE_META[current.stage];
+  const bandStyle = { background: stage.hue, borderBottom: `3px solid ${deepen(stage.hue)}` };
   const selected = phonemes.find((p) => p.id === selectedId) ?? phonemes[0];
   const donePct = Math.round((learned.length / 48) * 100);
 
   return (
-    <EduSheet className="overflow-hidden">
-      {/* 书眉：面包屑定位 + 右侧刻线进度（永远回答「我学了几个音标」） */}
+    <div className="overflow-hidden">
+      {/* 书眉：面包屑定位 + 右侧机器计数（永远回答「我学了几个音标」） */}
       <EduRunningHead
-        left={
-          <Breadcrumbs
-            tone="paper"
-            items={[
-              { label: '方法课程', to: '/methods' },
-              { label: '音标实验室', to: '/lab/phonemes' },
-              { label: TABS.find((t) => t.key === tab)?.label ?? '音标实验室' },
-            ]}
-          />
-        }
+        accent={stage.hue}
+        left={<LabCrumbs tabLabel={current.label} />}
         right={
           <>
             <span className="hidden items-center gap-2 sm:flex" aria-hidden>
               <span className="relative block h-[3px] w-24 bg-rule">
-                <span
-                  className="absolute left-0 top-0 h-[3px] bg-cobalt transition-[width] duration-500 ease-out"
-                  style={{ width: `${donePct}%` }}
-                />
+                <span className="absolute left-0 top-0 h-[3px] bg-ink" style={{ width: `${donePct}%` }} />
               </span>
             </span>
-            <span className="text-xs font-semibold tabular-nums text-paperink">已学 {learned.length} / 48</span>
+            <span className="machine text-[12px] text-ink">已学 {learned.length} / 48</span>
             <Link
               to="/methods"
-              data-testid="intro-next"
-              className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[3px] border border-transparent px-3 py-1.5 text-sm font-medium text-colophon transition-colors hover:border-rule hover:text-paperink"
+              data-testid="lab-next"
+              className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[3px] px-3 py-1.5 text-sm text-ink2 transition-colors hover:bg-under hover:text-ink"
             >
-              下一步 · 回方法课程 <ArrowRight size={14} aria-hidden />
+              下一步 · 回手册总目 <ArrowRight size={14} aria-hidden />
             </Link>
           </>
         }
       />
 
-      <div className="px-5 py-6 md:px-8">
-        {/* 卷首题名：标题自身压场 */}
-        <header className="border-b border-rule pb-5">
-          <h1 className="text-[26px] font-bold leading-tight text-paperink md:text-[32px]">音标实验室</h1>
-          <p className="mt-2 max-w-[68ch] text-[15px] leading-[1.85] text-colophon">
-            不是背 48 个符号，而是掌握 48 套“发音动作”。每个音标都有口型、舌位、气流、声带动画与分步讲解，配合听音拼写把声音和拼写绑在一起。
+      {/* 页顶章节带：一卷一色，满强度 + 深一档下缘 */}
+      <div style={bandStyle}>
+        <div className="px-5 pb-4 pt-6 md:px-8">
+          <h1 className={`font-display text-[26px] font-extrabold leading-tight md:text-[32px] ${stage.onBand}`}>
+            音标实验室
+          </h1>
+          <p className={`mt-2 max-w-[68ch] text-[15px] leading-[1.8] ${stage.onBand}`}>
+            48 个音标对应 48 套发音动作，口型、舌位、气流与声带动画逐一分解，再用听音拼写把声音和拼写绑在一起。
           </p>
-        </header>
-
-        {/* 三卷 tab：发丝线行，选中卷压一条批注红下划线 */}
-        <div className="mt-5 flex flex-wrap items-stretch gap-x-6 gap-y-1 border-b border-rule" role="tablist" aria-label="音标实验室分卷">
-          {TABS.map((t) => (
-            <NavLink
-              key={t.key}
-              to={`/lab/${t.key}`}
-              role="tab"
-              aria-selected={tab === t.key}
-              aria-current={tab === t.key ? 'page' : undefined}
-              className={`relative flex min-h-[44px] items-center gap-2 px-1 pb-2.5 pt-1 text-sm transition-colors duration-200 ${
-                tab === t.key ? 'font-semibold text-paperink' : 'text-colophon hover:text-paperink'
-              }`}
-            >
-              <t.icon size={16} className={tab === t.key ? 'text-rubric' : 'text-colophon'} aria-hidden />
-              <span className="flex flex-col leading-tight">
-                <span>{t.label}</span>
-                <span className="text-xs font-normal text-colophon">{t.desc}</span>
-              </span>
-              {tab === t.key && <span aria-hidden className="pointer-events-none absolute inset-x-0 -bottom-px h-[3px] bg-rubric" />}
-            </NavLink>
-          ))}
+          <nav aria-label="分卷" className="mt-4 flex flex-wrap items-stretch gap-x-6 gap-y-1">
+            {TABS.map((t) => {
+              const on = t.key === tab;
+              return (
+                <NavLink
+                  key={t.key}
+                  to={`/lab/${t.key}`}
+                  aria-current={on ? 'page' : undefined}
+                  className={`hinge relative flex min-h-[44px] flex-col justify-center px-0.5 pb-2 pt-1 ${
+                    stage.onBand
+                  }`}
+                >
+                  <span className={`font-display text-sm ${on ? 'font-extrabold' : 'font-bold'}`}>{t.label}</span>
+                  <span className={`text-xs ${on ? 'font-semibold' : 'font-normal'}`}>{t.desc}</span>
+                  {on && (
+                    <span
+                      aria-hidden
+                      className="absolute inset-x-0 -bottom-[1px] h-[3px]"
+                      style={{ background: current.stage === 'pathway' ? '#17140E' : '#FBF9F2' }}
+                    />
+                  )}
+                </NavLink>
+              );
+            })}
+          </nav>
         </div>
+      </div>
 
-        <div className="mt-6 grid gap-6 xl:grid-cols-[minmax(0,1fr)_208px]">
+      <div className="px-5 py-6 md:px-8">
+        <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_208px]">
           {/* 主导栏 */}
           <div className="flex min-w-0 flex-col gap-6">
             {tab === 'phonemes' && (
-              <motion.div
-                key={`phonemes-${chartKey}`}
-                initial={tier === 'off' ? false : { opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="flex flex-col gap-6"
-              >
-                {/* 学习进度：扁平刻线，不做渐变 */}
-                <div className="flex flex-wrap items-center gap-3 border border-rule bg-bone2/50 px-4 py-3 text-xs text-colophon">
+              <div className="flex flex-col gap-6">
+                {/* 学习进度：扁平刻线 */}
+                <div className="flex flex-wrap items-center gap-3 rounded-[4px] border border-rule bg-leaf px-4 py-3 text-xs text-ink2">
                   <span className="tabular-nums">
-                    已学音标：<b className="font-semibold text-cobalt tabular-nums">{learned.length}</b> / 48
+                    已学音标：<b className="font-semibold text-ink tabular-nums">{learned.length}</b> / 48
                   </span>
                   <div className="h-1.5 min-w-[120px] flex-1 overflow-hidden bg-rule">
-                    <motion.div
-                      className="h-full bg-cobalt"
-                      animate={{ width: `${(learned.length / 48) * 100}%` }}
-                      transition={{ duration: 0.5 }}
-                    />
+                    <div className="h-full bg-ink" style={{ width: `${(learned.length / 48) * 100}%` }} />
                   </div>
-                  <span className="text-colophon xl:hidden">选中音标 → 播放例词 → 走完 7 步讲解 → 标记已学</span>
+                  <span className="text-ink2 xl:hidden">选中音标 → 播放例词 → 走完 7 步讲解 → 标记已学</span>
                 </div>
 
                 <div className="grid gap-6 xl:grid-cols-[380px_1fr]">
-                  <aside className="h-fit rounded-[4px] border border-rule bg-bone2/40 p-4 xl:sticky xl:top-24">
+                  <aside className="h-fit rounded-[4px] border border-rule bg-leaf p-4 xl:sticky xl:top-24">
                     <PhonemeChart
                       selected={selectedId}
                       learned={learned}
                       onSelect={(p) => {
                         setSelectedId(p.id);
-                        setChartKey((k) => k + 1);
                         window.scrollTo({ top: 0, behavior: 'smooth' });
                       }}
                     />
@@ -145,30 +155,34 @@ export default function PhonemeLab() {
                     <PhonemeStage key={selected.id} phoneme={selected} onSelect={(p) => setSelectedId(p.id)} />
                   </section>
                 </div>
-              </motion.div>
+              </div>
             )}
 
             {tab === 'mapping' && <SpellingMapDrill key="mapping" />}
             {tab === 'dictation' && <DictationTrainer key="dictation" />}
           </div>
 
-          {/* 栏外 apparatus：页边批注（只用发丝线与正文分隔） */}
+          {/* 栏外页边批注：只用发丝线与正文分隔 */}
           <aside aria-label="页边批注" className="hidden border-l border-rule pl-5 xl:block">
             <div className="sticky top-24 flex flex-col gap-5">
-              <EduNote label="读法">选中音标 → 播放例词 → 走完 7 步讲解 → 标记已学</EduNote>
-              <EduNote label="分卷">
-                <ul className="flex flex-col gap-1.5">
+              <div className="border-t border-rule pt-2.5 text-[13px] leading-[1.85] text-ink2">
+                <b className="mr-1.5 font-semibold text-ink">读法</b>
+                选中音标 → 播放例词 → 走完 7 步讲解 → 标记已学
+              </div>
+              <div className="border-t border-rule pt-2.5 text-[13px] leading-[1.85] text-ink2">
+                <b className="mr-1.5 font-semibold text-ink">分卷</b>
+                <ul className="mt-1.5 flex flex-col gap-1.5">
                   {TABS.map((t) => (
                     <li key={t.key}>
-                      <b className="font-semibold text-paperink">{t.label}</b> {t.desc}
+                      <b className="font-semibold text-ink">{t.label}</b> {t.desc}
                     </li>
                   ))}
                 </ul>
-              </EduNote>
+              </div>
             </div>
           </aside>
         </div>
       </div>
-    </EduSheet>
+    </div>
   );
 }

@@ -1,195 +1,214 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { ArrowRight, AudioLines } from 'lucide-react';
-import { methods } from '@/data/methods';
-import { useProgress, useOverallProgress } from '@/store/progressStore';
-import Breadcrumbs from '@/components/layout/Breadcrumbs';
-import ThumbIndex from '@/components/layout/ThumbIndex';
-import { EduSheet, EduRunningHead, EduButton } from '@/components/edu';
+import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
+import { courses } from '@/data/courses';
+import type { Course } from '@/data/courses';
+import { useProgress } from '@/store/progressStore';
+import { STAGE_META, STAGE_ORDER, deepen } from '@/lib/stages';
+import { EduRunningHead } from '@/components/edu';
 import { playSfx } from '@/hooks/useSfx';
 
+type State = {
+  completedUnits: Record<string, string[]>;
+  diagnosticTaken: string[];
+  exitResults: Record<string, { score: number; total: number }>;
+};
+
+/** 课的收口判定，与书口阶梯轨同口径：出门条已交或六单元全勾 */
+function isCourseDone(c: Course, s: State): boolean {
+  return s.exitResults[c.id] != null || (s.completedUnits[c.id]?.length ?? 0) >= c.units.length;
+}
+
+function unitStepIndex(c: Course, s: State): number {
+  const done = s.completedUnits[c.id] ?? [];
+  const i = c.units.findIndex((u) => !done.includes(u.id));
+  return i === -1 ? -1 : i + 1; // 1..6
+}
+
+/** 「下一步去哪」的唯一口径：诊断 → 单元 → 出门条 → 收口 */
+function nextTarget(c: Course, s: State): { step: number; kind: 'diag' | 'unit' | 'exit' | 'done' } {
+  if (!s.diagnosticTaken.includes(c.id)) return { step: 0, kind: 'diag' };
+  const u = unitStepIndex(c, s);
+  if (u > 0) return { step: u, kind: 'unit' };
+  if (s.exitResults[c.id] == null) return { step: 7, kind: 'exit' };
+  return { step: 7, kind: 'done' };
+}
+
+function primaryLabel(c: Course, t: ReturnType<typeof nextTarget>): string {
+  if (t.kind === 'diag') return c.order === 1 ? '开始第一课' : `进入第 ${c.order} 课`;
+  if (t.kind === 'unit') return `继续 U${t.step}`;
+  if (t.kind === 'exit') return '再做出门条';
+  return '回第一课';
+}
+
+const stageRange = (list: Course[]) => {
+  const first = String(list[0].order).padStart(2, '0');
+  const last = String(list[list.length - 1].order).padStart(2, '0');
+  return first === last ? first : `${first}–${last}`;
+};
+
 /**
- * 方法课程列表页（辞书版式）：目录页 + 书口切口索引。
- * 正文 10/12 是 8 条完整方法词条（词头、点线 leaders、进度纹样、入口），
- * 右缘 2/12 是切口拇指索引（签名件），窄屏降级为列表上方的行内贴条。
+ * 手册总目（压膜活页手册）：第一屏就是目录文档本身。
+ * 四段路径按卡板色分章，每课一行叶行；状态打孔三重编码（形状 + 颜色 + 文字）。
  */
 export default function MethodList() {
-  const navigate = useNavigate();
-  const progress = useProgress();
-  const overall = useOverallProgress(methods.length);
+  const completedUnits = useProgress((s) => s.completedUnits);
+  const diagnosticTaken = useProgress((s) => s.diagnosticTaken);
+  const exitResults = useProgress((s) => s.exitResults);
+  const state: State = { completedUnits, diagnosticTaken, exitResults };
 
-  const next = methods.find((m) => !progress.completedMethods.includes(m.id)) ?? methods[0];
+  const doneCount = courses.filter((c) => isCourseDone(c, state)).length;
+  const totalMin = courses.reduce((a, c) => a + c.durationMin, 0);
+  const maxMin = Math.max(...courses.map((c) => c.durationMin));
+
+  // 本页唯一主行动：第一门没走完的课的下一个位置
+  const nextCourse = courses.find((c) => !isCourseDone(c, state)) ?? courses[0];
+  const target = nextTarget(nextCourse, state);
+  const primaryTo =
+    target.kind === 'done'
+      ? `/methods/${courses[0].id}?step=1`
+      : `/methods/${nextCourse.id}?step=${target.step}`;
+
+  const grouped = STAGE_ORDER.map((stage) => ({
+    stage,
+    list: courses.filter((c) => c.stage === stage),
+  })).filter((g) => g.list.length > 0);
 
   return (
-    <EduSheet>
-      {/* 书眉：面包屑定位 + 刻线标出整本书的长度与当前位置 */}
+    <article className="leaf leaf-active">
       <EduRunningHead
-        left={<Breadcrumbs tone="paper" items={[{ label: '方法课程' }]} />}
+        left={
+          <nav aria-label="面包屑" className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1">
+            <span className="font-display font-bold text-ink">词汇方法手册</span>
+            <span aria-hidden className="h-3 w-px bg-rule" />
+            <span aria-current="page">手册总目</span>
+          </nav>
+        }
         right={
-          <>
-            <span className="hidden items-center gap-2 sm:flex" aria-hidden>
-              <span className="relative block h-[3px] w-24 bg-rule">
-                <span
-                  className="absolute left-0 top-0 h-[3px] bg-cobalt transition-[width] duration-500 ease-out-expo"
-                  style={{ width: `${Math.round(overall * 100)}%` }}
-                />
-              </span>
-            </span>
-            <span className="text-xs font-semibold tabular-nums text-paperink">
-              {progress.completedMethods.length}/{methods.length}
-            </span>
-          </>
+          <span className="machine text-ink2">
+            {doneCount} / {courses.length} 已收口
+          </span>
         }
       />
 
-      <div>
-        {/* 正文 10/12 */}
-        <div className="min-w-0 px-5 py-6 md:px-8 md:py-8">
-          {/* 卷首题名 */}
-          <header className="border-b border-rule pb-5">
-            <h1 className="text-[26px] font-bold leading-tight text-paperink md:text-[32px]">
-              方法课程：8 个模块，全部可看、可练、可衡量
-            </h1>
-            <p className="mt-2 max-w-[68ch] text-[15px] leading-[1.85] text-colophon">
-              每门课固定六段结构：原理讲解 → 分步动画演示 → 互动练习 → 实战分析 → 常见误区 → 掌握标准。全部学完，你得到的是一套可以迁移到任何新单词上的方法。
+      <div className="px-5 py-6 md:px-8 md:py-8">
+        {/* 卷首题名：文档本身即第一屏 */}
+        <header className="border-b border-rule pb-5">
+          <p className="machine text-[12px] text-ink2">
+            8 门课 · 48 单元 · 约 {totalMin} 分钟
+          </p>
+          <h1 className="mt-1.5 font-display text-[26px] font-extrabold leading-tight text-ink md:text-[32px]">
+            手册总目
+          </h1>
+          <p className="mt-2 max-w-[68ch] text-[15px] leading-[1.85] text-ink2">
+            八门课沿一条路径排开。每门课先做开场诊断，再走五到六个短单元，最后交一张出门条，学完即收口。
+          </p>
+        </header>
+
+        {/* 本页唯一主行动 */}
+        <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-4 border-b border-rule pb-5">
+          <Link
+            to={primaryTo}
+            onClick={() => playSfx('click')}
+            data-testid="intro-next"
+            className="inline-flex min-h-[44px] items-center gap-2 rounded-[3px] bg-ink px-5 py-2.5 font-display text-sm font-bold text-milk transition-colors hover:bg-ink2 active:translate-y-px"
+          >
+            {primaryLabel(nextCourse, target)} <ArrowRight size={15} aria-hidden />
+          </Link>
+          <div className="min-w-0">
+            <p className="machine text-[12px] text-ink2">
+              {String(nextCourse.order).padStart(2, '0')} · {nextCourse.durationMin} 分钟 ·{' '}
+              {nextCourse.units.length} 单元
             </p>
-          </header>
-
-          {/* 全书进度 + 本页唯一主行动（继续/开始） */}
-          <div className="mt-5 flex flex-wrap items-center gap-x-8 gap-y-4 rounded-[4px] border border-rule bg-bone2/50 px-4 py-4">
-            <div className="min-w-[150px] flex-1 sm:flex-none sm:basis-48">
-              <div className="text-xs text-colophon">总进度</div>
-              <span className="mt-1.5 block h-[3px] w-full bg-rule" aria-hidden>
-                <span
-                  className="block h-[3px] bg-cobalt transition-[width] duration-500 ease-out-expo"
-                  style={{ width: `${Math.round(overall * 100)}%` }}
-                />
-              </span>
-            </div>
-
-            <div>
-              <div className="font-serif text-3xl font-bold tabular-nums text-paperink">
-                {progress.completedMethods.length}/{methods.length}
-              </div>
-              <div className="text-xs text-colophon">已完成门数</div>
-            </div>
-
-            <div>
-              <div className="font-serif text-3xl font-bold tabular-nums text-cobalt">
-                {Math.round(overall * 100)}%
-              </div>
-              <div className="text-xs text-colophon">整体进度</div>
-            </div>
-
-            <div className="flex flex-wrap gap-2 sm:ml-auto">
-              <EduButton
-                variant="primary"
-                sfx={false}
-                data-testid="intro-next"
-                onClick={() => {
-                  playSfx('click');
-                  navigate(`/methods/${next.id}`);
-                }}
-              >
-                {progress.completedMethods.length === 0 ? '开始第一课' : `继续：${next.title}`}{' '}
-                <ArrowRight size={15} aria-hidden />
-              </EduButton>
-              <EduButton
-                sfx={false}
-                onClick={() => {
-                  playSfx('click');
-                  navigate('/lab/phonemes');
-                }}
-              >
-                <AudioLines size={15} aria-hidden /> 音标实验室
-              </EduButton>
-            </div>
+            <p className="truncate font-display text-sm font-bold text-ink">{nextCourse.title}</p>
           </div>
-
-          {/* 切口贴降级（<xl）：列表上方的行内横排贴条 */}
-          <div className="mt-6 xl:hidden">
-            <ThumbIndex currentId={next.id} />
-          </div>
-
-          {/* 8 条完整方法词条 */}
-          <ol className="mt-6 border-t border-rule">
-            {methods.map((m, i) => {
-              const done = progress.completedMethods.includes(m.id);
-              const steps = progress.completedSteps[m.id] ?? [];
-              const pct = Math.round((steps.length / m.steps.length) * 100);
-              return (
-                <li key={m.id}>
-                  <Link
-                    to={`/methods/${m.id}`}
-                    data-testid="data-method-row"
-                    data-method-row={m.id}
-                    onClick={() => playSfx('click')}
-                    className="group block min-h-[44px] border-b border-rule px-2 py-4 transition-colors hover:bg-bone2/60"
-                  >
-                    {/* 词条行：序号 + 词头 + 点线 leaders + 进度纹样 + 入口 */}
-                    <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-                      <span className="font-serif text-lg font-bold tabular-nums text-rubric" aria-hidden>
-                        {String(i + 1).padStart(2, '0')}
-                      </span>
-                      <h2 className="font-serif text-[18px] font-bold leading-snug text-paperink md:text-[21px]">
-                        {m.title}
-                      </h2>
-                      <span
-                        className="hidden min-w-10 flex-1 translate-y-[6px] border-b border-dotted border-rule sm:block"
-                        aria-hidden
-                      />
-                      <span className="rounded-[2px] border border-rule px-2 py-0.5 text-xs text-colophon">
-                        {m.category}
-                      </span>
-                      {done && (
-                        <span className="rounded-[2px] border border-cobalt px-2 py-0.5 text-xs font-medium text-cobalt">
-                          ✓ 已完成
-                        </span>
-                      )}
-
-                      <span className="flex items-center gap-3 text-xs text-colophon sm:ml-auto">
-                        <span className="tabular-nums">
-                          {steps.length}/{m.steps.length} 步
-                        </span>
-                        <span className="tabular-nums">{pct}%</span>
-                      </span>
-
-                      <span className="flex min-h-[44px] shrink-0 items-center gap-1.5 rounded-[3px] border border-rule px-3 py-1 text-xs font-medium text-colophon transition-colors group-hover:border-paperink group-hover:text-paperink">
-                        {pct > 0
-                          ? `继续第 ${steps.length + 1 > m.steps.length ? m.steps.length : steps.length + 1} 步`
-                          : '进入课程'}
-                        <ArrowRight size={13} aria-hidden />
-                      </span>
-                    </div>
-
-                    {/* 进度刻线（发丝线槽 + 结构蓝填充） */}
-                    <div className="mt-2.5 h-[3px] w-full bg-rule" aria-hidden>
-                      <div
-                        className="h-[3px] bg-cobalt transition-[width] duration-500 ease-out-expo"
-                        style={{ width: `${pct}%` }}
-                      />
-                    </div>
-
-                    <p className="mt-2.5 max-w-[68ch] text-[13px] leading-[1.85] text-colophon">{m.subtitle}</p>
-
-                    {/* 要点不装边框盒：长句进小盒子 = 硬塞；改为悬挂点列表，与辞书正文同节奏 */}
-                    <ul className="mt-2.5 flex max-w-[68ch] flex-col gap-1">
-                      {m.principles.slice(0, 3).map((p, k) => (
-                        <li key={k} className="flex gap-2 text-[13px] leading-[1.75] text-colophon">
-                          <span aria-hidden className="shrink-0 font-bold text-rubric">
-                            ·
-                          </span>
-                          <span>{p}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </Link>
-                </li>
-              );
-            })}
-          </ol>
+          <p className="machine ml-auto text-[12px] text-ink2">
+            已收口 {doneCount} / {courses.length}
+          </p>
         </div>
 
+        {/* 四段路径分章卡板带 + 叶行目录 */}
+        {grouped.map(({ stage, list }) => {
+          const meta = STAGE_META[stage];
+          const stageMin = list.reduce((a, c) => a + c.durationMin, 0);
+          return (
+            <section key={stage} aria-label={`${meta.label}段课程`} className="mt-8">
+              {/* 卡板章节带：满强度段色 + 下缘 3px 深一档 */}
+              <div
+                className={`${meta.bg} flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 rounded-t-[4px] px-4 py-2.5`}
+                style={{ borderBottom: `3px solid ${deepen(meta.hue)}` }}
+              >
+                <h2 className={`font-display text-[17px] font-extrabold ${meta.onBand}`}>
+                  {meta.label}
+                </h2>
+                <p className={`machine ${meta.onBand} opacity-90`}>
+                  {stageRange(list)} · {stageMin} 分钟
+                </p>
+              </div>
+
+              <ol className="rounded-b-[4px] border border-t-0 border-rule bg-leaf">
+                {list.map((c) => {
+                  const done = isCourseDone(c, state);
+                  const started =
+                    (state.completedUnits[c.id]?.length ?? 0) > 0 ||
+                    state.diagnosticTaken.includes(c.id);
+                  const status = done ? '已收口' : started ? '进行中' : '未到';
+                  const t = nextTarget(c, state);
+                  return (
+                    <li key={c.id} className="border-b border-rule last:border-b-0">
+                      <Link
+                        to={`/methods/${c.id}?step=${t.step}`}
+                        onClick={() => playSfx('click')}
+                        data-testid="data-method-row"
+                        data-method-row={c.id}
+                        className="group block min-h-[44px] px-4 py-4 transition-colors hover:bg-under/60"
+                        aria-label={`第 ${c.order} 课 ${c.title}，${status}`}
+                      >
+                        <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                          <span className="machine text-[15px] font-bold text-ink" aria-hidden>
+                            {String(c.order).padStart(2, '0')}
+                          </span>
+                          <h3 className="font-display text-[17px] font-bold leading-snug text-ink md:text-[19px]">
+                            {c.title}
+                          </h3>
+                          {c.optional && (
+                            <span className="rounded-[2px] border border-ink/40 px-1.5 py-0.5 text-[12px] text-ink2">
+                              可跳过
+                            </span>
+                          )}
+
+                          <span className="machine ml-auto flex items-center gap-3 text-[12px] text-ink2">
+                            <span>{c.durationMin} 分钟</span>
+                            <span aria-hidden className="hidden h-px w-8 bg-rule sm:block" />
+                            <span className="flex items-center gap-1.5">
+                              <span
+                                className={`punch ${done ? 'punch-done' : started ? 'punch-active' : ''}`}
+                                aria-hidden
+                              />
+                              {status}
+                            </span>
+                          </span>
+                        </div>
+
+                        {/* 长度条 ∝ 课时（The Extent Rule 的目录视图） */}
+                        <div className="mt-2 h-[3px] w-full bg-rule" aria-hidden>
+                          <div
+                            className="h-[3px] bg-ink2"
+                            style={{ width: `${Math.round((c.durationMin / maxMin) * 100)}%` }}
+                          />
+                        </div>
+
+                        <p className="mt-2.5 max-w-[68ch] text-[14px] leading-[1.8] text-ink2">
+                          {c.subtitle}
+                        </p>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ol>
+            </section>
+          );
+        })}
       </div>
-    </EduSheet>
+    </article>
   );
 }

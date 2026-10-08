@@ -41,7 +41,7 @@ const monophthongs: Phoneme[] = [
     id: 'iː', symbol: '/iː/', type: 'vowel', voiced: true,
     exampleWords: ['see', 'team', 'meat', 'believe'],
     mouthShape: '嘴角向两边拉开呈微笑状，双唇扁平，上下齿近乎合拢，开口极小。',
-    tonguePosition: '舌尖轻抵下齿，舌前部高高抬起靠近硬腭——所有元音中舌位最靠前、最高。',
+    tonguePosition: '舌尖轻抵下齿，舌前部高高抬起靠近硬腭，在所有元音中舌位最靠前、最高。',
     airflow: '气流从舌面与硬腭间的宽通道平稳通过，无声擦感，声带持续振动。',
     commonSpellings: ['ee', 'ea', 'e', 'ei', 'ie', 'ey'],
     minimalPairs: [P('seat', 'sit', '座位', '坐')],

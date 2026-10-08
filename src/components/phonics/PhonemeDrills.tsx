@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Mic, Square, Ear, Eye, Check, X, Volume2, Radio } from 'lucide-react';
 import type { Phoneme } from '@/types';
 import { phonemes } from '@/data/phonemes';
@@ -17,28 +16,17 @@ function pick<T>(arr: T[], exclude?: T): T[] {
 }
 
 /**
- * 纸面朗读波：扁平短栏，无辉光无渐变。
- * 静止 = 发丝线轨，朗读/录音中 = 批注红（唯一功能色）。
+ * 朗读波：扁平短栏。静止 = 发丝线轨低栏，朗读/录音中 = 墨色高低栏图案。
+ * 状态只换色与高度（即时，无缓动淡入），不做循环位移动画。
  */
 function PaperWave({ active, bars = 16 }: { active: boolean; bars?: number }) {
   return (
     <div className="flex h-8 items-center gap-[3px]" aria-hidden>
       {Array.from({ length: bars }).map((_, i) => (
-        <motion.span
+        <span
           key={i}
-          className={`w-[3px] ${active ? 'bg-rubric' : 'bg-rule'}`}
-          style={{ height: '100%' }}
-          initial={{ scaleY: 0.22, opacity: 0.5 }}
-          animate={
-            active
-              ? { scaleY: [0.22, 0.5 + ((i * 7) % 10) / 22, 0.3], opacity: [0.55, 1, 0.65] }
-              : { scaleY: 0.22, opacity: 0.5 }
-          }
-          transition={
-            active
-              ? { duration: 0.45 + (i % 5) * 0.07, repeat: Infinity, repeatType: 'mirror', ease: 'easeInOut' }
-              : { duration: 0.4 }
-          }
+          className={`w-[3px] ${active ? 'bg-ink' : 'bg-rule'}`}
+          style={{ height: active ? `${34 + ((i * 17) % 60)}%` : '22%' }}
         />
       ))}
     </div>
@@ -79,10 +67,10 @@ export function MinimalPairJudge({ phoneme }: { phoneme: Phoneme }) {
   };
 
   return (
-    <div className="rounded-[4px] border border-rule bg-bone2/60 p-4">
+    <div className="rounded-[4px] border border-rule bg-under/60 p-4">
       <div className="mb-3 flex items-center justify-between gap-2">
-        <span className="flex items-center gap-1.5 text-xs font-semibold text-cobalt">
-          <Ear size={13} aria-hidden /> 最小对立对：听清哪一个
+        <span className="flex items-center gap-1.5 text-xs font-semibold text-ink">
+          <Ear size={13} aria-hidden /> 最小对立对，听清哪一个
         </span>
         <EduButton size="sm" variant="ghost" onClick={() => speak(pair[target])}>
           <Volume2 size={13} aria-hidden /> 再听一次
@@ -100,35 +88,28 @@ export function MinimalPairJudge({ phoneme }: { phoneme: Phoneme }) {
               disabled={Boolean(chosen)}
               className={`rounded-[4px] border px-4 py-3 text-left transition-colors duration-200 ${
                 isRight
-                  ? 'border-cobalt bg-cobalt/[0.07] text-cobalt'
+                  ? 'border-ink bg-leaf font-semibold text-ink'
                   : isWrong
-                    ? 'border-rubric bg-rubric/[0.07] animate-shake text-rubric'
-                    : 'border-rule bg-bone2/50 text-paperink hover:border-cobalt'
+                    ? 'border-errata bg-errata/[0.07] animate-shake text-errata-deep'
+                    : 'border-rule bg-under/50 text-ink hover:border-ink'
               }`}
               aria-label={`选项 ${pair[side]}`}
             >
               <div className="font-serif text-base font-bold">{pair[side]}</div>
-              <div className="text-xs text-colophon">{side === 'a' ? pair.meaningA : pair.meaningB}</div>
-              {isRight && <Check size={15} className="mt-1 text-cobalt" aria-hidden />}
-              {isWrong && <X size={15} className="mt-1 text-rubric" aria-hidden />}
+              <div className="text-xs text-ink2">{side === 'a' ? pair.meaningA : pair.meaningB}</div>
+              {isRight && <Check size={15} className="mt-1 text-ink" aria-hidden />}
+              {isWrong && <X size={15} className="mt-1 text-errata-deep" aria-hidden />}
             </button>
           );
         })}
       </div>
-      <AnimatePresence>
-        {chosen && (
-          <motion.p
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            className="mt-3 text-xs leading-relaxed text-colophon"
-          >
-            正确答案：
-            <b className="font-serif font-semibold text-paperink">{pair[target]}</b>（
-            {target === 'a' ? pair.meaningA : pair.meaningB}）。{phoneme.commonMistakes[0]}
-          </motion.p>
-        )}
-      </AnimatePresence>
+      {chosen && (
+        <p className="mt-3 text-xs leading-relaxed text-ink2" aria-live="polite">
+          正确答案是
+          <b className="font-serif font-semibold text-ink">{pair[target]}</b>（
+          {target === 'a' ? pair.meaningA : pair.meaningB}）。{phoneme.commonMistakes[0]}
+        </p>
+      )}
     </div>
   );
 }
@@ -162,9 +143,9 @@ export function ListenChooseDrill({ phoneme }: { phoneme: Phoneme }) {
   const ok = chosen === target.id;
 
   return (
-    <div className="rounded-[4px] border border-rule bg-bone2/60 p-4">
+    <div className="rounded-[4px] border border-rule bg-under/60 p-4">
       <div className="mb-3 flex items-center justify-between gap-2">
-        <span className="flex items-center gap-1.5 text-xs font-semibold text-cobalt">
+        <span className="flex items-center gap-1.5 text-xs font-semibold text-ink">
           <Ear size={13} aria-hidden /> 听音选音标
         </span>
         <EduButton size="sm" variant="ghost" onClick={roll}>
@@ -198,35 +179,28 @@ export function ListenChooseDrill({ phoneme }: { phoneme: Phoneme }) {
               }}
               className={`rounded-[4px] border px-3 py-3 transition-colors duration-200 ${
                 right
-                  ? 'border-cobalt bg-cobalt/[0.07] text-cobalt'
+                  ? 'border-ink bg-leaf font-semibold text-ink'
                   : chosenThis
-                    ? 'border-rubric bg-rubric/[0.07] animate-shake text-rubric'
-                    : 'border-rule bg-bone2/50 text-paperink hover:border-cobalt'
+                    ? 'border-errata bg-errata/[0.07] animate-shake text-errata-deep'
+                    : 'border-rule bg-under/50 text-ink hover:border-ink'
               }`}
             >
               <div className="ipa font-semibold">{o.symbol}</div>
-              <div className="text-xs text-colophon">{o.exampleWords[0]}</div>
+              <div className="text-xs text-ink2">{o.exampleWords[0]}</div>
             </button>
           );
         })}
       </div>
-      <AnimatePresence>
-        {chosen && (
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="mt-3 text-xs leading-relaxed text-colophon"
-          >
-            {ok ? (
-              <b className="text-cobalt">✓ 正确！</b>
-            ) : (
-              <b className="text-rubric">✕ 是 {target.symbol}（{target.ttsWord ?? target.exampleWords[0]}）。</b>
-            )}
-            {target.hintCN}
-          </motion.p>
-        )}
-      </AnimatePresence>
+      {chosen && (
+        <p className="mt-3 text-xs leading-relaxed text-ink2" aria-live="polite">
+          {ok ? (
+            <b className="text-ink">✓ 正确！</b>
+          ) : (
+            <b className="text-errata-deep">✕ 是 {target.symbol}（{target.ttsWord ?? target.exampleWords[0]}）。</b>
+          )}
+          {target.hintCN}
+        </p>
+      )}
     </div>
   );
 }
@@ -253,9 +227,9 @@ export function MouthGuessDrill({ phoneme }: { phoneme: Phoneme }) {
   const ok = chosen === target.id;
 
   return (
-    <div className="rounded-[4px] border border-rule bg-bone2/60 p-4">
+    <div className="rounded-[4px] border border-rule bg-under/60 p-4">
       <div className="mb-3 flex items-center justify-between gap-2">
-        <span className="flex items-center gap-1.5 text-xs font-semibold text-cobalt">
+        <span className="flex items-center gap-1.5 text-xs font-semibold text-ink">
           <Eye size={13} aria-hidden /> 看口型猜音标
         </span>
         <EduButton size="sm" variant="ghost" onClick={roll}>
@@ -282,10 +256,10 @@ export function MouthGuessDrill({ phoneme }: { phoneme: Phoneme }) {
               }}
               className={`ipa rounded-[4px] border px-3 py-3 text-base font-semibold transition-colors duration-200 ${
                 right
-                  ? 'border-cobalt bg-cobalt/[0.07] text-cobalt'
+                  ? 'border-ink bg-leaf font-semibold text-ink'
                   : chosenThis
-                    ? 'border-rubric bg-rubric/[0.07] animate-shake text-rubric'
-                    : 'border-rule bg-bone2/50 text-paperink hover:border-cobalt'
+                    ? 'border-errata bg-errata/[0.07] animate-shake text-errata-deep'
+                    : 'border-rule bg-under/50 text-ink hover:border-ink'
               }`}
             >
               {o.symbol}
@@ -293,14 +267,12 @@ export function MouthGuessDrill({ phoneme }: { phoneme: Phoneme }) {
           );
         })}
       </div>
-      <AnimatePresence>
-        {chosen && (
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-3 text-xs leading-relaxed text-colophon">
-            {ok ? <b className="text-cobalt">✓ 正确！</b> : <b className="text-rubric">✕ 正确答案 {target.symbol}。</b>}
-            要点：{target.tonguePosition}
-          </motion.p>
-        )}
-      </AnimatePresence>
+      {chosen && (
+        <p className="mt-3 text-xs leading-relaxed text-ink2" aria-live="polite">
+          {ok ? <b className="text-ink">✓ 正确！</b> : <b className="text-errata-deep">✕ 正确答案 {target.symbol}。</b>}
+          {target.tonguePosition}
+        </p>
+      )}
     </div>
   );
 }
@@ -352,9 +324,9 @@ export function RecordCompare({ phoneme }: { phoneme: Phoneme }) {
   };
 
   return (
-    <div className="rounded-[4px] border border-rule bg-bone2/60 p-4">
-      <div className="mb-3 flex items-center gap-1.5 text-xs font-semibold text-cobalt">
-        <Mic size={13} aria-hidden /> 录音对比：先听原声，再录自己
+    <div className="rounded-[4px] border border-rule bg-under/60 p-4">
+      <div className="mb-3 flex items-center gap-1.5 text-xs font-semibold text-ink">
+        <Mic size={13} aria-hidden /> 录音对比，先听原声再录自己
       </div>
       <div className="flex flex-wrap items-center gap-2">
         <EduButton
@@ -376,15 +348,15 @@ export function RecordCompare({ phoneme }: { phoneme: Phoneme }) {
       </div>
 
       {state === 'unsupported' && (
-        <p className="mt-3 rounded-[4px] border border-rubric/35 bg-rubric/[0.06] px-3 py-2 text-xs leading-relaxed text-colophon">
-          当前环境不支持麦克风（或权限被拒绝）。降级方案：播放原声 → 跟读 3 遍 → 用“听音选音标”自测。
+        <p className="mt-3 rounded-[4px] border border-errata/60 bg-leaf px-3 py-2 text-xs leading-relaxed text-ink2">
+          当前环境不支持麦克风，或权限被拒绝。降级路径是播放原声跟读 3 遍，再用「听音选音标」自测。
         </p>
       )}
 
       {state === 'done' && (
         <div className="flex flex-wrap items-center gap-2 text-xs">
-          <Radio size={13} className="text-colophon" aria-hidden />
-          <span className="text-colophon">自评：和原声接近吗？</span>
+          <Radio size={13} className="text-ink2" aria-hidden />
+          <span className="text-ink2">自评，和原声接近吗？</span>
           <button
             type="button"
             onClick={() => {
@@ -393,8 +365,8 @@ export function RecordCompare({ phoneme }: { phoneme: Phoneme }) {
             }}
             className={`min-h-[44px] rounded-[3px] border px-3 py-1 transition-colors duration-200 ${
               selfOk === true
-                ? 'border-cobalt bg-cobalt/[0.08] text-cobalt'
-                : 'border-rule text-paperink hover:border-cobalt hover:text-cobalt'
+                ? 'border-ink bg-under text-ink'
+                : 'border-rule text-ink hover:border-ink'
             }`}
           >
             像
@@ -407,14 +379,14 @@ export function RecordCompare({ phoneme }: { phoneme: Phoneme }) {
             }}
             className={`min-h-[44px] rounded-[3px] border px-3 py-1 transition-colors duration-200 ${
               selfOk === false
-                ? 'border-rubric bg-rubric/[0.08] text-rubric'
-                : 'border-rule text-paperink hover:border-rubric hover:text-rubric'
+                ? 'border-errata bg-errata/[0.08] text-errata-deep'
+                : 'border-rule text-ink hover:border-errata hover:text-errata-deep'
             }`}
           >
             不像，再练
           </button>
           {selfOk === false && (
-            <span className="text-colophon">重听原声，注意：{phoneme.mouthShape.slice(0, 30)}…</span>
+            <span className="text-ink2">重听原声对着练，口型动作先做到位，{phoneme.mouthShape.slice(0, 30)}…</span>
           )}
         </div>
       )}
@@ -426,8 +398,8 @@ export function RecordCompare({ phoneme }: { phoneme: Phoneme }) {
 export function PhonemeDrills({ phoneme }: { phoneme: Phoneme }) {
   return (
     <div className="relative">
-      <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-paperink">
-        <Check size={15} className="text-cobalt" aria-hidden /> 互动练习（三选一或全部完成）
+      <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-ink">
+        <Check size={15} className="text-ink" aria-hidden /> 互动练习（三选一或全部完成）
       </div>
       <div className="grid gap-3 lg:grid-cols-3">
         <ListenChooseDrill phoneme={phoneme} />

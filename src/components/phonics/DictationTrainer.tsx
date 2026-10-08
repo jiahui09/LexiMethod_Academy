@@ -11,7 +11,7 @@ import { playSfx } from '@/hooks/useSfx';
 type Mode = 'ipa-then-word' | 'ipa' | 'word';
 
 const MODES: { key: Mode; label: string; desc: string }[] = [
-  { key: 'ipa-then-word', label: '先写音标 → 再写单词', desc: '完整链路：听音 → 音标 → 拼写，逐字母反馈' },
+  { key: 'ipa-then-word', label: '先写音标 → 再写单词', desc: '听音 → 音标 → 拼写，逐字母反馈' },
   { key: 'ipa', label: '只写音标', desc: '训练音标速记与重音符号' },
   { key: 'word', label: '只写单词', desc: '训练音节拼写，错误字母红色抖动并显示正确字母' },
 ];
@@ -55,22 +55,22 @@ export default function DictationTrainer() {
               setSeed((s) => s + 1);
             }}
             className={`rounded-[4px] border p-4 text-left transition-colors duration-200 ${
-              mode === m.key ? 'border-rubric bg-rubric' : 'border-rule bg-bone2/50 hover:border-cobalt'
+              mode === m.key ? 'border-ink bg-ink' : 'border-rule bg-under/50 hover:border-ink'
             }`}
             aria-pressed={mode === m.key}
           >
-            <div className={`mb-1 flex items-center gap-1.5 text-sm font-semibold ${mode === m.key ? 'text-bone' : 'text-paperink'}`}>
-              <Headphones size={14} className={mode === m.key ? 'text-bone' : 'text-colophon'} aria-hidden />
+            <div className={`mb-1 flex items-center gap-1.5 text-sm font-semibold ${mode === m.key ? 'text-milk' : 'text-ink'}`}>
+              <Headphones size={14} className={mode === m.key ? 'text-milk' : 'text-ink2'} aria-hidden />
               {m.label}
             </div>
-            <div className={`text-xs leading-relaxed ${mode === m.key ? 'text-bone' : 'text-colophon'}`}>{m.desc}</div>
+            <div className={`text-xs leading-relaxed ${mode === m.key ? 'text-milk' : 'text-ink2'}`}>{m.desc}</div>
           </button>
         ))}
       </div>
 
       {/* 控制条 */}
-      <div className="flex flex-wrap items-center gap-3 rounded-[4px] border border-rule bg-bone2/60 px-4 py-3">
-        <span className="flex items-center gap-1.5 text-xs text-colophon">
+      <div className="flex flex-wrap items-center gap-3 rounded-[4px] border border-rule bg-under/60 px-4 py-3">
+        <span className="flex items-center gap-1.5 text-xs text-ink2">
           <Timer size={13} aria-hidden /> 题量
         </span>
         {[4, 6, 10].map((n) => (
@@ -83,7 +83,7 @@ export default function DictationTrainer() {
               setSeed((s) => s + 1);
             }}
             className={`min-h-[44px] rounded-[4px] border px-3 py-1 text-xs transition-colors duration-200 ${
-              count === n ? 'border-rubric bg-rubric text-bone' : 'border-rule text-colophon hover:border-paperink hover:text-paperink'
+              count === n ? 'border-ink bg-ink text-milk' : 'border-rule text-ink2 hover:border-ink hover:text-ink'
             }`}
             aria-pressed={count === n}
           >
@@ -99,7 +99,7 @@ export default function DictationTrainer() {
             setSeed((s) => s + 1);
           }}
           className={`min-h-[44px] rounded-[4px] border px-3 py-1 text-xs transition-colors duration-200 ${
-            !onlyTag ? 'border-rubric bg-rubric text-bone' : 'border-rule text-colophon hover:border-paperink hover:text-paperink'
+            !onlyTag ? 'border-ink bg-ink text-milk' : 'border-rule text-ink2 hover:border-ink hover:text-ink'
           }`}
           aria-pressed={!onlyTag}
         >
@@ -115,7 +115,7 @@ export default function DictationTrainer() {
               setSeed((s) => s + 1);
             }}
             className={`min-h-[44px] rounded-[4px] border px-3 py-1 text-xs transition-colors duration-200 ${
-              onlyTag === t ? 'border-rubric bg-rubric text-bone' : 'border-rule text-colophon hover:border-paperink hover:text-paperink'
+              onlyTag === t ? 'border-ink bg-ink text-milk' : 'border-rule text-ink2 hover:border-ink hover:text-ink'
             }`}
             aria-pressed={onlyTag === t}
           >
@@ -145,35 +145,39 @@ export default function DictationTrainer() {
 
       {/* 统计与错题 */}
       <div className="grid gap-3 md:grid-cols-2">
-        <div className="rounded-[4px] border border-rule bg-bone2/60 p-4">
-          <div className="mb-1 flex items-center gap-2 text-xs font-semibold text-cobalt">
+        <div className="rounded-[4px] border border-rule bg-under/60 p-4">
+          <div className="mb-1 flex items-center gap-2 text-xs font-semibold text-ink">
             <Info size={13} aria-hidden /> 训练要点
           </div>
-          <ul className="flex flex-col gap-1.5 text-xs leading-relaxed text-colophon">
+          <ul className="flex flex-col gap-1.5 text-xs leading-relaxed text-ink2">
             <li>· 慢速听结构 → 常速听流利度；两次播放后再落笔。</li>
-            <li>· 先写音标：把声音固化成符号，再映射到拼写，正确率更高。</li>
-            <li>· 逐字母核对：错在哪一节，就说明哪个“拼写 ↔ 发音”规则没掌握。</li>
+            <li>· 先写音标，把声音固化成符号再映射到拼写，正确率更高。</li>
+            <li>· 逐字母核对，错在哪一节就说明哪个“拼写 ↔ 发音”规则没掌握。</li>
             <li>· 错题会自动排期，按 1/3/7/14/30 天间隔重现。</li>
           </ul>
         </div>
-        <div className="rounded-[4px] border border-rule bg-bone2/60 p-4">
-          <div className="mb-2 flex items-center gap-2 text-xs font-semibold text-rubric">
+        <div className="rounded-[4px] border border-rule bg-under/60 p-4">
+          <div
+            className={`mb-2 flex items-center gap-2 text-xs font-semibold ${
+              listenMistakes.length > 0 ? 'text-errata-deep' : 'text-ink2'
+            }`}
+          >
             <ListRestart size={13} aria-hidden /> 听写相关错题（{listenMistakes.length}）
           </div>
           <div className="flex max-h-40 flex-col gap-1.5 overflow-y-auto pr-1">
-            {listenMistakes.length === 0 && <p className="text-xs text-colophon">暂无错题，继续保持。</p>}
+            {listenMistakes.length === 0 && <p className="text-xs text-ink2">暂无错题，继续保持。</p>}
             {listenMistakes.slice(0, 8).map((m) => (
               <div key={m.id} className="flex flex-wrap items-center gap-2 rounded-[4px] border border-rule px-3 py-2 text-xs">
-                <span className="text-colophon">{m.prompt.slice(0, 26)}</span>
-                <span className="ipa text-rubric">你的：{m.given || '（空）'}</span>
-                <span className="ipa text-cobalt">正确：{m.answer}</span>
+                <span className="text-ink2">{m.prompt.slice(0, 26)}</span>
+                <span className="ipa text-errata-deep">你的答案 {m.given || '（空）'}</span>
+                <span className="ipa font-semibold text-ink">标准答案 {m.answer}</span>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      <p className="text-xs text-colophon">累计听写训练：{dictationCount} 次（在题目中作答自动累计）</p>
+      <p className="text-xs text-ink2">累计听写训练 {dictationCount} 次（在题目中作答自动累计）</p>
     </div>
   );
 }

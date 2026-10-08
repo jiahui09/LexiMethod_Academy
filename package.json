@@ -10,6 +10,7 @@
     "preview": "vite preview",
     "size": "node scripts/size.mjs",
     "check:data": "node scripts/checkData.mjs",
+    "check:courses": "node scripts/check-courses.mjs",
     "check:audio": "node scripts/check-audio.mjs",
     "gen:audio": "node scripts/generate-audio.mjs",
     "smoke": "node scripts/smoke.mjs",

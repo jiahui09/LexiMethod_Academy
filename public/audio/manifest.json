@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-05T08:16:38.653Z",
+  "generatedAt": "2026-10-08T12:53:53.130Z",
   "engine": {
     "tts": "piper-tts",
     "model": "en_US-lessac-medium",
@@ -609,12 +609,6 @@
       "file": "words/at.mp3",
       "durationMs": 337,
       "meanDb": -16.2
-    },
-    {
-      "word": "attention",
-      "file": "words/attention.mp3",
-      "durationMs": 603,
-      "meanDb": -15.8
     },
     {
       "word": "attract",
@@ -4865,12 +4859,6 @@
       "meanDb": -15.8
     },
     {
-      "word": "speed",
-      "file": "words/speed.mp3",
-      "durationMs": 439,
-      "meanDb": -16
-    },
-    {
       "word": "spin",
       "file": "words/spin.mp3",
       "durationMs": 390,
@@ -5235,12 +5223,6 @@
       "file": "words/this.mp3",
       "durationMs": 461,
       "meanDb": -15.9
-    },
-    {
-      "word": "thomas",
-      "file": "words/thomas.mp3",
-      "durationMs": 563,
-      "meanDb": -17
     },
     {
       "word": "though",

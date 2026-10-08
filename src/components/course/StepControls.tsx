@@ -35,7 +35,7 @@ export default function StepControls({
   onFinish,
   onToggleAutoplay,
   onReplay,
-  hint = '提示：可用键盘 ← / → 翻页；导轨（小屏在页顶）可直接跳到任意一步；开启“自动播放”按时间线自动推进。',
+  hint = '可用键盘 ← / → 翻页；导轨（小屏在页顶）可直接跳到任意一步；开启“自动播放”按时间线自动推进。',
 }: Props) {
   const tier = useMotionTier();
   const barRef = useRef<HTMLDivElement>(null);
@@ -75,7 +75,7 @@ export default function StepControls({
         <motion.div
           key={`${index}-${autoplay ? 'a' : 'm'}`}
           ref={barRef}
-          className="h-full bg-rubric"
+          className="h-full bg-ink"
           initial={{ width: autoplay ? '0%' : `${(index / Math.max(1, total - 1)) * 100}%` }}
           animate={{ width: autoplay ? '100%' : `${(index / Math.max(1, total - 1)) * 100}%` }}
           transition={autoplay && tier !== 'off' ? { duration: AUTOPLAY_MS / 1000, ease: 'linear' } : { duration: 0.35 }}
@@ -134,12 +134,12 @@ export default function StepControls({
           </EduButton>
         </div>
 
-        <span className="text-xs tabular-nums text-colophon">
+        <span className="text-xs tabular-nums text-ink2">
           {index + 1} / {total}
         </span>
       </div>
 
-      <p className="text-xs text-colophon">
+      <p className="text-xs text-ink2">
         {hint}
       </p>
     </div>

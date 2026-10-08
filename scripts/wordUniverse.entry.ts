@@ -10,4 +10,3 @@ export { rules } from '@/data/rules';
 export { spellingPatterns } from '@/data/spellingPatterns';
 export { prefixes, suffixes, roots } from '@/data/affixes';
 export { quizBanks } from '@/data/quizBanks';
-export { demoByMethod } from '@/components/course/demoConfig';

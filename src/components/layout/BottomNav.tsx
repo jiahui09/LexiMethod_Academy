@@ -1,13 +1,13 @@
-import { NavLink, useLocation } from 'react-router-dom';
-import { GraduationCap, AudioLines, Settings } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { BookOpen, AudioLines, Settings } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
-type Item = { to: string; label: string; icon: LucideIcon; end?: boolean };
+type Item = { to: string; label: string; icon: LucideIcon; end?: boolean; match?: string };
 
-/** 与顶栏主导航同名同序（Single Focus Rule：同目的地），标签统一 12px 起 */
+/** 与顶栏主导航同名同序（Single Focus Rule：同目的地），标签 12px 起 */
 const ITEMS: Item[] = [
-  { to: '/methods', label: '课程', icon: GraduationCap },
-  { to: '/lab/phonemes', label: '实验室', icon: AudioLines },
+  { to: '/methods', label: '总目', icon: BookOpen },
+  { to: '/lab/phonemes', label: '实验室', icon: AudioLines, match: '/lab' },
   { to: '/settings', label: '设置', icon: Settings },
 ];
 
@@ -17,34 +17,35 @@ const ITEMS: Item[] = [
  */
 export default function BottomNav() {
   const { pathname } = useLocation();
-  const active = (to: string, end?: boolean) =>
-    end ? pathname === to : pathname === to || pathname.startsWith(to + '/');
+  const active = (item: Item) => {
+    const base = item.match ?? item.to;
+    return item.end ? pathname === base : pathname === base || pathname.startsWith(base + '/');
+  };
 
   return (
     <nav
       aria-label="底部导航"
       data-testid="bottom-nav"
-      className="paper-chrome fixed inset-x-0 bottom-0 z-40 border-t border-rule bg-bone lg:hidden"
+      className="paper-chrome fixed inset-x-0 bottom-0 z-40 border-t border-rule bg-milk lg:hidden"
     >
       <ul className="mx-auto grid max-w-lg grid-cols-3">
         {ITEMS.map((item) => {
           const Icon = item.icon;
-          const on = active(item.to, item.end);
+          const on = active(item);
           return (
             <li key={item.to}>
-              <NavLink
+              <Link
                 to={item.to}
-                end={item.end}
                 aria-current={on ? 'page' : undefined}
                 className={`relative flex min-h-[44px] flex-col items-center justify-center gap-0.5 py-2.5 text-xs transition-colors ${
-                  on ? 'font-semibold text-rubric' : 'text-colophon hover:text-paperink'
+                  on ? 'font-bold text-ink' : 'text-ink2 hover:text-ink'
                 }`}
               >
                 <Icon size={18} aria-hidden />
                 {item.label}
-                {/* 形状通道：与桌面书眉同款 3px 批注红刻线，当前项不只靠颜色（DESIGN 三重编码） */}
-                {on && <span aria-hidden className="absolute inset-x-3 bottom-0 h-[3px] bg-rubric" />}
-              </NavLink>
+                {/* 形状通道：3px 墨色刻线，当前项不只靠颜色 */}
+                {on && <span aria-hidden className="absolute inset-x-3 bottom-0 h-[3px] bg-ink" />}
+              </Link>
             </li>
           );
         })}

@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react';
-import { motion } from 'framer-motion';
 import { ArrowLeftRight, AudioWaveform, AlertTriangle, Sparkles } from 'lucide-react';
 import { spellingPatterns } from '@/data/spellingPatterns';
 import { phonemes } from '@/data/phonemes';
@@ -66,16 +65,16 @@ export default function SpellingMapDrill() {
             }}
             className={`rounded-[4px] border p-4 text-left transition-colors duration-200 ${
               dir === d.key
-                ? 'border-rubric bg-rubric'
-                : 'border-rule bg-bone2/50 hover:border-cobalt'
+                ? 'border-ink bg-ink'
+                : 'border-rule bg-under/50 hover:border-ink'
             }`}
             aria-pressed={dir === d.key}
           >
-            <div className={`mb-1 flex items-center gap-1.5 text-sm font-semibold ${dir === d.key ? 'text-bone' : 'text-paperink'}`}>
-              <ArrowLeftRight size={14} className={dir === d.key ? 'text-bone' : 'text-colophon'} aria-hidden />
+            <div className={`mb-1 flex items-center gap-1.5 text-sm font-semibold ${dir === d.key ? 'text-milk' : 'text-ink'}`}>
+              <ArrowLeftRight size={14} className={dir === d.key ? 'text-milk' : 'text-ink2'} aria-hidden />
               {d.label}
             </div>
-            <div className={`text-xs leading-relaxed ${dir === d.key ? 'text-bone' : 'text-colophon'}`}>{d.desc}</div>
+            <div className={`text-xs leading-relaxed ${dir === d.key ? 'text-milk' : 'text-ink2'}`}>{d.desc}</div>
           </button>
         ))}
       </div>
@@ -95,9 +94,14 @@ export default function SpellingMapDrill() {
           换一组
         </EduButton>
       </div>
-      <p className="text-xs leading-relaxed text-colophon">
-        提示：听音拼写不熟？切到「听音拼写训练」标签，先写音标、再写单词，逐字母反馈。
-        <button type="button" className="ml-2 text-cobalt underline" onClick={() => speak('construction')}>
+      <p className="text-xs leading-relaxed text-ink2">
+        听音拼写不熟就先写音标再写单词，逐字母反馈。切到「听音拼写训练」分卷专门练这条链路。
+        {/* 行内试听入口走墨色下划线：蓝色只留给答题与焦点 */}
+        <button
+          type="button"
+          className="ml-2 text-ink underline decoration-rule underline-offset-4 hover:decoration-ink"
+          onClick={() => speak('construction')}
+        >
           试听 construction
         </button>
       </p>
@@ -113,9 +117,9 @@ function PatternSpotlight() {
   if (!pat) return null;
 
   return (
-    <section className="rounded-[4px] border border-rule bg-bone2/60 p-5">
+    <section className="rounded-[4px] border border-rule bg-under/60 p-5">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-2 text-sm font-semibold text-cobalt">
+        <div className="flex items-center gap-2 text-sm font-semibold text-ink">
           <Sparkles size={15} aria-hidden /> 拼写规则动画
         </div>
         <div className="flex flex-wrap gap-1.5">
@@ -129,8 +133,8 @@ function PatternSpotlight() {
               }}
               className={`ipa min-h-[44px] min-w-[44px] rounded-[4px] border px-2.5 py-1 text-xs transition-colors duration-200 ${
                 p.id === patternId
-                  ? 'border-rubric bg-rubric text-bone'
-                  : 'border-rule bg-bone2/50 text-colophon hover:border-paperink hover:text-paperink'
+                  ? 'border-ink bg-ink text-milk'
+                  : 'border-rule bg-under/50 text-ink2 hover:border-ink hover:text-ink'
               }`}
               aria-pressed={p.id === patternId}
             >
@@ -142,32 +146,19 @@ function PatternSpotlight() {
 
       {/* 拼写 → 发音 */}
       <div className="mb-4 flex flex-wrap items-center justify-center gap-4">
-        <motion.span
+        <span
           key={`a-${pat.id}`}
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ type: 'spring', stiffness: 260, damping: 22 }}
-          className="ipa rounded-[4px] border border-rule bg-bone2/50 px-6 py-3 text-2xl font-bold text-paperink"
+          className="ipa hinge rounded-[4px] border border-rule bg-under/50 px-6 py-3 text-2xl font-bold text-ink"
         >
           {pat.pattern}
-        </motion.span>
-        <motion.span
-          key={`l-${pat.id}`}
-          className="h-0.5 w-20 bg-cobalt"
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          style={{ originX: 0 }}
-        />
-        <motion.span
+        </span>
+        <span key={`l-${pat.id}`} className="h-0.5 w-20 bg-ink" aria-hidden />
+        <span
           key={`b-${pat.id}`}
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ type: 'spring', stiffness: 260, damping: 22, delay: 0.35 }}
-          className="ipa rounded-[4px] border border-cobalt bg-cobalt/[0.06] px-6 py-3 text-2xl font-bold text-cobalt"
+          className="ipa hinge rounded-[4px] border border-ink bg-under px-6 py-3 text-2xl font-bold text-ink"
         >
           {pat.phoneme}
-        </motion.span>
+        </span>
       </div>
 
       {/* 同规则词高亮 */}
@@ -179,24 +170,21 @@ function PatternSpotlight() {
           const tail = idx >= 0 ? w.slice(idx + core.length) : '';
           const mid = idx >= 0 ? w.slice(idx, idx + core.length) : '';
           return (
-            <motion.button
+            <button
               key={w}
               type="button"
-              initial={{ opacity: 0, x: -12 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.5 + i * 0.08 }}
               onClick={() => {
                 playSfx('tick');
                 speak(w);
               }}
-              className="flex items-center gap-3 rounded-[4px] border border-rule bg-bone2/50 px-4 py-3 text-left transition-colors duration-200 hover:border-cobalt"
+              className="flex items-center gap-3 rounded-[4px] border border-rule bg-under/50 px-4 py-3 text-left transition-colors hover:border-ink"
               aria-label={`朗读 ${w}`}
             >
-              <span className="font-serif text-base font-semibold text-paperink">
+              <span className="font-serif text-base font-semibold text-ink">
                 {idx >= 0 ? (
                   <>
                     {head}
-                    <mark className="rounded-[2px] bg-cobalt/10 px-1 text-cobalt">{mid}</mark>
+                    <mark className="rounded-[2px] bg-board-pathway/40 px-1 text-ink">{mid}</mark>
                     {tail}
                   </>
                 ) : (
@@ -204,30 +192,30 @@ function PatternSpotlight() {
                 )}
               </span>
               <span className="ml-auto flex items-center gap-2">
-                <AudioWaveform size={14} className="text-colophon" aria-hidden />
-                <span className="ipa text-xs text-cobalt">{pat.phoneme}</span>
+                <AudioWaveform size={14} className="text-ink2" aria-hidden />
+                <span className="ipa text-xs text-ink">{pat.phoneme}</span>
               </span>
-            </motion.button>
+            </button>
           );
         })}
       </div>
 
       {/* 例外 */}
       {pat.exceptions.length > 0 && (
-        <div className="rounded-[4px] border border-rubric/35 bg-rubric/[0.06] p-4">
-          <div className="mb-1.5 flex items-center gap-2 text-xs font-semibold text-rubric">
+        <div className="rounded-[4px] border border-errata/60 bg-leaf p-4">
+          <div className="mb-1.5 flex items-center gap-2 text-xs font-semibold text-errata-deep">
             <AlertTriangle size={13} aria-hidden /> 例外（规则 ≠ 100%）
           </div>
           <div className="flex flex-wrap gap-2 text-sm">
             {pat.exceptions.map((e) => (
-              <span key={e} className="rounded-[4px] border border-rubric/40 bg-bone2/60 px-3 py-1.5 font-serif text-paperink">
+              <span key={e} className="rounded-[4px] border border-errata/40 bg-under/60 px-3 py-1.5 font-serif text-ink">
                 {e}
               </span>
             ))}
           </div>
         </div>
       )}
-      <p className="mt-3 text-xs leading-relaxed text-colophon">{pat.rule}</p>
+      <p className="mt-3 text-xs leading-relaxed text-ink2">{pat.rule}</p>
     </section>
   );
 }

@@ -2,3 +2,4 @@
 export { quizBanks } from '@/data/quizBanks';
 export { words, wordById } from '@/data/words';
 export { TYPE_LABELS } from '@/lib/answers';
+export { courses } from '@/data/courses';

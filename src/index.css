@@ -8,13 +8,15 @@
    ============================================================ */
 
 :root {
-  --pink: #ff4d9d;
-  --success: #00e676;
-  --warn: #ffb300;
-  --danger: #ff4d6d;
-  --bg-start: #0b1020;
-  --bg-end: #111936;
-  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+  /* 压膜活页手册 */
+  --milk: #f4f1e7;
+  --leaf: #fbf9f2;
+  --under: #ede8da;
+  --rule: #cfc7b2;
+  --ink: #17140e;
+  --ink2: #57503f;
+  --focus: #2a4bd7;
+  --errata: #e34234;
 }
 
 * {
@@ -26,16 +28,19 @@ html {
 }
 
 body {
-  @apply font-sans text-paperink antialiased;
-  /* 全站地面：骨白纸（旧极光渐变书桌随 Backdrop / ParticleField 一并退役） */
-  background: #f7f2e8;
+  @apply text-ink antialiased;
+  font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', SimSun, Georgia, serif;
+  font-size: 17px;
+  line-height: 1.8;
+  /* 全站地面：牛奶压膜地（压膜活页手册世界） */
+  background: var(--milk);
   min-height: 100vh;
   overflow-x: hidden;
 }
 
 ::selection {
-  background: rgba(179, 49, 30, 0.18);
-  color: #16130f;
+  background: rgba(42, 75, 215, 0.16);
+  color: var(--ink);
 }
 
 /* ---------------- 滚动条 ---------------- */
@@ -47,18 +52,26 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #d8cfbc;
+  background: var(--rule);
   border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #bfb3a0;
+  background: #b9b09a;
 }
 
 /* ---------------- 可访问性 ---------------- */
 :focus-visible {
-  outline: 2px solid var(--cobalt);
+  outline: 2px solid var(--focus);
   outline-offset: 3px;
   border-radius: 8px;
+}
+
+/* 壳件（书眉 / 书口 / 页脚）走世界焦点环 2px offset 2px */
+.paper-chrome:focus-visible,
+.paper-chrome :focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 /* 纸面壳件（书眉 / 页脚 / 引导条 / 底导 / 降级页）走纸面焦点环；
@@ -146,84 +159,126 @@ html[data-motion='off'] *::after {
   transition: none !important;
 }
 /* ============================================================
-   辞书版式（Dictionary Edition）—— 全站纸面世界
-   骨白纸地、墨文、结构蓝、批注红；发丝线分区，无玻璃无辉光。
-   导航壳 / 页脚 / 底导 / 引导条已随阶段二迁入纸面；
-   深色功能页与全站书口脊已随阶段三收口：全站一整块连续纸面，零抬升零辉光。
+   压膜活页手册（Acetate Manual）—— 当前世界工具层
+   牛奶压膜地、叶子分层、卡板色带、打孔与页角、铰链步进。
+   旧辞书版式样式（.edu-*）保留在下方，随页面重建清理。
    ============================================================ */
-.edu-sheet {
-  background: #f7f2e8;
-  color: #16130f;
-  caret-color: #b3311e;
-  /* 零抬升：整站一整块连续纸面，纸上不再叠纸（阶段三签名契约） */
+
+/* 顶层透明页：当前阅读面（唯一可有短硬影的层） */
+@layer components {
+  .leaf {
+    background: var(--leaf);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+  }
+  .leaf-active {
+    /* 顶层页切边短硬影：单边、无模糊（世界唯一投影） */
+    box-shadow: 4px 0 0 rgba(23, 20, 14, 0.1);
+  }
+  .under-leaf {
+    background: var(--under);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+  }
 }
 
-/* 浏览器默认面也要属于这个世界 */
-.edu-sheet ::selection {
-  background: rgba(179, 49, 30, 0.18);
-  color: #16130f;
+/* 机器嗓音：课号 / 步数 / 计时 / 题号 / IPA 一律等宽 */
+.machine {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.6;
+  font-variant-numeric: tabular-nums;
 }
-.edu-sheet :focus-visible {
-  outline: 2px solid #1e4b7a;
-  outline-offset: 2px;
-  border-radius: 2px;
+
+/* 铰链步进：状态切换唯一过渡（90ms 两帧，铰在打孔边；无淡入） */
+.hinge {
+  transition:
+    transform 90ms steps(2),
+    background-color 90ms steps(2),
+    border-color 90ms steps(2),
+    color 90ms steps(2);
 }
-.edu-sheet .edu-scroll {
+
+/* 卡板章节带：满强度段色带 + 下缘 3px 深一档 */
+.board-band {
+  border-bottom: 3px solid rgba(23, 20, 14, 0.28);
+}
+
+/* 打孔点：空孔未到 / 实心完成 / 半环进行中（状态永远配文字或形状） */
+.punch {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  border: 2px solid var(--rule);
+  flex: none;
+}
+.punch-done {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+.punch-active {
+  border-color: var(--ink);
+  background: linear-gradient(90deg, var(--ink) 50%, transparent 50%);
+}
+
+/* 悬挂标题：标题与编号悬出正文栏，落进左边距 */
+.hanging {
+  position: relative;
+}
+@media (min-width: 1024px) {
+  .hanging {
+    margin-left: -168px;
+    width: 152px;
+    float: left;
+    clear: left;
+  }
+}
+
+/* ============================================================
+   手册输入与滚动（压膜活页手册）
+   ============================================================ */
+
+/* 窄滚动条（书口阶梯轨等内滚区） */
+.edu-scroll {
   scrollbar-width: thin;
-  scrollbar-color: #d8cfbc transparent;
+  scrollbar-color: var(--rule) transparent;
 }
-.edu-sheet .edu-scroll::-webkit-scrollbar {
+.edu-scroll::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
-.edu-sheet .edu-scroll::-webkit-scrollbar-track {
+.edu-scroll::-webkit-scrollbar-track {
   background: transparent;
 }
-.edu-sheet .edu-scroll::-webkit-scrollbar-thumb {
-  background: #d8cfbc;
+.edu-scroll::-webkit-scrollbar-thumb {
+  background: var(--rule);
   border-radius: 999px;
 }
-.edu-sheet .edu-scroll::-webkit-scrollbar-thumb:hover {
-  background: #bfb3a0;
+.edu-scroll::-webkit-scrollbar-thumb:hover {
+  background: #b9b09a;
 }
 
-/* 签名瞬间：批注章落纸（全站唯一编排动作；由 motion tier 在 JS 侧决定是否挂载） */
-@keyframes edu-stamp-in {
-  0% {
-    opacity: 0;
-    transform: scale(1.7) rotate(-16deg);
-  }
-  60% {
-    opacity: 1;
-    transform: scale(0.94) rotate(-7deg);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) rotate(-8deg);
-  }
-}
-.edu-stamp {
-  animation: edu-stamp-in 0.42s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-/* 纸面输入：像表格里的填写线（焦点环由 .edu-sheet :focus-visible 统一给） */
+/* 手册输入线：像表格里的填写线（焦点环由全局 :focus-visible 给） */
 @layer components {
   .edu-input {
     width: 100%;
     min-height: 44px;
-    border: 1px solid #d8cfbc;
+    border: 1px solid rgba(23, 20, 14, 0.45);
     border-radius: 3px;
-    background: #fdfbf5;
-    color: #16130f;
+    background: var(--leaf);
+    color: var(--ink);
+    caret-color: var(--ink);
     padding: 8px 12px;
     font-size: 14.5px;
     line-height: 1.7;
-    transition: border-color 0.2s ease;
+    transition: border-color 90ms steps(2);
   }
   .edu-input::placeholder {
-    color: #6b6456;
+    color: #6f685a;
   }
   .edu-input:hover {
-    border-color: #bfb3a0;
+    border-color: var(--ink);
   }
 }

@@ -604,12 +604,12 @@ const listenWriteWord: Question[] = [
 ];
 
 /* ------------------------------------------------------------------ */
-/* 7. 音节划分（拖拽）                                                  */
+/* 7. 音节划分（点音块归槽）                                                  */
 /* ------------------------------------------------------------------ */
 const syllableSplit: Question[] = [
   {
     id: 'qb-ss-1', type: 'syllableSplit',
-    prompt: '拖拽音块，划分音节：transportation', narration: '找元音核心 → 分配辅音 → 拼回原词。',
+    prompt: '点音块放进槽位，划分音节：transportation', narration: '找元音核心 → 分配辅音 → 拼回原词。',
     syllableUnits: ['trans', 'por', 'ta', 'tion'], answer: 'trans-por-ta-tion',
     hint: '四个元音核心：a / o / a / o（-tion 的 o 不发音）。',
     explain: 'transportation = trans-por-ta-tion，重音第 3 音节 → /ˌtrænspɔːˈteɪʃən/；trans- 前缀不重读。',
@@ -617,7 +617,7 @@ const syllableSplit: Question[] = [
   },
   {
     id: 'qb-ss-2', type: 'syllableSplit',
-    prompt: '拖拽音块，划分音节：construction', narration: '词根 struct 决定主体，前后缀补齐。',
+    prompt: '点音块放进槽位，划分音节：construction', narration: '词根 struct 决定主体，前后缀补齐。',
     syllableUnits: ['con', 'struc', 'tion'], answer: 'con-struc-tion',
     hint: 'struct 是词根，前面加 con-，后面加 -tion。',
     explain: 'construction = con-struc-tion；重音第 2 音节（词根）→ /kənˈstrʌkʃən/。',
@@ -625,7 +625,7 @@ const syllableSplit: Question[] = [
   },
   {
     id: 'qb-ss-3', type: 'syllableSplit',
-    prompt: '拖拽音块，划分音节：geography', narration: '词根 geo + graphy，边界清晰。',
+    prompt: '点音块放进槽位，划分音节：geography', narration: '词根 geo + graphy，边界清晰。',
     syllableUnits: ['ge', 'og', 'ra', 'phy'], answer: 'ge-og-ra-phy',
     hint: '四个音节，重音第一。',
     explain: 'geography = ge-og-ra-phy → /dʒiˈɒɡrəfi/；-ography 后缀整体弱读。',
@@ -633,7 +633,7 @@ const syllableSplit: Question[] = [
   },
   {
     id: 'qb-ss-4', type: 'syllableSplit',
-    prompt: '拖拽音块，划分音节：incomprehensible', narration: '前缀 in- + 词根 comprehend + 后缀 -ible。',
+    prompt: '点音块放进槽位，划分音节：incomprehensible', narration: '前缀 in- + 词根 comprehend + 后缀 -ible。',
     syllableUnits: ['in', 'com', 'pre', 'hen', 'si', 'ble'], answer: 'in-com-pre-hen-si-ble',
     hint: '六个音节，别被长度吓到：先找元音核心。',
     explain: 'incomprehensible = in-com-pre-hen-si-ble → /ˌɪnkɒmprɪˈhensəbl/；重音第 4 音节。',
@@ -641,7 +641,7 @@ const syllableSplit: Question[] = [
   },
   {
     id: 'qb-ss-5', type: 'syllableSplit',
-    prompt: '拖拽音块，划分音节：decision', narration: 'de- + cide + -ion 的切分练习。',
+    prompt: '点音块放进槽位，划分音节：decision', narration: 'de- + cide + -ion 的切分练习。',
     syllableUnits: ['de', 'ci', 'sion'], answer: 'de-ci-sion',
     hint: '三个音节，重音第二。',
     explain: 'decision = de-ci-sion → /dɪˈsɪʒən/；-sion 在浊音后读 /ʒən/。',
@@ -649,7 +649,7 @@ const syllableSplit: Question[] = [
   },
   {
     id: 'qb-ss-6', type: 'syllableSplit',
-    prompt: '拖拽音块，划分音节：biology', narration: '词根 bio + -logy，双辅音怎么分？',
+    prompt: '点音块放进槽位，划分音节：biology', narration: '词根 bio + -logy，双辅音怎么分？',
     syllableUnits: ['bi', 'ol', 'o', 'gy'], answer: 'bi-ol-o-gy',
     hint: '四个音节，重音第二。',
     explain: 'biology = bi-ol-o-gy → /baɪˈɒlədʒi/；-logy 读 /lədʒi/，与 geography 同族。',
@@ -657,7 +657,7 @@ const syllableSplit: Question[] = [
   },
   {
     id: 'qb-ss-7', type: 'syllableSplit',
-    prompt: '拖拽音块，划分音节：photography', narration: '与 photograph 对比：重音搬家了。',
+    prompt: '点音块放进槽位，划分音节：photography', narration: '与 photograph 对比：重音搬家了。',
     syllableUnits: ['pho', 'tog', 'ra', 'phy'], answer: 'pho-tog-ra-phy',
     hint: '四个音节，重音在第二个。',
     explain: 'photography = pho-tog-ra-phy → /fəˈtɒɡrəfi/；-ography 后缀让重音前移到词根。',
@@ -665,7 +665,7 @@ const syllableSplit: Question[] = [
   },
   {
     id: 'qb-ss-8', type: 'syllableSplit',
-    prompt: '拖拽音块，划分音节：uncomfortable', narration: 'un- + comfort + -able，三层结构。',
+    prompt: '点音块放进槽位，划分音节：uncomfortable', narration: 'un- + comfort + -able，三层结构。',
     syllableUnits: ['un', 'com', 'for', 'ta', 'ble'], answer: 'un-com-for-ta-ble',
     hint: '五个音节，重音第三。',
     explain: 'uncomfortable = un-com-for-ta-ble → /ʌnˈkʌmftəbl/；重音落在词根 comfort 的首音节。',

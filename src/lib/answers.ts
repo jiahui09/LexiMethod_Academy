@@ -79,3 +79,22 @@ export const TYPE_LABELS: Record<QuestionType, string> = {
   affixAssemble: '词缀拼装',
   contextChoice: '语境选词',
 };
+
+/* ============================================================
+   以下为课程体系（courseSchema.CourseQuestionType）新增导出，
+   旧导出 TYPE_LABELS / judgeAnswer / norm* / letterFeedback 原样保留。
+   ============================================================ */
+
+import type { CourseQuestionType } from '@/data/courseSchema';
+
+/** 新课程题型的屏显短名（题头 chip 用；不换旧 TYPE_LABELS 的类型） */
+export const COURSE_TYPE_LABELS: Record<CourseQuestionType, string> = {
+  ...TYPE_LABELS,
+  choice: '选一选',
+  match: '配对',
+  highlight: '圈出重点',
+  construct: '动手写',
+  selfReveal: '先回忆再揭示',
+  classify: '归类',
+  fill: '填空',
+};

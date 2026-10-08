@@ -2,14 +2,14 @@ import { create } from 'zustand';
 import type { QuestionType } from '@/types';
 
 type ProgressState = {
-  /** methodId -> 已完成的 step 索引列表 */
+  /** methodId -> 已完成的 step 索引列表（旧模型，随旧课程页退役） */
   completedSteps: Record<string, number[]>;
   /** methodId -> 课程是否全部完成 */
   completedMethods: string[];
   /** 音标实验室 */
   phonemesLearned: string[];
   labDictationCount: number;
-  /** 实战分析历史（课程内六步向导） */
+  /** 实战分析历史（课程内六步向导，旧模型） */
   analyzedWords: { word: string; at: number; step: number }[];
 
   // actions
@@ -18,6 +18,21 @@ type ProgressState = {
   recordAnswer: (type: QuestionType, correct: boolean) => void;
   markPhonemeLearned: (id: string) => void;
   addAnalyzedWord: (word: string) => void;
+
+  // ---------- 新课程体系（src/data/courses，内存态，刷新归零） ----------
+  /** courseId -> 已完成单元 id（u1..u6） */
+  completedUnits: Record<string, string[]>;
+  /** 诊断已做的课程（决策点1：诊断先行） */
+  diagnosticTaken: string[];
+  /** 出门条成绩（决策点3：当场快测，刷新即失效） */
+  exitResults: Record<string, { score: number; total: number }>;
+  /** 离场自测已勾选的课程 */
+  selfChecked: string[];
+  completeUnit: (courseId: string, unitId: string) => void;
+  markDiagnosticTaken: (courseId: string) => void;
+  recordExitResult: (courseId: string, score: number, total: number) => void;
+  markSelfChecked: (courseId: string) => void;
+
   resetAll: () => void;
 };
 
@@ -27,6 +42,10 @@ const initial = {
   phonemesLearned: [] as string[],
   labDictationCount: 0,
   analyzedWords: [] as { word: string; at: number; step: number }[],
+  completedUnits: {} as Record<string, string[]>,
+  diagnosticTaken: [] as string[],
+  exitResults: {} as Record<string, { score: number; total: number }>,
+  selfChecked: [] as string[],
 };
 
 /** completedMethods 的唯一推导规则：节次全满才进，掉回未满则移出 */
@@ -77,6 +96,33 @@ export const useProgress = create<ProgressState>()((set) => ({
         set((s) => ({
           analyzedWords: [{ word, at: Date.now(), step: 6 }, ...s.analyzedWords].slice(0, 50),
         })),
+
+      // ---------- 新课程体系（全部内存态：刷新归零，零持久化） ----------
+      completeUnit: (courseId, unitId) =>
+        set((s) => {
+          const prev = s.completedUnits[courseId] ?? [];
+          if (prev.includes(unitId)) return s;
+          return {
+            completedUnits: { ...s.completedUnits, [courseId]: [...prev, unitId] },
+          };
+        }),
+
+      markDiagnosticTaken: (courseId) =>
+        set((s) =>
+          s.diagnosticTaken.includes(courseId)
+            ? s
+            : { diagnosticTaken: [...s.diagnosticTaken, courseId] },
+        ),
+
+      recordExitResult: (courseId, score, total) =>
+        set((s) => ({
+          exitResults: { ...s.exitResults, [courseId]: { score, total } },
+        })),
+
+      markSelfChecked: (courseId) =>
+        set((s) =>
+          s.selfChecked.includes(courseId) ? s : { selfChecked: [...s.selfChecked, courseId] },
+        ),
 
       resetAll: () => set({ ...initial }),
   }),

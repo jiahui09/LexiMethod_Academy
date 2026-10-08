@@ -66,7 +66,7 @@ export function listenWriteIpaQ(w: WordExample): Question {
     id: uid('q-ipa'),
     type: 'listenWritePhoneme',
     prompt: `听写音标：${w.word}`,
-    narration: '先听音、写音标，再写单词 —— 声音先于拼写。',
+    narration: '先听音、写音标，再写单词，声音先于拼写。',
     speak: w.word,
     answer: w.phoneticUK,
     hint: `这个词有 ${w.syllables.length} 个音节，重音在第 ${w.stressIndex + 1} 个。`,
@@ -90,12 +90,12 @@ export function listenWriteWordQ(w: WordExample): Question {
   };
 }
 
-/** 音节划分（拖拽） */
+/** 音节划分（点拼块归槽） */
 export function syllableQ(w: WordExample): Question {
   return {
     id: uid('q-syl'),
     type: 'syllableSplit',
-    prompt: `划分音节：${w.word}`,
+    prompt: `点音块放进槽位，划分音节：${w.word}`,
     narration: '找元音核心 → 分配辅音 → 拼成音节。',
     syllableUnits: w.syllables,
     answer: w.syllables.join('-'),

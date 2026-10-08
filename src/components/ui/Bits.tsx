@@ -1,12 +1,10 @@
-import { motion } from 'framer-motion';
 import { Volume2, Loader2 } from 'lucide-react';
 import { useSpeech, useSpeaking } from '@/hooks/useSpeech';
 import { speakPhoneme } from '@/hooks/usePhonemeAudio';
 import { wordAudioUrl } from '@/data/phonemeAudio';
-import { useMotionTier } from '@/hooks/useMotionTier';
 import { playSfx } from '@/hooks/useSfx';
 
-/** 区块标题 */
+/** 区块标题：黑体承题，无入场编排（Hinge Step Rule） */
 export function SectionHeading({
   title,
   desc,
@@ -19,26 +17,17 @@ export function SectionHeading({
   /** 标题层级：页面级标题（PageIntro）传 h1，区块标题默认 h2 —— 每路由恰好一个 h1 */
   as?: 'h1' | 'h2';
 }) {
-  const tier = useMotionTier();
-  const anim =
-    tier === 'off'
-      ? {}
-      : {
-          initial: { opacity: 0, y: 18 },
-          whileInView: { opacity: 1, y: 0 },
-          viewport: { once: true },
-          transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
-        };
   const Tag = as;
   return (
-    <motion.div className={`mb-6 ${align === 'center' ? 'text-center' : ''}`} {...anim}>
-      <Tag className="text-2xl font-bold text-paperink md:text-3xl">{title}</Tag>
-      {desc && <p className="mt-2 max-w-3xl text-sm leading-relaxed text-colophon md:text-base">{desc}</p>}
-    </motion.div>
+    <div className={`mb-6 ${align === 'center' ? 'text-center' : ''}`}>
+      <Tag className="font-display text-2xl font-bold text-ink md:text-3xl">{title}</Tag>
+      {desc && <p className="mt-2 max-w-3xl text-sm leading-relaxed text-ink2 md:text-base">{desc}</p>}
+    </div>
   );
 }
 
-/** 朗读按钮：支持慢速/常速；传 phonemeId 时播放该音标的离线发音 */
+/** 朗读按钮：支持慢速/常速；传 phonemeId 时播放该音标的离线发音。
+ *  手册世界单一样式：静止 = 墨线描边，朗读中 = 墨色实心（状态=形状），慢速 = 下层页底。 */
 export function SpeakButton({
   text,
   phonemeId,
@@ -46,7 +35,6 @@ export function SpeakButton({
   label,
   size = 'md',
   className = '',
-  tone = 'paper',
 }: {
   text: string;
   phonemeId?: string;
@@ -54,7 +42,7 @@ export function SpeakButton({
   label?: string;
   size?: 'sm' | 'md' | 'lg';
   className?: string;
-  /** 视面：整站已统一辞书纸面（默认 'paper'：结构蓝描边，朗读中转批注红，无辉光） */
+  /** 兼容旧调用方的视面参数；全站已统一手册面，忽略 */
   tone?: 'dark' | 'paper';
 }) {
   const { speak, supported } = useSpeech();
@@ -75,7 +63,7 @@ export function SpeakButton({
       : '当前浏览器不支持语音合成';
 
   return (
-    <motion.button
+    <button
       type="button"
       disabled={!supported && !offlineReady}
       aria-label={ariaLabel}
@@ -87,25 +75,14 @@ export function SpeakButton({
           speak(text, { slow });
         }
       }}
-      whileTap={{ scale: 0.88 }}
-      className={`inline-flex ${dim} shrink-0 items-center justify-center rounded-full border transition-colors duration-300 disabled:opacity-40 ${className}`}
-      style={
-        tone === 'paper'
-          ? {
-              borderColor: speaking ? 'rgba(179,49,30,0.6)' : slow ? 'rgba(30,75,122,0.55)' : 'rgba(30,75,122,0.45)',
-              background: speaking ? 'rgba(179,49,30,0.07)' : 'rgba(30,75,122,0.06)',
-              color: speaking ? '#B3311E' : '#1E4B7A',
-              boxShadow: 'none',
-            }
-          : {
-              borderColor: slow ? 'rgba(255,179,0,0.5)' : 'rgba(0,229,255,0.45)',
-              background: slow ? 'rgba(255,179,0,0.12)' : 'rgba(0,229,255,0.12)',
-              color: slow ? '#FFB300' : '#00E5FF',
-              boxShadow: speaking ? '0 0 16px rgba(0,229,255,0.4)' : 'none',
-            }
-      }
+      className={`hinge inline-flex ${dim} shrink-0 items-center justify-center rounded-full border disabled:opacity-40 ${className}`}
+      style={{
+        borderColor: speaking ? '#17140E' : 'rgba(23,20,14,0.55)',
+        background: speaking ? '#17140E' : slow ? '#EDE8DA' : 'transparent',
+        color: speaking ? '#F4F1E7' : slow ? '#57503F' : '#17140E',
+      }}
     >
-      {speaking ? <Loader2 size={icon} className="animate-spin" /> : <Volume2 size={icon} />}
-    </motion.button>
+      {speaking ? <Loader2 size={icon} className="animate-spin" aria-hidden /> : <Volume2 size={icon} aria-hidden />}
+    </button>
   );
 }

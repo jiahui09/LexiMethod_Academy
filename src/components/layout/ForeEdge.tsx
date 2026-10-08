@@ -1,182 +1,109 @@
-import { useMemo, useRef } from 'react';
-import { Link, useLocation, useSearchParams } from 'react-router-dom';
-import { Check, Play } from 'lucide-react';
-import { methods } from '@/data/methods';
+import { Link, useLocation } from 'react-router-dom';
+import { Check, FlaskConical, Settings } from 'lucide-react';
+import { courses } from '@/data/courses';
 import { useProgress } from '@/store/progressStore';
-import { playSfx } from '@/hooks/useSfx';
-import { STATE_CLASS, type TabState, shortTitle } from '@/components/layout/ThumbIndex';
+import { STAGE_META, deepen } from '@/lib/stages';
 
-/** 上层：全站功能页切口贴（书口脊契约——功能页切口贴常驻每一页右缘；削减后只剩实验室与设置） */
+/** 功能页切口贴（书口顶端）：实验室与设置，全站可达 */
 const SECTIONS = [
-  { to: '/lab/phonemes', label: '实验室' },
-  { to: '/settings', label: '设置' },
+  { to: '/lab/phonemes', label: '实验室', icon: FlaskConical },
+  { to: '/settings', label: '设置', icon: Settings },
 ] as const;
 
-/** 下层步位刻痕（三态）：实心 = 已学、描边 = 进行中（当前步）、空 = 未到 */
-const STEP_CLASS: Record<'done' | 'active' | 'todo', string> = {
-  done: 'border-cobalt bg-cobalt text-bone hover:border-[#163B5E] hover:bg-[#163B5E]',
-  active: 'border-rubric text-rubric bg-bone2 hover:border-[#9C2919] hover:bg-[#EBDBC3]',
-  todo: 'border-rule text-colophon hover:bg-bone2/70',
-};
-
-const stateLabel: Record<TabState, string> = {
-  done: '已学',
-  active: '当前',
-  started: '进行中',
-  todo: '未到',
-};
-
 /**
- * 全站书口脊（阶段三签名件）：每页右缘常驻的一条书口。
- * 上层 = 功能页切口贴（全站跳转，当前页批注红实底，本会话到过的结构蓝 ✓）；
- * 下层 = 书的结构在「你现在这一页」的映射——
- *   /methods        → 8 门方法切口（沿用阶段二四态，唯一红实底 = 续学课）；
- *   /methods/:id    → 该课 8 道步位刻痕（?step= 为当前步，缺省取第一个未完成步）；
- *   其余页          → 续学课的 8 道步位刻痕（零进度时下层空置，不造口径）。
- * 状态从不只靠颜色：底/描边 + 形状（✓/▶/▷/空位）+ 文字色三重编码；触控 ≥44px。
- * 窄屏（<xl）不渲染：功能页由页眉/底导可达，步位由页内行内贴条降级。
+ * 书口阶梯轨（压膜活页手册签名件）：每页右缘常驻的阶梯标签。
+ * 上层 = 功能页贴；下层 = 全书结构——8 门课一贴，高度与课时成正比（The Extent Rule），
+ * 颜色取所属段的卡板色；当前课的贴伸出（当前章的卡板），已完成（出门条已收口）带 ✓。
+ * 状态三重编码：形状（✓ / 伸出）+ 颜色 + 文字（aria-label / title），从不只靠颜色。
+ * 窄屏（<xl）不渲染：页内阶梯条由各页自行降级。
  */
 export default function ForeEdge() {
   const location = useLocation();
-  const [params] = useSearchParams();
-  const completedMethods = useProgress((s) => s.completedMethods);
-  const completedSteps = useProgress((s) => s.completedSteps);
-
-  /** 本会话到过的功能页（内存即零存储：刷新即忘，不做持久化） */
-  const visitedRef = useRef<Set<string>>(new Set());
+  const completedUnits = useProgress((s) => s.completedUnits);
+  const exitResults = useProgress((s) => s.exitResults);
   const path = location.pathname;
-  visitedRef.current.add(path);
 
-  /** 续学口径（与课程目录同源：第一个未学完方法的第一个未完成步） */
-  const nextPos = useMemo(() => {
-    for (const m of methods) {
-      const done = completedSteps[m.id] ?? [];
-      if (done.length >= m.steps.length) continue;
-      const firstMissing = m.steps.findIndex((_, i) => !done.includes(i));
-      return { method: m, step: firstMissing === -1 ? 0 : firstMissing, finished: false };
-    }
-    return { method: methods[methods.length - 1], step: 0, finished: true };
-  }, [completedSteps]);
-
-  const onMap = path === '/methods';
   const courseMatch = /^\/methods\/([^/]+)$/.exec(path);
-  const course = courseMatch ? methods.find((m) => m.id === courseMatch[1]) : undefined;
-  const anyProgress = methods.some((m) => (completedSteps[m.id] ?? []).length > 0);
-
-  /** 下层内容：课程目录 = 方法贴；课页/其余 = 步位刻痕 */
-  let lower:
-    | { kind: 'methods'; currentId?: string }
-    | { kind: 'steps'; method: (typeof methods)[number]; activeStep: number }
-    | null = null;
-  if (onMap) {
-    lower = { kind: 'methods', currentId: nextPos.finished ? undefined : nextPos.method.id };
-  } else if (course) {
-    const doneList = completedSteps[course.id] ?? [];
-    const queryStep = Number(params.get('step'));
-    const fallback = course.steps.findIndex((_, i) => !doneList.includes(i));
-    const active = Number.isInteger(queryStep) && queryStep >= 0 && queryStep < course.steps.length
-      ? queryStep
-      : fallback === -1 ? 0 : fallback;
-    lower = { kind: 'steps', method: course, activeStep: active };
-  } else if (anyProgress && !nextPos.finished) {
-    lower = { kind: 'steps', method: nextPos.method, activeStep: nextPos.step };
-  }
+  const currentId = courseMatch?.[1];
 
   return (
-    <aside className="hidden w-24 shrink-0 self-start xl:block" aria-label="书口索引">
+    <aside className="hidden w-28 shrink-0 self-start xl:block" aria-label="书口索引">
       <nav
-        aria-label="书口：功能页与步位"
-        className="edu-scroll sticky top-24 flex max-h-[calc(100vh-7.5rem)] flex-col gap-1.5 overflow-y-auto pb-4"
+        aria-label="书口：功能页与全书课程"
+        className="edu-scroll sticky top-24 flex max-h-[calc(100vh-7.5rem)] flex-col gap-2 overflow-y-auto pb-4"
       >
-        {SECTIONS.map((s) => {
-          const on = path === s.to;
-          const seen = visitedRef.current.has(s.to);
-          return (
-            <Link
-              key={s.to}
-              to={s.to}
-              aria-current={on ? 'page' : undefined}
-              onClick={() => playSfx('click')}
-              className={[
-                'flex min-h-[44px] items-center justify-center gap-1.5 rounded-l-[3px] border-y border-l px-2.5 text-[13px] leading-tight transition-colors',
-                on
-                  ? 'border-rubric bg-rubric text-bone hover:border-[#9C2919] hover:bg-[#9C2919]'
-                  : seen
-                    ? 'border-cobalt text-cobalt hover:bg-bone2/70'
-                    : 'border-rule text-colophon hover:bg-bone2/70',
-              ].join(' ')}
-            >
-              <span className="flex w-3.5 shrink-0 items-center justify-center" aria-hidden>
-                {on ? (
-                  <Play size={11} className="fill-current" />
-                ) : seen ? (
-                  <Check size={14} strokeWidth={2.5} />
-                ) : null}
-              </span>
-              <span className={on ? 'font-medium' : undefined}>{s.label}</span>
-            </Link>
-          );
-        })}
+        {/* 上层：功能页切口贴 */}
+        <ul className="flex flex-col gap-1.5">
+          {SECTIONS.map((s) => {
+            const on = path === s.to || path.startsWith(s.to + '/');
+            const Icon = s.icon;
+            return (
+              <li key={s.to}>
+                <Link
+                  to={s.to}
+                  title={s.label}
+                  className={`hinge flex min-h-[44px] items-center gap-1.5 rounded-l-[3px] border border-ink/40 px-2.5 text-[13px] ${
+                    on ? 'bg-ink font-bold text-milk' : 'bg-leaf text-ink2 hover:bg-under hover:text-ink'
+                  }`}
+                  aria-current={on ? 'page' : undefined}
+                >
+                  <Icon size={14} aria-hidden />
+                  {s.label}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
 
-        {lower && (
-          <div className="mt-1 flex flex-col gap-1.5 border-t border-rule pt-1.5">
-            {lower.kind === 'methods'
-              ? methods.map((m) => {
-                  const done = completedMethods.includes(m.id);
-                  const started = (completedSteps[m.id] ?? []).length > 0;
-                  const state: TabState = done
-                    ? 'done'
-                    : m.id === lower.currentId
-                      ? 'active'
-                      : started
-                        ? 'started'
-                        : 'todo';
-                  return (
-                    <Link
-                      key={m.id}
-                      to={`/methods/${m.id}`}
-                      aria-label={`${shortTitle(m)}：${stateLabel[state]}`}
-                      onClick={() => playSfx('click')}
-                      className={[
-                        'flex min-h-[44px] items-center gap-1.5 rounded-l-[3px] border-y border-l px-2.5 text-[13px] leading-tight transition-colors',
-                        STATE_CLASS[state],
-                      ].join(' ')}
-                    >
-                      <span className="flex w-3.5 shrink-0 items-center justify-center" aria-hidden>
-                        {state === 'done' && <Check size={14} strokeWidth={2.5} />}
-                        {state === 'active' && <Play size={11} className="fill-current" />}
-                        {state === 'started' && <Play size={11} />}
-                      </span>
-                      <span className={state === 'active' ? 'font-medium' : undefined}>
-                        {shortTitle(m)}
-                      </span>
-                    </Link>
-                  );
-                })
-              : lower.method.steps.map((_, i) => {
-                  const done = (completedSteps[lower.kind === 'steps' ? lower.method.id : ''] ?? []).includes(i);
-                  const state = done ? 'done' : i === lower.activeStep ? 'active' : 'todo';
-                  return (
-                    <Link
-                      key={i}
-                      to={`/methods/${lower.kind === 'steps' ? lower.method.id : ''}?step=${i}`}
-                      aria-label={`第 ${i + 1} 步：${done ? '已学' : state === 'active' ? '当前' : '未到'}`}
-                      onClick={() => playSfx('click')}
-                      className={[
-                        'flex min-h-[44px] items-center gap-1.5 rounded-l-[3px] border-y border-l px-2.5 text-[13px] leading-tight transition-colors',
-                        STEP_CLASS[state],
-                      ].join(' ')}
-                    >
-                      <span className="flex w-3.5 shrink-0 items-center justify-center" aria-hidden>
-                        {state === 'done' && <Check size={14} strokeWidth={2.5} />}
-                        {state === 'active' && <Play size={11} className="fill-current" />}
-                      </span>
-                      <span className={`font-serif ${state === 'done' ? 'font-medium' : ''}`}>{i + 1}</span>
-                    </Link>
-                  );
-                })}
-          </div>
-        )}
+        <div className="flex items-center gap-2 px-1" aria-hidden>
+          <span className="h-px flex-1 bg-rule" />
+          <span className="machine text-[10px] text-ink2">VOL.</span>
+          <span className="h-px flex-1 bg-rule" />
+        </div>
+
+        {/* 下层：8 门课的阶梯贴（高度 ∝ 课时） */}
+        <ul className="flex flex-col gap-1.5">
+          {courses.map((c) => {
+            const on = c.id === currentId;
+            const done = (exitResults[c.id] != null) || (completedUnits[c.id]?.length ?? 0) >= c.units.length;
+            const stage = STAGE_META[c.stage];
+            // The Extent Rule：贴高与课时成正比（35–38 分钟 → 48–57px，均 ≥44 触控底线）
+            const h = 44 + (c.durationMin - 30) * 1.5;
+            const state = done ? '已完成' : on ? '当前' : '未学';
+            return (
+              <li key={c.id}>
+                <Link
+                  to={`/methods/${c.id}`}
+                  title={`${String(c.order).padStart(2, '0')} ${c.title} · ${c.durationMin} 分钟 · ${state}`}
+                  style={{
+                    height: `${h}px`,
+                    background: on ? stage.hue : '#FBF9F2',
+                    borderBottomColor: on ? deepen(stage.hue) : undefined,
+                  }}
+                  className={`hinge flex items-center gap-1.5 rounded-l-[3px] border border-r-0 border-y border-l border-ink/40 border-b-[3px] pl-2 pr-1.5 ${
+                    on ? 'font-bold' : 'hover:bg-under'
+                  }`}
+                  aria-current={on ? 'page' : undefined}
+                  aria-label={`第 ${c.order} 课 ${c.title}，${state}`}
+                >
+                  <span
+                    className={`machine text-[12px] ${on ? STAGE_META[c.stage].onBand : 'text-ink2'}`}
+                  >
+                    {String(c.order).padStart(2, '0')}
+                  </span>
+                  <span
+                    className={`hinge flex h-4 w-4 items-center justify-center rounded-full border-2 ${
+                      done ? 'border-ink bg-ink text-milk' : on ? 'border-ink/60 bg-milk/40' : 'border-rule'
+                    }`}
+                    aria-hidden
+                  >
+                    {done && <Check size={10} strokeWidth={3.5} />}
+                  </span>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
       </nav>
     </aside>
   );

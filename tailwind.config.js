@@ -4,47 +4,37 @@ export default {
   theme: {
     extend: {
       colors: {
-        // 霓虹色板
-        neon: '#00E5FF',
-        violet: '#7C4DFF',
-        pink: '#FF4D9D',
-        // 文字提亮变体（DESIGN.md 对比度底线 ≥4.5:1）：
-        // violet/pink 本色作正文色在深色玻璃面上不达标，文字一律用 lit 变体；
-        // 本色仅用于边框、填充、光晕与 ≥18.66px 粗体大字（3:1 达标）
-        'violet-lit': '#A98BFF',
-        'pink-lit': '#FF80B5',
-        success: '#00E676',
-        warn: '#FFB300',
-        danger: '#FF4D6D',
-        // 背景渐变端点
-        abyss: '#0B1020',
-        deep: '#111936',
-        ink: '#070B18',
-        // 语义表面
-        surface: 'rgba(255,255,255,0.06)',
-        hairline: 'rgba(255,255,255,0.12)',
-        // 辞书版式（教程面 / 音标实验室的纸面世界，方向契约见 .impeccable/surfaces/tutorial.md）
-        bone: '#F7F2E8', // 纸地
-        bone2: '#EFE6D2', // 纸面区块
-        rule: '#D8CFBC', // 发丝线
-        paperink: '#16130F', // 正文墨
-        colophon: '#4A443B', // 次级墨（纸地 ≥4.5:1）
-        cobalt: '#1E4B7A', // 结构蓝：书眉 / 导轨 / 链接
-        rubric: '#B3311E', // 批注红：唯一功能色（朗读 / 重读 / 当前）
+        // ---------- 压膜活页手册（Acetate Manual，seed 9f19875c）——当前世界 ----------
+        milk: '#F4F1E7', // 牛奶压膜地：全站页面底
+        leaf: '#FBF9F2', // 顶层透明页：当前阅读页 / 输入 / 答题选项
+        under: '#EDE8DA', // 下层页：次级区块底
+        rule: '#CFC7B2', // 发丝线：一切分界
+        ink: '#17140E', // 正文墨（奶白地 ≥15:1；接管旧深色壳 ink 名位）
+        ink2: '#57503F', // 次级墨（奶白地 ≥7:1）
+        // 卡板色轮（四段路径，一章一色满强度）
+        'board-pathway': '#F2B700', // 通路 · 铬黄（01–02）
+        'board-deconstruct': '#2A4BD7', // 拆解 · 群青（03）
+        'board-encode': '#137574', // 存入 · 青（04–06）
+        'board-retrieve': '#357A1E', // 调用 · 草绿（07）
+        'board-capstone': '#6B3FA0', // 收官 · 紫罗兰（08）
+        errata: '#E34234', // 朱红勘误：描边与标记（非文字 ≥3:1）
+        'errata-deep': '#C1301A', // 勘误条底：承载文字（白字 ≥4.5:1）
       },
       fontFamily: {
-        // 规格约束：只用系统字体栈，不加载任何外部字体文件（离线可用 + 零请求）
+        // 压膜活页手册：正文中文衬线（字体 CDN 已放开，系统宋体兜底，离线可读）
+        serif: ["'Noto Serif SC'", "'Source Han Serif SC'", "'Songti SC'", 'SimSun', 'Georgia', 'serif'],
         display: [
+          "'Noto Sans SC'",
+          "'Source Han Sans SC'",
           '-apple-system',
           'BlinkMacSystemFont',
-          "'Segoe UI'",
-          'Roboto',
           "'PingFang SC'",
           "'Microsoft YaHei'",
           'system-ui',
           'sans-serif',
         ],
         sans: [
+          "'Noto Sans SC'",
           '-apple-system',
           'BlinkMacSystemFont',
           "'Segoe UI'",
@@ -56,29 +46,7 @@ export default {
         ],
         mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', "'Liberation Mono'", 'monospace'],
       },
-      borderRadius: {
-        glass: '24px',
-      },
-      boxShadow: {
-        glow: '0 0 24px rgba(0,229,255,0.18), 0 0 64px rgba(124,77,255,0.12)',
-        'glow-sm': '0 0 12px rgba(0,229,255,0.22)',
-        'glow-lg': '0 0 48px rgba(0,229,255,0.25), 0 0 120px rgba(124,77,255,0.18)',
-        glass: '0 8px 32px rgba(0,0,0,0.35)',
-        neon: '0 0 20px rgba(0,229,255,0.45)',
-      },
-      backgroundImage: {
-        'page-gradient':
-          'radial-gradient(1200px 700px at 15% -10%, rgba(124,77,255,0.20), transparent 60%), radial-gradient(1000px 600px at 100% 0%, rgba(0,229,255,0.14), transparent 55%), linear-gradient(180deg, #0B1020 0%, #111936 100%)',
-      },
       keyframes: {
-        aurora: {
-          '0%,100%': { transform: 'translate3d(-4%,0,0) scale(1)' },
-          '50%': { transform: 'translate3d(4%,-3%,0) scale(1.08)' },
-        },
-        'pulse-glow': {
-          '0%,100%': { opacity: '0.55', transform: 'scale(1)' },
-          '50%': { opacity: '1', transform: 'scale(1.04)' },
-        },
         shake: {
           '0%,100%': { transform: 'translateX(0)' },
           '15%': { transform: 'translateX(-7px)' },
@@ -87,36 +55,9 @@ export default {
           '60%': { transform: 'translateX(4px)' },
           '80%': { transform: 'translateX(-2px)' },
         },
-        ripple: {
-          '0%': { transform: 'scale(0)', opacity: '0.55' },
-          '100%': { transform: 'scale(3.2)', opacity: '0' },
-        },
-        flow: {
-          '0%': { backgroundPosition: '0% 50%' },
-          '100%': { backgroundPosition: '300% 50%' },
-        },
-        float: {
-          '0%,100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-10px)' },
-        },
-        'spin-slow': {
-          to: { transform: 'rotate(360deg)' },
-        },
-        'wave-bounce': {
-          '0%,100%': { transform: 'scaleY(0.35)' },
-          '50%': { transform: 'scaleY(1)' },
-        },
       },
       animation: {
-        aurora: 'aurora 18s ease-in-out infinite',
-        'pulse-glow': 'pulse-glow 3.2s ease-in-out infinite',
         shake: 'shake 0.42s cubic-bezier(0.36, 0.07, 0.19, 0.97)',
-        flow: 'flow 3.5s linear infinite',
-        float: 'float 6s ease-in-out infinite',
-        'spin-slow': 'spin-slow 9s linear infinite',
-      },
-      transitionTimingFunction: {
-        'out-expo': 'cubic-bezier(0.22, 1, 0.36, 1)',
       },
     },
   },

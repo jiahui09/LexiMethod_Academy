@@ -9,7 +9,7 @@ import { useMotionTier } from '@/hooks/useMotionTier';
 import { useProgress } from '@/store/progressStore';
 import { useReview } from '@/store/reviewStore';
 import { SpeakButton } from '@/components/ui/Bits';
-import { EduButton, EduStamp } from '@/components/edu';
+import { EduButton } from '@/components/edu';
 import TokenPlacer from '@/components/course/TokenPlacer';
 
 type Props = {
@@ -129,23 +129,24 @@ export default function QuestionRunner({
     const pct = results.length ? Math.round((correct / results.length) * 100) : 0;
     const wrongList = questions.filter((_, i) => results[i] && !results[i].correct);
     return (
-      <div className="relative rounded-[3px] border border-rule bg-bone2/50 p-6 text-center">
-        <div className="mb-3 flex justify-center">
-          <EduStamp label="已阅" />
+      <div className="relative rounded-[3px] border border-rule bg-under/60 p-6 text-center">
+        <div className="mb-3 flex items-center justify-center gap-2">
+          <span className="punch punch-done" aria-hidden />
+          <span className="machine text-ink2">已阅</span>
         </div>
-        <div className="font-serif text-4xl font-bold tabular-nums text-paperink">{pct}%</div>
-        <p className="mt-1 text-sm text-colophon">
-          答对 <span className="text-cobalt">{correct}</span> / {results.length}（正确率{' '}
-          <span className="tabular-nums text-cobalt">{pct}%</span>）
+        <div className="font-serif text-4xl font-bold tabular-nums text-ink">{pct}%</div>
+        <p className="mt-1 text-sm text-ink2">
+          答对 <span className="text-board-deconstruct">{correct}</span> / {results.length}（正确率{' '}
+          <span className="tabular-nums text-board-deconstruct">{pct}%</span>）
         </p>
         {wrongList.length > 0 && (
-          <div className="mx-auto mt-4 max-w-xl rounded-[3px] border border-rubric/45 bg-rubric/[0.05] p-4 text-left text-xs text-colophon">
-            <div className="mb-1.5 font-semibold text-rubric">错题已排入间隔重复队列，稍后重现</div>
+          <div className="mx-auto mt-4 max-w-xl rounded-[3px] border border-errata/45 bg-errata/[0.05] p-4 text-left text-xs text-ink2">
+            <div className="mb-1.5 font-semibold text-errata-deep">错题已排入间隔重复队列，稍后重现</div>
             <ul className="space-y-1">
               {wrongList.slice(0, 4).map((wq) => (
                 <li key={wq.id} className="flex flex-wrap gap-2">
-                  <span className="text-paperink">{wq.prompt.slice(0, 30)}</span>
-                  <span className="ipa text-cobalt">{wq.answer}</span>
+                  <span className="text-ink">{wq.prompt.slice(0, 30)}</span>
+                  <span className="ipa text-board-deconstruct">{wq.answer}</span>
                 </li>
               ))}
             </ul>
@@ -171,11 +172,11 @@ export default function QuestionRunner({
   const writeType = isWriteType(q.type);
 
   return (
-    <div className="relative rounded-[3px] border border-rule bg-bone2/50 p-5 md:p-6">
+    <div className="relative rounded-[3px] border border-rule bg-under/60 p-5 md:p-6">
       {/* 头部：题号 / 题型 */}
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-2 text-xs text-colophon">
-          <span className="rounded-[3px] border border-cobalt/45 px-2 py-0.5 font-semibold text-cobalt">
+        <div className="flex items-center gap-2 text-xs text-ink2">
+          <span className="rounded-[3px] border border-board-deconstruct/45 px-2 py-0.5 font-semibold text-board-deconstruct">
             {TYPE_LABELS[q.type]}
           </span>
           <span className="tabular-nums">
@@ -196,7 +197,7 @@ export default function QuestionRunner({
       {/* 进度条 */}
       <div className="mb-5 h-1.5 overflow-hidden rounded-full bg-rule" aria-hidden>
         <motion.div
-          className="h-full rounded-full bg-cobalt"
+          className="h-full rounded-full bg-board-deconstruct"
           animate={{ width: `${((idx + (status !== 'idle' ? 1 : 0)) / total) * 100}%` }}
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         />
@@ -205,14 +206,14 @@ export default function QuestionRunner({
       {/* 题干 */}
       <div className="mb-4 flex items-start justify-between gap-3">
         <div>
-          <p className="text-lg font-semibold text-paperink md:text-xl">{q.prompt}</p>
-          <p className="mt-1 text-xs text-colophon">{q.narration}</p>
+          <p className="text-lg font-semibold text-ink md:text-xl">{q.prompt}</p>
+          <p className="mt-1 text-xs text-ink2">{q.narration}</p>
         </div>
         {q.speak && !isChoice && (
           <button
             type="button"
             onClick={() => speak(q.speak!, { slow: q.speakSlow })}
-            className="flex min-h-[44px] items-center gap-1.5 rounded-[3px] border border-rule px-3 py-2 text-xs text-colophon transition-colors hover:border-paperink hover:text-paperink"
+            className="flex min-h-[44px] items-center gap-1.5 rounded-[3px] border border-rule px-3 py-2 text-xs text-ink2 transition-colors hover:border-ink hover:text-ink"
           >
             <Headphones size={14} aria-hidden /> 播放
           </button>
@@ -240,23 +241,23 @@ export default function QuestionRunner({
                   whileTap={reveal ? undefined : { scale: 0.98 }}
                   className={`relative flex min-h-[44px] items-center justify-between gap-3 overflow-hidden rounded-[3px] border px-4 py-3.5 text-left transition-colors duration-300 ${
                     reveal && isRight
-                      ? 'border-cobalt bg-cobalt/[0.07]'
+                      ? 'border-board-deconstruct bg-board-deconstruct/[0.07]'
                       : reveal && chosen
-                        ? 'border-rubric bg-rubric/[0.07] animate-shake'
+                        ? 'border-errata bg-errata/[0.07] animate-shake'
                         : reveal
                           ? 'border-rule bg-transparent'
-                          : 'border-rule bg-[#FDFBF5] hover:border-cobalt hover:bg-cobalt/[0.04]'
+                          : 'border-rule bg-leaf hover:border-board-deconstruct hover:bg-board-deconstruct/[0.04]'
                   }`}
                 >
                   <span className="flex items-center gap-2.5">
-                    <span className="flex h-6 w-6 items-center justify-center rounded-[3px] border border-rule bg-bone2 text-xs font-bold text-cobalt">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-[3px] border border-rule bg-under text-xs font-bold text-board-deconstruct">
                       {String.fromCharCode(65 + i)}
                     </span>
-                    <span className={`font-semibold text-paperink ${c.sub ? '' : 'ipa text-base'}`}>{c.label}</span>
-                    {c.sub && <span className="text-xs text-colophon">{c.sub}</span>}
+                    <span className={`font-semibold text-ink ${c.sub ? '' : 'ipa text-base'}`}>{c.label}</span>
+                    {c.sub && <span className="text-xs text-ink2">{c.sub}</span>}
                   </span>
-                  {reveal && isRight && <Check size={17} className="text-cobalt" aria-hidden />}
-                  {reveal && chosen && !isRight && <X size={17} className="text-rubric" aria-hidden />}
+                  {reveal && isRight && <Check size={17} className="text-board-deconstruct" aria-hidden />}
+                  {reveal && chosen && !isRight && <X size={17} className="text-errata-deep" aria-hidden />}
                 </motion.button>
               );
             })}
@@ -275,7 +276,7 @@ export default function QuestionRunner({
               <input
                 ref={inputRef}
                 className={`edu-input min-w-0 flex-1 font-mono text-base ${
-                  status === 'correct' ? 'border-cobalt' : status === 'wrong' ? 'border-rubric' : ''
+                  status === 'correct' ? 'border-board-deconstruct' : status === 'wrong' ? 'border-errata' : ''
                 }`}
                 value={given}
                 onChange={(e) => setGiven(e.target.value)}
@@ -306,8 +307,8 @@ export default function QuestionRunner({
                     transition={{ delay: i * 0.06 }}
                     className={`flex h-9 w-8 items-center justify-center rounded-[3px] border font-mono text-sm font-semibold ${
                       l.status === 'same'
-                        ? 'border-cobalt bg-cobalt/[0.08] text-cobalt'
-                        : 'border-rubric bg-rubric/[0.08] text-rubric animate-shake'
+                        ? 'border-board-deconstruct bg-board-deconstruct/[0.08] text-board-deconstruct'
+                        : 'border-errata bg-errata/[0.08] text-errata-deep animate-shake'
                     }`}
                   >
                     {l.char}
@@ -359,10 +360,10 @@ export default function QuestionRunner({
                     whileHover={reveal ? undefined : { y: -3 }}
                     className={`inline-flex min-h-[44px] items-center gap-2 rounded-[3px] border px-5 py-4 text-lg font-bold transition-colors ${
                       right
-                        ? 'border-cobalt bg-cobalt/[0.08] text-cobalt'
+                        ? 'border-board-deconstruct bg-board-deconstruct/[0.08] text-board-deconstruct'
                         : reveal && chosen
-                          ? 'border-rubric bg-rubric/[0.08] text-rubric animate-shake'
-                          : 'border-rule bg-[#FDFBF5] text-paperink hover:border-cobalt'
+                          ? 'border-errata bg-errata/[0.08] text-errata-deep animate-shake'
+                          : 'border-rule bg-leaf text-ink hover:border-board-deconstruct'
                     }`}
                     aria-label={`第 ${i + 1} 音节 ${s}${right ? ' 正确' : ''}`}
                   >
@@ -370,7 +371,7 @@ export default function QuestionRunner({
                     {right && <Check size={16} strokeWidth={2.5} aria-hidden />}
                     {reveal && chosen && !right && <X size={16} strokeWidth={2.5} aria-hidden />}
                   </motion.button>
-                  <span className="text-xs text-colophon">#{i}</span>
+                  <span className="text-xs text-ink2">#{i}</span>
                 </div>
               );
             })}
@@ -385,8 +386,8 @@ export default function QuestionRunner({
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            className={`mt-4 rounded-[3px] border p-4 text-sm text-paperink ${
-              status === 'correct' ? 'border-cobalt/60 bg-cobalt/[0.06]' : 'border-rubric/60 bg-rubric/[0.06]'
+            className={`mt-4 rounded-[3px] border p-4 text-sm text-ink ${
+              status === 'correct' ? 'border-board-deconstruct/60 bg-board-deconstruct/[0.06]' : 'border-errata/60 bg-errata/[0.06]'
             }`}
             role="status"
             aria-live="polite"
@@ -394,18 +395,18 @@ export default function QuestionRunner({
             <div className="mb-1 flex items-center gap-2 font-semibold">
               {status === 'correct' ? (
                 <>
-                  <Check size={15} className="text-cobalt" /> 回答正确
+                  <Check size={15} className="text-board-deconstruct" /> 回答正确
                 </>
               ) : (
                 <>
-                  <X size={15} className="text-rubric" /> 正确答案：
-                  <span className="ipa text-paperink">{q.answer}</span>
+                  <X size={15} className="text-errata-deep" /> 正确答案：
+                  <span className="ipa text-ink">{q.answer}</span>
                 </>
               )}
             </div>
             {status === 'wrong' && (
               <div className="mb-1.5 flex items-start gap-1.5 text-xs">
-                <Lightbulb size={13} className="mt-0.5 shrink-0 text-rubric" aria-hidden />
+                <Lightbulb size={13} className="mt-0.5 shrink-0 text-errata-deep" aria-hidden />
                 {q.hint}
               </div>
             )}
@@ -420,7 +421,7 @@ export default function QuestionRunner({
           type="button"
           onClick={() => speak(q.speak ?? q.prompt, { slow: true })}
           disabled={!supported}
-          className="flex min-h-[44px] items-center gap-1.5 text-xs text-colophon transition-colors hover:text-cobalt disabled:opacity-40"
+          className="flex min-h-[44px] items-center gap-1.5 text-xs text-ink2 transition-colors hover:text-ink disabled:opacity-40"
         >
           <Turtle size={13} aria-hidden /> 慢速再听一遍
         </button>

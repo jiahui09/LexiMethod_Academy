@@ -6,9 +6,9 @@ import { wordAudioUrl } from '@/data/phonemeAudio';
 import { playSfx } from '@/hooks/useSfx';
 
 /**
- * 朗读钮（辞书版式）：词典里的发音小喇叭。
+ * 朗读钮（压膜活页手册）：静止 = 墨线描边小圆钮；朗读中 = 墨色实心（状态=形状）。
+ * 慢速模式 = 下层页底提示；朱红不参与（只给错误）。
  * 接线与全站一致：站内离线音频优先，句子回退浏览器语音合成。
- * 朗读中 = 批注红实心（唯一功能色），静止 = 发丝线描边。
  */
 export function SpeakButton({
   text,
@@ -59,11 +59,11 @@ export function SpeakButton({
         }
         onSpeak?.();
       }}
-      className={`inline-flex ${dim} shrink-0 items-center justify-center rounded-full border transition-colors duration-200 active:translate-y-px disabled:opacity-40 ${className}`}
+      className={`hinge inline-flex ${dim} shrink-0 items-center justify-center rounded-full border disabled:opacity-40 ${className}`}
       style={{
-        borderColor: speaking ? '#B3311E' : slow ? 'rgba(30, 75, 122, 0.55)' : 'rgba(22, 19, 15, 0.35)',
-        background: speaking ? '#B3311E' : slow ? 'rgba(30, 75, 122, 0.08)' : 'transparent',
-        color: speaking ? '#F7F2E8' : slow ? '#1E4B7A' : '#16130F',
+        borderColor: speaking ? '#17140E' : slow ? 'rgba(23, 20, 14, 0.55)' : 'rgba(23, 20, 14, 0.55)',
+        background: speaking ? '#17140E' : slow ? '#EDE8DA' : 'transparent',
+        color: speaking ? '#F4F1E7' : slow ? '#57503F' : '#17140E',
       }}
     >
       {speaking ? <Loader2 size={icon} className="animate-spin" aria-hidden /> : <Volume2 size={icon} aria-hidden />}
@@ -71,7 +71,7 @@ export function SpeakButton({
   );
 }
 
-/** 纸面芯片：单选/过滤的行内小控件。选中 = 批注红实心（当前），未选 = 发丝线描边。 */
+/** 手册芯片：单选/过滤的行内小控件。选中 = 墨色实心（打孔语义），未选 = 墨线描边。 */
 export function EduChip({
   children,
   active = false,
@@ -96,11 +96,11 @@ export function EduChip({
           : undefined
       }
       aria-pressed={onClick ? active : undefined}
-      className={`inline-flex min-h-[36px] items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium transition-colors duration-200 ${className}`}
+      className={`hinge inline-flex min-h-[36px] items-center gap-1.5 rounded-[3px] border px-3 py-1 text-xs font-medium ${className}`}
       style={{
-        borderColor: active ? '#B3311E' : 'rgba(22, 19, 15, 0.28)',
-        background: active ? '#B3311E' : 'transparent',
-        color: active ? '#F7F2E8' : '#4A443B',
+        borderColor: active ? '#17140E' : 'rgba(23, 20, 14, 0.45)',
+        background: active ? '#17140E' : 'transparent',
+        color: active ? '#F4F1E7' : '#57503F',
       }}
     >
       {children}

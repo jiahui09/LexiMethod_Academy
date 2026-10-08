@@ -132,8 +132,8 @@ export default function TokenPlacer({
 
   return (
     <div className="flex flex-col gap-4">
-      <p className="text-sm text-paperink">
-        <span className="mr-2 text-xs font-semibold text-cobalt">练习</span>
+      <p className="text-sm text-ink">
+        <span className="mr-2 text-xs font-semibold text-board-deconstruct">练习</span>
         {instructions}
       </p>
 
@@ -164,14 +164,14 @@ export default function TokenPlacer({
               transition={{ duration: 0.4 }}
               className={`relative flex min-w-[76px] min-h-[56px] items-center justify-center rounded-[4px] border px-4 py-4 font-serif text-lg font-semibold transition-colors ${
                 piece
-                  ? 'border-paperink/55 bg-[#FDFBF5] text-paperink'
-                  : 'border-dashed border-rule bg-transparent text-colophon/70'
-              } ${picked && !piece ? 'border-rubric bg-rubric/[0.07]' : ''}`}
+                  ? 'border-ink/55 bg-leaf text-ink'
+                  : 'border-dashed border-rule bg-transparent ink2/70'
+              } ${picked && !piece ? 'border-ink bg-under' : ''}`}
               aria-label={`第 ${i + 1} 个槽位${piece ? `：${piece.text}` : '（空）'}`}
             >
               {piece ? piece.text : '?'}
             </motion.button>
-            {i < slots.length - 1 && <span className="text-colophon">{gapToken === '-' ? '·' : gapToken}</span>}
+            {i < slots.length - 1 && <span className="text-ink2">{gapToken === '-' ? '·' : gapToken}</span>}
           </div>
         ))}
 
@@ -200,8 +200,8 @@ export default function TokenPlacer({
               onClick={() => handlePick(piece, 'pool')}
               className={`min-h-[44px] cursor-grab rounded-[4px] border px-4 py-2.5 font-serif text-base font-semibold transition-colors active:cursor-grabbing ${
                 picked?.piece.id === piece.id
-                  ? 'border-rubric bg-rubric/[0.08] text-rubric'
-                  : 'border-rule bg-[#FDFBF5] text-paperink hover:border-paperink'
+                  ? 'border-ink bg-under text-errata-deep'
+                  : 'border-rule bg-leaf text-ink hover:border-ink'
               }`}
               aria-pressed={picked?.piece.id === piece.id}
             >
@@ -210,7 +210,7 @@ export default function TokenPlacer({
           ))}
         </AnimatePresence>
         {pool.length === 0 && (
-          <span className="text-xs text-colophon">（拼块已全部放入，点击槽位可取回）</span>
+          <span className="text-xs text-ink2">（拼块已全部放入，点击槽位可取回）</span>
         )}
       </div>
 
@@ -222,36 +222,36 @@ export default function TokenPlacer({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
             className={`rounded-[4px] border px-4 py-3 text-sm ${
-              status === 'correct' ? 'border-cobalt/60 bg-cobalt/[0.06] text-paperink' : 'border-rubric/60 bg-rubric/[0.06] text-paperink'
+              status === 'correct' ? 'border-ink/60 bg-leaf text-ink' : 'border-errata bg-leaf text-ink'
             }`}
             role="status"
           >
-            <strong className={`mr-2 ${status === 'correct' ? 'text-cobalt' : 'text-rubric'}`}>
+            <strong className={`mr-2 ${status === 'correct' ? 'text-board-deconstruct' : 'text-errata-deep'}`}>
               {status === 'correct' ? '✓ 正确！' : '✕ 还不对'}
             </strong>
             {status === 'correct' ? ruleHint : (
               <>
-                你的答案：<code className="font-mono text-paperink">{given}</code> ·{' '}
+                你的答案 <code className="font-mono text-ink">{given}</code> ·{' '}
                 <button
                   type="button"
                   onClick={reset}
-                  className="inline-flex min-h-[44px] items-center underline underline-offset-4 transition-colors hover:text-cobalt"
+                  className="inline-flex min-h-[44px] items-center underline underline-offset-4 transition-colors hover:text-ink"
                 >
                   重来
                 </button>
-                <div className="mt-1 text-xs text-colophon">提示：{ruleHint}</div>
+                <div className="mt-1 text-xs text-ink2">提示 · {ruleHint}</div>
               </>
             )}
           </motion.div>
         )}
       </AnimatePresence>
 
-      <div className="flex items-center justify-between text-xs text-colophon">
+      <div className="flex items-center justify-between text-xs text-ink2">
         <span>尝试次数：{attempts}</span>
         <button
           type="button"
           onClick={reset}
-          className="min-h-[44px] rounded-[3px] border border-rule px-3 py-1 transition-colors hover:border-paperink hover:text-paperink"
+          className="min-h-[44px] rounded-[3px] border border-rule px-3 py-1 transition-colors hover:border-ink hover:text-ink"
         >
           重新出题
         </button>

@@ -37,7 +37,7 @@ export const rules: Rule[] = [
     type: 'phonics',
     pattern: '词尾不发音 e：触发长音并软化 c、g',
     explanation:
-      '词尾不发音的 e 有两个职责：一是触发 magic e 长音，二是让前面的 c、g 变“软”——c 在 e 前读 /s/、g 在 e 前读 /dʒ/。读 peace、stage 时 e 虽不出声，却改变了整词读音，拼写时绝不能省略它。',
+      '词尾不发音的 e 有两个职责：一是触发 magic e 长音，二是让前面的 c、g 变“软”，c 在 e 前读 /s/、g 在 e 前读 /dʒ/。读 peace、stage 时 e 虽不出声，却改变了整词读音，拼写时绝不能省略它。',
     examples: ['peace /piːs/', 'stage /steɪdʒ/', 'change /tʃeɪndʒ/', 'nice /naɪs/'],
   },
   {
@@ -265,7 +265,7 @@ export const rules: Rule[] = [
     type: 'suffix',
     pattern: '-ive：形容词后缀，表倾向、作用',
     explanation:
-      '-ive 表示“有……倾向的、起……作用的”：act→active（主动的）、create→creative（有创造力的）。它本身永远弱读 /ɪv/，重音位置随词根走——active 重在词首、creative 重在中段，需按词根逐个记。',
+      '-ive 表示“有……倾向的、起……作用的”：act→active（主动的）、create→creative（有创造力的）。它本身永远弱读 /ɪv/，重音位置随词根走，active 重在词首、creative 重在中段，需按词根逐个记。',
     examples: ['active', 'creative', 'attractive', 'relative'],
   },
   {
@@ -297,7 +297,7 @@ export const rules: Rule[] = [
     type: 'suffix',
     pattern: '-ly：形容词→副词（也表“每……的”）',
     explanation:
-      '形容词加 -ly 变副词：quick→quickly（快速地）、slow→slowly。但要注意 friendly、lovely 依然是形容词，daily、weekly 表示“每……的”，而 true→truly 要去掉词尾 e——按小类分开记才不会乱。',
+      '形容词加 -ly 变副词：quick→quickly（快速地）、slow→slowly。但要注意 friendly、lovely 依然是形容词，daily、weekly 表示“每……的”，而 true→truly 要去掉词尾 e，按小类分开记才不会乱。',
     examples: ['quickly', 'slowly', 'friendly', 'truly'],
   },
   {

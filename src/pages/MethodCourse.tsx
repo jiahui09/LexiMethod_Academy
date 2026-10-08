@@ -1,258 +1,182 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { Route as RouteIcon, FlaskConical } from 'lucide-react';
-import Breadcrumbs from '@/components/layout/Breadcrumbs';
-import { getMethod, methods } from '@/data/methods';
-import StepHost from '@/components/course/StepHost';
-import StepControls from '@/components/course/StepControls';
-import { ANIMATION_LABELS } from '@/components/course/demoConfig';
-import {
-  EduSheet,
-  EduRunningHead,
-  EduRail,
-  EduNarration,
-  EduButton,
-  EduStamp,
-} from '@/components/edu';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { getCourse } from '@/data/courses';
+import type { Course } from '@/data/courses';
 import { useProgress } from '@/store/progressStore';
-import { useReview } from '@/store/reviewStore';
-import { playSfx } from '@/hooks/useSfx';
+import { STAGE_META } from '@/lib/stages';
+import { EduRunningHead } from '@/components/edu';
+import StepRail from '@/components/course/StepRail';
+import type { StepMeta } from '@/components/course/StepRail';
+import DiagnosticView from '@/components/course/DiagnosticView';
+import ExitView from '@/components/course/ExitView';
+import { UnitView } from '@/components/course/UnitBlocks';
 import NotFound from './NotFound';
 
-const EMPTY_STEPS: number[] = [];
+const EMPTY: string[] = [];
+
+/** 缺省步位的唯一口径：诊断 → 第一个未完成单元 → 出门条 → 回 U1 */
+function defaultStep(course: Course, completed: string[], taken: boolean, exited: boolean): number {
+  if (!taken) return 0;
+  const i = course.units.findIndex((u) => !completed.includes(u.id));
+  if (i !== -1) return i + 1;
+  if (!exited) return 7;
+  return 1;
+}
 
 /**
- * 方法课程页（辞书版式）：一部可读可练的书。
- * 书眉定「我在第几义项」，左导轨是装订线，中栏是恒静阅读面，右栏外是页边批注。
+ * 课程页（压膜活页手册）：一本书里的一课。
+ * 书眉载段色压条，桌面左边距悬挂打孔步位轨（窄屏降级为顶内贴条）；
+ * 步位 0 诊断、1..6 单元叶、7 出门条与离场自测。每步一个主行动。
  */
 export default function MethodCourse() {
   const { methodId } = useParams();
-  const navigate = useNavigate();
-  const method = useMemo(() => getMethod(methodId), [methodId]);
+  const course = useMemo(() => getCourse(methodId), [methodId]);
 
-  // 支持 /methods/:id?step=n —— 供首页「继续学习」定位到上次学到的那一节
-  const [search] = useSearchParams();
-  const [index, setIndex] = useState(() => {
-    const raw = Number(search.get('step'));
-    if (!method || !Number.isFinite(raw)) return 0;
-    const max = Math.max(0, method.steps.length - 1);
-    return Math.min(Math.max(0, Math.floor(raw)), max);
+  const completedUnits = useProgress((s) => (course ? s.completedUnits[course.id] ?? EMPTY : EMPTY));
+  const taken = useProgress((s) => (course ? s.diagnosticTaken.includes(course.id) : false));
+  const exited = useProgress((s) => (course ? s.exitResults[course.id] != null : false));
+  const completeUnit = useProgress((s) => s.completeUnit);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const raw = searchParams.get('step');
+
+  // 缺省步位：进页时按当时进度算一次，之后进度变化不打断正在读的页
+  const [fallback] = useState(() => {
+    if (!course) return 0;
+    const s = useProgress.getState();
+    return defaultStep(
+      course,
+      s.completedUnits[course.id] ?? EMPTY,
+      s.diagnosticTaken.includes(course.id),
+      s.exitResults[course.id] != null,
+    );
   });
-  const [autoplay, setAutoplay] = useState(false);
-  const [replayKey, setReplayKey] = useState(0);
 
-  const completed = useProgress((s) => (method ? s.completedSteps[method.id] ?? EMPTY_STEPS : EMPTY_STEPS));
-  const completeStep = useProgress((s) => s.completeStep);
-  const ensureCard = useReview((s) => s.ensureCard);
+  let step: number;
+  if (raw !== null && Number.isFinite(Number(raw))) {
+    step = Math.min(7, Math.max(0, Math.floor(Number(raw))));
+  } else {
+    step = fallback;
+  }
 
-  // 进入某步只登记复习卡；完成由「前进 / 完成本课」显式记账（载入深链只定位，不改进度）
+  const goStep = (n: number) => {
+    setSearchParams({ step: String(n) });
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  };
+
   useEffect(() => {
-    if (!method) return;
-    ensureCard('method', `${method.id}-${index}`, `${method.title} · ${method.steps[index]?.title ?? ''}`);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [index, method?.id]);
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }, [step, methodId]);
 
-  // 自动播放时滚回顶部
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [index]);
+  const [practiced, setPracticed] = useState<string[]>([]);
 
-  if (!method) return <NotFound />;
+  if (!course) return <NotFound />;
 
-  const total = method.steps.length;
-  const step = method.steps[index];
-  const nextMethod = methods[(methods.indexOf(method) + 1) % methods.length];
-  const donePct = Math.round((completed.length / total) * 100);
-  const finished = completed.length >= total;
-
-  const goTo = (i: number) => {
-    setIndex(i);
-    setReplayKey((k) => k + 1);
-  };
-
-  /** 前进（下一步 / 自动播放 / →）：先记当前步完成，再跳下一节 */
-  const advance = () => {
-    if (index >= total - 1) return;
-    completeStep(method.id, index, total);
-    goTo(index + 1);
-  };
-
-  /** 完成本课：真正的完成时刻 —— 记账 + 批注章落纸 + 祝贺音 */
-  const finish = () => {
-    completeStep(method.id, index, total);
-    playSfx('complete');
-  };
+  const stage = STAGE_META[course.stage];
+  const metas: StepMeta[] = [
+    { n: 0, label: '诊断', done: taken },
+    ...course.units.map((u, i) => ({
+      n: i + 1,
+      label: `U${i + 1}`,
+      done: completedUnits.includes(u.id),
+    })),
+    { n: 7, label: '出门条', done: exited },
+  ];
+  const unitIndex = step >= 1 && step <= 6 ? Math.min(step - 1, course.units.length - 1) : -1;
+  const unit = unitIndex >= 0 ? course.units[unitIndex] : undefined;
 
   return (
-    <EduSheet className="overflow-hidden">
-      {/* 书眉：面包屑 + 本页动作；右上刻线进度永远回答「我在第几义项」 */}
+    <article className="leaf leaf-active">
       <EduRunningHead
         left={
-          <>
-            <Breadcrumbs
-              tone="paper"
-              items={[
-                { label: '方法课程', to: '/methods' },
-                { label: method.title.split('：')[0] },
-              ]}
-            />
-          </>
-        }
-        right={
-          <>
-            <span className="hidden items-center gap-2 sm:flex" aria-hidden>
-              <span className="relative block h-[3px] w-28 bg-rule">
-                <span
-                  className="absolute left-0 top-0 h-[3px] bg-cobalt transition-[width] duration-500 ease-out-expo"
-                  style={{ width: `${donePct}%` }}
-                />
-              </span>
-            </span>
-            <span className="text-xs font-semibold tabular-nums text-paperink" data-testid="course-step">
-              第 {index + 1} 步 / 共 {total} 步
-            </span>
-            <EduButton
-              size="sm"
-              variant="ghost"
-              onClick={() => {
-                playSfx('click');
-                navigate(`/methods/${nextMethod.id}`);
-                setIndex(0);
-              }}
-              aria-label={`前往下一方法：${nextMethod.title}`}
+          <nav aria-label="面包屑" className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1">
+            <Link
+              to="/methods"
+              className="hinge -my-2 inline-flex min-h-[44px] items-center rounded-[2px] px-1 text-ink2 transition-colors hover:text-ink"
             >
-              <RouteIcon size={14} aria-hidden /> 下一方法
-            </EduButton>
-          </>
+              手册总目
+            </Link>
+            <span aria-hidden className="h-3 w-px bg-rule" />
+            <span className="machine text-ink">{String(course.order).padStart(2, '0')}</span>
+            <span className="font-display font-bold text-ink">{course.title}</span>
+            {course.optional && (
+              <span className="rounded-[2px] border border-ink/40 px-1.5 py-0.5 text-[12px] text-ink2">
+                可跳过
+              </span>
+            )}
+          </nav>
         }
+        right={<span className="machine text-ink2">{String(step + 1).padStart(2, '0')} / 08</span>}
+        accent={stage.hue}
       />
 
-      <div className="grid grid-cols-[minmax(0,1fr)] md:grid-cols-[minmax(0,168px)_minmax(0,1fr)] xl:grid-cols-[minmax(0,168px)_minmax(0,1fr)_minmax(0,232px)]">
-        {/* 义项导轨：装订线（唯一的进度轴线），小屏横排 */}
-        <aside className="min-w-0 border-b border-rule px-3 py-3 md:border-b-0 md:border-r md:px-2 md:py-5">
-          <EduRail
-            labels={method.steps.map((s) => ANIMATION_LABELS[s.animation])}
-            titles={method.steps.map((s) => s.title)}
-            index={index}
-            completed={completed}
-            onChange={goTo}
-          />
-        </aside>
+      <div className="px-5 py-6 md:px-8 md:py-8">
+        {/* 课题：本路由唯一 h1 */}
+        <header className="border-b border-rule pb-5">
+          <p className="machine text-[12px] text-ink2">
+            {stage.label}段 · {course.durationMin} 分钟 · {course.units.length} 单元
+          </p>
+          <h1 className="mt-1.5 font-display text-[26px] font-extrabold leading-tight text-ink md:text-[32px]">
+            {course.title}
+          </h1>
+          <p className="mt-2 max-w-[68ch] text-[15px] leading-[1.85] text-ink2">{course.subtitle}</p>
+          <p className="mt-2 max-w-[68ch] text-[14px] leading-[1.8] text-ink2">
+            <span className="machine mr-2 text-[12px] text-ink">目标</span>
+            {course.goal}
+          </p>
+        </header>
 
-        {/* 阅读栏：卷首题名 → 步题词条 → 讲解 → 刻线导览 */}
-        <div className="min-w-0 px-5 py-6 md:px-8 md:py-8">
-          <header className="mb-6 border-b border-rule pb-5">
-            <h1 className="text-[26px] font-bold leading-tight text-paperink md:text-[32px]">{method.title}</h1>
-            <p className="mt-2 max-w-[68ch] text-[15px] leading-[1.85] text-colophon">{method.subtitle}</p>
-            <p className="mt-2 text-[13px] text-cobalt">
-              卷：{method.category} · 共 {total} 步 · 约 {method.durationMin} 分钟
-            </p>
-          </header>
+        <div className="mt-5 grid grid-cols-1 gap-x-6 gap-y-4 lg:grid-cols-[136px_minmax(0,1fr)]">
+          <StepRail metas={metas} active={step} onSelect={goStep} />
 
-          <section aria-live="polite">
-            <StepHost
-              method={method}
-              stepIndex={index}
-              replayKey={replayKey}
-              onNextMethod={() => navigate(`/methods/${nextMethod.id}`)}
-            />
-
-            {/* 旁白文本：动画之外的信息载体 */}
-            <div className="mt-5">
-              <EduNarration text={step.content} />
-            </div>
-
-            {/* 页脚刻线导览 */}
-            <StepControls
-              index={index}
-              total={total}
-              autoplay={autoplay}
-              completed={completed}
-              onChange={goTo}
-              onNext={advance}
-              onFinish={finish}
-              onToggleAutoplay={() => setAutoplay((a) => !a)}
-              onReplay={() => {
-                playSfx('reveal');
-                setReplayKey((k) => k + 1);
-              }}
-            />
-
-            {/* 完成时刻：批注章落纸（全课走完才出现） */}
-            {finished && (
-              <div
-                className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-[4px] border border-cobalt/45 bg-bone2/70 px-4 py-3"
-                role="status"
-                data-testid="course-finished"
-              >
-                <div className="flex min-w-0 items-center gap-3">
-                  <EduStamp label="已读" size={64} />
-                  <p className="text-sm leading-relaxed text-paperink">
-                    本课完成：{total} / {total} 步已走完。下一步去音标实验室把听辨拼验收一遍，才算真的会。
-                  </p>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  <EduButton
-                    size="sm"
-                    variant="primary"
-                    onClick={() => {
-                      playSfx('click');
-                      navigate('/lab/phonemes');
-                    }}
-                  >
-                    <FlaskConical size={14} aria-hidden /> 去实验室
-                  </EduButton>
-                  <EduButton
-                    size="sm"
-                    onClick={() => {
-                      playSfx('click');
-                      navigate(`/methods/${nextMethod.id}`);
-                    }}
-                  >
-                    <RouteIcon size={14} aria-hidden /> 下一方法
-                  </EduButton>
-                </div>
-              </div>
+          <div className="min-w-0">
+            {step === 0 && (
+              <DiagnosticView
+                opening={course.opening}
+                courseId={course.id}
+                onEnterU1={() => goStep(1)}
+              />
             )}
-          </section>
 
-          {/* 本课要点：发丝线清单，不装盒 */}
-          <section className="mt-8 border-t border-rule pt-5">
-            <h3 className="mb-2.5 text-[13px] font-semibold text-cobalt">本课要点</h3>
-            <ul className="max-w-[68ch] list-disc space-y-1.5 pl-5 text-[14.5px] leading-[1.85] text-colophon marker:text-rubric">
-              {method.principles.slice(0, 3).map((p, i) => (
-                <li key={i}>{p}</li>
-              ))}
-            </ul>
-          </section>
-        </div>
+            {unit && (
+              <>
+                <UnitView
+                  unit={unit}
+                  done={completedUnits.includes(unit.id)}
+                  practiced={practiced.includes(unit.id)}
+                  onPracticeDone={() =>
+                    setPracticed((p) => (p.includes(unit.id) ? p : [...p, unit.id]))
+                  }
+                  onToggleCheck={() => completeUnit(course.id, unit.id)}
+                />
 
-        {/* 栏外 apparatus：页边批注 */}
-        <aside className="hidden border-l border-rule px-5 py-6 xl:block">
-          <div className="sticky top-24 flex flex-col gap-5">
-            <div className="border-t border-rule pt-2.5 text-[13px] leading-[1.85] text-colophon">
-              <b className="mr-1.5 font-semibold text-cobalt">键位</b>
-              键盘 ← / → 可翻页；开启「自动播放」按时间线走完本课。
-            </div>
-            <div className="border-t border-rule pt-2.5 text-[13px] leading-[1.85] text-colophon">
-              <b className="mr-1.5 font-semibold text-cobalt">读法</b>
-              先读右栏步题与讲解，再点开演示动手做；动画看懂了不等于会，练习做对才算数。
-            </div>
-            <div className="border-t border-rule pt-2.5 text-[13px] leading-[1.85] text-colophon">
-              <b className="mr-1.5 font-semibold text-cobalt">发音</b>
-              词目与例词旁的小喇叭播的是站内离线音频；句子走浏览器朗读兜底，断网也能上这一页。
-            </div>
-            <div className="border-t border-rule pt-2.5 text-[13px] leading-[1.85] text-colophon">
-              <b className="mr-1.5 font-semibold text-cobalt">进度</b>
-              走完本课 {total} 步后到
-              <Link to="/lab/phonemes" className="text-cobalt underline underline-offset-4 hover:text-rubric">
-                音标实验室
-              </Link>
-              三个分卷里验收听辨拼，再进下一门课。
-            </div>
+                {/* 底部掀角：上一步幽灵 + 本步唯一主行动「下一步」 */}
+                <div className="mt-8 flex flex-col gap-3 border-t border-rule pt-5 sm:flex-row sm:items-center sm:justify-between">
+                  <Link
+                    to={`/methods/${course.id}?step=${step > 1 ? step - 1 : 0}`}
+                    className="hinge inline-flex min-h-[44px] items-center justify-center gap-1.5 rounded-[3px] border border-ink/40 px-4 text-[13px] text-ink hover:bg-under"
+                  >
+                    <ArrowLeft size={14} aria-hidden />
+                    {step > 1 ? `上一步 U${step - 1}` : '回诊断'}
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => goStep(step + 1)}
+                    data-testid="step-next"
+                    className="hinge inline-flex min-h-[44px] items-center justify-center gap-2 rounded-[3px] bg-ink px-5 py-2.5 font-display text-sm font-bold text-milk hover:bg-ink2 active:translate-y-px sm:ml-auto"
+                  >
+                    {step === 6 ? '去出门条' : `下一步 U${step + 1}`}
+                    <ArrowRight size={15} aria-hidden />
+                  </button>
+                </div>
+              </>
+            )}
+
+            {step === 7 && <ExitView course={course} />}
           </div>
-        </aside>
+        </div>
       </div>
-    </EduSheet>
+    </article>
   );
 }

@@ -4,11 +4,14 @@ import { words, wordById, wordIds } from '@/data/words';
 import { prefixes, suffixes, roots } from '@/data/affixes';
 import { rules, rulesByType, ruleById } from '@/data/rules';
 import { spellingPatterns } from '@/data/spellingPatterns';
-import { methods, methodById } from '@/data/methods';
+import { courses, courseById, getCourse } from '@/data/courses';
 import { quizBanks } from '@/data/quizBanks';
-import { demoByMethod } from '@/components/course/demoConfig';
+import { KIND_REGISTRY } from '@/components/practice/kinds';
+import { DEMO_NAMES } from '@/components/demos/Demo';
+import { pickBand } from '@/components/course/BandsReport';
 import { TYPE_LABELS, normChoice, normIpa, normWord, judgeAnswer } from '@/lib/answers';
 import type { QuestionType } from '@/types';
+import type { CourseQuestion, Diagnostic, ScoreBand, Block } from '@/data/courseSchema';
 
 
 /** 判断 /…/ 内的音素串能否被已知音标完整解析（如 /ʃn/ = ʃ + n） */
@@ -133,33 +136,112 @@ for (const sp of spellingPatterns) {
   ok(sp.rule.length >= 8, `${sp.id} 规则过短`);
 }
 
-/* ---------- 5. 课程 ---------- */
-ok(methods.length === 8, `方法数量 ${methods.length} != 8`);
-const ANIMATIONS = new Set([
-  'entrance', 'principle', 'rule', 'mapping', 'practice', 'application', 'pitfalls', 'mastery',
-  'roots', 'memoryChain', 'context', 'srsTimeline', 'outputFunnel', 'metacog', 'generic',
-]);
-for (const m of methods) {
-  ok(methodById[m.id] === m, `${m.id} 不在 methodById`);
-  ok(m.principles.length >= 3, `${m.id} principles < 3`);
-  ok(m.pitfalls.length >= 5, `${m.id} pitfalls < 5`);
-  ok(m.masteryCriteria.length >= 5, `${m.id} masteryCriteria < 5`);
-  ok(m.steps.length === 8, `${m.id} steps ${m.steps.length} != 8`);
-  m.steps.forEach((s, i) => {
-    ok(ANIMATIONS.has(s.animation), `${m.id} step${i} animation=${s.animation} 不被 StepHost 支持`);
-    ok(s.title.length > 0 && s.content.length > 20, `${m.id} step${i} 文案缺失`);
+/* ---------- 5. 课程（新世界：8 课内容先行，数据即产品） ---------- */
+const NEW_Q_TYPES = ['choice', 'match', 'highlight', 'construct', 'selfReveal', 'classify', 'fill'] as const;
+const OLD_Q_TYPES = new Set<string>(Object.keys(TYPE_LABELS));
+const ALLOWED_Q_TYPES = new Set<string>([...OLD_Q_TYPES, ...NEW_Q_TYPES]);
+const STAGE_SEQ = ['pathway', 'pathway', 'deconstruct', 'encode', 'encode', 'encode', 'retrieve', 'capstone'] as const;
+const BLOCK_KINDS = new Set(['example', 'demo', 'warning', 'list']);
+
+ok(courses.length === 8, `课程数量 ${courses.length} != 8`);
+ok(new Set(courses.map((c) => c.id)).size === 8, '课程 id 有重复');
+courses.forEach((c, i) => {
+  ok(c.order === i + 1, `${c.id} order=${c.order} 应为 ${i + 1}（路径顺序）`);
+  ok(c.stage === STAGE_SEQ[i], `${c.id} stage=${c.stage} 应为 ${STAGE_SEQ[i]}`);
+  ok(courseById[c.id] === c, `${c.id} 不在 courseById`);
+  ok(!!getCourse(c.id), `${c.id} getCourse 取不到`);
+});
+ok(courses.filter((c) => c.optional).length === 1, `可选课应恰好 1 门，实为 ${courses.filter((c) => c.optional).length}`);
+ok(courses[4].id === 'mnemonics' && courses[4].optional === true, '第 5 门应为可选的联想课');
+
+/** 诊断 / 出门条共用：题池 + 分数带 + pickBand 语义（回归守卫） */
+function checkPool(tag: string, pool: CourseQuestion[], bands: ScoreBand[]) {
+  ok(pool.length >= 6 && pool.length <= 10, `${tag} 题数 ${pool.length} 不在 6–10`);
+  ok(new Set(pool.map((q) => q.id)).size === pool.length, `${tag} 题 id 重复`);
+  for (const q of pool) {
+    ok(q.prompt.length >= 4 && String(q.answer ?? '').length > 0, `${tag}/${q.id} prompt/answer 缺失`);
+    ok(ALLOWED_Q_TYPES.has(q.type), `${tag}/${q.id} type=${q.type} 不在题型集`);
+    if (q.choices && q.choices.length >= 2) {
+      ok(q.choices.filter((c) => c.correct).length === 1, `${tag}/${q.id} 正确项不唯一`);
+      const labels = q.choices.map((c) => normChoice(c.label));
+      ok(new Set(labels).size === labels.length, `${tag}/${q.id} 选项标签重复`);
+      if (OLD_Q_TYPES.has(q.type)) {
+        const right = q.choices.find((c) => c.correct)!;
+        const wrong = q.choices.find((c) => !c.correct);
+        ok(judgeAnswer(q as unknown as Parameters<typeof judgeAnswer>[0], right.label) === true,
+          `${tag}/${q.id} judgeAnswer 对正确项判错`);
+        if (wrong) ok(judgeAnswer(q as unknown as Parameters<typeof judgeAnswer>[0], wrong.label) === false,
+          `${tag}/${q.id} judgeAnswer 对错误项判对（${wrong.label}）`);
+      }
+    }
+  }
+  ok(bands.length >= 2, `${tag} 分数带 ${bands.length} 档 < 2`);
+  ok(bands.every((b) => b.verdict.length >= 10), `${tag} 有 verdict 过短`);
+  ok(bands[0].until <= pool.length, `${tag} 顶带 until=${bands[0].until} 高于题数 ${pool.length}`);
+  ok(bands[bands.length - 1].until === 0, `${tag} 底带 until=${bands[bands.length - 1].until} 应为 0（0 分也有带）`);
+  for (let i = 1; i < bands.length; i++) {
+    ok(bands[i].until < bands[i - 1].until, `${tag} 分数带未按高分到低分排`);
+  }
+  for (const b of bands) {
+    if (b.route) ok(b.route.length >= 2 && b.route.length <= 40, `${tag} route 过短/过长：${b.route}`);
+  }
+  // pickBand 语义回归：曾用反向谓词（score <= until），任何分数都误落顶带
+  ok(pickBand(pool.length, bands) === bands[0], `${tag} 满分应落顶带`);
+  ok(pickBand(0, bands) === bands[bands.length - 1], `${tag} 0 分应落底带`);
+  bands.forEach((b, i) => ok(pickBand(b.until, bands) === b, `${tag} until=${b.until} 应落第 ${i + 1} 带`));
+}
+
+function checkBlock(tag: string, b: Block) {
+  ok(BLOCK_KINDS.has(b.kind), `${tag} block.kind=${(b as { kind?: string }).kind} 非法`);
+  if (b.kind === 'example') ok(b.text.length >= 6, `${tag} example 文案过短`);
+  if (b.kind === 'demo') ok(b.ref.length > 0 && b.caption.length >= 6, `${tag} demo 缺 ref/caption`);
+  if (b.kind === 'warning') ok(b.text.length >= 6, `${tag} warning 文案过短`);
+  if (b.kind === 'list') ok(b.items.length >= 2, `${tag} list 条目 < 2`);
+}
+
+for (const c of courses) {
+  ok(c.title.length >= 4 && c.subtitle.length >= 4 && c.goal.length >= 6, `${c.id} 题名/副题/目标缺失`);
+  ok(c.durationMin >= 30 && c.durationMin <= 40, `${c.id} durationMin=${c.durationMin} 不在 30–40`);
+  ok(c.opening.lead.length >= 8, `${c.id} 诊断 lead 过短`);
+  checkPool(`${c.id} 诊断`, c.opening.questions, c.opening.bands);
+  ok(c.exitTicket.intro.length >= 8, `${c.id} 出门条 intro 过短`);
+  checkPool(`${c.id} 出门条`, c.exitTicket.questions, c.exitTicket.bands);
+  ok(c.selfCheck.length === 5, `${c.id} 自测卡 ${c.selfCheck.length} 条 != 5`);
+  ok(c.selfCheck.every((s) => s.trim().length >= 6), `${c.id} 自测卡有条目过短`);
+  ok(c.units.length >= 5 && c.units.length <= 6, `${c.id} 单元数 ${c.units.length} 不在 5–6`);
+  c.units.forEach((u, i) => {
+    const tag = `${c.id}/${u.id}`;
+    ok(u.id === `u${i + 1}`, `${tag} 单元 id 序列错位（应为 u${i + 1}）`);
+    ok(u.title.length >= 3, `${tag} 单元标题过短`);
+    ok(u.durationMin >= 5 && u.durationMin <= 9, `${tag} durationMin=${u.durationMin} 不在 5–9`);
+    ok(u.claim.length >= 6 && u.claim.length <= 40, `${tag} claim 长度 ${u.claim.length} 不在 6–40`);
+    ok(u.blocks.length >= 2, `${tag} blocks=${u.blocks.length} < 2（文字墙风险）`);
+    for (const b of u.blocks) checkBlock(tag, b);
+    if (u.practice) {
+      ok(!!KIND_REGISTRY[u.practice.kind], `${tag} practice.kind=${u.practice.kind} 未注册`);
+      ok(u.practice.title.length >= 3 && u.practice.prompt.length >= 4, `${tag} practice 文案缺失`);
+      ok((u.practice.debrief ?? '').length >= 6, `${tag} practice 缺 debrief 收口`);
+    } else {
+      ok(false, `${tag} 缺 practice（单元须可动手）`);
+    }
+    if (u.labLink) ok(['phonemes', 'mapping', 'dictation'].includes(u.labLink.tab), `${tag} labLink.tab=${u.labLink.tab} 非法`);
+    if (u.check !== undefined) ok(u.check.length >= 6, `${tag} check 收口句过短`);
   });
 }
-// 旗舰课顺序
-const flag = methodById['phonics-syllables'];
-const wantOrder = ['entrance', 'principle', 'rule', 'mapping', 'practice', 'application', 'pitfalls', 'mastery'];
-flag.steps.forEach((s, i) => ok(s.animation === wantOrder[i], `旗舰 step${i} 应为 ${wantOrder[i]}，实际 ${s.animation}`));
-// demo 引用
-for (const [mid, d] of Object.entries(demoByMethod)) {
-  if (d.applicationWord) ok(!!wordById[d.applicationWord], `${mid} applicationWord ${d.applicationWord} 不在 words`);
-  if (d.practice?.kind === 'syllable') ok(!!wordById[(d.practice as { word?: string }).word],
-    `${mid} practice 单词不在 words`);
-}
+
+// 演示引用：数据 47 块 ↔ 注册表 47 项，双向全覆盖
+const allRefs = courses.flatMap((c) => c.units.flatMap((u) => u.blocks.filter((b) => b.kind === 'demo').map((b) => (b as { ref: string }).ref)));
+ok(allRefs.length === 47, `课程 demo 块 ${allRefs.length} != 47`);
+ok(new Set(allRefs).size === 47, `demo ref 有重复引用，去重后 ${new Set(allRefs).size}`);
+ok(allRefs.every((r) => DEMO_NAMES.includes(r)), `未注册 demo ref: ${allRefs.filter((r) => !DEMO_NAMES.includes(r)).join(' ')}`);
+ok(DEMO_NAMES.every((n) => allRefs.includes(n)), `demo 注册表死项: ${DEMO_NAMES.filter((n) => !allRefs.includes(n)).join(' ')}`);
+
+// 微练习 kind：数据用到的 30 键 ↔ 注册表 30 键，双向全覆盖
+const usedKinds = new Set(courses.flatMap((c) => c.units.map((u) => u.practice?.kind).filter((k): k is string => !!k)));
+const regKinds = Object.keys(KIND_REGISTRY);
+ok(regKinds.length === 30, `KIND_REGISTRY ${regKinds.length} 键 != 30`);
+ok(usedKinds.size === regKinds.length, `练习 kind 覆盖 ${usedKinds.size}/${regKinds.length}`);
+ok(regKinds.every((k) => usedKinds.has(k)), `kind 注册表死键: ${regKinds.filter((k) => !usedKinds.has(k)).join(' ')}`);
 
 /* ---------- 6. 题库 ---------- */
 const TYPES = Object.keys(TYPE_LABELS) as QuestionType[];
