@@ -274,7 +274,7 @@ export default function QuestionRunner({
             <div className="flex gap-2">
               <input
                 ref={inputRef}
-                className={`edu-input input-neon font-mono text-base ${
+                className={`edu-input min-w-0 flex-1 font-mono text-base ${
                   status === 'correct' ? 'border-cobalt' : status === 'wrong' ? 'border-rubric' : ''
                 }`}
                 value={given}
@@ -285,7 +285,12 @@ export default function QuestionRunner({
                 autoComplete="off"
                 spellCheck={false}
               />
-              <EduButton type="submit" variant="primary" disabled={status !== 'idle' || !given.trim()}>
+              <EduButton
+                type="submit"
+                variant="primary"
+                className="shrink-0 whitespace-nowrap"
+                disabled={status !== 'idle' || !given.trim()}
+              >
                 {status === 'idle' ? '提交' : status === 'correct' ? '正确' : '已批改'}
               </EduButton>
             </div>

@@ -171,13 +171,14 @@ export default function MethodList() {
 
                     <p className="mt-2.5 max-w-[68ch] text-[13px] leading-[1.85] text-colophon">{m.subtitle}</p>
 
-                    <ul className="mt-2 flex flex-wrap gap-1.5">
+                    {/* 要点不装边框盒：长句进小盒子 = 硬塞；改为悬挂点列表，与辞书正文同节奏 */}
+                    <ul className="mt-2.5 flex max-w-[68ch] flex-col gap-1">
                       {m.principles.slice(0, 3).map((p, k) => (
-                        <li
-                          key={k}
-                          className="max-w-full break-words rounded-[2px] border border-rule px-2 py-1 text-xs text-colophon"
-                        >
-                          {p}
+                        <li key={k} className="flex gap-2 text-[13px] leading-[1.75] text-colophon">
+                          <span aria-hidden className="shrink-0 font-bold text-rubric">
+                            ·
+                          </span>
+                          <span>{p}</span>
                         </li>
                       ))}
                     </ul>

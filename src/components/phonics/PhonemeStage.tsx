@@ -91,7 +91,7 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
 
       case 1:
         return (
-          <div className="grid gap-3 lg:grid-cols-[1.4fr_1fr]">
+          <div className="grid gap-3 lg:grid-cols-[1.4fr_1fr] xl:grid-cols-1">
             <MouthSideView geo={phoneme.geo} voiced={phoneme.voiced} playing />
             <div className="flex flex-col gap-3">
               <InfoCard title="口型（正面 + 侧面）" text={phoneme.mouthShape} />
@@ -108,7 +108,7 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
 
       case 2:
         return (
-          <div className="grid gap-3 lg:grid-cols-[1.4fr_1fr]">
+          <div className="grid gap-3 lg:grid-cols-[1.4fr_1fr] xl:grid-cols-1">
             <MouthSideView geo={phoneme.geo} voiced={phoneme.voiced} playing />
             <div className="flex flex-col gap-3">
               <InfoCard title="气流路径" text={phoneme.airflow} />
@@ -283,8 +283,8 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
         </div>
       </section>
 
-      {/* 要点速查 */}
-      <section className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+      {/* 要点速查：主栏在 xl 被索引表与页边批注夹到 ~600px，四列会把整句中文挤成 2 字宽的竖条——恒为 2 列，宁可两行也不做窄柱 */}
+      <section className="grid gap-3 sm:grid-cols-2">
         <InfoCard title="口型" text={phoneme.mouthShape} />
         <InfoCard title="舌位" text={phoneme.tonguePosition} />
         <InfoCard title="气流" text={phoneme.airflow} />
@@ -292,7 +292,7 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
           <div className="mb-1.5 flex items-center gap-1.5 text-xs font-semibold text-rubric">
             <TriangleAlert size={13} aria-hidden /> 中文母语者易犯错误
           </div>
-          <ul className="flex flex-col gap-1.5 text-xs leading-relaxed text-colophon">
+          <ul className="flex flex-col gap-1.5 text-[13px] leading-[1.75] text-colophon">
             {phoneme.commonMistakes.map((m, i) => (
               <li key={i}>· {m}</li>
             ))}
@@ -345,8 +345,8 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
 function InfoCard({ title, text }: { title: string; text: string }) {
   return (
     <div className="rounded-[4px] border border-rule bg-bone2/50 p-4">
-      <div className="mb-1.5 text-xs font-semibold text-cobalt">{title}</div>
-      <p className="text-xs leading-relaxed text-colophon">{text}</p>
+      <div className="mb-1.5 text-[13px] font-semibold text-cobalt">{title}</div>
+      <p className="text-[13px] leading-[1.75] text-colophon">{text}</p>
     </div>
   );
 }
