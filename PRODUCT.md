@@ -14,7 +14,7 @@ web
 
 ## Product Purpose
 
-教「背单词的方法与技巧」：8 门方法课 + 音标实验室 + 互动训练，学与练一体。成功 = 学习者掌握可迁移的方法（拆词、音形对应、间隔重复、输出与元认知等）并能立刻用出来；单词量是副产品——授人以渔，不替人背词。
+教「背单词的方法与技巧」：8 门方法课 + 音标实验室，学与练一体。成功 = 学习者掌握可迁移的方法（拆词、音形对应、间隔重复、输出与元认知等）并能立刻用出来；单词量是副产品——授人以渔，不替人背词。
 
 ## Positioning
 
@@ -28,7 +28,8 @@ web
 
 ## Capabilities and Constraints
 
-- 功能范围：8 门方法课分步教学；音标实验室三 tab（发音教学 / 音标拼写对应 / 听音拼写训练）；互动训练、费曼关、实战分析；复习中心、统计、工具箱、设置。
+- 功能范围：8 门方法课分步教学（含课内练习与实战分析步骤）；音标实验室三 tab（发音教学 / 音标拼写对应 / 听音拼写训练）；设置。
+  【已削减】训练（`/practice`）、复习（`/review`）、实战演练（`/analyze`）、费曼关（`/feynman`）、工具箱（`/toolbox`）、统计（`/stats`）与学习地图首页已移除——用户要求只留课程与实验室。
 - 【推断自原需求（"不需要登录与个人数据"）与既有设计契约，待用户纠正】零登录、零持久化：进度与设置仅内存态，刷新归零，不写 localStorage/cookie。
 - 【同上推断】运行时零外部请求：无外部字体、CDN、追踪或在线语音服务；发音优先用站内离线音频。
 - 【同上推断】全站中文：界面与讲解为中文，英文只出现在教学内容本身。
@@ -46,7 +47,7 @@ web
 - 8 门方法课与全部教学文案已成稿：`src/data/methods.ts`（每课 8 步结构）。
 - 48 音标数据与词全集：`src/data/phonemes.ts`（ttsWord/例词/最小对立对）、`scripts/word-universe.mjs`（926 词，8 数据源）。
 - 离线音频已生成：`public/audio/`（phonemes ×48 + words ×926 + manifest.json）、运行时映射 `src/data/phonemeAudio.ts`。
-- 题库与词例数据：`src/data/{quizBanks,rules,spellingPatterns,affixes,words,tools,feynman}.ts`。
+- 题库与词例数据：`src/data/{quizBanks,rules,spellingPatterns,affixes,words,tools}.ts`（原 `feynman.ts` 已随费曼关移除）。
 - 设计契约与底线审计：`DESIGN.md`、`.impeccable/design.json`、`.impeccable/audit-floor.json`（A/B/C/D 均为 0）。
 - 无用户证言、无客户、无成绩数据——未来工作不得虚构此类内容。
 

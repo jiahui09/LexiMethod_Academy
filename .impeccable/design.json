@@ -592,14 +592,14 @@
       "name": "ForeEdge 书口切口脊（阶段三签名）",
       "kind": "navigation",
       "refersTo": "fore-edge",
-      "description": "全站右缘常驻书口脊（src/components/layout/ForeEdge.tsx，App 层 xl+ sticky top-24）。上层 7 枚功能页切口贴：当前页=rubric 实底+▶、本会话到过=cobalt 描边+✓、未到=发丝线空贴（aria-current 标当前）。下层按页映射书的结构：/methods=8 方法四态贴、/methods/:id=该课 8 步刻痕（?step= 当前步）、其余=续学课步位（实心=已学 cobalt、描边=进行中 rubric、空=未到），零进度空置。触控≥44px，无进度时不自造口径。",
+      "description": "全站右缘常驻书口脊（src/components/layout/ForeEdge.tsx，App 层 xl+ sticky top-24）。上层功能页切口贴（削减后 = 实验室 / 设置）：当前页=rubric 实底+▶、本会话到过=cobalt 描边+✓、未到=发丝线空贴（aria-current 标当前）。下层按页映射书的结构：/methods=8 方法四态贴、/methods/:id=该课 8 步刻痕（?step= 当前步）、其余=续学课步位（实心=已学 cobalt、描边=进行中 rubric、空=未到），零进度空置。触控≥44px，无进度时不自造口径。",
       "html": "<nav aria-label=\"书口：功能页与步位\" class=\"ds-foreedge\"><a aria-current=\"page\" class=\"ds-edge active\" href=\"/practice\">▶ 训练</a><a class=\"ds-edge done\" href=\"/review\">✓ 复习</a><span class=\"ds-edge-gap\"></span><a class=\"ds-notch done\" href=\"/methods/phonics-syllables?step=0\">✓ 1</a><a class=\"ds-notch active\" href=\"/methods/phonics-syllables?step=1\">▶ 2</a></nav>",
       "css": ".ds-foreedge{display:flex;flex-direction:column;gap:6px;width:96px}.ds-edge,.ds-notch{display:flex;align-items:center;gap:6px;min-height:44px;padding:0 10px;border:1px solid #D8CFBC;border-right:0;border-radius:3px 0 0 3px;font:400 13px/1.3 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC',system-ui,sans-serif;color:#4A443B;background:#F7F2E8;text-decoration:none}.ds-edge.active,.ds-notch.active{background:#B3311E;border-color:#B3311E;color:#FBF6EC}.ds-edge.done{border-color:#1E4B7A;color:#1E4B7A}.ds-notch.done{background:#1E4B7A;border-color:#1E4B7A;color:#FBF6EC}"
     }
   ],
   "narrative": {
     "northStar": "辞书版式（The Dictionary Edition）— 方法是词目，步骤是义项，演示是例句，误区是辨析。",
-    "overview": "全站是一个单一世界：辞书纸面（The Dictionary Edition）——方法是词目，步骤是义项，演示是例句，误区是辨析。骨白纸满地（#F7F2E8，body 即地）、墨文承字、发丝线划栏，一册可读可练的双解词法书摊在纸面上；阶段三收口后 `.edu-sheet` 与地同层、零抬升（浮纸卡双层已消灭），全部功能页（practice/analyze/feynman/review/stats/settings/toolbox/404）迁入纸面，`hasPaperGround` 双地判定退役，全站不再有夜里。\n\n全站签名件是右缘书口切口脊（ForeEdge，xl+ sticky）：上层 7 枚功能页切口贴（当前=批注红实底▶、本会话到过=结构蓝✓、未到=发丝空贴），下层按页映射书的结构（/methods=8 方法四态贴、课页=该课 8 步刻痕、其余=续学课步位，零进度空置）；窄屏由页眉/底导/页内行内贴条降级。词头朗读时批注红章斜落纸上是唯一的编排瞬间。纸面拒绝玻璃、辉光、渐变与眉标（kicker）：标题自己承载重量，标签一律走行内。\n\n反参考同样成立：拒绝白底卡片网格 + 渐变 hero + 进度环的网课站货架感（做一部书，不做课程货架），拒绝经验值 / 连击 / 连续天数 / 等级徽章等角色化成长内容，拒绝任何外部字体与 CDN 资源——离线可用、零请求是硬约束。",
+    "overview": "全站是一个单一世界：辞书纸面（The Dictionary Edition）——方法是词目，步骤是义项，演示是例句，误区是辨析。骨白纸满地（#F7F2E8，body 即地）、墨文承字、发丝线划栏，一册可读可练的双解词法书摊在纸面上；阶段三收口后 `.edu-sheet` 与地同层、零抬升（浮纸卡双层已消灭），全部功能页迁入纸面，`hasPaperGround` 双地判定退役，全站不再有夜里；站点削减后只保留方法课程（/methods）与音标实验室（/lab），训练/复习/实战演练/费曼关/工具箱/统计/学习地图首页已移除。\n\n全站签名件是右缘书口切口脊（ForeEdge，xl+ sticky）：上层功能页切口贴（削减后 = 实验室 / 设置；当前=批注红实底▶、本会话到过=结构蓝✓、未到=发丝空贴），下层按页映射书的结构（/methods=8 方法四态贴、课页=该课 8 步刻痕、其余=续学课步位，零进度空置）；窄屏由页眉/底导/页内行内贴条降级。词头朗读时批注红章斜落纸上是唯一的编排瞬间。纸面拒绝玻璃、辉光、渐变与眉标（kicker）：标题自己承载重量，标签一律走行内。\n\n反参考同样成立：拒绝白底卡片网格 + 渐变 hero + 进度环的网课站货架感（做一部书，不做课程货架），拒绝经验值 / 连击 / 连续天数 / 等级徽章等角色化成长内容，拒绝任何外部字体与 CDN 资源——离线可用、零请求是硬约束。",
     "keyCharacteristics": [
       "纸面双笔色：批注红（功能/当下）+ 结构蓝（结构/已定），骨白纸与发丝线做地",
       "系统字体单兵种：中文正文系统无衬线 16px/1.9；系统衬线只给英文词头与展示数字；IPA 一律 .ipa 等宽（0.01em）",

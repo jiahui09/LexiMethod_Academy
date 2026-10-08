@@ -35,10 +35,10 @@ export default function Settings() {
   return (
     <div className="flex flex-col gap-6">
       <PageIntro
-        crumbs={[{ label: '学习地图', to: '/' }, { label: '设置' }]}
+        crumbs={[{ label: '方法课程', to: '/methods' }, { label: '设置' }]}
         title="设置：让工具适应你"
         desc="发音口音、动画强度、音效与语速都可调；本站零数据存储——这些偏好只存在于当前会话。"
-        next={{ label: '回到学习地图', to: '/' }}
+        next={{ label: '回到方法课程', to: '/methods' }}
       />
 
       <div className="grid gap-5 lg:grid-cols-2">
@@ -246,7 +246,6 @@ export default function Settings() {
         <p className="mb-4 text-xs text-colophon">
           本站不写任何浏览器存储（localStorage / sessionStorage 一律为空），也不上传任何数据：
           下面这些数字、复习卡、错题与设置只活在当前标签页里，刷新或关闭即回到初始状态。
-          想继续上次的学习，到首页「我的进度」把手动进度调到你上次学到的位置，再点「继续学习」。
         </p>
 
         <div className="grid gap-3 sm:grid-cols-3">
@@ -257,12 +256,11 @@ export default function Settings() {
           </div>
           <div className="rounded-[3px] bg-bone px-4 py-3 text-xs text-colophon">
             复习卡 <b className="text-paperink">{review.cards.length}</b> · 错题{' '}
-            <b className="text-rubric">{review.mistakes.length}</b> · 实战词{' '}
+            <b className="text-rubric">{review.mistakes.length}</b> · 分析词{' '}
             <b className="text-paperink">{progress.analyzedWords.length}</b>
           </div>
           <div className="rounded-[3px] bg-bone px-4 py-3 text-xs text-colophon">
-            费曼讲解 <b className="text-cobalt">{progress.feynmanRecords.length}</b> 次 · 其中通过{' '}
-            <b className="text-cobalt">{progress.feynmanRecords.filter((r) => r.passed).length}</b> 次
+            听写训练 <b className="text-cobalt">{progress.labDictationCount}</b> 次
           </div>
         </div>
 
@@ -273,7 +271,7 @@ export default function Settings() {
             </EduButton>
           ) : (
             <div className="flex flex-wrap items-center gap-2 border-y border-rubric py-2">
-              <span className="text-xs text-rubric">确认清空进度、复习卡、错题与讲解记录？不可撤销。</span>
+              <span className="text-xs text-rubric">确认清空进度、复习卡与错题？不可撤销。</span>
               <button
                 type="button"
                 onClick={() => {

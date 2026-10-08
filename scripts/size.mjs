@@ -47,8 +47,8 @@ if (!entryJs) {
   process.exit(1);
 }
 
-// 首屏 = 入口 eager 图 + 首页路由分包（'/' 直达）
-const homeChunk = readdirSync(assets).find((f) => f.startsWith('Home-') && f.endsWith('.js'));
+// 首屏 = 入口 eager 图 + 根路径落地路由分包（'/' → /methods，MethodList 直达）
+const homeChunk = readdirSync(assets).find((f) => f.startsWith('MethodList-') && f.endsWith('.js'));
 const eagerJs = walk(entryJs);
 const homeJs = homeChunk ? walk(homeChunk) : [];
 const firstScreenJs = [...new Set([...eagerJs, ...homeJs])];
@@ -59,7 +59,7 @@ const totalBytes = jsBytes + cssBytes;
 
 console.log('首屏体积（gzip）');
 console.log(`  入口 eager JS : ${kb(eagerJs.reduce((s, f) => s + gzipLen(join(assets, f)), 0))}（${eagerJs.length} 个分包）`);
-console.log(`  首页分包 JS   : ${kb(homeJs.reduce((s, f) => s + gzipLen(join(assets, f)), 0))}（${homeJs.length} 个分包）`);
+console.log(`  课程目录分包 JS : ${kb(homeJs.reduce((s, f) => s + gzipLen(join(assets, f)), 0))}（${homeJs.length} 个分包）`);
 console.log(`  首屏 CSS      : ${kb(cssBytes)}（${entryCss.length} 个）`);
 console.log(`  首屏合计      : ${kb(totalBytes)}`);
 

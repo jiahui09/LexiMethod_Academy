@@ -6,7 +6,6 @@ import { rules, rulesByType, ruleById } from '@/data/rules';
 import { spellingPatterns } from '@/data/spellingPatterns';
 import { methods, methodById } from '@/data/methods';
 import { quizBanks } from '@/data/quizBanks';
-import { feynmanTasks } from '@/data/feynman';
 import { demoByMethod } from '@/components/course/demoConfig';
 import { TYPE_LABELS, normChoice, normIpa, normWord, judgeAnswer } from '@/lib/answers';
 import type { QuestionType } from '@/types';
@@ -220,18 +219,6 @@ for (const q of allQ) {
 // 题型覆盖：至少 5 种题型出现在静态题库（原验收）——实为 11
 
 /* ---------- 7. 成就（已随去角色化移除，无数据校验） ---------- */
-
-/* ---------- 8. 费曼关 ---------- */
-ok(feynmanTasks.length === methods.length, `费曼关任务 ${feynmanTasks.length} != 方法 ${methods.length}`);
-ok(new Set(feynmanTasks.map((t) => t.methodId)).size === feynmanTasks.length, '费曼关课次重复');
-for (const t of feynmanTasks) {
-  ok(!!methodById[t.methodId], `${t.methodId} 没有对应方法`);
-  ok(t.prompt.length > 10 && t.modelAnswer.length > 60, `${t.methodId} 题面或对照解释过短`);
-  ok(t.keywords.length >= 6, `${t.methodId} 关键词 ${t.keywords.length} < 6`);
-  ok(new Set(t.keywords).size === t.keywords.length, `${t.methodId} 关键词重复`);
-  ok(t.studentQuestions.length === 2, `${t.methodId} 追问 ${t.studentQuestions.length} != 2`);
-  ok(t.exampleHint.length > 0 && t.exceptionHint.length > 0, `${t.methodId} 例子/例外要求缺失`);
-}
 
 /* ---------- 输出 ---------- */
 if (errors.length) {

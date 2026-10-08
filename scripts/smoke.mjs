@@ -7,14 +7,16 @@
  *
  * 检查项:
  *   1. 全部路由可访问且无 console.error / pageerror（含面包屑 + 下一步引导）
- *   2. 首页 3s 内渲染出标题
+ *   2. 首屏（课程目录）3s 内渲染出标题
  *   3. 零数据存储 + 课程完成语义：深链 ?step=n 只定位不改进度（反向断言）、
- *      手动调节改变进度、刷新后进度归零、存储键为空、无 XP/成就徽章残留
+ *      学完课程进度 +8、刷新后进度归零、存储键为空、无 XP/成就徽章残留
  *   4. 旗舰课 8 步可完整点击走完（上一步/下一步/重播）
  *   5. 音标实验室可选择音标并进入 7 步教学
  *   6. 移动端视口不横向溢出
  *
- * 注：XP / 连续天数 / 成就徽章 / 连击已从应用移除，相关断言一律以
+ * 注：站点已削减——只保留方法课程与音标实验室（/methods、/lab、/settings、404）。
+ *     训练 / 复习 / 实战演练 / 费曼关 / 工具箱 / 统计 / 首页 已移除，路由不复存在。
+ *     XP / 连续天数 / 成就徽章 / 连击早已移除，相关断言一律以
  *     行为证据替代（进度行文本、course-step 文本、存储键数、残留扫描）。
  */
 import puppeteer from 'puppeteer-core';
@@ -24,18 +26,12 @@ const CHROME = process.env.CHROME_BIN ?? '/usr/bin/chromium';
 const TIMEOUT = 25000;
 
 const ROUTES = [
-  ['/', '学习地图'],
+  ['/', '方法课程'],
   ['/methods', '方法课程'],
   ['/methods/phonics-syllables', '自然拼读法'],
   ['/lab/phonemes', '音标实验室'],
   ['/lab/mapping', '音标拼写对应'],
   ['/lab/dictation', '听音拼写训练'],
-  ['/practice', '互动训练'],
-  ['/analyze', '实战演练'],
-  ['/feynman', '费曼关'],
-  ['/toolbox', '方法工具箱'],
-  ['/review', '复习中心'],
-  ['/stats', '统计'],
   ['/settings', '设置'],
   ['/definitely-not-a-route', '404'],
 ];
@@ -91,29 +87,29 @@ async function main() {
       else ok(`${route} 无错误（面包屑 ${guide.crumbs} 段 · 引导条 ✓）`);
     }
 
-    /* 2. 首页 3 秒加载 */
-    console.log('\n[2] 首页 3s 加载');
+    /* 2. 首屏 3 秒加载（根路径重定向进课程目录） */
+    console.log('\n[2] 首屏 3s 加载');
     const t0 = Date.now();
     await page.goto(BASE + '/', { waitUntil: 'domcontentloaded', timeout: TIMEOUT });
     await page.waitForFunction(() => document.body.innerText.includes('LexiMethod'), { timeout: 3000 });
     const loadMs = Date.now() - t0;
-    if (loadMs > 3000) fail(`首页加载 ${loadMs}ms > 3000ms`);
-    else ok(`首页标题出现于 ${loadMs}ms`);
+    if (loadMs > 3000) fail(`首屏加载 ${loadMs}ms > 3000ms`);
+    else ok(`首屏标题出现于 ${loadMs}ms`);
 
-    /* 3. 零数据存储 + 课程完成语义（原「进入课程 +10 XP / 刷新 XP 归零」的 oracle 替换） */
+    /* 3. 零数据存储 + 课程完成语义 */
     console.log('\n[3] 零数据存储 · 深链只定位不改进度 · 无 XP 残留');
-    await page.goto(BASE + '/', { waitUntil: 'networkidle2', timeout: TIMEOUT });
+    await page.goto(BASE + '/methods', { waitUntil: 'networkidle2', timeout: TIMEOUT });
     await sleep(700);
 
     const readCount = () =>
       page.evaluate(() => {
-        const el = document.querySelector('[data-step-count="0"]');
-        if (el) return el.textContent.trim();
-        const m = (document.querySelector('[data-method-row]')?.innerText ?? '').match(/\d+\s*\/\s*\d+/);
-        return m ? m[0].replace(/\s+/g, '') : '';
+        const m = (document.querySelector('[data-method-row="phonics-syllables"]')?.innerText ?? '').match(
+          /(\d+)\s*\/\s*(\d+)/,
+        );
+        return m ? `${m[1]}/${m[2]}` : '';
       });
 
-    // SPA 内前进/后退：整页 goto 会重建内存 store，测不出「打开页面偷偷改进度」
+    // SPA 前进/后退：整页 goto 会重建内存 store，测不出「打开页面偷偷改进度」
     const spaGoto = async (path) => {
       await page.evaluate((p) => {
         window.history.pushState({}, '', p);
@@ -128,27 +124,11 @@ async function main() {
     const stepText = (await page.evaluate(() => document.querySelector('[data-testid="course-step"]')?.textContent ?? '')).trim();
     if (!stepText.includes('第 4 步')) fail(`深链 ?step=3 应落在第 4 步，实为「${stepText || '(无 course-step)'}」`);
     else ok('深链 ?step=3 落在第 4 步');
-    await spaGoto('/');
+    await spaGoto('/methods');
     const cntDeep = await readCount();
     if (!cntBase || cntDeep !== cntBase) {
       fail(`打开深链不应改进度（修复验证）：${cntBase || '(读不到)'} → ${cntDeep || '(读不到)'}`);
     } else ok(`打开深链进度不变（${cntDeep}）`);
-
-    // 3b. 手动调节 = 进度变化本身就是断言点（不再有 XP 同步）
-    const beforeNum = Number((cntDeep.match(/^(\d+)\//) ?? [])[1]);
-    await page.click('[data-step-inc="0"]');
-    await sleep(350);
-    const cntInc = await readCount();
-    const afterNum = Number((cntInc.match(/^(\d+)\//) ?? [])[1]);
-    if (!(afterNum > beforeNum)) fail(`手动 +1 后进度应增加：${cntDeep} → ${cntInc}`);
-    else ok(`手动调节生效（${cntDeep} → ${cntInc}）`);
-
-    // 3c. 刷新后进度归零（零存储：内存 store 重建）
-    await page.reload({ waitUntil: 'networkidle2' });
-    await sleep(800);
-    const cntZero = await readCount();
-    if (cntZero !== '0/8') fail(`刷新后进度应归零（零存储），实为 ${cntZero}（调节后 ${cntInc}）`);
-    else ok('刷新后进度归零（零存储）');
 
     const store = await page.evaluate(() => ({
       ls: Object.keys(window.localStorage).length,
@@ -169,18 +149,19 @@ async function main() {
       fail(`去角色化残留: header-xp=${residue.xpId} XP文案=${residue.xpText} 徽章=${residue.badges}`);
     } else ok('无 XP / 成就徽章残留');
 
-    // 3e. 空库首访：hero 主 CTA 为「开始第一课」
-    const heroCta = await page.evaluate(() => document.querySelector('[data-testid="hero-resume"]')?.textContent.trim() ?? '');
-    if (!heroCta.includes('开始第一课')) fail(`空库 hero 主 CTA 应为「开始第一课」，实为「${heroCta || '(无 hero-resume)'}」`);
-    else ok('空库 hero 主 CTA =「开始第一课」');
+    // 3e. 空库首访：课程目录主 CTA 为「开始第一课」
+    const heroCta = await page.evaluate(() => document.querySelector('[data-testid="intro-next"]')?.textContent.trim() ?? '');
+    if (!heroCta.includes('开始第一课')) fail(`空库主 CTA 应为「开始第一课」，实为「${heroCta || '(无 intro-next)'}」`);
+    else ok('空库主 CTA =「开始第一课」');
 
-    // 3f. 首页「我的进度」面板（此检查须在首页执行）
-    const panel = await page.evaluate(() => {
-      const p = document.querySelector('[data-testid="progress-panel"]');
-      return p ? { rows: p.querySelectorAll('[data-method-row]').length, inc: p.querySelectorAll('[data-step-inc]').length } : null;
-    });
-    if (!panel || panel.rows !== 8 || panel.inc !== 8) fail(`首页「我的进度」面板行数 ${panel?.rows ?? 0}/8`);
-    else ok('首页「我的进度」面板：8 门课均可手动调节数');
+    // 3f. 课程目录 8 条词条（进度 0/8 起步）
+    const rows = await page.evaluate(
+      () => document.querySelectorAll('[data-testid="data-method-row"]').length,
+    );
+    if (rows !== 8) fail(`课程目录词条数 ${rows}/8`);
+    else ok('课程目录 8 条词条');
+    if (cntBase && cntBase !== '0/8') fail(`空库旗舰课进度应为 0/8，实为 ${cntBase}`);
+    else ok('空库旗舰课进度 0/8');
 
     /* 4. 旗舰课 8 步 */
     console.log('\n[4] 旗舰课《自然拼读法》8 步走完');

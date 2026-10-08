@@ -27,7 +27,7 @@ export function resolveMotionTier(pref: AnimationTier | 'auto'): AnimationTier {
 
 /**
  * 站点零数据存储：本 store 只存在于内存，**不写 localStorage / sessionStorage**。
- * 刷新或关闭页面即回到默认值（刷新后请在首页「我的进度」手动调节学习进度）。
+ * 刷新或关闭页面即回到默认值。
  */
 export const useSettings = create<SettingsState>()((set) => ({
   accent: 'uk',

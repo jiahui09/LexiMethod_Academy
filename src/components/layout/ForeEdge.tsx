@@ -6,15 +6,10 @@ import { useProgress } from '@/store/progressStore';
 import { playSfx } from '@/hooks/useSfx';
 import { STATE_CLASS, type TabState, shortTitle } from '@/components/layout/ThumbIndex';
 
-/** 上层：全站功能页切口贴（用户锁定的书口脊契约——7 枚贴常驻每一页右缘） */
+/** 上层：全站功能页切口贴（书口脊契约——功能页切口贴常驻每一页右缘；削减后只剩实验室与设置） */
 const SECTIONS = [
-  { to: '/practice', label: '训练' },
-  { to: '/feynman', label: '费曼' },
-  { to: '/review', label: '复习' },
-  { to: '/stats', label: '统计' },
+  { to: '/lab/phonemes', label: '实验室' },
   { to: '/settings', label: '设置' },
-  { to: '/toolbox', label: '工具箱' },
-  { to: '/analyze', label: '分析' },
 ] as const;
 
 /** 下层步位刻痕（三态）：实心 = 已学、描边 = 进行中（当前步）、空 = 未到 */
@@ -33,7 +28,7 @@ const stateLabel: Record<TabState, string> = {
 
 /**
  * 全站书口脊（阶段三签名件）：每页右缘常驻的一条书口。
- * 上层 = 7 枚功能页切口贴（全站跳转，当前页批注红实底，本会话到过的结构蓝 ✓）；
+ * 上层 = 功能页切口贴（全站跳转，当前页批注红实底，本会话到过的结构蓝 ✓）；
  * 下层 = 书的结构在「你现在这一页」的映射——
  *   /methods        → 8 门方法切口（沿用阶段二四态，唯一红实底 = 续学课）；
  *   /methods/:id    → 该课 8 道步位刻痕（?step= 为当前步，缺省取第一个未完成步）；
@@ -52,7 +47,7 @@ export default function ForeEdge() {
   const path = location.pathname;
   visitedRef.current.add(path);
 
-  /** 续学口径（与首页 hero 完全同源：第一个未学完方法的第一个未完成步） */
+  /** 续学口径（与课程目录同源：第一个未学完方法的第一个未完成步） */
   const nextPos = useMemo(() => {
     for (const m of methods) {
       const done = completedSteps[m.id] ?? [];
@@ -68,7 +63,7 @@ export default function ForeEdge() {
   const course = courseMatch ? methods.find((m) => m.id === courseMatch[1]) : undefined;
   const anyProgress = methods.some((m) => (completedSteps[m.id] ?? []).length > 0);
 
-  /** 下层内容：地图 = 方法贴；课页/其余 = 步位刻痕 */
+  /** 下层内容：课程目录 = 方法贴；课页/其余 = 步位刻痕 */
   let lower:
     | { kind: 'methods'; currentId?: string }
     | { kind: 'steps'; method: (typeof methods)[number]; activeStep: number }

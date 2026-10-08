@@ -153,7 +153,7 @@ export default function DictationTrainer() {
             <li>· 慢速听结构 → 常速听流利度；两次播放后再落笔。</li>
             <li>· 先写音标：把声音固化成符号，再映射到拼写，正确率更高。</li>
             <li>· 逐字母核对：错在哪一节，就说明哪个“拼写 ↔ 发音”规则没掌握。</li>
-            <li>· 错题会自动进入复习中心，按 1/3/7/14/30 天间隔重现。</li>
+            <li>· 错题会自动排期，按 1/3/7/14/30 天间隔重现。</li>
           </ul>
         </div>
         <div className="rounded-[4px] border border-rule bg-bone2/60 p-4">

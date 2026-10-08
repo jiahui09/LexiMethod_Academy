@@ -169,7 +169,9 @@ components:
 
 全站是一个单一世界：辞书纸面满地（#F7F2E8，含全部功能页）——教程面（`/methods/:methodId`、`/lab`）与功能页同处这块纸地、墨文承字、发丝线划栏，一册可读可练的双解词法书摊在骨白纸面上（阶段三起零抬升：`.edu-sheet` 与地同色同层，浮纸卡双层已消灭）。词头朗读时批注红章斜落纸上——像用红笔在词典上做了记号——是这个世界的签名瞬间。纸面拒绝玻璃、辉光、渐变与眉标（kicker）：标题自己承载重量，标签一律走行内。
 
-导航壳与首屏路由（header / footer / BottomNav / NextStepBar / Home / MethodList）已迁入纸面世界：骨白书眉（3px 双线压顶）、批注红 3px 刻线激活态、衬线刊记页脚、发丝线行的首页与方法列表——纸面把深色桌面一起接管（body 即 #F7F2E8，`.edu-sheet` 与地同层、零抬升）。**阶段三收口：全部功能页（practice / analyze / feynman / review / stats / settings / toolbox / 404）已迁入纸面，`hasPaperGround` 双地判定与 `bg-abyss` 垫地退役，全站不再有夜里；新增页面只有一种站位——纸上。**
+导航壳与首屏路由（header / footer / BottomNav / NextStepBar / MethodList）已迁入纸面世界：骨白书眉（3px 双线压顶）、批注红 3px 刻线激活态、衬线刊记页脚、发丝线行的方法列表——纸面把深色桌面一起接管（body 即 #F7F2E8，`.edu-sheet` 与地同层、零抬升）。**阶段三收口：全部功能页（practice / analyze / feynman / review / stats / settings / toolbox / 404）已迁入纸面，`hasPaperGround` 双地判定与 `bg-abyss` 垫地退役，全站不再有夜里；新增页面只有一种站位——纸上。**
+
+**站点削减（已决）：** 训练（`/practice`）、复习（`/review`）、实战演练（`/analyze`）、费曼关（`/feynman`）、工具箱（`/toolbox`）、统计（`/stats`）与学习地图首页已整体移除，全站只保留**方法课程**（`/methods`）与**音标实验室**（`/lab`）两块内容（设置 `/settings` 与 404 保留）；`/` 重定向到 `/methods`。课内练习步骤与实验室训练为内容组件，保留。设计语言与底线规则不变。
 
 反参考在两个世界同样成立：拒绝白底卡片网格 + 渐变 hero + 进度环的网课站货架感（教程面做一部书，不做课程货架），拒绝经验值 / 连击 / 连续天数 / 等级徽章等角色化成长内容，拒绝任何外部字体与 CDN 资源——离线可用、零请求是硬约束。
 
@@ -297,7 +299,7 @@ components:
 **Character（纸面）:** 印刷表单里的控件——发丝线描边、方正圆角、按下微陷（active:translate-y-px）、无辉光；触控上下文 min-height 44px。
 
 - **Paper Default:** 透明底 + paperink 文字 + paperink/60 描边（`rounded 3px`, padding 8×16px），hover 翻转为实底（bg-paperink 文字 bone）。
-- **Paper Primary:** 批注红实底 + 米白字（#FBF6EC），hover 转 #9C2919——只授予本页唯一的主行动（完成本课、去费曼关）。
+- **Paper Primary:** 批注红实底 + 米白字（#FBF6EC），hover 转 #9C2919——只授予本页唯一的主行动（开始第一课、完成本课、去实验室）。
 - **Paper Ghost:** 无描边 colophon 文字，hover 出发丝线——与主动作竞争的次级动作一律降为它。
 - **Legacy Neon（深色壳）:** 14px 圆角渐变描边发光主按钮、白 5% 幽灵按钮；hover 微起 1px、按压 0.96 回弹。
 
@@ -321,7 +323,7 @@ EduChip：全圆、发丝线描边、12px colophon 文字；选中 = 批注红�
 - **纸面书眉 RunningHead（签名）:** `border-b-[3px] border-double border-rule` 压顶，左 = 面包屑（`tone="paper"`：当前段 rubric，hover cobalt），右 = 3px 刻线进度（rule 底 + cobalt 填充，500ms ease-out-expo）+ 步序 tabular 计数 + 行内动作。
 - **义项导轨 EduRail（签名）:** 左栏装订线（1px rule 竖线，cobalt 高亮按进度伸长）；每步 = 编号圆标（当前 rubric 描边红号 / 完成 cobalt 实底白号 / 未到 rule 描边）+ 状态形状（当前 ▶ 实心三角、完成 ✓、未到空号）——状态从不只靠颜色。小屏转页顶横排。
 - **分卷 Tab（实验室）:** 发丝线行内 tab，选中 = 3px 批注红下划线 + paperink 粗体 + rubric 图标；min-height 44px。
-- **切口拇指索引 ThumbIndex（签名）:** 书口上的 8 枚索引贴，一贴一课（`src/components/layout/ThumbIndex.tsx`）。**阶段三上收：** 全站书口脊改由 `ForeEdge`（`src/components/layout/ForeEdge.tsx`）在 App 层右缘 sticky 承担——上层 7 枚功能页切口贴（当前=红实底▶、本会话到过=蓝✓、未到=发丝空贴），下层按页映射书的结构（/methods=8 方法四态贴、课页=该课 8 步刻痕、其余=续学课步位，零进度空置）；`ThumbIndex` 只保留窄屏 `inline` 行内横排降级。状态四态纹样（与列表「你在这里」同源，`currentId` 由页面 nextPos 传入，组件不自造口径）：已学 = cobalt 描边 + ✓ 实心勾；当前（唯一）= rubric 实底 + ▶ 实心三角；进行中 = rubric 描边 + ▷ 空心三角；未到 = 发丝线空贴——四态各有底/描边 + 形状 + 字色三重编码。
+- **切口拇指索引 ThumbIndex（签名）:** 书口上的 8 枚索引贴，一贴一课（`src/components/layout/ThumbIndex.tsx`）。**阶段三上收：** 全站书口脊改由 `ForeEdge`（`src/components/layout/ForeEdge.tsx`）在 App 层右缘 sticky 承担——上层功能页切口贴（削减后 = 实验室 / 设置；当前=红实底▶、本会话到过=蓝✓、未到=发丝空贴），下层按页映射书的结构（/methods=8 方法四态贴、课页=该课 8 步刻痕、其余=续学课步位，零进度空置）；`ThumbIndex` 只保留窄屏 `inline` 行内横排降级。状态四态纹样（与列表「你在这里」同源，`currentId` 由页面 nextPos 传入，组件不自造口径）：已学 = cobalt 描边 + ✓ 实心勾；当前（唯一）= rubric 实底 + ▶ 实心三角；进行中 = rubric 描边 + ▷ 空心三角；未到 = 发丝线空贴——四态各有底/描边 + 形状 + 字色三重编码。
 - **纸面书眉 / 页脚 / 底导 / NextStepBar（已迁壳）:** header = 3px 双线压顶 + 批注红 3px 刻线激活（与分卷 Tab 同一受批 3px）；footer = 衬线刊记 + cobalt 链接；BottomNav 当前项 = 字重 + 颜色 + 3px 批注红刻线（形状通道与桌面书眉同款）；NextStepBar 纸面按钮组。
 - **遗留壳导航:** 64px 吸顶玻璃条，项 12px 圆角 13px 字，激活青字 + 渐变下划线，≤5 项；<1024px 五格底部导航；方向感三件套（skip link / 面包屑 / 激活态）全局有效。（仅遗留给阶段三的深色内容地）
 

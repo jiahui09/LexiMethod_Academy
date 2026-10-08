@@ -1,5 +1,5 @@
 import { Suspense, lazy } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import AppShell from '@/components/layout/AppShell';
 import PageTransition, { RouteLoading } from '@/components/layout/PageTransition';
@@ -7,34 +7,22 @@ import RouteErrorBoundary from '@/components/layout/RouteErrorBoundary';
 import NextStepBar from '@/components/layout/NextStepBar';
 import ForeEdge from '@/components/layout/ForeEdge';
 
-const Home = lazy(() => import('@/pages/Home'));
 const MethodList = lazy(() => import('@/pages/MethodList'));
 const MethodCourse = lazy(() => import('@/pages/MethodCourse'));
 const PhonemeLab = lazy(() => import('@/pages/PhonemeLab'));
-const Practice = lazy(() => import('@/pages/Practice'));
-const Analyze = lazy(() => import('@/pages/Analyze'));
-const Feynman = lazy(() => import('@/pages/Feynman'));
-const Toolbox = lazy(() => import('@/pages/Toolbox'));
-const Review = lazy(() => import('@/pages/Review'));
-const Stats = lazy(() => import('@/pages/Stats'));
 const Settings = lazy(() => import('@/pages/Settings'));
 const NotFound = lazy(() => import('@/pages/NotFound'));
 
-/** 路由 → 页面（懒加载，避免首屏包过大） */
+/** 路由 → 页面（懒加载，避免首屏包过大）：全站只保留课程与音标实验室两块内容 */
 function Router() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      {/* 站点削减后无独立首页：根路径直接落进课程目录 */}
+      <Route path="/" element={<Navigate to="/methods" replace />} />
       <Route path="/methods" element={<MethodList />} />
       <Route path="/methods/:methodId" element={<MethodCourse />} />
       <Route path="/lab" element={<PhonemeLab />} />
       <Route path="/lab/:tab" element={<PhonemeLab />} />
-      <Route path="/practice" element={<Practice />} />
-      <Route path="/analyze" element={<Analyze />} />
-      <Route path="/feynman" element={<Feynman />} />
-      <Route path="/toolbox" element={<Toolbox />} />
-      <Route path="/review" element={<Review />} />
-      <Route path="/stats" element={<Stats />} />
       <Route path="/settings" element={<Settings />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
@@ -70,7 +58,7 @@ export default function App() {
             {/* 每页底部统一「下一步去哪儿」引导 */}
             <NextStepBar />
           </div>
-          {/* 全站书口脊：7 枚功能页切口贴 + 课内步位刻痕（xl+ 常驻；<xl 由页眉/底导/页内贴条降级） */}
+          {/* 全站书口脊：功能页切口贴 + 课内步位刻痕（xl+ 常驻；<xl 由页眉/底导/页内贴条降级） */}
           <ForeEdge />
         </div>
       </AppShell>

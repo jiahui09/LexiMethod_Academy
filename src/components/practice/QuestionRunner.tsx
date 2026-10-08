@@ -140,7 +140,7 @@ export default function QuestionRunner({
         </p>
         {wrongList.length > 0 && (
           <div className="mx-auto mt-4 max-w-xl rounded-[3px] border border-rubric/45 bg-rubric/[0.05] p-4 text-left text-xs text-colophon">
-            <div className="mb-1.5 font-semibold text-rubric">错题已加入复习中心（间隔重复队列）</div>
+            <div className="mb-1.5 font-semibold text-rubric">错题已排入间隔重复队列，稍后重现</div>
             <ul className="space-y-1">
               {wrongList.slice(0, 4).map((wq) => (
                 <li key={wq.id} className="flex flex-wrap gap-2">

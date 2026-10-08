@@ -1,20 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-  Map,
-  GraduationCap,
-  AudioLines,
-  Target,
-  Dumbbell,
-  Wrench,
-  History,
-  BarChart3,
-  Settings as SettingsIcon,
-  Menu,
-  X,
-  MessagesSquare,
-} from 'lucide-react';
+import { GraduationCap, AudioLines, Settings as SettingsIcon, Menu, X } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import BottomNav from '@/components/layout/BottomNav';
 import { playSfx } from '@/hooks/useSfx';
@@ -22,28 +9,18 @@ import { useIsMobile } from '@/hooks/useMotionTier';
 
 export type NavItem = { to: string; label: string; icon: LucideIcon; end?: boolean };
 
-/** 主导航五项（Single Focus Rule：≤5）；与底部导航同名同序，全站目的地叫法一致 */
+/** 主导航（削减后全站只剩课程 + 实验室两块内容，设置作次级入口）；与底部导航同名同序 */
 export const NAV_ITEMS: NavItem[] = [
-  { to: '/', label: '地图', icon: Map, end: true },
   { to: '/methods', label: '课程', icon: GraduationCap },
   { to: '/lab/phonemes', label: '实验室', icon: AudioLines },
-  { to: '/practice', label: '训练', icon: Dumbbell },
-  { to: '/review', label: '复习', icon: History },
 ];
 
 /** 全部目的地：移动菜单与页脚使用，保证主导航之外的入口仍然一键可达 */
-export const ALL_NAV_ITEMS: NavItem[] = [
-  ...NAV_ITEMS,
-  { to: '/analyze', label: '实战演练', icon: Target },
-  { to: '/feynman', label: '费曼关', icon: MessagesSquare },
-  { to: '/toolbox', label: '工具箱', icon: Wrench },
-  { to: '/stats', label: '统计', icon: BarChart3 },
-  { to: '/settings', label: '设置', icon: SettingsIcon },
-];
+export const ALL_NAV_ITEMS: NavItem[] = [...NAV_ITEMS, { to: '/settings', label: '设置', icon: SettingsIcon }];
 
 function Logo() {
   return (
-    <NavLink to="/" className="group flex min-h-[44px] min-w-[44px] items-center justify-center gap-2.5" aria-label="LexiMethod Academy 首页">
+    <NavLink to="/methods" className="group flex min-h-[44px] min-w-[44px] items-center justify-center gap-2.5" aria-label="LexiMethod Academy 首页">
       <span className="relative flex h-9 w-9 items-center justify-center rounded-[2px] border border-rule bg-bone2">
         <span className="font-display text-sm font-bold text-rubric">Lx</span>
         <span className="absolute -right-0.5 -top-0.5 h-2 w-2 rounded-full bg-rubric" />
@@ -105,11 +82,11 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           <div className="flex items-center gap-2">
             {/* 纸面主行动：批注红实底米白字（Two Pens：书眉右侧唯一主动作） */}
             <Link
-              to="/practice"
+              to="/methods"
               onClick={() => playSfx('click')}
               className="hidden min-h-[44px] items-center gap-1.5 rounded-[3px] border border-rubric bg-rubric px-4 py-2 text-sm font-medium text-[#FBF6EC] transition-colors hover:border-[#9C2919] hover:bg-[#9C2919] active:translate-y-px sm:inline-flex"
             >
-              开始训练
+              开始学习
             </Link>
             <button
               type="button"
@@ -170,10 +147,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             <span>授人以渔：发音 · 音标拼写 · 自然拼读 · 词根词缀 · 记忆方法</span>
           </div>
           <div className="flex flex-wrap items-center gap-4">
-            <NavLink to="/analyze" className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center text-cobalt transition-colors hover:text-paperink">实战演练</NavLink>
-            <NavLink to="/toolbox" className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center text-cobalt transition-colors hover:text-paperink">规则速查</NavLink>
-            <NavLink to="/feynman" className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center text-cobalt transition-colors hover:text-paperink">费曼关</NavLink>
-            <NavLink to="/stats" className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center text-cobalt transition-colors hover:text-paperink">学习统计</NavLink>
+            <NavLink to="/methods" className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center text-cobalt transition-colors hover:text-paperink">方法课程</NavLink>
+            <NavLink to="/lab/phonemes" className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center text-cobalt transition-colors hover:text-paperink">音标实验室</NavLink>
             <NavLink to="/settings" className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center text-cobalt transition-colors hover:text-paperink">设置</NavLink>
             <span className="text-colophon">纯前端 · 零数据存储</span>
           </div>

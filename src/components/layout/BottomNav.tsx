@@ -1,20 +1,18 @@
 import { NavLink, useLocation } from 'react-router-dom';
-import { Map, GraduationCap, AudioLines, Dumbbell, History } from 'lucide-react';
+import { GraduationCap, AudioLines, Settings } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
 type Item = { to: string; label: string; icon: LucideIcon; end?: boolean };
 
-/** 与顶栏主导航同名同序（Single Focus Rule：五格同目的地），标签统一 12px 起 */
+/** 与顶栏主导航同名同序（Single Focus Rule：同目的地），标签统一 12px 起 */
 const ITEMS: Item[] = [
-  { to: '/', label: '地图', icon: Map, end: true },
   { to: '/methods', label: '课程', icon: GraduationCap },
   { to: '/lab/phonemes', label: '实验室', icon: AudioLines },
-  { to: '/practice', label: '训练', icon: Dumbbell },
-  { to: '/review', label: '复习', icon: History },
+  { to: '/settings', label: '设置', icon: Settings },
 ];
 
 /**
- * 移动端底部导航：小屏下最容易丢方向，五个主目的地常驻、当前项高亮。
+ * 移动端底部导航：小屏下最容易丢方向，主目的地常驻、当前项高亮。
  * 桌面端（≥1024px）由顶部导航承担，本条隐藏。
  */
 export default function BottomNav() {
@@ -28,7 +26,7 @@ export default function BottomNav() {
       data-testid="bottom-nav"
       className="paper-chrome fixed inset-x-0 bottom-0 z-40 border-t border-rule bg-bone lg:hidden"
     >
-      <ul className="mx-auto grid max-w-lg grid-cols-5">
+      <ul className="mx-auto grid max-w-lg grid-cols-3">
         {ITEMS.map((item) => {
           const Icon = item.icon;
           const on = active(item.to, item.end);

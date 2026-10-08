@@ -5,7 +5,7 @@ export type Crumb = { label: string; to?: string };
 
 /**
  * 面包屑：回答“我在哪”。
- * 每个页面顶部给出「学习地图 › 当前分区 › 当前页」，末段不可点亮。
+ * 每个页面顶部给出「方法课程 › 当前分区 › 当前页」，末段不可点亮。
  * tone="paper" 服务辞书版式纸面（教程面 / 音标实验室）；默认 dark 服务遗留壳路由。
  */
 export default function Breadcrumbs({

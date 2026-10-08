@@ -31,7 +31,7 @@ export default function EntranceStep({ method }: { method: Method }) {
       </ol>
 
       <p className="mx-auto max-w-[60ch] text-center text-[13.5px] leading-[1.8] text-colophon">
-        走完这 {method.steps.length} 步：读讲解、看演示、动手练，最后到费曼关用自己的话讲出来。
+        走完这 {method.steps.length} 步：读讲解、看演示、动手练，最后用自己的话把方法讲出来。
       </p>
     </div>
   );

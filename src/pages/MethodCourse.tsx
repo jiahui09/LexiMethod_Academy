@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { Route as RouteIcon, MessagesSquare, FlaskConical } from 'lucide-react';
+import { Route as RouteIcon, FlaskConical } from 'lucide-react';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import { getMethod, methods } from '@/data/methods';
 import StepHost from '@/components/course/StepHost';
@@ -92,7 +92,6 @@ export default function MethodCourse() {
             <Breadcrumbs
               tone="paper"
               items={[
-                { label: '学习地图', to: '/' },
                 { label: '方法课程', to: '/methods' },
                 { label: method.title.split('：')[0] },
               ]}
@@ -112,14 +111,6 @@ export default function MethodCourse() {
             <span className="text-xs font-semibold tabular-nums text-paperink" data-testid="course-step">
               第 {index + 1} 步 / 共 {total} 步
             </span>
-            <Link
-              to={`/feynman?method=${method.id}`}
-              onClick={() => playSfx('reveal')}
-              aria-label={`进入费曼关：${method.title}`}
-              className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[3px] border border-transparent px-3 py-1.5 text-sm font-medium text-colophon transition-colors hover:border-rule hover:text-paperink"
-            >
-              <MessagesSquare size={14} aria-hidden /> 费曼关
-            </Link>
             <EduButton
               size="sm"
               variant="ghost"
@@ -197,7 +188,7 @@ export default function MethodCourse() {
                 <div className="flex min-w-0 items-center gap-3">
                   <EduStamp label="已读" size={64} />
                   <p className="text-sm leading-relaxed text-paperink">
-                    本课完成：{total} / {total} 步已走完。下一步去「费曼关」用自己的话讲一遍，才算真的会。
+                    本课完成：{total} / {total} 步已走完。下一步去音标实验室把听辨拼验收一遍，才算真的会。
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-2">
@@ -206,10 +197,10 @@ export default function MethodCourse() {
                     variant="primary"
                     onClick={() => {
                       playSfx('click');
-                      navigate(`/feynman?method=${method.id}`);
+                      navigate('/lab/phonemes');
                     }}
                   >
-                    <MessagesSquare size={14} aria-hidden /> 去费曼关
+                    <FlaskConical size={14} aria-hidden /> 去实验室
                   </EduButton>
                   <EduButton
                     size="sm"
@@ -219,15 +210,6 @@ export default function MethodCourse() {
                     }}
                   >
                     <RouteIcon size={14} aria-hidden /> 下一方法
-                  </EduButton>
-                  <EduButton
-                    size="sm"
-                    onClick={() => {
-                      playSfx('click');
-                      navigate('/lab/phonemes');
-                    }}
-                  >
-                    <FlaskConical size={14} aria-hidden /> 去实验室
                   </EduButton>
                 </div>
               </div>
@@ -262,15 +244,11 @@ export default function MethodCourse() {
             </div>
             <div className="border-t border-rule pt-2.5 text-[13px] leading-[1.85] text-colophon">
               <b className="mr-1.5 font-semibold text-cobalt">进度</b>
-              走完本课 {total} 步后去
-              <Link to="/feynman" className="text-cobalt underline underline-offset-4 hover:text-rubric">
-                费曼关
-              </Link>
-              用自己的话讲一遍，再到
+              走完本课 {total} 步后到
               <Link to="/lab/phonemes" className="text-cobalt underline underline-offset-4 hover:text-rubric">
                 音标实验室
               </Link>
-              三个分卷里验收听辨拼。
+              三个分卷里验收听辨拼，再进下一门课。
             </div>
           </div>
         </aside>

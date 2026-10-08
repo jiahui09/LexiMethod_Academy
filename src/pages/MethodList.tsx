@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { ArrowRight, Dumbbell } from 'lucide-react';
+import { ArrowRight, AudioLines } from 'lucide-react';
 import { methods } from '@/data/methods';
 import { useProgress, useOverallProgress } from '@/store/progressStore';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
@@ -23,7 +23,7 @@ export default function MethodList() {
     <EduSheet>
       {/* 书眉：面包屑定位 + 刻线标出整本书的长度与当前位置 */}
       <EduRunningHead
-        left={<Breadcrumbs tone="paper" items={[{ label: '学习地图', to: '/' }, { label: '方法课程' }]} />}
+        left={<Breadcrumbs tone="paper" items={[{ label: '方法课程' }]} />}
         right={
           <>
             <span className="hidden items-center gap-2 sm:flex" aria-hidden>
@@ -97,10 +97,10 @@ export default function MethodList() {
                 sfx={false}
                 onClick={() => {
                   playSfx('click');
-                  navigate('/practice');
+                  navigate('/lab/phonemes');
                 }}
               >
-                <Dumbbell size={15} aria-hidden /> 直接训练
+                <AudioLines size={15} aria-hidden /> 音标实验室
               </EduButton>
             </div>
           </div>

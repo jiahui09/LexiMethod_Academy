@@ -155,7 +155,7 @@ export default function WordAnalysisWizard({ wordId, compact = false, onDone, to
       {/* 头部 */}
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2 text-xs text-colophon">
-          <span className="text-xs font-semibold text-cobalt">实战演练</span>
+          <span className="text-xs font-semibold text-cobalt">实战分析</span>
           <span>生词：</span>
           <span className="font-serif text-base font-semibold text-paperink">{word}</span>
           {dict && <span className="ipa">{dict.phoneticUK}</span>}

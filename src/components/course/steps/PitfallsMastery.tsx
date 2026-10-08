@@ -167,8 +167,7 @@ export function MasteryStep({ method, onNextMethod }: { method: Method; onNextMe
       </div>
 
       <p className="mt-4 border-t border-rule pt-3 text-[13px] leading-[1.8] text-colophon">
-        掌握的定义是“在没有提示的陌生材料上也能做到”。建议：立刻到{' '}
-        <span className="font-semibold text-cobalt">实战演练</span> 找一个没学过的词走一遍全流程。
+        掌握的定义是“在没有提示的陌生材料上也能做到”。建议：拿一个没学过的词，把本课的六步全流程自己走一遍。
       </p>
     </div>
   );

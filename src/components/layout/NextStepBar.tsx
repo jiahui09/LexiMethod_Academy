@@ -1,83 +1,40 @@
 import { Link, useLocation } from 'react-router-dom';
-import { ArrowRight, Map as MapIcon } from 'lucide-react';
+import { ArrowRight, GraduationCap } from 'lucide-react';
 
 type Target = { label: string; to: string };
 
 /** 只依赖 pathname 的“下一步”推导：不引入课程数据，避免把内容分包拉进首屏 */
 function derive(pathname: string): { primary: Target; secondary: Target } {
-  if (pathname === '/') {
+  if (pathname === '/' || pathname === '/methods') {
     return {
-      primary: { label: '开始第一门课', to: '/methods' },
+      primary: { label: '开始旗舰课：音节与重音', to: '/methods/phonics-syllables' },
       secondary: { label: '音标实验室', to: '/lab/phonemes' },
     };
   }
   if (pathname.startsWith('/methods/')) {
-    const id = pathname.split('/')[2] ?? '';
     return {
-      primary: { label: '用费曼关检验这一课', to: `/feynman?method=${id}` },
+      primary: { label: '去音标实验室练听辨', to: '/lab/phonemes' },
       secondary: { label: '方法课程总览', to: '/methods' },
-    };
-  }
-  if (pathname === '/methods') {
-    return {
-      primary: { label: '开始旗舰课：音节与重音', to: '/methods/phonics-syllables' },
-      secondary: { label: '先去看看方法工具箱', to: '/toolbox' },
     };
   }
   if (pathname.startsWith('/lab')) {
     return {
-      primary: { label: '去互动训练（11 种题型）', to: '/practice' },
-      secondary: { label: '回方法课程', to: '/methods' },
-    };
-  }
-  if (pathname === '/practice') {
-    return {
-      primary: { label: '复习中心（到期卡片）', to: '/review' },
-      secondary: { label: '实战演练', to: '/analyze' },
-    };
-  }
-  if (pathname === '/analyze') {
-    return {
-      primary: { label: '费曼关：用自己的话讲一遍', to: '/feynman' },
-      secondary: { label: '规则速查', to: '/toolbox' },
-    };
-  }
-  if (pathname === '/toolbox') {
-    return {
-      primary: { label: '去互动训练', to: '/practice' },
-      secondary: { label: '方法课程', to: '/methods' },
-    };
-  }
-  if (pathname === '/review') {
-    return {
-      primary: { label: '继续互动训练', to: '/practice' },
-      secondary: { label: '学习统计', to: '/stats' },
-    };
-  }
-  if (pathname === '/stats') {
-    return {
-      primary: { label: '回到学习地图', to: '/' },
-      secondary: { label: '设置', to: '/settings' },
+      primary: { label: '回方法课程', to: '/methods' },
+      secondary: { label: '音标发音教学', to: '/lab/phonemes' },
     };
   }
   if (pathname === '/settings') {
     return {
-      primary: { label: '回到学习地图', to: '/' },
-      secondary: { label: '学习统计', to: '/stats' },
+      primary: { label: '回到方法课程', to: '/methods' },
+      secondary: { label: '音标实验室', to: '/lab/phonemes' },
     };
   }
-  if (pathname === '/feynman') {
-    return {
-      primary: { label: '复习中心', to: '/review' },
-      secondary: { label: '方法课程', to: '/methods' },
-    };
-  }
-  return { primary: { label: '学习地图', to: '/' }, secondary: { label: '方法课程', to: '/methods' } };
+  return { primary: { label: '方法课程', to: '/methods' }, secondary: { label: '音标实验室', to: '/lab/phonemes' } };
 }
 
 /**
  * 页面底部统一的「下一步去哪儿」引导条：
- * 一个主推进 + 一个相关练习 + 回学习地图，保证每页都有明确去向。
+ * 一个主推进 + 一个相关去向 + 回课程目录，保证每页都有明确去向。
  */
 export default function NextStepBar() {
   const { pathname } = useLocation();
@@ -106,12 +63,14 @@ export default function NextStepBar() {
         >
           {secondary.label}
         </Link>
-        <Link
-          to="/"
-          className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[3px] px-3 py-2 text-[13px] text-cobalt transition-colors hover:text-paperink"
-        >
-          <MapIcon size={13} aria-hidden /> 回学习地图
-        </Link>
+        {pathname !== '/methods' && (
+          <Link
+            to="/methods"
+            className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[3px] px-3 py-2 text-[13px] text-cobalt transition-colors hover:text-paperink"
+          >
+            <GraduationCap size={13} aria-hidden /> 课程目录
+          </Link>
+        )}
       </div>
     </div>
   );

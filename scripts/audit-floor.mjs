@@ -4,7 +4,7 @@
  *
  * 用法:
  *   node scripts/audit-floor.mjs [baseUrl]        # 默认 http://127.0.0.1:5173
- *   node scripts/audit-floor.mjs --route /stats    # 只审单路由（修复时聚焦用）
+ *   node scripts/audit-floor.mjs --route /settings    # 只审单路由（修复时聚焦用）
  *
  * 检查项（对应 DESIGN.md 硬规则，归零后并入 verify 门禁）:
  *   A. 对比度：可见文本 vs 有效背景（WCAG 相对亮度），正文 <4.5:1、
@@ -36,12 +36,6 @@ const ROUTES = [
   '/lab/phonemes',
   '/lab/mapping',
   '/lab/dictation',
-  '/practice',
-  '/analyze',
-  '/feynman',
-  '/toolbox',
-  '/review',
-  '/stats',
   '/settings',
   '/definitely-not-a-route',
 ];

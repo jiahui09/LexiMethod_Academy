@@ -43,7 +43,7 @@ export default function PhonemeLab() {
           <Breadcrumbs
             tone="paper"
             items={[
-              { label: '学习地图', to: '/' },
+              { label: '方法课程', to: '/methods' },
               { label: '音标实验室', to: '/lab/phonemes' },
               { label: TABS.find((t) => t.key === tab)?.label ?? '音标实验室' },
             ]}
@@ -61,11 +61,11 @@ export default function PhonemeLab() {
             </span>
             <span className="text-xs font-semibold tabular-nums text-paperink">已学 {learned.length} / 48</span>
             <Link
-              to="/practice"
+              to="/methods"
               data-testid="intro-next"
               className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[3px] border border-transparent px-3 py-1.5 text-sm font-medium text-colophon transition-colors hover:border-rule hover:text-paperink"
             >
-              下一步 · 去互动训练 <ArrowRight size={14} aria-hidden />
+              下一步 · 回方法课程 <ArrowRight size={14} aria-hidden />
             </Link>
           </>
         }

@@ -2,7 +2,7 @@ import type { Question, QuestionType } from '@/types';
 
 /**
  * 静态题库：11 种题型各 ≥8 题
- * 与 questionFactory 的动态出题互补（练习页 11 宫格 / 课程互动练习共用）
+ * 与 questionFactory 的动态出题互补（课程互动练习等共用）
  */
 
 /* ------------------------------------------------------------------ */
