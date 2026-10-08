@@ -1,476 +1,264 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-07T05:26:53.000Z",
+  "generatedAt": "2026-10-08T14:19:35.000Z",
   "title": "Design System: LexiMethod Academy",
   "extensions": {
     "colorMeta": {
-      "bone": {
+      "milk": {
         "role": "neutral",
-        "displayName": "Bone 骨白纸",
-        "canonical": "#F7F2E8",
-        "note": "辞书版式纸地：.edu-sheet 页面底",
+        "displayName": "Milk 牛奶压膜地",
+        "canonical": "#F4F1E7",
         "tonalRamp": [
-          "oklch(0.15 0.02 85)",
-          "oklch(0.27 0.03 85)",
-          "oklch(0.39 0.04 85)",
-          "oklch(0.50 0.05 85)",
-          "oklch(0.62 0.05 85)",
-          "oklch(0.74 0.04 85)",
-          "oklch(0.85 0.03 85)",
-          "oklch(0.95 0.02 85)"
+          "#0f0d08",
+          "#43413b",
+          "#77746c",
+          "#a3a198",
+          "#c7c5bb",
+          "#e1ded5",
+          "#efede4",
+          "#f3f1e9"
         ]
       },
-      "bone2": {
+      "leaf": {
         "role": "neutral",
-        "displayName": "Bone2 纸面区块",
-        "canonical": "#EFE6D2",
-        "note": "边注卡、警示框、进度卡、选中底（多以 /40–/70 透明度上）",
+        "displayName": "Leaf 顶层页",
+        "canonical": "#FBF9F2",
         "tonalRamp": [
-          "oklch(0.15 0.02 82)",
-          "oklch(0.27 0.03 82)",
-          "oklch(0.39 0.04 82)",
-          "oklch(0.50 0.05 82)",
-          "oklch(0.62 0.05 82)",
-          "oklch(0.74 0.04 82)",
-          "oklch(0.85 0.03 82)",
-          "oklch(0.94 0.03 82)"
+          "#0e0d0a",
+          "#44423e",
+          "#787671",
+          "#a6a49e",
+          "#cbc9c2",
+          "#e6e4de",
+          "#f5f4ee",
+          "#fbf9f3"
         ]
       },
-      "paper-fill": {
+      "under": {
         "role": "neutral",
-        "displayName": "Paper Fill 填写线底",
-        "canonical": "#FDFBF5",
-        "note": "纸面输入框与答题选项的更亮一档纸",
+        "displayName": "Under 下层页",
+        "canonical": "#EDE8DA",
         "tonalRamp": [
-          "oklch(0.15 0.01 90)",
-          "oklch(0.27 0.02 90)",
-          "oklch(0.39 0.02 90)",
-          "oklch(0.50 0.02 90)",
-          "oklch(0.62 0.02 90)",
-          "oklch(0.74 0.02 90)",
-          "oklch(0.86 0.015 90)",
-          "oklch(0.97 0.01 90)"
+          "#100d06",
+          "#444037",
+          "#767267",
+          "#a19d91",
+          "#c4bfb2",
+          "#ddd8cb",
+          "#e9e5d9",
+          "#f2eee3"
         ]
       },
       "rule": {
         "role": "neutral",
         "displayName": "Rule 发丝线",
-        "canonical": "#D8CFBC",
-        "note": "纸上一切分界：栏线、盒边、未选中描边、滚动条",
+        "canonical": "#CFC7B2",
         "tonalRamp": [
-          "oklch(0.15 0.02 80)",
-          "oklch(0.27 0.03 80)",
-          "oklch(0.39 0.03 80)",
-          "oklch(0.50 0.04 80)",
-          "oklch(0.62 0.04 80)",
-          "oklch(0.74 0.04 80)",
-          "oklch(0.85 0.03 80)",
-          "oklch(0.93 0.03 80)"
+          "#110d03",
+          "#423c2e",
+          "#706959",
+          "#97907d",
+          "#b5ad99",
+          "#c8c1ad",
+          "#d9d2c0",
+          "#f5eedc"
         ]
       },
-      "paperink": {
+      "ink": {
+        "role": "primary",
+        "displayName": "Ink 正文墨",
+        "canonical": "#17140E",
+        "tonalRamp": [
+          "#0f0d09",
+          "#191712",
+          "#25221c",
+          "#39362f",
+          "#58544d",
+          "#837f78",
+          "#b8b5ae",
+          "#f2eee7"
+        ]
+      },
+      "ink2": {
         "role": "neutral",
-        "displayName": "Paper Ink 正文墨",
-        "canonical": "#16130F",
-        "note": "纸上正文与标题",
+        "displayName": "Ink2 次级墨",
+        "canonical": "#57503F",
         "tonalRamp": [
-          "oklch(0.13 0.01 70)",
-          "oklch(0.22 0.015 70)",
-          "oklch(0.32 0.02 70)",
-          "oklch(0.42 0.025 70)",
-          "oklch(0.55 0.03 70)",
-          "oklch(0.68 0.03 70)",
-          "oklch(0.82 0.025 70)",
-          "oklch(0.95 0.015 70)"
+          "#110d04",
+          "#332e21",
+          "#504a3b",
+          "#615a4a",
+          "#797160",
+          "#9b9482",
+          "#c7c0af",
+          "#f5eedd"
         ]
       },
-      "colophon": {
-        "role": "neutral",
-        "displayName": "Colophon 版本墨",
-        "canonical": "#4A443B",
-        "note": "次级说明、页边批注、脚注（纸地 ≥4.5:1）",
-        "tonalRamp": [
-          "oklch(0.14 0.01 75)",
-          "oklch(0.24 0.015 75)",
-          "oklch(0.34 0.02 75)",
-          "oklch(0.45 0.025 75)",
-          "oklch(0.57 0.03 75)",
-          "oklch(0.69 0.03 75)",
-          "oklch(0.82 0.025 75)",
-          "oklch(0.95 0.015 75)"
-        ]
-      },
-      "cobalt": {
+      "board-pathway": {
         "role": "secondary",
-        "displayName": "Cobalt 结构蓝",
-        "canonical": "#1E4B7A",
-        "note": "纸面结构笔：书眉 / 导轨 / 链接 / 进度 / 已定（答对、完成）；焦点环 2px",
+        "displayName": "Board Pathway 通路铬黄",
+        "canonical": "#F2B700",
         "tonalRamp": [
-          "oklch(0.15 0.05 255)",
-          "oklch(0.25 0.07 255)",
-          "oklch(0.35 0.09 255)",
-          "oklch(0.45 0.10 255)",
-          "oklch(0.55 0.11 255)",
-          "oklch(0.66 0.10 255)",
-          "oklch(0.78 0.08 255)",
-          "oklch(0.92 0.04 255)"
+          "#230100",
+          "#5b3100",
+          "#8e5e00",
+          "#b98300",
+          "#d9a000",
+          "#e9b429",
+          "#fcca55",
+          "#ffe77c"
         ]
       },
-      "rubric": {
-        "role": "primary",
-        "displayName": "Rubric 批注红",
-        "canonical": "#B3311E",
-        "note": "纸面唯一功能色：朗读 / 当前 / 重读 / 警示 / 错 / 批注章 / caret",
-        "tonalRamp": [
-          "oklch(0.15 0.06 35)",
-          "oklch(0.26 0.09 35)",
-          "oklch(0.37 0.12 35)",
-          "oklch(0.48 0.14 35)",
-          "oklch(0.58 0.16 35)",
-          "oklch(0.68 0.15 35)",
-          "oklch(0.80 0.11 35)",
-          "oklch(0.93 0.05 35)"
-        ]
-      },
-      "rubric-deep": {
-        "role": "primary",
-        "displayName": "Rubric Deep 按压红",
-        "canonical": "#9C2919",
-        "note": "纸面主按钮 hover / active 深压色",
-        "tonalRamp": [
-          "oklch(0.13 0.05 35)",
-          "oklch(0.23 0.08 35)",
-          "oklch(0.33 0.11 35)",
-          "oklch(0.43 0.13 35)",
-          "oklch(0.53 0.15 35)",
-          "oklch(0.64 0.14 35)",
-          "oklch(0.77 0.11 35)",
-          "oklch(0.92 0.05 35)"
-        ]
-      },
-      "primary": {
-        "role": "primary",
-        "displayName": "Neon Cyan 霓虹青（遗留深色壳）",
-        "canonical": "#00E5FF",
-        "note": "深色壳意图信号；教程面（/methods/:id、/lab）静音其氛围层",
-        "tonalRamp": [
-          "oklch(0.15 0.02 200)",
-          "oklch(0.27 0.05 200)",
-          "oklch(0.39 0.08 200)",
-          "oklch(0.50 0.11 200)",
-          "oklch(0.62 0.13 200)",
-          "oklch(0.74 0.14 200)",
-          "oklch(0.85 0.13 200)",
-          "oklch(0.95 0.05 200)"
-        ]
-      },
-      "secondary": {
+      "board-deconstruct": {
         "role": "secondary",
-        "displayName": "Aurora Violet 极光紫（遗留深色壳）",
-        "canonical": "#7C4DFF",
+        "displayName": "Board Deconstruct 拆解群青",
+        "canonical": "#2A4BD7",
         "tonalRamp": [
-          "oklch(0.15 0.03 285)",
-          "oklch(0.27 0.07 285)",
-          "oklch(0.39 0.11 285)",
-          "oklch(0.50 0.14 285)",
-          "oklch(0.62 0.17 285)",
-          "oklch(0.74 0.16 285)",
-          "oklch(0.85 0.11 285)",
-          "oklch(0.95 0.04 285)"
+          "#080051",
+          "#0d1987",
+          "#213db4",
+          "#3053d6",
+          "#4069f4",
+          "#618eff",
+          "#8cbbff",
+          "#b9e9ff"
         ]
       },
-      "secondaryText": {
-        "role": "secondary-text",
-        "displayName": "Violet Lit 紫文字变体",
-        "canonical": "#A98BFF",
-        "note": "token violet-lit: 深色壳紫承载文字的唯一合法形态, ≥5.5:1; 本色仅用于边框/填充/光晕/SVG/≥18.66px粗体大字"
-      },
-      "tertiary": {
-        "role": "tertiary",
-        "displayName": "Pulse Pink 脉冲粉（遗留深色壳）",
-        "canonical": "#FF4D9D",
+      "board-encode": {
+        "role": "secondary",
+        "displayName": "Board Encode 存入深青",
+        "canonical": "#137574",
         "tonalRamp": [
-          "oklch(0.15 0.03 355)",
-          "oklch(0.27 0.08 355)",
-          "oklch(0.39 0.13 355)",
-          "oklch(0.50 0.17 355)",
-          "oklch(0.62 0.21 355)",
-          "oklch(0.74 0.19 355)",
-          "oklch(0.85 0.12 355)",
-          "oklch(0.95 0.04 355)"
+          "#001415",
+          "#003b3b",
+          "#035d5c",
+          "#207574",
+          "#348b8a",
+          "#5daaa9",
+          "#8bd3d1",
+          "#b9fefc"
         ]
       },
-      "tertiaryText": {
-        "role": "tertiary-text",
-        "displayName": "Pink Lit 粉文字变体",
-        "canonical": "#FF80B5",
-        "note": "token pink-lit: 深色壳粉承载文字的唯一合法形态, ≥4.5:1; 本色仅用于填充/光晕/描边"
-      },
-      "success": {
-        "role": "semantic",
-        "displayName": "Pass Green 通过绿（深色壳）",
-        "canonical": "#00E676",
+      "board-retrieve": {
+        "role": "secondary",
+        "displayName": "Board Retrieve 调用深草绿",
+        "canonical": "#357A1E",
         "tonalRamp": [
-          "oklch(0.15 0.03 155)",
-          "oklch(0.27 0.07 155)",
-          "oklch(0.39 0.11 155)",
-          "oklch(0.50 0.14 155)",
-          "oklch(0.62 0.16 155)",
-          "oklch(0.74 0.17 155)",
-          "oklch(0.85 0.13 155)",
-          "oklch(0.95 0.04 155)"
+          "#001500",
+          "#033e00",
+          "#256010",
+          "#3a7a25",
+          "#4b8f37",
+          "#6eaf5d",
+          "#9ad789",
+          "#c6ffb6"
         ]
       },
-      "warn": {
-        "role": "semantic",
-        "displayName": "Signal Amber 提醒琥珀（深色壳）",
-        "canonical": "#FFB300",
+      "board-capstone": {
+        "role": "secondary",
+        "displayName": "Board Capstone 收官紫罗兰",
+        "canonical": "#6B3FA0",
         "tonalRamp": [
-          "oklch(0.15 0.03 80)",
-          "oklch(0.27 0.07 80)",
-          "oklch(0.39 0.10 80)",
-          "oklch(0.50 0.12 80)",
-          "oklch(0.62 0.14 80)",
-          "oklch(0.74 0.15 80)",
-          "oklch(0.85 0.13 80)",
-          "oklch(0.95 0.05 80)"
+          "#180034",
+          "#3c1862",
+          "#5b3689",
+          "#7048a3",
+          "#875dbf",
+          "#a781df",
+          "#d1adff",
+          "#fddbff"
         ]
       },
-      "danger": {
-        "role": "semantic",
-        "displayName": "Miss Red 错答红（深色壳）",
-        "canonical": "#FF4D6D",
+      "errata": {
+        "role": "danger",
+        "displayName": "Errata 朱红勘误",
+        "canonical": "#E34234",
         "tonalRamp": [
-          "oklch(0.15 0.03 25)",
-          "oklch(0.27 0.08 25)",
-          "oklch(0.39 0.13 25)",
-          "oklch(0.50 0.17 25)",
-          "oklch(0.62 0.20 25)",
-          "oklch(0.74 0.18 25)",
-          "oklch(0.85 0.12 25)",
-          "oklch(0.95 0.04 25)"
+          "#370000",
+          "#720000",
+          "#a4160f",
+          "#cc3529",
+          "#e8493a",
+          "#ff6e5c",
+          "#ff9885",
+          "#ffc2ae"
         ]
       },
-      "neutral-abyss": {
-        "role": "neutral",
-        "displayName": "Abyss Navy 深夜底色",
-        "canonical": "#0B1020",
+      "errata-deep": {
+        "role": "danger",
+        "displayName": "Errata Deep 勘误条底",
+        "canonical": "#C1301A",
         "tonalRamp": [
-          "oklch(0.12 0.02 265)",
-          "oklch(0.20 0.03 265)",
-          "oklch(0.28 0.03 265)",
-          "oklch(0.36 0.03 265)",
-          "oklch(0.45 0.03 265)",
-          "oklch(0.60 0.03 265)",
-          "oklch(0.78 0.02 265)",
-          "oklch(0.93 0.01 265)"
+          "#350000",
+          "#6b0000",
+          "#971a06",
+          "#ba331f",
+          "#d54730",
+          "#f46d56",
+          "#ff9a82",
+          "#ffc7ae"
         ]
       },
-      "neutral-deep": {
-        "role": "neutral",
-        "displayName": "Deep Field 暗场",
-        "canonical": "#111936",
+      "focus": {
+        "role": "focus",
+        "displayName": "Focus 焦点环",
+        "canonical": "#2A4BD7",
         "tonalRamp": [
-          "oklch(0.16 0.03 265)",
-          "oklch(0.24 0.03 265)",
-          "oklch(0.32 0.03 265)",
-          "oklch(0.40 0.03 265)",
-          "oklch(0.50 0.03 265)",
-          "oklch(0.64 0.03 265)",
-          "oklch(0.80 0.02 265)",
-          "oklch(0.94 0.01 265)"
+          "#080051",
+          "#0d1987",
+          "#213db4",
+          "#3053d6",
+          "#4069f4",
+          "#618eff",
+          "#8cbbff",
+          "#b9e9ff"
         ]
-      },
-      "neutral-ink": {
-        "role": "neutral",
-        "displayName": "Ink Black 墨黑",
-        "canonical": "#070B18",
-        "tonalRamp": [
-          "oklch(0.10 0.02 265)",
-          "oklch(0.18 0.02 265)",
-          "oklch(0.26 0.03 265)",
-          "oklch(0.34 0.03 265)",
-          "oklch(0.43 0.03 265)",
-          "oklch(0.58 0.03 265)",
-          "oklch(0.76 0.02 265)",
-          "oklch(0.92 0.01 265)"
-        ]
-      },
-      "neutral-text": {
-        "role": "neutral",
-        "displayName": "Moonlight 月光白",
-        "canonical": "#E2E8F0",
-        "tonalRamp": [
-          "oklch(0.15 0.01 240)",
-          "oklch(0.30 0.01 240)",
-          "oklch(0.45 0.01 240)",
-          "oklch(0.60 0.01 240)",
-          "oklch(0.72 0.01 240)",
-          "oklch(0.82 0.01 240)",
-          "oklch(0.93 0.005 240)",
-          "oklch(0.97 0.003 240)"
-        ]
-      },
-      "neutral-text-dim": {
-        "role": "neutral",
-        "displayName": "Dusk Slate 暮板岩",
-        "canonical": "#CBD5E1",
-        "tonalRamp": [
-          "oklch(0.15 0.01 240)",
-          "oklch(0.30 0.01 240)",
-          "oklch(0.45 0.01 240)",
-          "oklch(0.60 0.01 240)",
-          "oklch(0.72 0.01 240)",
-          "oklch(0.80 0.01 240)",
-          "oklch(0.87 0.01 240)",
-          "oklch(0.96 0.004 240)"
-        ]
-      },
-      "neutral-text-min": {
-        "role": "neutral",
-        "displayName": "Mist Slate 雾板岩（暗面文字地板）",
-        "canonical": "#94A3B8",
-        "tonalRamp": [
-          "oklch(0.15 0.01 245)",
-          "oklch(0.30 0.01 245)",
-          "oklch(0.45 0.01 245)",
-          "oklch(0.58 0.01 245)",
-          "oklch(0.68 0.015 245)",
-          "oklch(0.78 0.012 245)",
-          "oklch(0.87 0.01 245)",
-          "oklch(0.96 0.004 245)"
-        ]
-      },
-      "neutral-surface": {
-        "role": "neutral",
-        "displayName": "Glass Surface 玻璃面",
-        "canonical": "rgba(255, 255, 255, 0.06)"
-      },
-      "neutral-hairline": {
-        "role": "neutral",
-        "displayName": "Glass Hairline 发丝线（深色壳）",
-        "canonical": "rgba(255, 255, 255, 0.12)"
       }
     },
     "typographyMeta": {
-      "title-paper": {
-        "displayName": "Page Title 卷首题名",
-        "purpose": "教程面 h1：26px→md 32px 粗体，标题自身压场，下接 15px 说明；每路由唯一 h1。"
+      "manual-body": {
+        "displayName": "Manual Body 正文",
+        "purpose": "正文与说明：Noto Serif SC 17px/1.8，行长 ≤68ch，一切散文。"
       },
-      "entry-title": {
-        "displayName": "Entry 词条行",
-        "purpose": "步题词目形态：义项号 + 题头 21/25px + serif 斜体词头 + .ipa + 朗读钮；不戴眉标。"
+      "manual-head": {
+        "displayName": "Manual Head 标题",
+        "purpose": "二级标题与带面标题：Noto Sans SC 700 21px/1.4，悬挂进左边距。"
       },
-      "body-paper": {
-        "displayName": "Narration 讲解正文",
-        "purpose": "教程面阅读栏本体：16px/1.9，行长 ≤68ch，行内 13px cobalt 小标领起，恒静。"
+      "manual-display": {
+        "displayName": "Manual Display 主标题",
+        "purpose": "页面一级标题：Noto Sans SC 800 30px/1.25；层级到此为止，不再上探字号。"
       },
-      "serif": {
-        "displayName": "System Serif 系统衬线",
-        "purpose": "英文词头与展示数字（义项编号、音节、章面文字）；IPA 数据不进衬线。"
+      "machine": {
+        "displayName": "Machine 机器嗓音",
+        "purpose": "可计数、可对位、可核验的数据：课号、步数、计时、题号——系统等宽 13px，letter-spacing 0.02em。"
       },
       "ipa": {
-        "displayName": ".ipa 转写数据",
-        "purpose": "一切 IPA 音标数据：系统等宽、letter-spacing 0.01em，13px 行内至 60–72px 实验室展示。"
-      },
-      "display": {
-        "displayName": "Display（深色壳）",
-        "purpose": "首页品牌时刻与 404 的巨型标题；全站唯一允许逐字入场的标题。"
-      },
-      "title": {
-        "displayName": "Title（深色壳）",
-        "purpose": "PageIntro 页面标题与区块大标题（24→30px）。"
-      },
-      "body": {
-        "displayName": "Body（深色壳）",
-        "purpose": "深色壳教学正文与页面说明；列宽以 768px 封顶。"
-      },
-      "label": {
-        "displayName": "Label（深色壳）",
-        "purpose": "深色壳章节 kicker、全大写英文标签与数据卡标签——不向纸面延伸。"
-      },
-      "mono": {
-        "displayName": "Mono（深色壳）",
-        "purpose": "深色壳 IPA 音标、逐字母批改与等宽数字。"
+        "displayName": "IPA 转写",
+        "purpose": "国际音标转写：系统等宽 13px，letter-spacing 0.01em。"
       }
     },
     "shadows": [
       {
-        "name": "sheet-lift",
-        "value": "0 24px 64px rgba(0, 0, 0, 0.5)",
-        "purpose": "唯一抬升：.edu-sheet 纸页浮在纸面地上；纸面内部任何元素不再投影（Single Lift Rule）。"
-      },
-      {
-        "name": "card-lift",
-        "value": "0 8px 32px rgba(0,0,0,0.35)",
-        "purpose": "【深色壳】玻璃卡默认浮影。"
-      },
-      {
-        "name": "glow-sm",
-        "value": "0 0 12px rgba(0,229,255,0.22)",
-        "purpose": "【深色壳】小型意图高光：logo 徽章、实底按钮。"
-      },
-      {
-        "name": "intent-glow",
-        "value": "0 0 24px rgba(0,229,255,0.18), 0 0 64px rgba(124,77,255,0.12)",
-        "purpose": "【深色壳】主 CTA 的 hover/焦点光晕（One Glow Rule 的专属光）。"
-      },
-      {
-        "name": "celebration-glow",
-        "value": "0 0 48px rgba(0,229,255,0.25), 0 0 120px rgba(124,77,255,0.18)",
-        "purpose": "【深色壳】成就时刻专属大光晕。"
-      },
-      {
-        "name": "focus-ring-paper",
-        "value": "outline: 2px solid #1E4B7A; outline-offset: 2px; border-radius: 2px",
-        "purpose": "纸面焦点环：.edu-sheet :focus-visible 统一给出，永不移除。"
-      },
-      {
-        "name": "focus-ring-dark",
-        "value": "outline: 2px solid #00E5FF; outline-offset: 3px",
-        "purpose": "深色壳焦点环。"
+        "name": "leaf-edge 顶层页切边硬影",
+        "value": "4px 0 0 rgba(23,20,14,.10)",
+        "purpose": "世界唯一投影：当前顶层页切边的一道短硬影，无模糊、无双层，只给当前页。"
       }
     ],
     "motion": [
       {
-        "name": "edu-stamp",
-        "value": "0.42s cubic-bezier(0.22, 1, 0.36, 1), keyframes scale(1.7)/rotate(-16deg) → scale(0.94)/rotate(-7deg) → scale(1)/rotate(-8deg)",
-        "purpose": "全站唯一编排动作：批注红章落纸（朗读盖词尾、完成盖「已读」）；motion tier off 时静态呈现（不挂 .edu-stamp）。"
+        "name": "hinge-step 铰链步进",
+        "value": "90ms steps(2)",
+        "purpose": "状态切换的唯一过渡（transform/background-color/border-color/color），铰在打孔边；无缓动淡入。"
       },
       {
-        "name": "ease-standard",
-        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
-        "purpose": "两个世界共用的 Out-Expo：状态过渡、导轨装订线伸长（500ms）、刻线进度。"
+        "name": "hinge-origin 铰位",
+        "value": "transform-origin: left top / right top",
+        "purpose": "铰链步的铰位——靠打孔边或页角边，配合 steps(2) 呈现两帧翻动。"
       },
       {
-        "name": "content-anim-tier-gated",
-        "value": "framer-motion transitions 0.4–0.5s, ease [0.22,1,0.36,1], mounted only when tier !== 'off'",
-        "purpose": "内容型动画（口型、音节块、gsap 拼装、词根树、tab 换卷 fade）全部由 motion tier 开关，动效关闭时内容仍完整可读。"
-      },
-      {
-        "name": "shake",
-        "value": "0.42s cubic-bezier(0.36, 0.07, 0.19, 0.97)",
-        "purpose": "答错抖动（两个世界共用；纸面错误同时给 rubric 描边 + ✗）。"
-      },
-      {
-        "name": "press-feedback",
-        "value": "active: translate-y-px（纸面）/ scale(0.96)（深色壳按钮）",
-        "purpose": "按压反馈；纸面控件下陷一像素，不做缩放弹跳。"
-      },
-      {
-        "name": "tier-system",
-        "value": "完整 / light（4s 慢速氛围） / off（animation:none） / 跟随 prefers-reduced-motion",
-        "purpose": "动画档位全局开合氛围层与内容动画；html[data-motion] 切换。"
-      },
-      {
-        "name": "celebration",
-        "value": "event-triggered only",
-        "purpose": "彩带与大粒子只在完成课程、全对通关等真实学习里程碑后释放；页面进入不触发（深色壳）。"
-      },
-      {
-        "name": "ambient-aurora",
-        "value": "18s ease-in-out infinite",
-        "purpose": "【已退役】Backdrop 极光背景与 ParticleField 已被全站停用（App 不再挂载）；其 CSS 动效定义留待阶段三清理。"
+        "name": "reduced-motion",
+        "value": "0ms（瞬时）",
+        "purpose": "prefers-reduced-motion 下全部动效瞬时；唯一编排动作（掀角）静态呈现，内容完整可读。"
       }
     ],
     "breakpoints": [
@@ -488,193 +276,169 @@
       },
       {
         "name": "xl",
-        "value": "1280px",
-        "purpose": "教程面栏外 apparatus（232px/208px）与实验室双栏现身处。"
-      },
-      {
-        "name": "wide",
-        "value": "1360px",
-        "purpose": "【深色壳】超宽屏低频入口的例外断点。"
+        "value": "1280px"
       }
-    ],
-    "layout": {
-      "container-page": {
-        "maxWidth": "1240px",
-        "padding": "16px → 32px @768px"
-      },
-      "course-grid": {
-        "rail": "168px",
-        "reading": "1fr (max 68ch)",
-        "apparatus": "232px @xl",
-        "note": "导轨 md 以下转页顶横排"
-      },
-      "lab-grid": {
-        "chart": "380px @xl",
-        "main": "1fr",
-        "apparatus": "208px @xl"
-      }
-    }
+    ]
   },
   "components": [
     {
-      "name": "Paper Primary Button 纸面主按钮",
-      "kind": "button",
-      "refersTo": "button-paper-primary",
-      "description": "批注红实底——只授予本页唯一的主行动（完成本课、去费曼关）。",
-      "html": "<button class=\"ds-btn-paper-primary\">完成本课</button>",
-      "css": ".ds-btn-paper-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:8px 16px;border:1px solid #B3311E;border-radius:3px;background:#B3311E;color:#FBF6EC;font:400 16px/1.9 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;cursor:pointer;transition:background .2s ease,border-color .2s ease}.ds-btn-paper-primary:hover{background:#9C2919;border-color:#9C2919}.ds-btn-paper-primary:active{transform:translateY(1px)}.ds-btn-paper-primary:focus-visible{outline:2px solid #1E4B7A;outline-offset:2px}.ds-btn-paper-primary:disabled{opacity:.45;cursor:not-allowed}"
-    },
-    {
-      "name": "Paper Button 纸面常规按钮",
-      "kind": "button",
-      "refersTo": "button-paper",
-      "description": "印刷表单控件：发丝线描边、方正圆角、按下微陷；hover 翻转为墨实底。ghost 变体去描边只留 colophon 文字。",
-      "html": "<button class=\"ds-btn-paper\">下一步</button> <button class=\"ds-btn-paper ds-btn-paper--ghost\">上一步</button>",
-      "css": ".ds-btn-paper{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:8px 16px;border:1px solid rgba(22,19,15,.6);border-radius:3px;background:transparent;color:#16130F;font:400 16px/1.9 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;cursor:pointer;transition:background .2s ease,color .2s ease,border-color .2s ease}.ds-btn-paper:hover{background:#16130F;color:#F7F2E8}.ds-btn-paper:active{transform:translateY(1px)}.ds-btn-paper:focus-visible{outline:2px solid #1E4B7A;outline-offset:2px}.ds-btn-paper:disabled{opacity:.45;cursor:not-allowed}.ds-btn-paper--ghost{border-color:transparent;color:#4A443B}.ds-btn-paper--ghost:hover{background:transparent;border-color:#D8CFBC;color:#16130F}"
-    },
-    {
-      "name": "Paper Input 纸面填写线",
-      "kind": "input",
-      "refersTo": "input-paper",
-      "description": "像表格里的填写线：paper-fill 底 + 发丝线 + 3px 角；焦点环由 .edu-sheet 统一给 2px cobalt。",
-      "html": "<input class=\"ds-input-paper\" placeholder=\"写下你的答案\">",
-      "css": ".ds-input-paper{width:100%;min-height:44px;padding:8px 12px;border:1px solid #D8CFBC;border-radius:3px;background:#FDFBF5;color:#16130F;font:400 14.5px/1.7 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;transition:border-color .2s ease}.ds-input-paper::placeholder{color:#6B6456}.ds-input-paper:hover{border-color:#BFB3A0}.ds-input-paper:focus-visible{outline:2px solid #1E4B7A;outline-offset:2px}.ds-input-paper.is-correct{border-color:#1E4B7A;background:rgba(30,75,122,.06)}.ds-input-paper.is-wrong{border-color:#B3311E;background:rgba(179,49,30,.06);animation:ds-shake .42s cubic-bezier(.36,.07,.19,.97)}@keyframes ds-shake{0%,100%{transform:translateX(0)}15%{transform:translateX(-7px)}30%{transform:translateX(6px)}45%{transform:translateX(-5px)}60%{transform:translateX(4px)}80%{transform:translateX(-2px)}}"
-    },
-    {
-      "name": "EduSheet 纸页",
-      "kind": "card",
-      "refersTo": "card-paper",
-      "description": "教程面的世界地：骨白纸地 + 唯一抬升；红 caret、青焦点环、发丝线滚动条都在此作用域统一。",
-      "html": "<div class=\"ds-edu-sheet\"><p class=\"ds-edu-kicker\">讲解</p><p class=\"ds-edu-body\">把单词拆成可理解的零件，见词知义。先读步题与讲解，再点开演示动手做。</p><div class=\"ds-edu-callout\"><b>误区</b> 看懂动画不等于会，练习做对才算数。</div></div>",
-      "css": ".ds-edu-sheet{position:relative;background:#F7F2E8;color:#16130F;border-radius:4px;box-shadow:0 24px 64px rgba(0,0,0,.5);caret-color:#B3311E;padding:24px 32px}.ds-edu-sheet ::selection{background:rgba(179,49,30,.18);color:#16130F}.ds-edu-sheet :focus-visible{outline:2px solid #1E4B7A;outline-offset:2px;border-radius:2px}.ds-edu-kicker{margin:0 0 8px;font:600 13px/1.4 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;color:#1E4B7A}.ds-edu-body{margin:0;max-width:68ch;font:400 16px/1.9 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;color:#16130F}.ds-edu-callout{margin-top:16px;padding:12px 16px;border:1px solid #D8CFBC;border-radius:4px;background:rgba(239,230,210,.7);font:400 15px/1.85 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;color:#16130F}.ds-edu-callout b{margin-right:6px;color:#B3311E}"
-    },
-    {
-      "name": "EduEntry 词条行",
-      "kind": "custom",
-      "refersTo": "entry-title",
-      "description": "步题的标准词目形态（签名组件）：义项号 + 题头 + serif 斜体词头 + .ipa + 朗读钮；朗读一响盖红章。",
-      "html": "<div class=\"ds-edu-entry\"><span class=\"ds-entry-sense\">03</span><h2 class=\"ds-entry-title\">规则演示</h2><span class=\"ds-entry-word\">construction<em class=\"ds-entry-ipa\">/kənˈstrʌkʃn/</em><button class=\"ds-speak\" aria-label=\"朗读 construction\">&#128266;</button></span></div>",
-      "css": ".ds-edu-entry{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:12px;row-gap:6px}.ds-entry-sense{font:700 20px/1 ui-serif,Georgia,Cambria,'Times New Roman',Times,serif;font-variant-numeric:tabular-nums;color:#B3311E}.ds-entry-title{margin:0;font:700 25px/1.375 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif;color:#16130F}.ds-entry-word{display:inline-flex;align-items:baseline;gap:8px;font:600 italic 18px/1.4 ui-serif,Georgia,Cambria,'Times New Roman',Times,serif;color:#16130F}.ds-entry-ipa{font:400 13px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.01em;color:#4A443B;font-style:normal}.ds-speak{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;min-width:44px;min-height:44px;border:1px solid rgba(22,19,15,.35);border-radius:9999px;background:transparent;color:#16130F;cursor:pointer;transition:border-color .2s ease,background .2s ease,color .2s ease}.ds-speak:hover{border-color:rgba(30,75,122,.55);color:#1E4B7A}.ds-speak:focus-visible{outline:2px solid #1E4B7A;outline-offset:2px}"
-    },
-    {
-      "name": "EduStamp 批注章",
-      "kind": "custom",
-      "refersTo": "rubric",
-      "description": "签名瞬间：红色双环圆章斜落纸上（全站唯一编排动作）；tier off 时静态呈现。",
-      "html": "<span class=\"ds-edu-stamp\">已读</span>",
-      "css": ".ds-edu-stamp{display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border:3px double #B3311E;border-radius:9999px;color:#B3311E;opacity:.92;transform:rotate(-8deg);text-align:center;font:700 15px/1.2 ui-serif,Georgia,Cambria,'Times New Roman',Times,serif;animation:ds-edu-stamp-in .42s cubic-bezier(.22,1,.36,1) both}@keyframes ds-edu-stamp-in{0%{opacity:0;transform:scale(1.7) rotate(-16deg)}60%{opacity:1;transform:scale(.94) rotate(-7deg)}100%{opacity:1;transform:scale(1) rotate(-8deg)}}@media (prefers-reduced-motion:reduce){.ds-edu-stamp{animation:none}}"
-    },
-    {
-      "name": "EduRail 义项导轨",
-      "kind": "nav",
-      "refersTo": "cobalt",
-      "description": "左栏装订线（全站唯一进度轴线）；状态从不只靠颜色：当前 = ▶ 三角 + 红号，完成 = ✓，未到 = 空号。",
-      "html": "<nav class=\"ds-edu-rail\" aria-label=\"课程步骤\"><span class=\"ds-rail-line\" aria-hidden=\"true\"><span class=\"ds-rail-fill\" style=\"height:28%\"></span></span><ol><li><button class=\"is-done\" aria-label=\"第 1 步（已完成）\"><span class=\"ds-rail-num\">01</span><span class=\"ds-rail-label\">方法登场</span>&#10003;</button></li><li><button class=\"is-active\" aria-current=\"step\" aria-label=\"第 2 步\"><span class=\"ds-rail-num\">02</span><span class=\"ds-rail-label\">规则演示</span><svg width=\"9\" height=\"10\" viewBox=\"0 0 9 10\"><path d=\"M0 0 L9 5 L0 10 Z\" fill=\"currentColor\"/></svg></button></li><li><button aria-label=\"第 3 步\"><span class=\"ds-rail-num\">03</span><span class=\"ds-rail-label\">映射练习</span></button></li></ol></nav>",
-      "css": ".ds-edu-rail{position:relative;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',system-ui,sans-serif}.ds-edu-rail ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}.ds-rail-line{position:absolute;left:15px;top:8px;bottom:8px;width:1px;background:#D8CFBC}.ds-rail-fill{position:absolute;left:0;top:0;width:1px;background:#1E4B7A;transition:height .5s cubic-bezier(.22,1,.36,1)}.ds-edu-rail button{display:flex;width:100%;align-items:center;gap:10px;min-height:44px;padding:6px 8px;border:0;border-radius:3px;background:transparent;text-align:left;cursor:pointer;transition:background .2s ease}.ds-edu-rail button:hover{background:rgba(239,230,210,.7)}.ds-edu-rail button.is-active{background:#EFE6D2}.ds-rail-num{position:relative;display:inline-flex;width:28px;height:28px;align-items:center;justify-content:center;border:1px solid #D8CFBC;border-radius:9999px;background:#F7F2E8;font:700 12px/1 ui-serif,Georgia,serif;font-variant-numeric:tabular-nums;color:#4A443B}.is-active .ds-rail-num{border-color:#B3311E;color:#B3311E}.is-done .ds-rail-num{background:#1E4B7A;border-color:#1E4B7A;color:#F7F2E8}.ds-rail-label{font-size:12.5px;color:#4A443B}.is-active .ds-rail-label{font-weight:600;color:#16130F}.ds-edu-rail svg{color:#B3311E}.ds-edu-rail button:focus-visible{outline:2px solid #1E4B7A;outline-offset:2px}"
-    },
-    {
-      "name": "NeonButton 发光钮（阶段三已纸面化）",
+      "name": "Primary Button 墨底主按钮",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "原深色壳发光主按钮；阶段三就地纸面化：去辉光/渐变/硬阴影，主=rubric 实底 hover:#9C2919、次=border-rule 描边，min-h 44px rounded-[3px]，sfx 接线不变。深色 One Glow Rule 已退役。",
-      "html": "<button class=\"ds-btn-neon\">开始训练</button>",
-      "css": ".ds-btn-neon{border:1px solid #B3311E;border-radius:3px;background:#B3311E;color:#FBF6EC;min-height:44px;padding:10px 18px;font:600 14px/1.4 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC',system-ui,sans-serif;cursor:pointer;transition:background-color .2s}.ds-btn-neon:hover{background:#9C2919;border-color:#9C2919}.ds-btn-neon:disabled{opacity:.4;cursor:not-allowed}"
+      "description": "ink 实底 milk 字——授予每屏唯一的主行动；朱红不做主按钮。",
+      "html": "<button class=\"ds-btn-primary\">开始第一课</button>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;gap:8px;min-height:44px;background:var(--ink);color:var(--milk);border:none;border-radius:3px;padding:9px 18px;font-family:\"Noto Sans SC\",system-ui,sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:background-color 90ms steps(2),transform 90ms steps(2)}.ds-btn-primary:hover{background:#2b2517}.ds-btn-primary:active{transform:translateY(1px)}.ds-btn-primary:focus-visible{outline:2px solid var(--focus);outline-offset:2px}.ds-btn-primary:disabled{opacity:.4;cursor:not-allowed}"
     },
     {
-      "name": "ThumbIndex 切口拇指索引",
-      "kind": "navigation",
-      "refersTo": "thumb-index",
-      "description": "窄屏降级件：列表上方的行内横排贴条（src/components/layout/ThumbIndex.tsx，variant=edge 已退役）。全站书口脊上收到 ForeEdge。四态纹样与列表「你在这里」同源（currentId 由页面 nextPos 传入）：已学=cobalt 描边+✓；当前（唯一）=rubric 实底+▶；进行中=rubric 描边+▷ 空心；未到=发丝线空贴——底/描边+形状+字色三重编码。",
-      "html": "<nav aria-label=\"方法课程\" class=\"ds-thumbindex\"><a class=\"ds-thumb done\" href=\"/methods/phonics-syllables\">✓ 自然拼读</a><a class=\"ds-thumb active\" href=\"/methods/phonetic-spelling\">▶ 音标拼写</a><a class=\"ds-thumb todo\" href=\"/methods/roots-affixes\">词根词缀</a></nav>",
-      "css": ".ds-thumbindex{display:flex;flex-direction:column;gap:6px}.ds-thumb{display:flex;align-items:center;gap:8px;min-height:44px;min-width:44px;padding:8px 14px;border:1px solid #D8CFBC;border-radius:3px 0 0 3px;color:#4A443B;font-size:13px;text-decoration:none}.ds-thumb.done{border-color:#1E4B7A;color:#1E4B7A}.ds-thumb.active{background:#B3311E;border-color:#B3311E;color:#F7F2E8}.ds-thumb.todo{border-color:#D8CFBC;color:#4A443B}"
+      "name": "Default Button 印刷控件钮",
+      "kind": "button",
+      "refersTo": "button-default",
+      "description": "透明底 ink 字 + ink/50 发丝描边；hover 翻实底。次级动作的默认形态。",
+      "html": "<button class=\"ds-btn-default\">回手册总目</button>",
+      "css": ".ds-btn-default{display:inline-flex;align-items:center;gap:8px;min-height:44px;background:transparent;color:var(--ink);border:1px solid rgba(23,20,14,.5);border-radius:3px;padding:8px 16px;font-family:\"Noto Sans SC\",system-ui,sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:background-color 90ms steps(2),color 90ms steps(2),border-color 90ms steps(2)}.ds-btn-default:hover{background:var(--ink);color:var(--milk)}.ds-btn-default:focus-visible{outline:2px solid var(--focus);outline-offset:2px}"
     },
     {
-      "name": "ForeEdge 书口切口脊（阶段三签名）",
-      "kind": "navigation",
-      "refersTo": "fore-edge",
-      "description": "全站右缘常驻书口脊（src/components/layout/ForeEdge.tsx，App 层 xl+ sticky top-24）。上层功能页切口贴（削减后 = 实验室 / 设置）：当前页=rubric 实底+▶、本会话到过=cobalt 描边+✓、未到=发丝线空贴（aria-current 标当前）。下层按页映射书的结构：/methods=8 方法四态贴、/methods/:id=该课 8 步刻痕（?step= 当前步）、其余=续学课步位（实心=已学 cobalt、描边=进行中 rubric、空=未到），零进度空置。触控≥44px，无进度时不自造口径。",
-      "html": "<nav aria-label=\"书口：功能页与步位\" class=\"ds-foreedge\"><a aria-current=\"page\" class=\"ds-edge active\" href=\"/practice\">▶ 训练</a><a class=\"ds-edge done\" href=\"/review\">✓ 复习</a><span class=\"ds-edge-gap\"></span><a class=\"ds-notch done\" href=\"/methods/phonics-syllables?step=0\">✓ 1</a><a class=\"ds-notch active\" href=\"/methods/phonics-syllables?step=1\">▶ 2</a></nav>",
-      "css": ".ds-foreedge{display:flex;flex-direction:column;gap:6px;width:96px}.ds-edge,.ds-notch{display:flex;align-items:center;gap:6px;min-height:44px;padding:0 10px;border:1px solid #D8CFBC;border-right:0;border-radius:3px 0 0 3px;font:400 13px/1.3 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC',system-ui,sans-serif;color:#4A443B;background:#F7F2E8;text-decoration:none}.ds-edge.active,.ds-notch.active{background:#B3311E;border-color:#B3311E;color:#FBF6EC}.ds-edge.done{border-color:#1E4B7A;color:#1E4B7A}.ds-notch.done{background:#1E4B7A;border-color:#1E4B7A;color:#FBF6EC}"
+      "name": "Ghost Button 次级降级钮",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "无描边 ink2 字，hover 出发丝线——与主行动竞争的动作一律降为它。",
+      "html": "<button class=\"ds-btn-ghost\">看提示</button>",
+      "css": ".ds-btn-ghost{display:inline-flex;align-items:center;gap:6px;min-height:44px;background:transparent;color:var(--ink2);border:none;border-radius:3px;padding:8px 12px;font-family:\"Noto Sans SC\",system-ui,sans-serif;font-size:14px;cursor:pointer;transition:color 90ms steps(2),border-color 90ms steps(2)}.ds-btn-ghost:hover{color:var(--ink);box-shadow:inset 0 -1px 0 0 var(--rule)}.ds-btn-ghost:focus-visible{outline:2px solid var(--focus);outline-offset:2px}"
+    },
+    {
+      "name": "Text Input 输入面",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "顶层页（leaf）底的表单控件；焦点环永在，选词/填空/写归因共用。",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"听写音标：ship\" aria-label=\"听写答案\">",
+      "css": ".ds-input{min-height:44px;background:var(--leaf);color:var(--ink);border:1px solid rgba(23,20,14,.4);border-radius:3px;padding:8px 12px;font-family:\"Noto Serif SC\",Songti SC,serif;font-size:17px;line-height:1.8;caret-color:var(--ink);transition:border-color 90ms steps(2)}.ds-input:hover{border-color:rgba(23,20,14,.7)}.ds-input:focus{outline:2px solid var(--focus);outline-offset:2px;border-color:var(--ink)}.ds-input::placeholder{color:var(--ink2)}"
+    },
+    {
+      "name": "Answer Option 答题选项",
+      "kind": "custom",
+      "refersTo": "answer-option",
+      "description": "选择题选项：方正细线、按下微陷；答对章色描边 + ✓，答错勘误条 + ✗——三重编码（形状 + 文字 + 颜色）。",
+      "html": "<div class=\"ds-option-group\" role=\"group\" aria-label=\"选项\"><button class=\"ds-option\">/θ/ think</button><button class=\"ds-option is-right\">/s/ sink <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M20 6 9 17l-5-5\"/></svg> 答对</button></div>",
+      "css": ".ds-option-group{display:flex;flex-direction:column;gap:8px}.ds-option{display:flex;align-items:center;gap:8px;min-height:44px;width:100%;text-align:left;background:var(--leaf);color:var(--ink);border:1px solid rgba(23,20,14,.3);border-radius:3px;padding:9px 14px;font-family:\"Noto Serif SC\",Songti SC,serif;font-size:17px;cursor:pointer;transition:background-color 90ms steps(2),border-color 90ms steps(2)}.ds-option:hover{background:var(--under)}.ds-option:focus-visible{outline:2px solid var(--focus);outline-offset:2px}.ds-option.is-right{border:2px solid #357A1E;font-weight:700}.ds-option.is-wrong{border:2px solid var(--errata);color:var(--errata)}"
+    },
+    {
+      "name": "Board Band 卡板章节带（签名）",
+      "kind": "card",
+      "refersTo": "board-band",
+      "description": "满强度段色带（一章一色），标题反色压带，下缘 3px 深一档；带内机器嗓音课号。分部页签，不是背景装饰。",
+      "html": "<div class=\"ds-board-band\"><span class=\"ds-board-band__no\">03 / 08</span><span class=\"ds-board-band__title\">词根词缀拆解法 · 拆解段</span></div>",
+      "css": ".ds-board-band{display:flex;align-items:baseline;gap:16px;background:#2A4BD7;color:#FBF9F2;border-bottom:3px solid #1d3599;padding:10px 20px}.ds-board-band__no{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;font-weight:500;letter-spacing:.02em}.ds-board-band__title{font-family:\"Noto Sans SC\",system-ui,sans-serif;font-size:21px;font-weight:700;line-height:1.4}.ds-board-band--pathway{background:#F2B700;color:#17140E;border-bottom-color:#c89600}.ds-board-band--encode{background:#137574}.ds-board-band--retrieve{background:#357A1E}.ds-board-band--capstone{background:#6B3FA0}"
+    },
+    {
+      "name": "Errata Slip 勘误条（签名）",
+      "kind": "card",
+      "refersTo": "errata-slip",
+      "description": "朱红条白字，只承载错误反馈与危险确认；链接、装饰、主行动永不着朱红。",
+      "html": "<div class=\"ds-errata\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M18 6 6 18M6 6l12 12\"/></svg><span>答错了：/θ/ 是咬舌尖的清擦音，/s/ 是舌面接近硬腭。</span></div>",
+      "css": ".ds-errata{display:flex;align-items:flex-start;gap:8px;background:#C1301A;color:#FFF6F0;border-radius:3px;padding:8px 14px;font-family:\"Noto Serif SC\",Songti SC,serif;font-size:15px;line-height:1.7}.ds-errata svg{flex:none;margin-top:3px}"
+    },
+    {
+      "name": "ForeEdge Tab 书口阶梯贴（签名）",
+      "kind": "nav",
+      "refersTo": "foreedge-tab",
+      "description": "右缘竖排阶梯标签，一门课一贴，高度与课时成正比、色取段色；当前贴伸出并标 aria-current。小屏降为页顶横排。",
+      "html": "<nav class=\"ds-foreedge\" aria-label=\"书口阶梯\"><a class=\"ds-foreedge__tab is-current\" aria-current=\"page\" href=\"#\">03 词根词缀</a><a class=\"ds-foreedge__tab\" href=\"#\">04 语境存入</a></nav>",
+      "css": ".ds-foreedge{display:flex;gap:6px;background:transparent}.ds-foreedge__tab{display:flex;align-items:center;justify-content:center;writing-mode:vertical-rl;min-height:96px;padding:10px 4px;background:var(--under);color:var(--ink);border:1px solid rgba(23,20,14,.4);border-left-width:3px;border-left-color:#2A4BD7;border-radius:3px 0 0 3px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;letter-spacing:.02em;text-decoration:none;transition:transform 90ms steps(2),background-color 90ms steps(2)}.ds-foreedge__tab:hover{background:var(--leaf)}.ds-foreedge__tab:focus-visible{outline:2px solid var(--focus);outline-offset:2px}.ds-foreedge__tab.is-current{background:#2A4BD7;color:#FBF9F2;transform:translateX(-6px);font-weight:700}"
+    },
+    {
+      "name": "Punched Dot 打孔点（签名）",
+      "kind": "custom",
+      "refersTo": "punched-dot",
+      "description": "进度孔三态：空孔未到 / 实心孔完成 / 半环进行中。状态永远三重编码（形状 + 文字 + 颜色），从不单靠颜色。",
+      "html": "<ul class=\"ds-punches\"><li><span class=\"ds-punch\"></span> U1 已完成</li><li><span class=\"ds-punch is-active\"></span> U2 进行中</li><li><span class=\"ds-punch\"></span> U3 未到</li></ul>",
+      "css": ".ds-punches{display:flex;gap:14px;margin:0;padding:0;list-style:none;font-family:\"Noto Sans SC\",system-ui,sans-serif;font-size:13px;color:var(--ink2)}.ds-punches li{display:flex;align-items:center;gap:6px}.ds-punch{width:12px;height:12px;flex:none;border:2px solid var(--rule);border-radius:999px;background:transparent;box-sizing:border-box}.ds-punch.is-done{background:var(--ink);border-color:var(--ink)}.ds-punch.is-active{border-color:var(--ink);background:linear-gradient(90deg,var(--ink) 50%,transparent 50%)}"
+    },
+    {
+      "name": "Speak Button 朗读钮",
+      "kind": "button",
+      "refersTo": "speak-button",
+      "description": "全圆发丝线钮（min 44px），朗读中转 ink 实心；离线音频优先、语音合成兜底。",
+      "html": "<button class=\"ds-speak\" aria-label=\"朗读 think\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M11 5 6 9H2v6h4l5 4V5z\"/><path d=\"M15.54 8.46a5 5 0 0 1 0 7.07\"/></svg></button>",
+      "css": ".ds-speak{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;background:transparent;color:var(--ink);border:1px solid var(--rule);border-radius:999px;cursor:pointer;transition:background-color 90ms steps(2),color 90ms steps(2)}.ds-speak:hover{background:var(--under)}.ds-speak:focus-visible{outline:2px solid var(--focus);outline-offset:2px}.ds-speak.is-playing{background:var(--ink);color:var(--milk)}"
     }
   ],
   "narrative": {
-    "northStar": "辞书版式（The Dictionary Edition）— 方法是词目，步骤是义项，演示是例句，误区是辨析。",
-    "overview": "全站是一个单一世界：辞书纸面（The Dictionary Edition）——方法是词目，步骤是义项，演示是例句，误区是辨析。骨白纸满地（#F7F2E8，body 即地）、墨文承字、发丝线划栏，一册可读可练的双解词法书摊在纸面上；阶段三收口后 `.edu-sheet` 与地同层、零抬升（浮纸卡双层已消灭），全部功能页迁入纸面，`hasPaperGround` 双地判定退役，全站不再有夜里；站点削减后只保留方法课程（/methods）与音标实验室（/lab），训练/复习/实战演练/费曼关/工具箱/统计/学习地图首页已移除。\n\n全站签名件是右缘书口切口脊（ForeEdge，xl+ sticky）：上层功能页切口贴（削减后 = 实验室 / 设置；当前=批注红实底▶、本会话到过=结构蓝✓、未到=发丝空贴），下层按页映射书的结构（/methods=8 方法四态贴、课页=该课 8 步刻痕、其余=续学课步位，零进度空置）；窄屏由页眉/底导/页内行内贴条降级。词头朗读时批注红章斜落纸上是唯一的编排瞬间。纸面拒绝玻璃、辉光、渐变与眉标（kicker）：标题自己承载重量，标签一律走行内。\n\n反参考同样成立：拒绝白底卡片网格 + 渐变 hero + 进度环的网课站货架感（做一部书，不做课程货架），拒绝经验值 / 连击 / 连续天数 / 等级徽章等角色化成长内容，拒绝任何外部字体与 CDN 资源——离线可用、零请求是硬约束。",
+    "northStar": "「压膜活页手册（The Acetate Manual）」",
+    "overview": "全站是一本打开的盒装软件参考手册。四段路径是彩色分隔卡板的四个章部，每门课是一个分部；讲解落在压膜透明页上，书口的阶梯标签排出全书结构，打孔与页角就是状态语言。\n\n反参考（从旧世界继承并重申）：拒绝白底卡片网格 + 渐变 hero + 进度环的网课站货架感；拒绝经验值 / 连击 / 天数 / 徽章等角色化成长；拒绝旧辞书版式的双栏词条排印（那是反参考，不是底稿）。",
     "keyCharacteristics": [
-      "纸面双笔色：批注红（功能/当下）+ 结构蓝（结构/已定），骨白纸与发丝线做地",
-      "系统字体单兵种：中文正文系统无衬线 16px/1.9；系统衬线只给英文词头与展示数字；IPA 一律 .ipa 等宽（0.01em）",
-      "纸面描边 ≤1px（例外：书眉双线 / tab 下划线 / 进度刻线 3px、批注章双环），盒角 4px、控件角 3px",
-      "抬升只声明一次（纸页浮于纸面地）；编排动作只有一个（批注章落纸），内容动画全走 motion tier",
-      "状态从不只靠颜色：✓ / ✗ / ▶ 实心三角 / 描边纹样三重编码",
-      "深色壳保留原世界：每屏唯一发光 CTA、玻璃卡唯一容器、绿/琥珀/红状态色（仅暗面）",
-      "无角色化成长系统；动效分层：状态反馈 → 氛围层（档位）→ 完成时刻"
+      "一章一色的卡板色轮 + 奶白压膜地；朱红只说错误。",
+      "正文单一尺寸（17px 衬线 /1.8，行长 ≤68ch），层级靠悬挂标题与字重，不靠字号阶梯。",
+      "中文衬线（Noto Serif SC，CDN 已放开，系统宋体兜底）承载正文；黑体承载标题；等宽承载数据与 IPA。",
+      "描边 ≤1px 发丝线（例外：卡板带下缘 3px、阶梯标签轮廓、打孔环 2px）；圆角 2/3/4 微家族；盒角方正如印刷表单。",
+      "抬升只有一种：顶层页切边的一道短硬影（无模糊），仅授予当前页。",
+      "状态三重编码；焦点环永在；动效分层（状态步进 → 掀角编排）。"
     ],
     "rules": [
       {
-        "name": "The Two Pens Rule",
-        "body": "纸上只有两支笔：批注红说「此刻/注意」（朗读、当前、重读、警示、错、章），结构蓝说「结构/已定」（书眉、导轨、链接、进度、答对、完成）。永不引入第三种功能色，永不让笔色铺满大面积底。",
+        "name": "The Errata Rule（朱红唯一律）",
+        "body": "朱红 #E34234 只说「这里错了」（描边与标记用 errata，承载文字的错误面板用 errata-deep #C1301A，浅底上的红色小字也用 errata-deep）。需要主行动按钮时用 ink 实底 milk 字，不用红；需要高亮时用所在章的卡板色。",
         "section": "colors"
       },
       {
-        "name": "The One Glow Rule",
-        "body": "发光（glow 阴影 + 渐变描边）只授予一屏之中唯一的主行动点及其焦点态；同屏第二个发光元素必须熄灭，降为幽灵按钮或文字链接。",
+        "name": "The One-Clear-Leaf Rule（顶层全清律）",
+        "body": "任何时刻只有一个叶子是全清的（leaf 底）；其余内容落在 under 或卡板带上。文字若跨不清页，对比度按最暗底核算。",
         "section": "colors"
       },
       {
-        "name": "The State Colors Rule",
-        "body": "绿、琥珀、红只说状态，不说别的；需要强调时优先回到青色的意图语义。",
+        "name": "The Extent Rule（书口比例律）",
+        "body": "书口阶梯标签的高度与课时成正比，永不等分；八贴的总高就是全书的厚度。",
         "section": "colors"
       },
       {
-        "name": "The IPA Data Rule",
-        "body": "一切 IPA 转写与音标数据都是数据不是词头：一律 .ipa 系统等宽（13px 起，实验室展示到 60–72px），不进衬线。系统衬线只给英文词头与展示数字——契约写「只给英文词头」，实际建造还把义项编号、音节块、章面文字交给衬线（build 为准，此处记录其实际用法）。",
+        "name": "The Machine Voice Rule（机器嗓音律）",
+        "body": "一切可计数、可对位、可核验的数据（课号、步数、时长、题号、IPA）走等宽；散文永远不进等宽，数据永远不进衬线。",
         "section": "typography"
       },
       {
-        "name": "The Floor Rule",
-        "body": "12px 与 4.5:1 是任何文字（含微标签、图表刻度）的地板，不是目标；暗面正文最暗只到雾板岩 #94A3B8，纸面次级墨最深只到 colophon #4A443B。底线由 npm run audit:floor（scripts/audit-floor.mjs：对比度/字号/触控/h1/重复 id 逐路由审计）把守，已并入 npm run verify 门禁。",
+        "name": "The Floor Rule（底线律）",
+        "body": "12px 与 4.5:1 是任何文字的地板，不是目标；正文 17px、次级墨 ink2 在奶白地 ≥7:1。底线由 `npm run audit:floor`（对比度/字号/触控/h1/重复 id 逐路由）把守，已并入 `npm run verify`。",
         "section": "typography"
       },
       {
-        "name": "The Single Focus Rule",
-        "body": "每屏只有一个前进方向：纸面是页眉右侧唯一主动作 + 页脚「下一步/完成本课」；深色壳是唯一发光主 CTA。桌面主导航 ≤5 项；同一决策点可见选项 ≤4。",
+        "name": "The Single Focus Rule（单前进方向）",
+        "body": "每屏只有一个前进方向：页脚那枚半掀页角（下一步）。桌面主导航 ≤5 项；同一决策点可见选项 ≤4。",
         "section": "layout"
       },
       {
-        "name": "The No-Squeeze Rule",
-        "body": "低于 640px 时页头标题与推进按钮必须上下堆叠，禁止并排挤压成竖排窄字条；320px 起不允许任何横向溢出，正文被容器裁切即算缺陷（纸面导轨小屏横排滚动即此规则的实现）。",
+        "name": "The No-Squeeze Rule（不挤压）",
+        "body": "<640px 标题与动作上下堆叠；320px 起零横向溢出；固定书口/页脚不得遮内容。",
         "section": "layout"
       },
       {
-        "name": "The Single Lift Rule",
-        "body": "抬升只声明一次：只有 .edu-sheet 携带阴影；纸面内部一律平贴——层叠用发丝线与纸色档差表达，不叠影、不叠模糊、不叠第二层独立背景。",
+        "name": "The Shell-First Rule（壳先行）",
+        "body": "每个首屏先写壳：读者在哪（书眉 + 书口贴 + 步数），标题与开篇问题，阅读栏怎么走（章内目录/悬挂标题），下一步在哪（半掀页角）。首屏没有营销大图 hero。",
+        "section": "layout"
+      },
+      {
+        "name": "The Hinge Step Rule（铰链步进律）",
+        "body": "状态切换一律 90ms `steps(2)`，铰在打孔边（`transform-origin` 靠左/靠上）；不做透明度缓动淡入，不放页面进入动画。`prefers-reduced-motion` = 瞬时。唯一编排动作：顶层页掀角（下一步入口），动效档位关闭时静态呈现。",
         "section": "elevation"
       }
     ],
     "dos": [
-      "在教程面用 .edu-sheet 开页：骨白纸地、发丝线分区、纸页是唯一抬升；新路由先判断落在纸上还是夜里。",
-      "只用两支笔：批注红标「当下/功能」（朗读、当前、警示、错、章），结构蓝标「结构/已定」（书眉、导轨、链接、进度、答对）。",
-      "纸面描边保持 ≤1px 发丝线；3px 只出现在受批例外（书眉双线、tab 下划线、进度刻线、批注章双环）。",
-      "所有 IPA 转写走 .ipa 等宽；英文词头与展示数字走系统衬线；中文正文 16px/1.9、行长 ≤68ch。",
-      "状态给三重编码：颜色 + 文字/数字 + 形状（✓ / ✗ / ▶ / 描边纹样）；焦点环纸面 2px cobalt、深色壳 2px 青。",
-      "文字 ≥12px、对比 ≥4.5:1；触控上下文可点目标 ≥44×44px（npm run audit:floor 门禁把守）。",
-      "编排动作只留批注章；其余内容动画与状态过渡经 motion tier（完整/精简/关闭/跟随系统）与 prefers-reduced-motion 降级，动效关闭时内容仍完整可读。",
-      "反馈直接服务学习：对错、进度、完成可庆祝（批注章落纸只在真实完成时刻）；数值成长指标（经验、连击、天数）不出现。",
-      "每屏只有一个前进方向；桌面主导航 ≤5 项；低于 640px 标题与动作上下堆叠，320px 起零横向溢出。",
-      "发音使用同源离线音频（public/audio/，gen:audio / check:audio 门禁），语音合成仅兜底——永不请求外部语音服务。",
-      "新屏一律落在纸面世界（.edu-sheet 骨白纸地 + 发丝线分区 + Edu 家族）；遗留功能页的深色内容是阶段三迁移的过渡态（hasPaperGround 垫地），其 PageIntro / 玻璃卡 / 发光 CTA 只在该地存活，不向纸面延伸。"
+      "新屏直接落压膜地（body = milk #F4F1E7），阅读面用 leaf，次级区块用 under；卡板色只出现在带、贴、描边与小面积反色块。",
+      "标题悬挂进左边距，正文栏单一 17px 衬线 /1.8、≤68ch；数据走等宽。",
+      "状态给三重编码（形状 + 文字 + 颜色）；朱红只给错误；焦点环永在。",
+      "状态切换用 90ms 铰链步；唯一编排动作是掀角；动效关闭时内容完整可读。",
+      "书口贴高度按课时比例；当前贴伸出并标 `aria-current`。",
+      "文字 ≥12px、对比 ≥4.5:1、触控 ≥44×44、单路由单 h1、无重复 id（`npm run audit:floor` 门禁）。",
+      "发音用站内离线音频（`public/audio/`，`gen:audio`/`check:audio` 门禁），语音合成兜底。",
+      "允许且仅允许外部字体 CDN（Google Fonts，Noto Serif SC/Noto Sans SC，带系统兜底与 preconnect）；其余外部请求（追踪、在线服务）仍为零。"
     ],
     "donts": [
-      "在纸面引入玻璃、辉光、渐变、极光或第二层阴影——纸内只有 .edu-sheet 那一次抬升。",
-      "在纸面使用眉标/kicker（全大写 + 横线的 eyebrow）；标题直接压场，小标签走行内。深色壳遗留的 kicker 用法是既有缺陷，不向任何新面延伸（见文末 drift 说明）。",
-      "在纸面引入第三种功能色，或用批注红/结构蓝铺大面积底、写长段正文。",
-      "用颜色单独表达状态；也不要让 IPA 数据进衬线、让词头进等宽。",
-      "在纸上叠影、叠模糊、卡中叠卡；深色壳同样禁止卡中叠卡。",
-      "让批注章之外的任何动效成为「编排动作」——页面进入不放彩带、不盖章。",
-      "引入经验值、连击、连续天数、等级徽章等角色化成长元素——反馈只为学习，不为留存。",
-      "加载任何外部字体、CDN 或追踪脚本；离线可用、零请求是硬约束。",
-      "让固定元素（底部导航、吸顶头）遮挡内容，或把页头标题挤成竖排窄字条。",
-      "在工具页使用营销式大图 hero——首屏必须是可执行的下一步。"
+      "复活旧辞书版式（双栏词条、批注章、骨白纸地）或旧深色霓虹壳（玻璃、辉光、渐变）。",
+      "用朱红做主按钮、链接或装饰；不引入卡板色轮之外的第二套强调色。",
+      "做卡片网格货架、进度环、营销大图 hero；首屏永远是可执行的下一步。",
+      "用透明度缓动做状态过渡（用铰链步）；页面进入不放动画。",
+      "用颜色单独表达状态；不让散文进等宽、不让数据进衬线。",
+      "引入经验值、连击、连续天数、等级徽章——反馈只为学习。",
+      "软阴影多层叠加、卡中叠卡、玻璃拟态。",
+      "让固定书口/页脚遮挡内容，或把页头标题挤成竖排窄字条。"
     ]
   }
 }

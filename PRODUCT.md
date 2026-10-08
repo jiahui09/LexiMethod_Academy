@@ -14,7 +14,7 @@ web
 
 ## Product Purpose
 
-教「背单词的方法与技巧」：8 门方法课 + 音标实验室，学与练一体。成功 = 学习者掌握可迁移的方法（拆词、音形对应、间隔重复、输出与元认知等）并能立刻用出来；单词量是副产品——授人以渔，不替人背词。
+教「背单词的方法与技巧」：8 门方法课（新课程体系：诊断开场 → 四段路径通路/拆解/存入/调用 → 收官，出门条当场验收）+ 音标实验室，学与练一体。成功 = 学习者掌握可迁移的方法（拆词、音形对应、间隔重复、输出与元认知等）并能立刻用出来；单词量是副产品——授人以渔，不替人背词。
 
 ## Positioning
 
@@ -24,18 +24,18 @@ web
 
 - 个人小项目的浏览器使用：随用随打开，用完即走，无教师控制台、班级或后台工作流。
 - 部署：Cloudflare Pages 手动部署（build `npm run build`、输出 `dist`、SPA 深链回退），免费额度内运行。
-- 构建期在本仓库生成离线音频（piper + espeak，见 `NOTICE-AUDIO.md`）；运行时零外部请求。
+- 构建期在本仓库生成离线音频（piper + espeak，见 `NOTICE-AUDIO.md`）；运行时外部请求仅限字体 CDN（用户已放开，其余——追踪、在线服务、第三方脚本——仍为零）。
 
 ## Capabilities and Constraints
 
-- 功能范围：8 门方法课分步教学（含课内练习与实战分析步骤）；音标实验室三 tab（发音教学 / 音标拼写对应 / 听音拼写训练）；设置。
+- 功能范围：8 门方法课分步教学（新体系：诊断 + 6 单元 + 出门条 + 离场自测；`src/data/courses/`）；音标实验室三 tab（发音教学 / 音标拼写对应 / 听音拼写训练）；设置。
   【已削减】训练（`/practice`）、复习（`/review`）、实战演练（`/analyze`）、费曼关（`/feynman`）、工具箱（`/toolbox`）、统计（`/stats`）与学习地图首页已移除——用户要求只留课程与实验室。
 - 【推断自原需求（"不需要登录与个人数据"）与既有设计契约，待用户纠正】零登录、零持久化：进度与设置仅内存态，刷新归零，不写 localStorage/cookie。
-- 【同上推断】运行时零外部请求：无外部字体、CDN、追踪或在线语音服务；发音优先用站内离线音频。
+- 【同上推断】外部请求仅限字体 CDN：无追踪、无在线语音服务、无第三方脚本；发音用站内离线音频。（原「运行时零外部请求」约束已由用户放开为允许外部 CDN。）
 - 【同上推断】全站中文：界面与讲解为中文，英文只出现在教学内容本身。
 - 【同上推断】离线音频为硬资产：48 音素 + 926 词（`public/audio/`，约 3.7MB / 974 条，单源 `scripts/word-universe.mjs`），句子走浏览器语音合成兜底。
 - 【同上推断】保持个人小项目体量：无后端、无数据库、无付费依赖。
-- 【已决】教程面视觉方向：辞书版式（Dictionary Edition，seed `a6e5a7dd`，code-led）已锁定并建成，覆盖 `/methods` 与 `/lab`；DESIGN.md 与 design.json 以 finish 阶段产出为准。
+- 【已决】教程面视觉方向（2026-10 重构）：辞书版式（seed `a6e5a7dd`）整体退役，替换为**压膜活页手册（Acetate Manual，seed `9f19875c`，code-led，方向卡锁定「压膜活页手册」PICK）**；DESIGN.md 为新世界契约，全站 UI 按其重建。
 
 ## Brand Commitments
 
@@ -44,7 +44,8 @@ web
 
 ## Evidence on Hand
 
-- 8 门方法课与全部教学文案已成稿：`src/data/methods.ts`（每课 8 步结构）。
+- 8 门方法课与全部教学文案已成稿（2026-10 重写）：`src/data/courses/`（48 单元、128 题，schema `src/data/courseSchema.ts`，验收 `npm run check:courses`）；旧版 `src/data/methods.ts` 待 UI 重建后退役。
+- 内容写作规范：`docs/content-style-guide.md`（密度三件套、禁令、数字纪律）；重构蓝图 `docs/curriculum-outline-v1.md`（已批准）。
 - 48 音标数据与词全集：`src/data/phonemes.ts`（ttsWord/例词/最小对立对）、`scripts/word-universe.mjs`（926 词，8 数据源）。
 - 离线音频已生成：`public/audio/`（phonemes ×48 + words ×926 + manifest.json）、运行时映射 `src/data/phonemeAudio.ts`。
 - 题库与词例数据：`src/data/{quizBanks,rules,spellingPatterns,affixes,words,tools}.ts`（原 `feynman.ts` 已随费曼关移除）。
@@ -55,7 +56,7 @@ web
 
 1. 方法优先：每个页面、每个交互先回答「这在教什么方法」，装饰不得压过内容。
 2. 学练一体：每个讲解步都配有可操作的演示或练习，理解当场验收。
-3. 随用随开：打开即用、用完即走——零登录、零存储、零外部请求。
+3. 随用随开：打开即用、用完即走——零登录、零存储；外部请求仅字体 CDN。
 4. 内容真实：发音、例句、规则全部来自可溯源的数据与许可清晰的资产，不编造。
 5. 个人项目纪律：不引入后端、账号、数据库或付费依赖；改动保持在免费额度内。
 
