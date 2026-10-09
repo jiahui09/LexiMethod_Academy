@@ -16,6 +16,7 @@
 - 无游戏化：无 XP/徽章/连击/彩带；分数只做反馈。
 - 零新外部请求：只许已放行的字体 CDN；音频用 `@/hooks/usePhonemeAudio`、`@/components/edu/Speak`。
 - 不引入 framer-motion 新用法（PageTransition 已是直通壳）；新代码用 CSS。
+  - *落地注记（动画质量收敛，质检报告 §4 A1–A7；只记事实，不改本节规则）：framer-motion 的位移/淡入/缩放**入场**动画已退役，入场一律硬切直出（元素直接出现，同 `.hinge` 语言），不再写 `initial` 淡入/位移。现存 framer-motion 仅剩**门控内的持续动效**，本协作范围内 3 处，全部经 `useMotionTier` 判档、`tier === 'off'` 时停在静止终态：① `course/FeedbackFx.tsx` 波形律动（仅朗读/说话时动，随机关键帧取模块级常量序列，渲染不重掷）；② `course/StepControls.tsx` 自动播放刻线（`transform: scaleX` 读秒，非 off 档才走 7s 线性；手动/键盘翻步零时长瞬时到位）；③ `phonics/MouthSideView.tsx` 口型/气流/声带（`dur = off ? 0 : 0.55`）。`practice/QuestionRunner.tsx`（选项淡入/位移、逐字母缩放、反馈块进出场）与 `course/TokenPlacer.tsx`（拼块 spring 进出场、槽位摆动）已按同一原则收口为硬切直出，两者 framer-motion 引用清零；进度条改静态 `scaleX` 终态（无补间）。自动/手动转场音分工固定：自动推进 = `tick`，手动按钮与 ←/→ 键 = `click`（StepControls）。`@keyframes shake` 仍是全站唯一许可的编排外动效；reduced-motion 全局归零（`index.css` 的 `@media (prefers-reduced-motion)` + `html[data-motion='off']`）与 `useMotionTier` 体系保持不变；`gsap` 死依赖已移除（A7）。
 
 ## 1. 文件所有权（只改自己名下的文件）
 
@@ -35,7 +36,8 @@
 ```tsx
 // src/components/practice/Practice.tsx
 import type { Practice } from '@/data/courseSchema';
-export function Practice({ practice, onDone }: { practice: Practice; onDone?: () => void })
+export function Practice({ practice, onDone, courseId }: { practice: Practice; onDone?: () => void; courseId?: string })
+// kinds 的 KindProps 同步多一个可选 courseId（指针型 diagnostic/exitTicket 的成绩门用，质检 P0-4）
 ```
 - `kind` 全集由 `src/data/courses/*.ts` 中 `practice: { kind }` 字段自行盘点（用 grep 排除 block kind：example/demo/warning/list/diagnostic/exitTicket）。
 - 未识别 kind：优雅降级为「title + prompt + debrief」的 leaf 面，绝不崩溃。

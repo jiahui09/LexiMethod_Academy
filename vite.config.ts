@@ -26,7 +26,8 @@ export default defineConfig({
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom', 'react-router-dom'],
-          motion: ['framer-motion', 'gsap'],
+          // gsap 已移除（死依赖，质检报告 A7）；motion 分组仅剩 framer-motion
+          motion: ['framer-motion'],
         },
       },
     },

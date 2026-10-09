@@ -1,11 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Check, X, Lightbulb, ArrowRight, RefreshCw, Headphones, Turtle } from 'lucide-react';
+import { Check, X, Lightbulb, ArrowRight, RefreshCw, Volume2, Turtle } from 'lucide-react';
 import type { Question } from '@/types';
 import { judgeAnswer, letterFeedback, isWriteType, TYPE_LABELS } from '@/lib/answers';
 import { useSpeech } from '@/hooks/useSpeech';
 import { playSfx } from '@/hooks/useSfx';
-import { useMotionTier } from '@/hooks/useMotionTier';
 import { useProgress } from '@/store/progressStore';
 import { useReview } from '@/store/reviewStore';
 import { SpeakButton } from '@/components/ui/Bits';
@@ -42,7 +40,6 @@ export default function QuestionRunner({
   heading,
   tone = 'paper',
 }: Props) {
-  const tier = useMotionTier();
   const { speak, stop, supported } = useSpeech();
   const recordAnswer = useProgress((s) => s.recordAnswer);
   const addMistake = useReview((s) => s.addMistake);
@@ -53,10 +50,16 @@ export default function QuestionRunner({
   const [results, setResults] = useState<{ correct: boolean; given: string }[]>([]);
   const [done, setDone] = useState(false);
   const [burst, setBurst] = useState(0);
+  // P2：掌握阈值与组间趋势——不只报一个正确率数字
+  const [trend, setTrend] = useState<{ prev: number | null; cur: number } | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const q = questions[idx];
-  const total = questions.length;
+  // P2「再来一组」：复测重排题目顺序（第 0 轮用原序），防同序再认
+  const [round, setRound] = useState(0);
+  const active = useMemo(() => (round === 0 ? questions : shuffle(questions)), [questions, round]);
+
+  const q = active[idx];
+  const total = active.length;
 
   const order = useMemo(() => (q?.choices ? shuffle(q.choices) : undefined), [q]);
 
@@ -75,7 +78,10 @@ export default function QuestionRunner({
     setGiven('');
     if (!q) return;
     if (q.speak) {
-      const t = window.setTimeout(() => speak(q.speak!, { slow: q.speakSlow }), 350);
+      const t = window.setTimeout(
+        () => speak(q.speak!, { slow: q.speakSlow, audioKey: q.speakAudio }),
+        350,
+      );
       return () => window.clearTimeout(t);
     }
     return undefined;
@@ -90,6 +96,8 @@ export default function QuestionRunner({
     (rs: { correct: boolean; given: string }[]) => {
       const correct = rs.filter((r) => r.correct).length;
       setDone(true);
+      const pctNow = rs.length ? Math.round((correct / rs.length) * 100) : 0;
+      setTrend((t) => ({ prev: t ? t.cur : null, cur: pctNow }));
       playSfx('complete');
       // 完成时刻的彩带：整组全对才放（设计规则：只有完成时刻允许彩带）
       if (rs.length > 0 && correct === rs.length) setBurst((b) => b + 1);
@@ -127,7 +135,7 @@ export default function QuestionRunner({
   if (done) {
     const correct = results.filter((r) => r.correct).length;
     const pct = results.length ? Math.round((correct / results.length) * 100) : 0;
-    const wrongList = questions.filter((_, i) => results[i] && !results[i].correct);
+    const wrongList = active.filter((_, i) => results[i] && !results[i].correct);
     return (
       <div className="relative border-2 border-ink bg-under/60 p-6 text-center">
         <div className="mb-3 flex items-center justify-center gap-2">
@@ -139,9 +147,22 @@ export default function QuestionRunner({
           答对 <span className="text-board-deconstruct">{correct}</span> / {results.length}（正确率{' '}
           <span className="tabular-nums text-board-deconstruct">{pct}%</span>）
         </p>
+        <p className="mt-1 text-xs text-ink2">
+          {pct >= 80 ? (
+            <span className="font-bold text-board-deconstruct">过掌握线（80%）</span>
+          ) : (
+            <span className="font-bold text-errata-deep">未到掌握线（80%）——差 {80 - pct} 个百分点</span>
+          )}
+          {trend && trend.prev != null && (
+            <span className="tabular-nums">
+              {' '}· 趋势：上一组 {trend.prev}% → 本组 {trend.cur}%
+              {trend.cur > trend.prev ? ' ↑' : trend.cur < trend.prev ? ' ↓' : ' →'}
+            </span>
+          )}
+        </p>
         {wrongList.length > 0 && (
           <div className="mx-auto mt-4 max-w-xl border-2 border-errata/45 bg-errata/[0.05] p-4 text-left text-xs text-ink2">
-            <div className="mb-1.5 font-semibold text-errata-deep">错题已排入间隔重复队列，稍后重现</div>
+            <div className="mb-1.5 font-semibold text-errata-deep">错题只记在本机，站内不调度复习</div>
             <ul className="space-y-1">
               {wrongList.slice(0, 4).map((wq) => (
                 <li key={wq.id} className="flex flex-wrap gap-2">
@@ -150,6 +171,9 @@ export default function QuestionRunner({
                 </li>
               ))}
             </ul>
+            <p className="mt-2 leading-relaxed">
+              不会按 1/3/7/14/30 天自动重现；想间隔重复，把下面这几题抄进你自己的日历或 Anki。
+            </p>
           </div>
         )}
         <div className="mt-5 flex flex-wrap justify-center gap-3">
@@ -157,6 +181,7 @@ export default function QuestionRunner({
             variant="primary"
             onClick={() => {
               playSfx('click');
+              setRound((r) => r + 1); // 重掷题目顺序
               reset();
               setIdx(0);
             }}
@@ -187,8 +212,8 @@ export default function QuestionRunner({
         <div className="flex items-center gap-3">
           {q.speak && supported && (
             <div className="flex items-center gap-1.5">
-              <SpeakButton text={q.speak} label="常速播放" tone={tone} className="min-h-[44px] min-w-[44px]" />
-              <SpeakButton text={q.speak} slow label="慢速播放" tone={tone} className="min-h-[44px] min-w-[44px]" />
+              <SpeakButton text={q.speak} label="常速播放" tone={tone} className="min-h-[44px] min-w-[44px]" audioKey={q.speakAudio} />
+              <SpeakButton text={q.speak} slow label="慢速播放" tone={tone} className="min-h-[44px] min-w-[44px]" audioKey={q.speakAudio} />
             </div>
           )}
         </div>
@@ -196,10 +221,11 @@ export default function QuestionRunner({
 
       {/* 进度条 */}
       <div className="mb-5 h-1.5 overflow-hidden bg-rule" aria-hidden>
-        <motion.div
-          className="h-full bg-board-deconstruct"
-          animate={{ width: `${((idx + (status !== 'idle' ? 1 : 0)) / total) * 100}%` }}
-          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        <div
+          className="h-full w-full origin-left bg-board-deconstruct"
+          style={{
+            transform: `scaleX(${(idx + (status !== 'idle' ? 1 : 0)) / Math.max(1, total)})`,
+          }}
         />
       </div>
 
@@ -215,7 +241,7 @@ export default function QuestionRunner({
             onClick={() => speak(q.speak!, { slow: q.speakSlow })}
             className="flex min-h-[44px] items-center gap-1.5 border-2 border-ink px-3 py-2 text-xs text-ink2 transition-colors hover:border-ink hover:text-ink"
           >
-            <Headphones size={14} aria-hidden /> 播放
+            <Volume2 size={14} aria-hidden /> 播放
           </button>
         )}
       </div>
@@ -229,16 +255,11 @@ export default function QuestionRunner({
               const reveal = status !== 'idle';
               const isRight = c.correct;
               return (
-                <motion.button
+                <button
                   key={`${c.label}-${i}`}
                   type="button"
                   disabled={reveal}
                   onClick={() => commit(c.label)}
-                  initial={tier === 'off' ? false : { opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                  whileHover={reveal ? undefined : { scale: 1.015, y: -2 }}
-                  whileTap={reveal ? undefined : { scale: 0.98 }}
                   className={`relative flex min-h-[44px] items-center justify-between gap-3 overflow-hidden border-2 px-4 py-3.5 text-left transition-colors duration-300 ${
                     reveal && isRight
                       ? 'border-board-deconstruct bg-board-deconstruct/[0.07]'
@@ -258,7 +279,7 @@ export default function QuestionRunner({
                   </span>
                   {reveal && isRight && <Check size={17} className="text-board-deconstruct" aria-hidden />}
                   {reveal && chosen && !isRight && <X size={17} className="text-errata-deep" aria-hidden />}
-                </motion.button>
+                </button>
               );
             })}
           </div>
@@ -300,11 +321,8 @@ export default function QuestionRunner({
             {status !== 'idle' && q.type === 'listenWriteWord' && (
               <div className="flex flex-wrap items-center gap-1.5" aria-label="逐字母批改结果">
                 {letterFeedback(given, q.answer).map((l, i) => (
-                  <motion.span
+                  <span
                     key={i}
-                    initial={tier === 'off' ? false : { scale: 0.5, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ delay: i * 0.06 }}
                     className={`flex h-9 w-8 items-center justify-center border-2 font-mono text-sm font-semibold ${
                       l.status === 'same'
                         ? 'border-board-deconstruct bg-board-deconstruct/[0.08] text-board-deconstruct'
@@ -312,7 +330,7 @@ export default function QuestionRunner({
                     }`}
                   >
                     {l.char}
-                  </motion.span>
+                  </span>
                 ))}
               </div>
             )}
@@ -325,7 +343,7 @@ export default function QuestionRunner({
             pieces={q.syllableUnits.map((t, i) => ({ id: `${t}-${i}-${q.id}`, text: t }))}
             slotCount={q.syllableUnits.length}
             answer={q.answer}
-            instructions="点击（或拖拽）上方拼块，按正确顺序放入下方槽位。"
+            instructions="先点选上方拼块、再点下方槽位放入（也可直接拖放），按正确顺序拼出答案。"
             ruleHint={q.hint}
             tone={tone}
             onResult={(ok, g) => commit(ok ? q.answer : g)}
@@ -338,7 +356,7 @@ export default function QuestionRunner({
             pieces={q.affixUnits.map((u) => ({ id: `${u.text}-${u.type}`, text: u.text, hint: u.meaning }))}
             slotCount={q.affixUnits.length}
             answer={q.answer}
-            instructions="把前缀、词根、后缀按构词顺序放入槽位（悬停可看含义）。"
+            instructions="点选上方拼块→点槽位放入（也可直接拖放），把前缀、词根、后缀按构词顺序排好（悬停可看含义）。"
             ruleHint={q.hint}
             tone={tone}
             onResult={(ok, g) => commit(ok ? q.answer : g)}
@@ -353,11 +371,10 @@ export default function QuestionRunner({
               const right = reveal && Number(q.answer) === i;
               return (
                 <div key={`${s}-${i}`} className="flex items-center gap-2.5">
-                  <motion.button
+                  <button
                     type="button"
                     disabled={reveal}
                     onClick={() => commit(String(i))}
-                    whileHover={reveal ? undefined : { y: -3 }}
                     className={`inline-flex min-h-[44px] items-center gap-2 border-2 px-5 py-4 text-lg font-bold transition-colors ${
                       right
                         ? 'border-board-deconstruct bg-board-deconstruct/[0.08] text-board-deconstruct'
@@ -370,7 +387,7 @@ export default function QuestionRunner({
                     {s}
                     {right && <Check size={16} strokeWidth={2.5} aria-hidden />}
                     {reveal && chosen && !right && <X size={16} strokeWidth={2.5} aria-hidden />}
-                  </motion.button>
+                  </button>
                   <span className="text-xs text-ink2">#{i}</span>
                 </div>
               );
@@ -379,13 +396,9 @@ export default function QuestionRunner({
         )}
       </div>
 
-      {/* 提交后反馈：就地印在题下，不弹模态、不加 toast */}
-      <AnimatePresence>
-        {status !== 'idle' && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
+      {/* 提交后反馈：就地印在题下，硬切呈现（入场动画已退役，契约 90ms steps） */}
+      {status !== 'idle' && (
+          <div
             className={`mt-4 border-2 p-4 text-sm text-ink ${
               status === 'correct' ? 'border-board-deconstruct/60 bg-board-deconstruct/[0.06]' : 'border-errata/60 bg-errata/[0.06]'
             }`}
@@ -411,15 +424,16 @@ export default function QuestionRunner({
               </div>
             )}
             <p className="text-xs leading-relaxed opacity-90">{q.explain}</p>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
 
       {/* 操作 */}
       <div className="mt-4 flex items-center justify-between">
         <button
           type="button"
-          onClick={() => speak(q.speak ?? q.prompt, { slow: true })}
+          onClick={() =>
+            speak(q.speak ?? q.prompt, { slow: true, audioKey: q.speak ? q.speakAudio : undefined })
+          }
           disabled={!supported}
           className="flex min-h-[44px] items-center gap-1.5 text-xs text-ink2 transition-colors hover:text-ink disabled:opacity-40"
         >

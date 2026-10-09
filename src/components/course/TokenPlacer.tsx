@@ -1,6 +1,4 @@
 import { useEffect, useState, type DragEvent as ReactDragEvent } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useMotionTier } from '@/hooks/useMotionTier';
 import { playSfx } from '@/hooks/useSfx';
 
 export type Piece = { id: string; text: string; hint?: string };
@@ -17,6 +15,9 @@ type Props = {
   /** 视面：保留对外 API（历史深色面分支已整体迁入辞书纸面，两面同视） */
   tone?: 'dark' | 'paper';
 };
+
+/** P1-5 穷举计次上限：每轮最多 5 次放置，满额锁定、看提示后重来 */
+const MAX_ATTEMPTS = 5;
 
 function shuffle<T extends { id: string }>(arr: T[]): T[] {
   const a = [...arr];
@@ -43,7 +44,6 @@ export default function TokenPlacer({
   ruleHint,
   tone = 'dark',
 }: Props) {
-  const tier = useMotionTier();
   // pieces 每次渲染可能是新数组：用稳定 key 决定是否重置，避免无限洗牌
   const piecesKey = pieces.map((p) => p.id).join('|');
   const [pool, setPool] = useState<Piece[]>(() => shuffle(pieces));
@@ -64,12 +64,15 @@ export default function TokenPlacer({
   const [given, setGiven] = useState('');
   const [attempts, setAttempts] = useState(0);
 
+  const locked = attempts >= MAX_ATTEMPTS;
+
   const reset = () => {
     setPool(shuffle(pieces));
     setSlots(Array(slotCount).fill(null));
     setPicked(null);
     setStatus('idle');
     setGiven('');
+    setAttempts(0); // 计数按轮：重来即清零，上限只管本轮
   };
 
   const evaluate = (nextSlots: (Piece | null)[]) => {
@@ -85,6 +88,7 @@ export default function TokenPlacer({
   };
 
   const placePiece = (piece: Piece, from: 'pool' | number, slotIdx: number) => {
+    if (locked) return; // 满 5 次锁定，先看提示再重来
     const nextSlots = [...slots];
     const existing = nextSlots[slotIdx];
     let nextPool = [...pool];
@@ -141,7 +145,7 @@ export default function TokenPlacer({
       <div className={`relative flex flex-wrap items-center justify-center gap-2 ${status === 'wrong' ? 'animate-shake' : ''}`}>
         {slots.map((piece, i) => (
           <div key={i} className="flex items-center gap-2">
-            <motion.button
+            <button
               type="button"
               onClick={() => handleSlotClick(i)}
               onDragOver={(e) => {
@@ -154,23 +158,17 @@ export default function TokenPlacer({
                 const poolPiece = pool.find((p) => p.id === raw);
                 if (poolPiece) placePiece(poolPiece, 'pool', i);
               }}
-              animate={
-                status === 'correct'
-                  ? { borderColor: 'rgba(30,75,122,0.95)', x: 0 }
-                  : status === 'wrong'
-                    ? { x: [0, -5, 5, -4, 0] }
-                    : { x: 0 }
-              }
-              transition={{ duration: 0.4 }}
               className={`relative flex min-w-[76px] min-h-[56px] items-center justify-center border-2 px-4 py-4 font-serif text-lg font-semibold transition-colors ${
-                piece
-                  ? 'border-ink/55 bg-leaf text-ink'
-                  : 'border-dashed border-rule bg-transparent ink2/70'
+                status === 'correct'
+                  ? 'border-board-deconstruct bg-leaf text-ink'
+                  : piece
+                    ? 'border-ink/55 bg-leaf text-ink'
+                    : 'border-dashed border-rule bg-transparent ink2/70'
               } ${picked && !piece ? 'border-ink bg-under' : ''}`}
               aria-label={`第 ${i + 1} 个槽位${piece ? `：${piece.text}` : '（空）'}`}
             >
               {piece ? piece.text : '?'}
-            </motion.button>
+            </button>
             {i < slots.length - 1 && <span className="text-ink2">{gapToken === '-' ? '·' : gapToken}</span>}
           </div>
         ))}
@@ -179,16 +177,10 @@ export default function TokenPlacer({
 
       {/* 可用拼块 */}
       <div className="flex flex-wrap items-center justify-center gap-2" aria-label="可选拼块">
-        <AnimatePresence mode="popLayout">
-          {pool.map((piece) => (
-            <motion.button
+        {pool.map((piece) => (
+            <button
               key={piece.id}
               type="button"
-              layout
-              initial={{ opacity: 0, scale: 0.85 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ type: 'spring', stiffness: 260, damping: 24 }}
               draggable
               onDragStart={(e) => {
                 const evt = e as unknown as ReactDragEvent;
@@ -206,25 +198,21 @@ export default function TokenPlacer({
               aria-pressed={picked?.piece.id === piece.id}
             >
               {piece.text}
-            </motion.button>
+            </button>
           ))}
-        </AnimatePresence>
         {pool.length === 0 && (
           <span className="text-xs text-ink2">（拼块已全部放入，点击槽位可取回）</span>
         )}
       </div>
 
-      {/* 反馈 */}
-      <AnimatePresence>
-        {status !== 'idle' && (
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
+      {/* 反馈：硬切呈现，aria-live 播报判定结果（P2） */}
+      {status !== 'idle' && (
+          <div
             className={` border-2 px-4 py-3 text-sm ${
               status === 'correct' ? 'border-ink/60 bg-leaf text-ink' : 'border-errata bg-leaf text-ink'
             }`}
             role="status"
+            aria-live="polite"
           >
             <strong className={`mr-2 ${status === 'correct' ? 'text-board-deconstruct' : 'text-errata-deep'}`}>
               {status === 'correct' ? '✓ 正确！' : '✕ 还不对'}
@@ -240,11 +228,15 @@ export default function TokenPlacer({
                   重来
                 </button>
                 <div className="mt-1 text-xs text-ink2">提示 · {ruleHint}</div>
+                {locked && (
+                  <div className="mt-1 text-xs font-bold text-errata-deep">
+                    本组已试满 {MAX_ATTEMPTS} 次，放置已锁定——看清提示再「重来」。
+                  </div>
+                )}
               </>
             )}
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
 
       <div className="flex items-center justify-between text-xs text-ink2">
         <span>尝试次数：{attempts}</span>
