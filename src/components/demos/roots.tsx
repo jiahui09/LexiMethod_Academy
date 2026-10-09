@@ -31,7 +31,7 @@ function PipelineOverview() {
         {STAGES.map((s, i) => (
           <React.Fragment key={s}>
             <span
-              className={`machine rounded-[3px] border px-2.5 py-1.5 text-[13px] ${
+              className={`machine border px-2.5 py-1.5 text-[13px] ${
                 step > i ? 'border-ink bg-ink text-milk' : step === i ? 'border-ink bg-leaf font-bold' : 'border-rule text-ink2'
               }`}
             >
@@ -88,7 +88,7 @@ function PrefixFamilyBoard() {
         {g.texts.map((t) => {
           const m = meanings.find((p) => p.text === t);
           return (
-            <li key={t} className="under-leaf flex items-center gap-3 rounded-[3px] px-3 py-2">
+            <li key={t} className="under-leaf flex items-center gap-3 px-3 py-2">
               <span className="machine w-16 shrink-0 text-[15px] font-bold">{t}</span>
               <span className="text-[14px]">{m?.meaning ?? '同族'}</span>
               {m?.examples?.[0] && <span className="machine ml-auto text-[13px] text-ink2">{m.examples[0]}</span>}
@@ -122,7 +122,7 @@ function WordFamilySpect() {
         {SPECT.map((b, i) => (
           <li
             key={b.word}
-            className={`hinge flex items-center gap-3 rounded-[3px] border px-3 ${
+            className={`hinge flex items-center gap-3 border px-3 ${
               i < grown ? 'border-ink/40 bg-leaf' : 'border-rule opacity-50'
             }`}
             style={{ minHeight: 44, marginLeft: `${Math.min(i, 3) * 10}px` }}
@@ -169,14 +169,14 @@ function WordFamilyPort() {
               type="button"
               onClick={() => setOpen(i)}
               aria-expanded={open === i}
-              className={`hinge flex min-h-[44px] w-full items-center gap-3 rounded-[3px] border px-3 text-left ${
+              className={`hinge flex min-h-[44px] w-full items-center gap-3 border px-3 text-left ${
                 open === i ? 'border-ink bg-leaf' : 'border-ink/30 bg-leaf hover:bg-under'
               }`}
             >
               <span aria-hidden className="machine w-6 text-center font-bold">
                 {b.dir}
               </span>
-              <span className="machine rounded-[3px] border border-ink/30 px-1.5 text-[14px]">{b.affix}</span>
+              <span className="machine border border-ink/30 px-1.5 text-[14px]">{b.affix}</span>
               <span className="machine text-[15px] font-bold">port</span>
               <span className="ml-auto flex items-center gap-2">
                 <span className="text-[14px]">{b.mean}</span>
@@ -215,7 +215,7 @@ function SuffixPosTags() {
   };
   return (
     <DemoPanel label="后缀标签台 · 词性三选一">
-      <div className="under-leaf mb-3 flex items-center gap-3 rounded-[3px] p-3">
+      <div className="under-leaf mb-3 flex items-center gap-3 p-3">
         <span className="machine text-[20px] font-bold">{q.word}</span>
         <Token className="machine text-[14px]">{q.tail}</Token>
         <span className="ml-auto flex items-center gap-2 text-[13px] text-ink2">
@@ -270,13 +270,13 @@ function LoopTimerThreeWords() {
         <PunchRow total={9} done={total} active={total < 9 ? total : undefined} />
         <Timer />
       </div>
-      <div className="under-leaf rounded-[3px] p-4 text-center">
+      <div className="under-leaf p-4 text-center">
         <p className="machine text-[22px] font-bold">{done ? '三词跑完' : LOOP_WORDS[Math.min(wi, 2)]}</p>
         <div className="mt-3 flex justify-center gap-2">
           {BEATS.map((b, i) => (
             <span
               key={b}
-              className={`machine rounded-[3px] border px-3 py-1.5 text-[14px] ${
+              className={`machine border px-3 py-1.5 text-[14px] ${
                 i < beats ? 'border-ink bg-ink text-milk' : i === beats && !done ? 'border-ink bg-leaf font-bold' : 'border-rule text-ink2'
               }`}
             >

@@ -7,7 +7,7 @@ import { seededShuffle } from './shuffle';
 /**
  * 选择类作答体：choice / contextChoice / minimalPair / listenChoosePhoneme /
  * wordChoosePhoneme / phonemeChooseSpelling / spellingChoosePhoneme 等。
- * 选项即叶面钮，点选即提交（当场揭晓）；揭晓三重编码 = 形状 ✓/✗ + 边框 + 屏读文字。
+ * 选项即面板钮，点选即提交（当场揭晓）；揭晓三重编码 = 形状 ✓/✗ + 边框 + 屏读文字。
  */
 export default function ChoiceBody({ q, given, revealed, onSubmit }: BodyProps) {
   const choices = q.choices ?? [];
@@ -28,7 +28,7 @@ export default function ChoiceBody({ q, given, revealed, onSubmit }: BodyProps) 
             type="button"
             disabled={revealed}
             onClick={() => onSubmit(c.label, c.correct)}
-            className={`hinge flex min-h-[44px] w-full items-center gap-3 rounded-[3px] border px-4 py-3 text-left ${
+            className={`hinge flex min-h-[44px] w-full items-center gap-3 border px-4 py-3 text-left ${
               wrongPick
                 ? 'border-2 border-errata bg-leaf'
                 : right
@@ -36,7 +36,7 @@ export default function ChoiceBody({ q, given, revealed, onSubmit }: BodyProps) 
                   : 'border-ink/25 bg-leaf hover:border-ink/60 hover:bg-under'
             }`}
           >
-            {/* 所选标记：打孔实心（形状通道，不靠颜色） */}
+            {/* 所选标记：实心方块（形状通道，不靠颜色） */}
             <span
               className={`punch ${chosen ? (wrongPick ? 'punch-done' : 'punch-done') : ''}`}
               style={wrongPick ? { background: '#E34234', borderColor: '#E34234' } : undefined}

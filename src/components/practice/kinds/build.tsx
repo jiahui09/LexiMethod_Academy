@@ -59,7 +59,7 @@ const AffixAssemble: KindComp = ({ onDone }) => {
             aria-pressed={sel === c.text}
             onClick={() => setSel(sel === c.text ? null : c.text)}
             title={c.hint}
-            className={`hinge machine min-h-[44px] rounded-[3px] border px-3 text-[15px] font-bold ${
+            className={`hinge machine min-h-[44px] border px-3 text-[15px] font-bold ${
               sel === c.text ? 'border-ink bg-ink text-milk' : 'border-ink/40 bg-leaf hover:bg-under'
             }`}
           >
@@ -71,12 +71,12 @@ const AffixAssemble: KindComp = ({ onDone }) => {
         {AFFIX_FAMILIES.map((f) => {
           const mine = AFFIX_CELLS.filter((c) => placed[c.text] === f.id);
           return (
-            <div key={f.id} className="under-leaf rounded-[3px] p-2.5">
+            <div key={f.id} className="under-leaf p-2.5">
               <div className="mb-1.5 flex items-center gap-2">
                 <span className="machine text-[14px] font-bold">{f.name}</span>
                 <span className="machine text-[12px] text-ink2">{mine.length}/1</span>
               </div>
-              <div className="flex min-h-[44px] flex-wrap items-center gap-1.5 rounded-[3px] border border-dashed border-ink/30 px-2">
+              <div className="flex min-h-[44px] flex-wrap items-center gap-1.5 border border-dashed border-ink/30 px-2">
                 {mine.length === 0 && <span className="text-[12px] text-ink2">先点上方前缀，再点这块板</span>}
                 {mine.map((c) => (
                   <Token key={c.text} className="machine text-[15px]">
@@ -133,7 +133,7 @@ const WordFamilyTree: KindComp = ({ onDone }) => {
         {WF_BRANCHES.map((b, i) => (
           <li
             key={b.word}
-            className={`hinge flex items-center gap-3 rounded-[3px] border px-3 py-1.5 ${
+            className={`hinge flex items-center gap-3 border px-3 py-1.5 ${
               i < grown ? 'border-ink/40 bg-leaf' : 'border-rule'
             }`}
             style={{ marginLeft: `${Math.min(i, 3) * 8}px`, minHeight: 44 }}
@@ -201,14 +201,14 @@ const SentenceBlocks: KindComp = ({ onDone }) => {
           >
             <span
               aria-hidden
-              className="inline-block h-3 w-3 rounded-[2px] border border-ink/40"
-              style={{ background: brush === t ? SB_HUE[t] : '#FBF9F2' }}
+              className="inline-block h-3 w-3 border border-ink/40"
+              style={{ background: brush === t ? SB_HUE[t] : '#FFFFFF' }}
             />
             {t}
           </Btn>
         ))}
       </div>
-      <div className="under-leaf flex flex-wrap gap-1.5 rounded-[3px] p-3">
+      <div className="under-leaf flex flex-wrap gap-1.5 p-3">
         {SB_SENT.map((t, i) => {
           const c = colors[i];
           return (
@@ -217,11 +217,11 @@ const SentenceBlocks: KindComp = ({ onDone }) => {
               type="button"
               onClick={() => paint(i)}
               aria-label={`${t.w}，${c ? `已涂${c}` : '未上色'}`}
-              className="hinge machine rounded-[3px] px-2 py-1.5 text-[16px]"
+              className="hinge machine px-2 py-1.5 text-[16px]"
               style={{
-                background: c ? SB_HUE[c] : '#FBF9F2',
-                color: c ? '#F4F1E7' : '#17140E',
-                border: `1px solid ${c ? SB_HUE[c] : 'rgba(23,20,14,0.3)'}`,
+                background: c ? SB_HUE[c] : '#FFFFFF',
+                color: c ? '#FFFFFF' : '#111111',
+                border: `1px solid ${c ? SB_HUE[c] : 'rgba(17,17,17,0.3)'}`,
               }}
             >
               {t.w}
@@ -289,14 +289,14 @@ const SentenceBuilder: KindComp = ({ practice, onDone }) => {
           setVerdict(null);
         }}
         placeholder="Write your sentence here."
-        className="w-full rounded-[3px] border border-ink/40 bg-leaf px-3 py-2 text-[15px] outline-none placeholder:text-ink2 focus:border-ink"
+        className="w-full border border-ink/40 bg-leaf px-3 py-2 text-[15px] placeholder:text-ink2 focus:border-ink"
       />
       <div className="mt-2 flex flex-wrap gap-2">
-        <span className={`machine rounded-[3px] border px-2 py-1 text-[13px] ${longEnough ? 'border-ink bg-ink text-milk' : 'border-ink/30 text-ink2'}`}>
+        <span className={`machine border px-2 py-1 text-[13px] ${longEnough ? 'border-ink bg-ink text-milk' : 'border-ink/30 text-ink2'}`}>
           词数 {words.length}/4
         </span>
         {needTarget && (
-          <span className={`machine rounded-[3px] border px-2 py-1 text-[13px] ${hasTarget ? 'border-ink bg-ink text-milk' : 'border-ink/30 text-ink2'}`}>
+          <span className={`machine border px-2 py-1 text-[13px] ${hasTarget ? 'border-ink bg-ink text-milk' : 'border-ink/30 text-ink2'}`}>
             含 {target} {hasTarget ? '是' : '否'}
           </span>
         )}
@@ -305,7 +305,7 @@ const SentenceBuilder: KindComp = ({ practice, onDone }) => {
       <ul className="space-y-1.5">
         {SBG_QUESTIONS.map((q, i) => (
           <li key={i}>
-            <label className="flex min-h-[44px] cursor-pointer items-center gap-3 rounded-[3px] border border-ink/30 bg-leaf px-3 hover:bg-under">
+            <label className="flex min-h-[44px] cursor-pointer items-center gap-3 border border-ink/30 bg-leaf px-3 hover:bg-under">
               <input
                 type="checkbox"
                 checked={checks[i]}
@@ -313,7 +313,7 @@ const SentenceBuilder: KindComp = ({ practice, onDone }) => {
                   setChecks((c) => c.map((v, j) => (j === i ? !v : v)));
                   setVerdict(null);
                 }}
-                className="h-5 w-5 accent-[#17140E]"
+                className="h-5 w-5 accent-[#111111]"
               />
               <span className="flex-1 text-[14px]">{q}</span>
             </label>
@@ -376,7 +376,7 @@ const CollocationFill: KindComp = ({ onDone }) => {
         {['L1 听音拼词', 'L2 补搭配'].map((l, i) => (
           <span
             key={l}
-            className={`machine rounded-[3px] border px-2.5 py-1.5 text-[13px] ${
+            className={`machine border px-2.5 py-1.5 text-[13px] ${
               i === stage ? 'border-ink bg-ink text-milk' : 'border-rule text-ink2'
             }`}
           >
@@ -395,7 +395,7 @@ const CollocationFill: KindComp = ({ onDone }) => {
                 value={dict[i]}
                 onChange={(e) => setDict((v) => v.map((x, j) => (j === i ? e.target.value : x)))}
                 aria-label={`听写词 ${i + 1}`}
-                className="machine h-11 w-48 rounded-[3px] border border-ink/40 bg-leaf px-3 text-[15px] outline-none focus:border-ink"
+                className="machine h-11 w-48 border border-ink/40 bg-leaf px-3 text-[15px] focus:border-ink"
               />
               {m1 !== null && (
                 <span className={l1ok ? 'text-ink' : 'text-errata'}>{dict[i].trim().toLowerCase() === w ? '✓' : '✗'}</span>
@@ -406,7 +406,7 @@ const CollocationFill: KindComp = ({ onDone }) => {
       ) : (
         <ul className="space-y-3">
           {CF_COLLOCS.map((c, i) => (
-            <li key={i} className="under-leaf rounded-[3px] p-3">
+            <li key={i} className="under-leaf p-3">
               <p className="machine text-[15px]">
                 {c.head}{' '}
                 <input
@@ -414,7 +414,7 @@ const CollocationFill: KindComp = ({ onDone }) => {
                   value={fills[i]}
                   onChange={(e) => setFills((v) => v.map((x, j) => (j === i ? e.target.value : x)))}
                   aria-label={`搭配缺词 ${i + 1}`}
-                  className="machine h-9 w-36 rounded-[3px] border border-ink/40 bg-milk px-2 text-[15px] outline-none focus:border-ink"
+                  className="machine h-9 w-36 border border-ink/40 bg-milk px-2 text-[15px] focus:border-ink"
                 />{' '}
                 {c.tail}
               </p>
@@ -457,7 +457,7 @@ const RetellScaffold: KindComp = ({ onDone }) => {
   };
   return (
     <div>
-      <div className="under-leaf mb-3 rounded-[3px] p-3">
+      <div className="under-leaf mb-3 p-3">
         <span className="machine text-[15px]">{RS_OPENING}</span>
         <p className="mt-1 text-[13px] text-ink2">开头句，接着写满三句，至少一句含 {RS_TARGET}。</p>
       </div>
@@ -471,7 +471,7 @@ const RetellScaffold: KindComp = ({ onDone }) => {
               onChange={(e) => setLines((ls) => ls.map((v, j) => (j === i ? e.target.value : v)))}
               aria-label={`复述第 ${i + 1} 句`}
               placeholder={i === 1 ? `含 ${RS_TARGET} 的那句` : '接着写'}
-              className="h-11 w-full rounded-[3px] border border-ink/40 bg-leaf px-3 text-[15px] outline-none placeholder:text-ink2 focus:border-ink"
+              className="h-11 w-full border border-ink/40 bg-leaf px-3 text-[15px] placeholder:text-ink2 focus:border-ink"
             />
           </li>
         ))}
@@ -512,7 +512,7 @@ const Construct: KindComp = ({ onDone }) => {
     <div>
       <ul className="space-y-3">
         {CON_WORDS.map((w, i) => (
-          <li key={w} className="under-leaf rounded-[3px] p-3">
+          <li key={w} className="under-leaf p-3">
             <div className="mb-2 flex items-center gap-2">
               <span className="machine text-[16px] font-bold">{w}</span>
               <SpeakButton text={w} size="sm" />
@@ -524,7 +524,7 @@ const Construct: KindComp = ({ onDone }) => {
                   type="button"
                   aria-pressed={slots[i] === d}
                   onClick={() => setSlots((s) => s.map((v, j) => (j === i ? d : v)))}
-                  className={`hinge machine min-h-[44px] rounded-[3px] border px-2.5 text-[14px] ${
+                  className={`hinge machine min-h-[44px] border px-2.5 text-[14px] ${
                     slots[i] === d ? 'border-ink bg-ink text-milk' : 'border-ink/30 bg-leaf hover:bg-under'
                   }`}
                 >
@@ -541,7 +541,7 @@ const Construct: KindComp = ({ onDone }) => {
                 type="date"
                 value={dates[i]}
                 onChange={(e) => setDates((d) => d.map((v, j) => (j === i ? e.target.value : v)))}
-                className="machine h-11 rounded-[3px] border border-ink/40 bg-leaf px-2 text-[14px] outline-none focus:border-ink"
+                className="machine h-11 border border-ink/40 bg-leaf px-2 text-[14px] focus:border-ink"
               />
             </div>
           </li>

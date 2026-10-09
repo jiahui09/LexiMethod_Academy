@@ -14,7 +14,7 @@ function derive(pathname: string): { primary: Target; secondary: Target } {
   if (pathname.startsWith('/methods/')) {
     return {
       primary: { label: '去音标实验室练听辨', to: '/lab/phonemes' },
-      secondary: { label: '手册总目', to: '/methods' },
+      secondary: { label: '课程总目', to: '/methods' },
     };
   }
   if (pathname.startsWith('/lab')) {
@@ -25,15 +25,15 @@ function derive(pathname: string): { primary: Target; secondary: Target } {
         : pathname === '/lab/mapping'
           ? { label: '听写训练', to: '/lab/dictation' }
           : { label: '音标发音教学', to: '/lab/phonemes' };
-    return { primary: { label: '回手册总目', to: '/methods' }, secondary: nextLab };
+    return { primary: { label: '回课程总目', to: '/methods' }, secondary: nextLab };
   }
   if (pathname === '/settings') {
     return {
-      primary: { label: '回手册总目', to: '/methods' },
+      primary: { label: '回课程总目', to: '/methods' },
       secondary: { label: '音标实验室', to: '/lab/phonemes' },
     };
   }
-  return { primary: { label: '手册总目', to: '/methods' }, secondary: { label: '音标实验室', to: '/lab/phonemes' } };
+  return { primary: { label: '课程总目', to: '/methods' }, secondary: { label: '音标实验室', to: '/lab/phonemes' } };
 }
 
 /**
@@ -48,7 +48,7 @@ export default function NextStepBar() {
 
   return (
     <div
-      className="paper-chrome mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-rule bg-milk px-4 py-3"
+      className="paper-chrome mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-ink bg-milk px-4 py-3"
       data-testid="next-step-bar"
       aria-label="下一步引导"
     >
@@ -59,22 +59,22 @@ export default function NextStepBar() {
       <div className="flex flex-wrap items-center gap-2">
         <Link
           to={primary.to}
-          className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[3px] bg-ink px-4 py-2 font-display text-[13px] font-bold text-milk transition-colors hover:bg-ink2 active:translate-y-px"
+          className="inline-flex min-h-[44px] items-center gap-1.5 bg-ink px-4 py-2 font-display text-[13px] font-bold text-milk transition-colors hover:bg-ink2 active:translate-y-px"
         >
           {primary.label} <ArrowRight size={13} aria-hidden />
         </Link>
         <Link
           to={secondary.to}
-          className="hinge inline-flex min-h-[44px] items-center gap-1.5 rounded-[3px] border border-ink/40 px-3.5 py-2 text-[13px] text-ink transition-colors hover:bg-under"
+          className="hinge inline-flex min-h-[44px] items-center gap-1.5 border border-ink/40 px-3.5 py-2 text-[13px] text-ink transition-colors hover:bg-under"
         >
           {secondary.label}
         </Link>
         {pathname !== '/methods' && !dockHasMethods && (
           <Link
             to="/methods"
-            className="hinge inline-flex min-h-[44px] items-center gap-1.5 rounded-[3px] px-3 py-2 text-[13px] text-ink2 transition-colors hover:text-ink"
+            className="hinge inline-flex min-h-[44px] items-center gap-1.5 px-3 py-2 text-[13px] text-ink2 transition-colors hover:text-ink"
           >
-            <BookOpen size={13} aria-hidden /> 手册总目
+            <BookOpen size={13} aria-hidden /> 课程总目
           </Link>
         )}
       </div>

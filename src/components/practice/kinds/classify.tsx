@@ -33,9 +33,9 @@ const MorphemeJudge: KindComp = ({ onDone }) => {
         {MJ_ITEMS.map((it, i) => {
           const v = verdicts[i];
           return (
-            <li key={i} className="under-leaf rounded-[3px] p-3">
+            <li key={i} className="under-leaf p-3">
               <div className="mb-2 flex flex-wrap items-center gap-2">
-                <span className="machine rounded-[3px] border-2 border-ink px-1.5 py-0.5 text-[15px] font-bold">{it.block}</span>
+                <span className="machine border-2 border-ink px-1.5 py-0.5 text-[15px] font-bold">{it.block}</span>
                 <span className="machine text-[13px] text-ink2">在 {it.word} 里</span>
                 <span aria-hidden className={`punch ml-auto ${v === undefined ? '' : v === it.real ? 'punch-done' : ''}`} />
               </div>
@@ -97,7 +97,7 @@ const ErrorClassify: KindComp = ({ onDone }) => {
     <div>
       <ul className="space-y-2">
         {EC_ITEMS.map((it, i) => (
-          <li key={i} className="under-leaf rounded-[3px] p-2.5">
+          <li key={i} className="under-leaf p-2.5">
             <p className="machine mb-1.5 text-[14px]">
               <span className="mr-2 text-ink2">{i + 1}</span>
               {it.q}
@@ -171,7 +171,7 @@ const SignalMatch: KindComp = ({ onDone }) => {
         {SM_PAIRS.map((p, i) => (
           <li
             key={p.signal}
-            className={`flex items-center gap-3 rounded-[3px] border px-3 py-2 text-[14px] ${
+            className={`flex items-center gap-3 border px-3 py-2 text-[14px] ${
               done.includes(i) ? 'border-ink/40 bg-leaf' : 'border-rule'
             }`}
           >
@@ -188,7 +188,7 @@ const SignalMatch: KindComp = ({ onDone }) => {
             type="button"
             aria-pressed={sel === i}
             onClick={() => setSel(sel === i ? null : i)}
-            className={`hinge min-h-[44px] rounded-[3px] border px-2.5 text-left text-[13px] ${
+            className={`hinge min-h-[44px] border px-2.5 text-left text-[13px] ${
               sel === i ? 'border-ink bg-ink text-milk' : 'border-ink/40 bg-leaf hover:bg-under'
             }`}
           >
@@ -240,12 +240,12 @@ const ChecklistFill: KindComp = ({ onDone }) => {
       <ul className="space-y-1.5">
         {CF_PRE.map((t, i) => (
           <li key={t}>
-            <label className="flex min-h-[44px] cursor-pointer items-center gap-3 rounded-[3px] border border-ink/30 bg-leaf px-3 hover:bg-under">
+            <label className="flex min-h-[44px] cursor-pointer items-center gap-3 border border-ink/30 bg-leaf px-3 hover:bg-under">
               <input
                 type="checkbox"
                 checked={pre[i]}
                 onChange={() => setPre((v) => v.map((x, j) => (j === i ? !x : x)))}
-                className="h-5 w-5 accent-[#17140E]"
+                className="h-5 w-5 accent-[#111111]"
               />
               <span className="flex-1 text-[14px]">{t}</span>
             </label>
@@ -256,12 +256,12 @@ const ChecklistFill: KindComp = ({ onDone }) => {
       <ul className="space-y-1.5">
         {CF_DURING.map((it, i) => (
           <li key={it.t}>
-            <label className="flex min-h-[44px] cursor-pointer items-center gap-3 rounded-[3px] border border-ink/30 bg-leaf px-3 hover:bg-under">
+            <label className="flex min-h-[44px] cursor-pointer items-center gap-3 border border-ink/30 bg-leaf px-3 hover:bg-under">
               <input
                 type="checkbox"
                 checked={during[i]}
                 onChange={() => setDuring((v) => v.map((x, j) => (j === i ? !x : x)))}
-                className="h-5 w-5 accent-[#17140E]"
+                className="h-5 w-5 accent-[#111111]"
               />
               <span className="flex-1 text-[14px]">{it.t}</span>
               {it.fault && <span className="machine text-[12px] text-ink2">走神或假装会了</span>}
@@ -324,7 +324,7 @@ const DebriefForm: KindComp = ({ onDone }) => {
               value={vals[i]}
               onChange={(e) => setVals((v) => v.map((x, j) => (j === i ? e.target.value : x)))}
               placeholder={c.hint}
-              className="h-11 w-full rounded-[3px] border border-ink/40 bg-leaf px-3 text-[15px] outline-none placeholder:text-ink2 focus:border-ink"
+              className="h-11 w-full border border-ink/40 bg-leaf px-3 text-[15px] placeholder:text-ink2 focus:border-ink"
             />
           </li>
         ))}

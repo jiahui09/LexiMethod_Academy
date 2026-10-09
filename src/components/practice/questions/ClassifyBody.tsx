@@ -24,7 +24,7 @@ export default function ClassifyBody({ q, given, revealed, onSubmit }: BodyProps
               type="button"
               disabled={revealed}
               onClick={() => onSubmit(c.label, c.correct)}
-              className={`hinge flex min-h-[44px] items-center gap-2.5 rounded-[3px] border px-4 py-3 text-left font-serif font-bold ${
+              className={`hinge flex min-h-[44px] items-center gap-2.5 border px-4 py-3 text-left font-serif font-bold ${
                 wrongPick
                   ? 'border-2 border-errata bg-leaf text-errata'
                   : right

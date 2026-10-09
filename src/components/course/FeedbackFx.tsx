@@ -3,13 +3,13 @@ import { motion } from 'framer-motion';
 /** 绿色光波（判定正确时掠过） */
 
 /** 发音波形（播放时跳动）—— 使用方都在音标实验室；按调用方笔色平涂，不加辉光 */
-export function Waveform({ active, bars = 24, color = '#17140E' }: { active: boolean; bars?: number; color?: string }) {
+export function Waveform({ active, bars = 24, color = '#111111' }: { active: boolean; bars?: number; color?: string }) {
   return (
     <div className="flex h-10 items-center justify-center gap-[3px]" aria-hidden>
       {Array.from({ length: bars }).map((_, i) => (
         <motion.span
           key={i}
-          className="w-[3px] rounded-full"
+          className="w-[3px]"
           style={{ background: color, height: '100%' }}
           initial={{ scaleY: 0.2, opacity: 0.4 }}
           animate={

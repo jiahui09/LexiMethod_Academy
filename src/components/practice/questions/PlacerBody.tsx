@@ -76,14 +76,14 @@ export default function PlacerBody({ q, given, revealed, onSubmit }: BodyProps) 
               type="button"
               disabled={revealed || used}
               onClick={() => place(i)}
-              className={`hinge flex min-h-[44px] flex-col items-center justify-center gap-0.5 rounded-[3px] border px-4 py-2 ${
+              className={`hinge flex min-h-[44px] flex-col items-center justify-center gap-0.5 border px-4 py-2 ${
                 used
                   ? 'border-dashed border-rule bg-transparent text-ink2 opacity-50'
                   : 'border-ink/40 bg-leaf font-bold text-ink hover:bg-under'
               }`}
             >
               <span className={isAffix ? 'font-serif text-[15px]' : 'machine text-[15px]'}>{p.text}</span>
-              {p.hint && <span className="text-[11px] font-normal text-ink2">{p.hint}</span>}
+              {p.hint && <span className="text-[12px] font-normal text-ink2">{p.hint}</span>}
             </button>
           );
         })}
@@ -100,7 +100,7 @@ export default function PlacerBody({ q, given, revealed, onSubmit }: BodyProps) 
               disabled={revealed || p == null}
               onClick={() => pull(slot)}
               aria-label={p ? `第 ${slot + 1} 槽 ${p.text}，点此取回` : `第 ${slot + 1} 槽，空`}
-              className={`hinge flex min-h-[44px] min-w-[72px] items-center justify-center rounded-[3px] border-2 px-4 py-2 font-bold ${
+              className={`hinge flex min-h-[44px] min-w-[72px] items-center justify-center border-2 px-4 py-2 font-bold ${
                 p
                   ? 'border-ink bg-leaf text-ink'
                   : 'border-dashed border-rule bg-transparent text-ink2'
@@ -117,7 +117,7 @@ export default function PlacerBody({ q, given, revealed, onSubmit }: BodyProps) 
           type="button"
           disabled={revealed || !filled}
           onClick={submit}
-          className="hinge min-h-[44px] rounded-[3px] bg-ink px-5 py-2.5 font-display text-sm font-bold text-milk transition-colors hover:bg-ink2 disabled:opacity-40"
+          className="hinge min-h-[44px] bg-ink px-5 py-2.5 font-display text-sm font-bold text-milk transition-colors hover:bg-ink2 disabled:opacity-40"
         >
           {revealed ? '已批改' : '装好了，提交'}
         </button>
@@ -125,7 +125,7 @@ export default function PlacerBody({ q, given, revealed, onSubmit }: BodyProps) 
           type="button"
           disabled={revealed}
           onClick={clear}
-          className="hinge inline-flex min-h-[44px] items-center gap-1.5 rounded-[3px] border border-ink/40 px-4 py-2.5 font-display text-sm font-bold text-ink transition-colors hover:bg-under disabled:opacity-40"
+          className="hinge inline-flex min-h-[44px] items-center gap-1.5 border border-ink/40 px-4 py-2.5 font-display text-sm font-bold text-ink transition-colors hover:bg-under disabled:opacity-40"
         >
           <RotateCcw size={14} aria-hidden /> 全部取回
         </button>

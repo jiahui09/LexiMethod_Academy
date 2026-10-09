@@ -23,7 +23,7 @@ function VisibleReadAloud() {
           <Volume2 size={15} aria-hidden /> 整句连读
         </Btn>
       </div>
-      <div className="under-leaf rounded-[3px] p-4">
+      <div className="under-leaf p-4">
         <div className="flex flex-wrap gap-x-2 gap-y-1">
           {READ_SENT.map((b) => (
             <span key={b.w} className="hinge">
@@ -60,7 +60,7 @@ function PlantTwoScenes() {
             type="button"
             onClick={() => setOpen(i)}
             aria-pressed={open === i}
-            className={`hinge rounded-[3px] border p-3 text-left ${
+            className={`hinge border p-3 text-left ${
               open === i ? 'border-ink bg-leaf' : 'border-ink/30 bg-leaf hover:bg-under'
             }`}
           >
@@ -105,11 +105,11 @@ function ThreeColorBlocks() {
           return (
             <span
               key={i}
-              className="machine rounded-[3px] px-2 py-1.5 text-[16px]"
+              className="machine px-2 py-1.5 text-[16px]"
               style={{
-                background: on ? BLOCK_HUE[b.type] : '#FBF9F2',
-                color: on ? '#F4F1E7' : '#17140E',
-                border: `1px solid ${on ? BLOCK_HUE[b.type] : 'rgba(23,20,14,0.3)'}`,
+                background: on ? BLOCK_HUE[b.type] : '#FFFFFF',
+                color: on ? '#FFFFFF' : '#111111',
+                border: `1px solid ${on ? BLOCK_HUE[b.type] : 'rgba(17,17,17,0.3)'}`,
               }}
             >
               {b.w}
@@ -122,8 +122,8 @@ function ThreeColorBlocks() {
           <Btn key={t} pressed={mark[t]} onClick={() => setMark((m) => ({ ...m, [t]: !m[t] }))} ariaLabel={`切换${t}块上色`}>
             <span
               aria-hidden
-              className="inline-block h-3 w-3 rounded-[2px] border border-ink/40"
-              style={{ background: mark[t] ? BLOCK_HUE[t] : '#FBF9F2' }}
+              className="inline-block h-3 w-3 border border-ink/40"
+              style={{ background: mark[t] ? BLOCK_HUE[t] : '#FFFFFF' }}
             />
             {t}
           </Btn>
@@ -152,14 +152,14 @@ function SentenceBuilderGate() {
   const all = checked.every(Boolean);
   return (
     <DemoPanel label="放行闸 · 三问">
-      <div className="under-leaf rounded-[3px] p-3 text-[15px]">
+      <div className="under-leaf p-3 text-[15px]">
         <span className="machine">make a serious face</span>
         <span className="ml-2 text-[13px] text-ink2">（示例句）</span>
       </div>
       <ul className="mt-3 space-y-2">
         {GATE_QUESTIONS.map((g, i) => (
           <li key={i}>
-            <label className="flex min-h-[44px] cursor-pointer items-center gap-3 rounded-[3px] border border-ink/30 bg-leaf px-3 hover:bg-under">
+            <label className="flex min-h-[44px] cursor-pointer items-center gap-3 border border-ink/30 bg-leaf px-3 hover:bg-under">
               <input
                 type="checkbox"
                 checked={checked[i]}
@@ -167,7 +167,7 @@ function SentenceBuilderGate() {
                   setChecked((c) => c.map((v, j) => (j === i ? !v : v)));
                   setVerdict(null);
                 }}
-                className="h-5 w-5 accent-[#17140E]"
+                className="h-5 w-5 accent-[#111111]"
               />
               <span className="flex-1 text-[15px]">{g.q}</span>
               <span className="machine text-[13px] text-ink2">{i + 1}/3</span>
@@ -208,10 +208,10 @@ function MakeUpThreeScenes() {
           </Btn>
         ))}
       </div>
-      <div className="under-leaf mt-3 rounded-[3px] p-4">
+      <div className="under-leaf mt-3 p-4">
         <p className="machine text-[17px] leading-relaxed">
           {m.sentence.slice(0, at)}
-          <span className="rounded-[3px] bg-ink px-1 py-0.5 text-milk">{m.mark}</span>
+          <span className=" bg-ink px-1 py-0.5 text-milk">{m.mark}</span>
           {m.sentence.slice(at + m.mark.length)}
         </p>
         <p className="mt-2 text-[14px] text-ink2">{m.chunk}</p>
@@ -247,7 +247,7 @@ function FakeContextAutopsy() {
     <DemoPanel label="假语境验尸台">
       <ul className="space-y-3">
         {AUTOPSY.map((a, i) => (
-          <li key={i} className="under-leaf rounded-[3px] p-3">
+          <li key={i} className="under-leaf p-3">
             <div className="flex items-center gap-2">
               <X size={16} className="shrink-0 text-errata" strokeWidth={3} aria-hidden />
               <span className="machine text-[15px] text-errata">{a.bad}</span>
@@ -259,9 +259,9 @@ function FakeContextAutopsy() {
               <SpeakButton text={a.good} size="sm" label="朗读改好的版本" />
             </div>
             {open === i && (
-              <div className="hinge mt-2 space-y-1.5 rounded-[3px] border border-rule bg-leaf p-3 text-[14px]">
+              <div className="hinge mt-2 space-y-1.5 border border-rule bg-leaf p-3 text-[14px]">
                 <p>
-                  <span className="machine rounded-[3px] border border-errata px-1.5 py-0.5 text-[13px] text-errata">
+                  <span className="machine border border-errata px-1.5 py-0.5 text-[13px] text-errata">
                     {a.sick}
                   </span>{' '}
                   <span className="ml-1">{a.why}</span>

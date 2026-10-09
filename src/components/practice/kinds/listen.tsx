@@ -37,7 +37,7 @@ const ListenChoosePhoneme: KindComp = ({ onDone }) => {
   };
   return (
     <div>
-      <div className="under-leaf mb-3 flex flex-wrap items-center gap-3 rounded-[3px] p-3">
+      <div className="under-leaf mb-3 flex flex-wrap items-center gap-3 p-3">
         <span className="machine text-[17px] font-bold">{item.word}</span>
         <Btn onClick={() => speakPhoneme(item.target)} ariaLabel={`播音标 ${item.target}`}>
           <Play size={15} aria-hidden /> 听音标
@@ -53,7 +53,7 @@ const ListenChoosePhoneme: KindComp = ({ onDone }) => {
             key={o}
             type="button"
             onClick={() => pick(o)}
-            className="hinge machine min-h-[44px] min-w-[52px] rounded-[3px] border border-ink/40 bg-leaf px-3 text-[17px] font-bold hover:bg-under"
+            className="hinge machine min-h-[44px] min-w-[52px] border border-ink/40 bg-leaf px-3 text-[17px] font-bold hover:bg-under"
           >
             {o}
           </button>
@@ -101,7 +101,7 @@ const MinimalPair: KindComp = ({ onDone }) => {
   };
   return (
     <div>
-      <div className="under-leaf mb-3 flex flex-wrap items-center gap-3 rounded-[3px] p-3">
+      <div className="under-leaf mb-3 flex flex-wrap items-center gap-3 p-3">
         <SpeakButton text={item.word} label="听这个词" />
         <span className="machine text-[14px] text-ink2">{item.ipa}</span>
         <span className="machine ml-auto text-[13px] text-ink2">第 {i + 1}/4 组</span>
@@ -158,7 +158,7 @@ const SpellingChoosePhoneme: KindComp = ({ onDone }) => {
     <div>
       <ul className="space-y-2">
         {SCS_ITEMS.map((it, i) => (
-          <li key={it.pattern} className="under-leaf rounded-[3px] p-3">
+          <li key={it.pattern} className="under-leaf p-3">
             <div className="mb-2 flex flex-wrap items-center gap-3">
               <span className="machine text-[16px] font-bold">{it.pattern}</span>
               <SpeakButton text={it.word} size="sm" label={`听 ${it.word}`} />
@@ -214,7 +214,7 @@ const ListenWriteWord: KindComp = ({ onDone }) => {
                 setChecked(false);
               }}
               aria-label={`第 ${i + 1} 个听写词`}
-              className="machine h-11 w-40 rounded-[3px] border border-ink/40 bg-leaf px-3 text-[15px] outline-none focus:border-ink"
+              className="machine h-11 w-40 border border-ink/40 bg-leaf px-3 text-[15px] focus:border-ink"
             />
             {checked && (
               <span className={`machine text-[14px] ${vals[i].trim().toLowerCase() === w ? 'text-ink' : 'text-errata'}`}>

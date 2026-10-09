@@ -40,7 +40,7 @@ export default function WriteBody({ q, given, revealed, onSubmit }: BodyProps) {
         <button
           type="submit"
           disabled={revealed || !text.trim()}
-          className="hinge min-h-[44px] shrink-0 rounded-[3px] bg-ink px-5 py-2.5 font-display text-sm font-bold text-milk transition-colors hover:bg-ink2 disabled:opacity-40"
+          className="hinge min-h-[44px] shrink-0 bg-ink px-5 py-2.5 font-display text-sm font-bold text-milk transition-colors hover:bg-ink2 disabled:opacity-40"
         >
           {revealed ? '已批改' : '提交'}
         </button>
@@ -52,7 +52,7 @@ export default function WriteBody({ q, given, revealed, onSubmit }: BodyProps) {
             <span
               key={`${l.char}-${i}`}
               title={l.status === 'same' ? '写对了' : l.status === 'wrong' ? '写错了' : '漏写了'}
-              className={`flex h-9 min-w-[34px] items-center justify-center rounded-[3px] border-2 px-1.5 font-mono text-sm font-bold ${
+              className={`flex h-9 min-w-[34px] items-center justify-center border-2 px-1.5 font-mono text-sm font-bold ${
                 l.status === 'same'
                   ? 'border-ink text-ink'
                   : l.status === 'wrong'

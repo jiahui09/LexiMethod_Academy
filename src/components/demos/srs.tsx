@@ -15,19 +15,19 @@ function CurveSvg({ marks, height = 130 }: { marks?: { x: number; label: string;
   }
   return (
     <svg viewBox={`0 0 ${w} ${height}`} className="w-full" role="img" aria-label="遗忘曲线，先快后慢">
-      <line x1="10" y1="110" x2={w - 10} y2="110" stroke="#17140E" strokeWidth="1.5" />
-      <line x1="10" y1="10" x2="10" y2="110" stroke="#17140E" strokeWidth="1.5" />
+      <line x1="10" y1="110" x2={w - 10} y2="110" stroke="#111111" strokeWidth="1.5" />
+      <line x1="10" y1="10" x2="10" y2="110" stroke="#111111" strokeWidth="1.5" />
       <polyline points={pts.join(' ')} fill="none" stroke="#2A4BD7" strokeWidth="2.5" />
-      <text x={w - 12} y="125" textAnchor="end" className="machine" fontSize="10" fill="#57503F">
+      <text x={w - 12} y="125" textAnchor="end" className="machine" fontSize="10" fill="#555555">
         时间
       </text>
-      <text x="14" y="20" className="machine" fontSize="10" fill="#57503F">
+      <text x="14" y="20" className="machine" fontSize="10" fill="#555555">
         记住量
       </text>
       {marks?.map((m) => (
         <g key={m.label}>
-          <circle cx={m.x} cy={110} r="4" fill={m.on ? '#2A4BD7' : '#FBF9F2'} stroke="#17140E" strokeWidth="1.5" />
-          <text x={m.x} y={124} textAnchor="middle" className="machine" fontSize="9" fill="#57503F">
+          <circle cx={m.x} cy={110} r="4" fill={m.on ? '#2A4BD7' : '#FFFFFF'} stroke="#111111" strokeWidth="1.5" />
+          <text x={m.x} y={124} textAnchor="middle" className="machine" fontSize="9" fill="#555555">
             {m.label}
           </text>
         </g>
@@ -54,7 +54,7 @@ function ForgettingCurve() {
               type="button"
               onClick={() => setLit(i + 1)}
               aria-expanded={lit > i}
-              className={`hinge flex min-h-[44px] w-full items-center gap-3 rounded-[3px] border px-3 text-left text-[14px] ${
+              className={`hinge flex min-h-[44px] w-full items-center gap-3 border px-3 text-left text-[14px] ${
                 lit > i ? 'border-ink bg-leaf' : 'border-ink/30 bg-leaf hover:bg-under'
               }`}
             >
@@ -89,7 +89,7 @@ function DesirableDifficulty() {
             type="button"
             onClick={() => setPick(i)}
             aria-pressed={pick === i}
-            className={`hinge rounded-[3px] border p-3 text-left ${
+            className={`hinge border p-3 text-left ${
               pick === i ? 'border-ink bg-leaf' : 'border-ink/30 bg-leaf hover:bg-under'
             }`}
           >
@@ -140,7 +140,7 @@ function RecallVsReread() {
           直接再看一遍
         </Btn>
       </div>
-      <div className="under-leaf rounded-[3px] p-4">
+      <div className="under-leaf p-4">
         <div className="flex flex-wrap items-center gap-3">
           <span className="machine text-[22px] font-bold">{CR_WORD}</span>
           <span className="text-[14px] text-ink2">不情愿的</span>
@@ -198,7 +198,7 @@ function SrsTimeline() {
         {SLOTS.map((d, i) => (
           <React.Fragment key={d}>
             <span
-              className={`machine flex h-11 flex-1 items-center justify-center rounded-[3px] border text-[14px] ${
+              className={`machine flex h-11 flex-1 items-center justify-center border text-[14px] ${
                 i < stage
                   ? 'border-rule text-ink2 line-through'
                   : i === stage
@@ -217,7 +217,7 @@ function SrsTimeline() {
         ))}
       </div>
       <div className="flex flex-wrap items-center gap-3">
-        <span className="under-leaf machine rounded-[3px] px-3 py-2 text-[15px]">reluctant</span>
+        <span className="under-leaf machine px-3 py-2 text-[15px]">reluctant</span>
         <span className="machine text-[13px] text-ink2">现处第 {SLOTS[stage]} 天档</span>
         <SpeakButton text="reluctant" size="sm" />
       </div>
@@ -257,7 +257,7 @@ function ScheduleBuilder() {
     <DemoPanel label="排你的时刻表 · 三张">
       <ul className="space-y-3">
         {SCHED_WORDS.map((w, ri) => (
-          <li key={w} className="under-leaf rounded-[3px] p-3">
+          <li key={w} className="under-leaf p-3">
             <div className="mb-2 flex items-center gap-2">
               <span className="machine text-[16px] font-bold">{w}</span>
               <SpeakButton text={w} size="sm" />
@@ -267,7 +267,7 @@ function ScheduleBuilder() {
               {SLOTS.map((d, i) => (
                 <span
                   key={d}
-                  className={`machine rounded-[3px] border px-2 py-1.5 text-[13px] ${
+                  className={`machine border px-2 py-1.5 text-[13px] ${
                     i === rows[ri] ? 'border-ink bg-ink text-milk' : i < rows[ri] ? 'border-rule text-ink2' : 'border-ink/30 text-ink2'
                   }`}
                 >

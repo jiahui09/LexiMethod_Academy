@@ -35,12 +35,12 @@ export default function App() {
     <>
       <a
         href="#main-content"
-        className="paper-chrome sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-[3px] focus:bg-ink focus:px-4 focus:py-2 focus:text-milk"
+        className="paper-chrome sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus: focus:bg-ink focus:px-4 focus:py-2 focus:text-milk"
       >
         跳到主要内容
       </a>
       <AppShell>
-        {/* 一整块连续压膜地（压膜活页手册）：书口阶梯轨常驻右缘，正文 flex-1 */}
+        {/* 一整块连续白纸地（瑞士世界）：右缘索引轨常驻右缘，正文 flex-1 */}
         <div className="container-page flex items-start gap-6 py-6 md:py-10">
           <div id="main-content" className="min-w-0 flex-1">
             {/* key 使每次路由切换整棵重挂；世界无页面进入动效（Hinge Step Rule），直接呈现 */}
@@ -54,7 +54,7 @@ export default function App() {
             {/* 每页底部统一「下一步去哪儿」引导 */}
             <NextStepBar />
           </div>
-          {/* 全站书口阶梯轨：功能页贴 + 8 门课阶梯贴（xl+ 常驻） */}
+          {/* 全站右缘索引轨：功能页贴 + 8 门课阶梯贴（xl+ 常驻） */}
           <ForeEdge />
         </div>
       </AppShell>

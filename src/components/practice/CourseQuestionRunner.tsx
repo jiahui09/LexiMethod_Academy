@@ -18,8 +18,8 @@ export type CourseQuestionRunnerProps = {
 const pad2 = (n: number) => String(n).padStart(2, '0');
 
 /**
- * 课程题运行器（压膜活页手册）。
- * 逐题一屏，机器计数 + 打孔进度，提交即当场揭晓（决策点4）。
+ * 课程题运行器（瑞士世界）。
+ * 逐题一屏，机器计数 + 方块进度，提交即当场揭晓（决策点4）。
  * 错题走朱红勘误条（errata 只给错误），对题走墨色短确认。
  * 收口只做 plain 计数回调 onDone，分数带报告由课程页接管；无彩带无连击无奖励音。
  */
@@ -93,7 +93,7 @@ export default function CourseQuestionRunner({ questions, mode, onDone, onAnswer
   if (finished) {
     const score = results.filter(Boolean).length;
     return (
-      <section className="rounded-[4px] border border-rule bg-leaf p-6 text-center" data-testid="course-runner-summary">
+      <section className=" border border-rule bg-leaf p-6 text-center" data-testid="course-runner-summary">
         <p className="machine text-[13px] text-ink2">{mode === 'exit' ? '出门条' : '诊断'} · 批改完毕</p>
         <p className="mt-3 font-display text-5xl font-extrabold tabular-nums text-ink">
           {score} / {total}
@@ -113,20 +113,20 @@ export default function CourseQuestionRunner({ questions, mode, onDone, onAnswer
 
   return (
     <section
-      className="rounded-[4px] border border-rule bg-leaf p-5 md:p-6"
+      className=" border border-rule bg-leaf p-5 md:p-6"
       aria-label={mode === 'exit' ? '出门条测验' : '诊断测验'}
       data-testid="course-question-runner"
     >
-      {/* 机器计数 + 打孔进度（三重编码：形状 + 颜色 + 屏读文字） */}
+      {/* 机器计数 + 方块进度（三重编码：形状 + 颜色 + 屏读文字） */}
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3 border-b border-rule pb-3">
         <div className="flex flex-wrap items-center gap-2.5">
           <span className="machine text-[13px] font-bold text-ink">
             {pad2(idx + 1)} / {pad2(total)}
           </span>
-          <span className="machine rounded-[3px] border border-ink/30 px-2 py-0.5 text-[11px] text-ink2">
+          <span className="machine border border-ink/30 px-2 py-0.5 text-[12px] text-ink2">
             {COURSE_TYPE_LABELS[q.type] ?? '练习'}
           </span>
-          {mode === 'exit' && <span className="machine text-[11px] text-ink2">本测验仅本会话，刷新即失效</span>}
+          {mode === 'exit' && <span className="machine text-[12px] text-ink2">本测验仅本会话，刷新即失效</span>}
         </div>
         <ol className="flex items-center gap-1.5" aria-label="答题进度">
           {questions.map((qq, i) => {
@@ -170,7 +170,7 @@ export default function CourseQuestionRunner({ questions, mode, onDone, onAnswer
       <div className="mt-4" aria-live="polite">
         {status === 'revealed' &&
           (correct ? (
-            <div className="flex gap-2.5 rounded-[3px] border border-ink/40 bg-under p-4">
+            <div className="flex gap-2.5 border border-ink/40 bg-under p-4">
               <Check size={17} strokeWidth={2.5} className="mt-0.5 shrink-0 text-ink" aria-hidden />
               <div>
                 <p className="font-display text-sm font-bold text-ink">{verdictYes}</p>
@@ -178,7 +178,7 @@ export default function CourseQuestionRunner({ questions, mode, onDone, onAnswer
               </div>
             </div>
           ) : (
-            <div className="rounded-[3px] border-2 border-errata bg-errata-deep p-4 text-white">
+            <div className=" border-2 border-errata bg-errata-deep p-4 text-white">
               <div className="flex items-center gap-2 font-display text-sm font-bold">
                 <X size={17} strokeWidth={2.5} aria-hidden /> {verdictNo}
               </div>
@@ -198,12 +198,12 @@ export default function CourseQuestionRunner({ questions, mode, onDone, onAnswer
               type="button"
               onClick={() => setShowHint((v) => !v)}
               aria-expanded={showHint}
-              className="hinge inline-flex min-h-[44px] items-center gap-1.5 self-start rounded-[3px] border border-ink/40 px-3.5 py-2 text-[13px] font-bold text-ink transition-colors hover:bg-under"
+              className="hinge inline-flex min-h-[44px] items-center gap-1.5 self-start border border-ink/40 px-3.5 py-2 text-[13px] font-bold text-ink transition-colors hover:bg-under"
             >
               <Lightbulb size={14} aria-hidden /> {showHint ? '收起提示' : '看提示'}
             </button>
             {showHint && (
-              <p className="max-w-[60ch] rounded-[3px] border border-rule bg-under p-3 text-[13px] leading-relaxed text-ink2">
+              <p className="max-w-[60ch] border border-rule bg-under p-3 text-[13px] leading-relaxed text-ink2">
                 {q.hint}
               </p>
             )}
@@ -215,7 +215,7 @@ export default function CourseQuestionRunner({ questions, mode, onDone, onAnswer
           type="button"
           onClick={next}
           disabled={status !== 'revealed'}
-          className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[3px] bg-ink px-5 py-2.5 font-display text-sm font-bold text-milk transition-colors hover:bg-ink2 disabled:opacity-40"
+          className="inline-flex min-h-[44px] items-center gap-1.5 bg-ink px-5 py-2.5 font-display text-sm font-bold text-milk transition-colors hover:bg-ink2 disabled:opacity-40"
         >
           {idx + 1 >= total ? '批改完成' : '下一题'} <ArrowRight size={14} aria-hidden />
         </button>

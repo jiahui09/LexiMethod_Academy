@@ -22,7 +22,7 @@ function LabCrumbs({ tabLabel }: { tabLabel: string }) {
     <nav aria-label="面包屑" className="flex flex-wrap items-center gap-1.5 text-xs text-ink2">
       <span>
         <Link to="/methods" className="inline-flex min-h-[44px] items-center transition-colors hover:text-ink">
-          手册总目
+          课程总目
         </Link>
       </span>
       <span aria-hidden className="text-ink2/60">
@@ -44,9 +44,9 @@ function LabCrumbs({ tabLabel }: { tabLabel: string }) {
 }
 
 /**
- * 音标实验室：三个分卷，页顶一卷一色的卡板章节带（压膜活页手册）。
- * 书眉载面包屑与进度机器计数；带内分卷链接以粗细与刻线双重编码当前卷；
- * 主栏读叶面页，栏外是页边批注。
+ * 音标实验室：三个分台，页顶白底章节带（瑞士报头）——段色只作 3px 细条点缀。
+ * 章节带载面包屑与进度机器计数；带内分台链接以字重与墨条双重编码当前台；
+ * 主栏为正文栏，栏外是页边批注。
  */
 export default function PhonemeLab() {
   const { tab = 'phonemes' } = useParams();
@@ -57,13 +57,12 @@ export default function PhonemeLab() {
 
   const current = TABS.find((t) => t.key === tab) ?? TABS[0];
   const stage = STAGE_META[current.stage];
-  const bandStyle = { background: stage.hue, borderBottom: `3px solid ${deepen(stage.hue)}` };
   const selected = phonemes.find((p) => p.id === selectedId) ?? phonemes[0];
   const donePct = Math.round((learned.length / 48) * 100);
 
   return (
     <div className="overflow-hidden">
-      {/* 书眉：面包屑定位 + 右侧机器计数（永远回答「我学了几个音标」） */}
+      {/* 章节带：面包屑定位 + 右侧机器计数（永远回答「我学了几个音标」） */}
       <EduRunningHead
         accent={stage.hue}
         left={<LabCrumbs tabLabel={current.label} />}
@@ -78,24 +77,28 @@ export default function PhonemeLab() {
             <Link
               to="/methods"
               data-testid="lab-next"
-              className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[3px] px-3 py-1.5 text-sm text-ink2 transition-colors hover:bg-under hover:text-ink"
+              className="inline-flex min-h-[44px] items-center gap-1.5 px-3 py-1.5 text-sm text-ink2 transition-colors hover:bg-under hover:text-ink"
             >
-              下一步 · 回手册总目 <ArrowRight size={14} aria-hidden />
+              下一步 · 回课程总目 <ArrowRight size={14} aria-hidden />
             </Link>
           </>
         }
       />
 
-      {/* 页顶章节带：一卷一色，满强度 + 深一档下缘 */}
-      <div style={bandStyle}>
+      {/* 页顶章节带：白纸地 ink 字，段色只留 3px 细条与分台刻线（点缀） */}
+      <div className="bg-leaf" style={{ borderBottom: `3px solid ${deepen(stage.hue)}` }}>
         <div className="px-5 pb-4 pt-6 md:px-8">
-          <h1 className={`font-display text-[26px] font-extrabold leading-tight md:text-[32px] ${stage.onBand}`}>
+          <div className="flex items-center gap-2.5">
+            <span aria-hidden className="h-3.5 w-3.5" style={{ background: stage.hue }} />
+            <p className="machine text-[12px] text-ink2">{stage.label}分台</p>
+          </div>
+          <h1 className="mt-1.5 font-display text-[26px] font-extrabold leading-tight text-ink md:text-[32px]">
             音标实验室
           </h1>
-          <p className={`mt-2 max-w-[68ch] text-[15px] leading-[1.8] ${stage.onBand}`}>
+          <p className="mt-2 max-w-[68ch] text-[15px] leading-[1.8] text-ink2">
             48 个音标对应 48 套发音动作，口型、舌位、气流与声带动画逐一分解，再用听音拼写把声音和拼写绑在一起。
           </p>
-          <nav aria-label="分卷" className="mt-4 flex flex-wrap items-stretch gap-x-6 gap-y-1">
+          <nav aria-label="分台" className="mt-4 flex flex-wrap items-stretch gap-x-6 gap-y-1">
             {TABS.map((t) => {
               const on = t.key === tab;
               return (
@@ -104,7 +107,7 @@ export default function PhonemeLab() {
                   to={`/lab/${t.key}`}
                   aria-current={on ? 'page' : undefined}
                   className={`hinge relative flex min-h-[44px] flex-col justify-center px-0.5 pb-2 pt-1 ${
-                    stage.onBand
+                    on ? 'text-ink' : 'text-ink2 hover:text-ink'
                   }`}
                 >
                   <span className={`font-display text-sm ${on ? 'font-extrabold' : 'font-bold'}`}>{t.label}</span>
@@ -112,8 +115,7 @@ export default function PhonemeLab() {
                   {on && (
                     <span
                       aria-hidden
-                      className="absolute inset-x-0 -bottom-[1px] h-[3px]"
-                      style={{ background: current.stage === 'pathway' ? '#17140E' : '#FBF9F2' }}
+                      className="absolute inset-x-0 -bottom-[1px] h-[3px] bg-ink"
                     />
                   )}
                 </NavLink>
@@ -130,7 +132,7 @@ export default function PhonemeLab() {
             {tab === 'phonemes' && (
               <div className="flex flex-col gap-6">
                 {/* 学习进度：扁平刻线 */}
-                <div className="flex flex-wrap items-center gap-3 rounded-[4px] border border-rule bg-leaf px-4 py-3 text-xs text-ink2">
+                <div className="flex flex-wrap items-center gap-3 border border-rule bg-leaf px-4 py-3 text-xs text-ink2">
                   <span className="tabular-nums">
                     已学音标：<b className="font-semibold text-ink tabular-nums">{learned.length}</b> / 48
                   </span>
@@ -141,7 +143,7 @@ export default function PhonemeLab() {
                 </div>
 
                 <div className="grid gap-6 xl:grid-cols-[380px_1fr]">
-                  <aside className="h-fit rounded-[4px] border border-rule bg-leaf p-4 xl:sticky xl:top-24">
+                  <aside className="h-fit border border-rule bg-leaf p-4 xl:sticky xl:top-24">
                     <PhonemeChart
                       selected={selectedId}
                       learned={learned}
@@ -170,7 +172,7 @@ export default function PhonemeLab() {
                 选中音标 → 播放例词 → 走完 7 步讲解 → 标记已学
               </div>
               <div className="border-t border-rule pt-2.5 text-[13px] leading-[1.85] text-ink2">
-                <b className="mr-1.5 font-semibold text-ink">分卷</b>
+                <b className="mr-1.5 font-semibold text-ink">分台</b>
                 <ul className="mt-1.5 flex flex-col gap-1.5">
                   {TABS.map((t) => (
                     <li key={t.key}>

@@ -8,7 +8,7 @@ type State = { error: Error | null };
 /**
  * 路由级错误边界：懒加载失败 / 渲染崩溃 → 勘误页降级，绝不白屏。
  * 由调用方以 key={pathname} 挂载：切换路由即自动复位。
- * 错误态用朱红勘误（世界里唯一允许红的地方）；行动按钮仍是 ink 主钮。
+ * 错误态用朱红勘误（勘误语义保留）；行动按钮仍是 ink 主钮。齐左排，不居中。
  */
 export default class RouteErrorBoundary extends Component<Props, State> {
   state: State = { error: null };
@@ -25,38 +25,37 @@ export default class RouteErrorBoundary extends Component<Props, State> {
   render() {
     if (this.state.error) {
       return (
-        <section
-          role="alert"
-          className="mx-auto flex max-w-xl flex-col gap-4 rounded-[4px] border-2 border-errata bg-leaf p-8"
-        >
-          <h1 className="font-display text-2xl font-bold text-ink">这一页没能打开</h1>
-          <p className="max-w-md text-sm leading-relaxed text-ink2">
-            学习内容渲染时出了点问题。你的进度只存在内存里，刷新即回到课程，不必担心数据。
-          </p>
-          <code className="machine max-w-full overflow-x-auto rounded-[3px] bg-errata-deep px-3 py-1.5 text-xs text-[#FFF6F0]">
-            {this.state.error.message || 'Unknown error'}
-          </code>
-          <div className="flex flex-wrap items-center gap-3">
-            <button
-              type="button"
-              onClick={() => this.setState({ error: null })}
-              className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[3px] bg-ink px-5 py-2 font-display text-sm font-bold text-milk transition-colors hover:bg-ink2"
-            >
-              <RotateCcw size={15} aria-hidden /> 重试
-            </button>
-            <button
-              type="button"
-              onClick={() => window.location.reload()}
-              className="hinge inline-flex min-h-[44px] items-center gap-1.5 rounded-[3px] border border-ink/40 px-5 py-2 text-sm text-ink transition-colors hover:bg-under"
-            >
-              <RefreshCw size={15} aria-hidden /> 刷新页面
-            </button>
-            <Link
-              to="/methods"
-              className="hinge inline-flex min-h-[44px] items-center gap-1.5 rounded-[3px] px-3 py-2 text-sm text-ink2 underline decoration-rule underline-offset-4 transition-colors hover:text-ink hover:decoration-ink"
-            >
-              <BookOpen size={15} aria-hidden /> 回手册总目
-            </Link>
+        <section role="alert" className="container-page flex min-h-[60vh] flex-col items-start justify-center gap-4 py-16">
+          <div className="w-full max-w-2xl border-2 border-errata bg-leaf p-6 md:p-8">
+            <h1 className="font-display text-2xl font-bold text-ink">这一页没能打开</h1>
+            <p className="mt-3 max-w-md text-sm leading-relaxed text-ink2">
+              学习内容渲染时出了点问题。你的进度只存在内存里，刷新即回到课程，不必担心数据。
+            </p>
+            <code className="machine mt-4 block max-w-full overflow-x-auto bg-errata-deep px-3 py-1.5 text-xs text-[#FFF6F0]">
+              {this.state.error.message || 'Unknown error'}
+            </code>
+            <div className="mt-5 flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                onClick={() => this.setState({ error: null })}
+                className="inline-flex min-h-[44px] items-center gap-1.5 bg-ink px-5 py-2 font-display text-sm font-bold text-milk transition-colors hover:bg-ink2"
+              >
+                <RotateCcw size={15} aria-hidden /> 重试
+              </button>
+              <button
+                type="button"
+                onClick={() => window.location.reload()}
+                className="hinge inline-flex min-h-[44px] items-center gap-1.5 border border-ink px-5 py-2 text-sm text-ink transition-colors hover:bg-under"
+              >
+                <RefreshCw size={15} aria-hidden /> 刷新页面
+              </button>
+              <Link
+                to="/methods"
+                className="hinge inline-flex min-h-[44px] items-center gap-1.5 px-3 py-2 text-sm text-ink2 underline decoration-rule underline-offset-4 transition-colors hover:text-ink hover:decoration-ink"
+              >
+                <BookOpen size={15} aria-hidden /> 回课程总目
+              </Link>
+            </div>
           </div>
         </section>
       );

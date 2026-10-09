@@ -26,7 +26,7 @@ export default function BottomNav() {
     <nav
       aria-label="底部导航"
       data-testid="bottom-nav"
-      className="paper-chrome fixed inset-x-0 bottom-0 z-40 border-t border-rule bg-milk lg:hidden"
+      className="paper-chrome fixed inset-x-0 bottom-0 z-40 border-t border-ink bg-milk lg:hidden"
     >
       <ul className="mx-auto grid max-w-lg grid-cols-3">
         {ITEMS.map((item) => {

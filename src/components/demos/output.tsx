@@ -63,7 +63,7 @@ function GenerationEffect() {
           自己造一句
         </Btn>
       </div>
-      <div className="under-leaf rounded-[3px] p-4">
+      <div className="under-leaf p-4">
         <p className="machine text-[16px] leading-relaxed">
           The transformation of the industry took twenty years.
         </p>
@@ -99,7 +99,7 @@ function FunnelL1Dictation() {
         {['L1 听写', 'L2 搭配', 'L3 造句', 'L4 复述'].map((l, i) => (
           <React.Fragment key={l}>
             <span
-              className={`machine rounded-[3px] border px-2 py-1.5 text-[13px] ${
+              className={`machine border px-2 py-1.5 text-[13px] ${
                 i === 0 ? 'border-ink bg-ink text-milk' : i === 1 ? 'border-ink bg-leaf font-bold' : 'border-rule text-ink2'
               }`}
             >
@@ -127,7 +127,7 @@ function FunnelL1Dictation() {
           }}
           aria-label="听写输入框"
           placeholder="听到什么写什么"
-          className="machine h-11 min-w-[180px] rounded-[3px] border border-ink/40 bg-leaf px-3 text-[16px] outline-none placeholder:text-ink2 focus:border-ink"
+          className="machine h-11 min-w-[180px] border border-ink/40 bg-leaf px-3 text-[16px] placeholder:text-ink2 focus:border-ink"
         />
         <Btn variant="primary" onClick={() => setChecked(true)} disabled={!val.trim()}>
           判分
@@ -165,13 +165,13 @@ function SentenceGate() {
         }}
         rows={2}
         placeholder="Write your sentence here."
-        className="w-full rounded-[3px] border border-ink/40 bg-leaf px-3 py-2 text-[15px] outline-none placeholder:text-ink2 focus:border-ink"
+        className="w-full border border-ink/40 bg-leaf px-3 py-2 text-[15px] placeholder:text-ink2 focus:border-ink"
       />
       <div className="mt-2 flex flex-wrap gap-2">
-        <span className={`machine rounded-[3px] border px-2 py-1 text-[13px] ${longEnough ? 'border-ink bg-ink text-milk' : 'border-ink/30 text-ink2'}`}>
+        <span className={`machine border px-2 py-1 text-[13px] ${longEnough ? 'border-ink bg-ink text-milk' : 'border-ink/30 text-ink2'}`}>
           词数 {words.length}/{4}
         </span>
-        <span className={`machine rounded-[3px] border px-2 py-1 text-[13px] ${hasTarget ? 'border-ink bg-ink text-milk' : 'border-ink/30 text-ink2'}`}>
+        <span className={`machine border px-2 py-1 text-[13px] ${hasTarget ? 'border-ink bg-ink text-milk' : 'border-ink/30 text-ink2'}`}>
           含目标词 {hasTarget ? '是' : '否'}
         </span>
       </div>
@@ -207,7 +207,7 @@ function RetellScaffold() {
   const done = filled && hasTarget;
   return (
     <DemoPanel label="三句话复述 · 开头已给">
-      <div className="under-leaf mb-3 rounded-[3px] p-3">
+      <div className="under-leaf mb-3 p-3">
         <span className="machine text-[15px]">The village changed a lot after the mine closed.</span>
         <p className="mt-1 text-[13px] text-ink2">开头句，接着写三句。</p>
       </div>
@@ -221,7 +221,7 @@ function RetellScaffold() {
               onChange={(e) => setLines((ls) => ls.map((v, j) => (j === i ? e.target.value : v)))}
               aria-label={`复述第 ${i + 1} 句`}
               placeholder={i === 1 ? `含 ${target} 的那句写在这里` : '接着写'}
-              className="h-11 w-full rounded-[3px] border border-ink/40 bg-leaf px-3 text-[15px] outline-none placeholder:text-ink2 focus:border-ink"
+              className="h-11 w-full border border-ink/40 bg-leaf px-3 text-[15px] placeholder:text-ink2 focus:border-ink"
             />
           </li>
         ))}
@@ -257,7 +257,7 @@ function DailyOutputRatio() {
       </Btn>
       <ul className="space-y-1.5">
         {DAILY.map((d) => (
-          <li key={d.item} className="under-leaf flex items-center gap-3 rounded-[3px] px-3 py-2">
+          <li key={d.item} className="under-leaf flex items-center gap-3 px-3 py-2">
             <span className="flex-1 text-[15px]">{d.item}</span>
             <span className="machine text-[13px] text-ink2">{d.ok ? '算输出' : '只算输入'}</span>
             <span className={`machine w-10 text-right text-[15px] ${d.ok ? 'font-bold' : 'text-ink2'}`}>

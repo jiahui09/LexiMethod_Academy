@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Check, X } from 'lucide-react';
 
 /* ============================================================
-   演示共享件（压膜活页手册世界）
+   演示共享件（瑞士世界世界）
    面板 = .leaf/.under-leaf + border-rule；数字计时 = .machine；
    状态过渡只用 .hinge（90ms steps(2)）；errata 只给错误元素。
    ============================================================ */
@@ -58,7 +58,7 @@ export function Btn({
   title?: string;
 }) {
   const base =
-    'hinge inline-flex min-h-[44px] items-center justify-center gap-1.5 rounded-[3px] px-4 text-[14px] font-display font-bold disabled:opacity-40';
+    'hinge inline-flex min-h-[44px] items-center justify-center gap-1.5 px-4 text-[14px] font-display font-bold disabled:opacity-40';
   const skin =
     variant === 'primary'
       ? 'bg-ink text-milk hover:bg-ink2'
@@ -80,7 +80,7 @@ export function Btn({
   );
 }
 
-/** 选项按钮（单选用）：选中 = 打孔实心点 + 加粗（形状通道），对错 = ✓/✗ + 文字 */
+/** 选项按钮（单选用）：选中 = 实心方块 + 加粗（形状通道），对错 = ✓/✗ + 文字 */
 export function OptionBtn({
   children,
   state = 'idle',
@@ -119,7 +119,7 @@ export function OptionBtn({
       onClick={onClick}
       disabled={disabled}
       aria-label={`${typeof children === 'string' ? children : '选项'}${sr}`}
-      className={`hinge flex min-h-[44px] w-full items-center gap-2.5 rounded-[3px] px-3 py-2 text-left text-[15px] disabled:opacity-50 ${skin} ${className}`}
+      className={`hinge flex min-h-[44px] w-full items-center gap-2.5 px-3 py-2 text-left text-[15px] disabled:opacity-50 ${skin} ${className}`}
     >
       <span className="flex w-4 shrink-0 items-center justify-center">{dot}</span>
       <span className="flex-1">{children}</span>
@@ -150,9 +150,9 @@ export function RevealBox({
     <div>
       <div className="hinge" aria-live="polite">
         {open ? (
-          <div className="under-leaf rounded-[3px] p-3">{children}</div>
+          <div className="under-leaf p-3">{children}</div>
         ) : (
-          <div className="under-leaf flex min-h-[56px] items-center gap-3 rounded-[3px] p-3">
+          <div className="under-leaf flex min-h-[56px] items-center gap-3 p-3">
             <span aria-hidden className="machine text-ink2">▓▓▓</span>
             <span className="text-[14px] text-ink2">已遮住，先自己想</span>
           </div>
@@ -197,7 +197,7 @@ export function Timer({
   const ss = String(sec % 60).padStart(2, '0');
   return (
     <div className={`flex items-center gap-3 ${className}`}>
-      <span className="machine rounded-[3px] border border-rule bg-under px-3 py-2 text-[15px] tabular-nums text-ink" aria-live="off">
+      <span className="machine border border-rule bg-under px-3 py-2 text-[15px] tabular-nums text-ink" aria-live="off">
         {mm}:{ss}
       </span>
       <Btn onClick={() => setRun((v) => !v)} variant={run ? 'primary' : 'ghost'} ariaLabel={run ? '停止计时' : '开始计时'}>
@@ -237,8 +237,8 @@ export function Bar({
   return (
     <div className="flex items-center gap-3">
       <span className="w-24 shrink-0 text-[13px] text-ink2 sm:w-32">{label}</span>
-      <span className="h-5 flex-1 rounded-[2px] border border-rule bg-under" aria-hidden>
-        <span className="hinge block h-full rounded-[1px]" style={{ width: `${pct}%`, background: hue ?? '#17140E' }} />
+      <span className="h-5 flex-1 border border-rule bg-under" aria-hidden>
+        <span className="hinge block h-full" style={{ width: `${pct}%`, background: hue ?? '#111111' }} />
       </span>
       <span className="machine w-16 shrink-0 text-right text-[13px] text-ink">
         {value}
@@ -248,7 +248,7 @@ export function Bar({
   );
 }
 
-/** 打孔进度点列：done 实心 / active 半环 / todo 空（配 sr 文字） */
+/** 方块进度点列：done 实心 / active 半环 / todo 空（配 sr 文字） */
 export function PunchRow({ total, done, active }: { total: number; done: number; active?: number }) {
   return (
     <ul className="flex items-center gap-2" aria-label={`共 ${total} 步，已完成 ${done} 步`}>
@@ -268,7 +268,7 @@ export function Verdict({ ok, children }: { ok: boolean; children?: React.ReactN
   return (
     <p className={`hinge flex items-start gap-2 text-[14px] ${ok ? 'text-ink' : 'text-errata'}`} role="status">
       <span
-        className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 ${ok ? 'border-ink' : 'border-errata'}`}
+        className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center border-2 ${ok ? 'border-ink' : 'border-errata'}`}
         aria-hidden
       >
         {ok ? <Check size={12} strokeWidth={3.5} /> : <X size={12} strokeWidth={3.5} />}
@@ -282,8 +282,8 @@ export function Verdict({ ok, children }: { ok: boolean; children?: React.ReactN
 export function Token({ children, hue, className = '' }: { children: React.ReactNode; hue?: string; className?: string }) {
   return (
     <span
-      className={`inline-flex min-h-[36px] items-center rounded-[3px] border border-ink/30 px-2.5 py-1 ${className}`}
-      style={hue ? { background: hue, borderColor: hue, color: '#F4F1E7' } : { background: '#FBF9F2' }}
+      className={`inline-flex min-h-[36px] items-center border border-ink/30 px-2.5 py-1 ${className}`}
+      style={hue ? { background: hue, borderColor: hue, color: '#FFFFFF' } : { background: '#FFFFFF' }}
     >
       {children}
     </span>

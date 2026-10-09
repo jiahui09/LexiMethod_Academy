@@ -4,17 +4,18 @@
 
 /* ============================================================
    LexiMethod Academy — 设计系统基站
-   骨白纸地（辞书版式全站地面）——阶段三：全站单一纸面，深色层已清零
+   瑞士国际主义（International Typographic Style）白纸地：
+   全出血版心、方角、发丝线、黑白灰 + 信号红，卡板色只作点缀。
    ============================================================ */
 
 :root {
-  /* 压膜活页手册 */
-  --milk: #f4f1e7;
-  --leaf: #fbf9f2;
-  --under: #ede8da;
-  --rule: #cfc7b2;
-  --ink: #17140e;
-  --ink2: #57503f;
+  /* 瑞士国际主义 */
+  --milk: #ffffff;
+  --leaf: #ffffff;
+  --under: #f1f1f1;
+  --rule: #d9d9d9;
+  --ink: #111111;
+  --ink2: #555555;
   --focus: #2a4bd7;
   --errata: #e34234;
 }
@@ -32,15 +33,15 @@ body {
   font-family: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', SimSun, Georgia, serif;
   font-size: 17px;
   line-height: 1.8;
-  /* 全站地面：牛奶压膜地（压膜活页手册世界） */
+  /* 全站地面：白纸 */
   background: var(--milk);
   min-height: 100vh;
   overflow-x: hidden;
 }
 
 ::selection {
-  background: rgba(42, 75, 215, 0.16);
-  color: var(--ink);
+  background: var(--ink);
+  color: var(--milk);
 }
 
 /* ---------------- 滚动条 ---------------- */
@@ -53,34 +54,24 @@ body {
 }
 ::-webkit-scrollbar-thumb {
   background: var(--rule);
-  border-radius: 999px;
+  border-radius: 0;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #b9b09a;
+  background: #9a9a9a;
 }
 
 /* ---------------- 可访问性 ---------------- */
 :focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 3px;
-  border-radius: 8px;
 }
 
-/* 壳件（书眉 / 书口 / 页脚）走世界焦点环 2px offset 2px */
+/* 壳件（报头 / 页脚 / 导览）走世界焦点环 2px offset 2px；
+   环形跟随元素自身方角，不再统一圆角 */
 .paper-chrome:focus-visible,
 .paper-chrome :focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 2px;
-  border-radius: 2px;
-}
-
-/* 纸面壳件（书眉 / 页脚 / 引导条 / 底导 / 降级页）走纸面焦点环；
-   全站已统一纸面，全局焦点环 = 结构蓝 */
-.paper-chrome:focus-visible,
-.paper-chrome :focus-visible {
-  outline: 2px solid #1e4b7a;
-  outline-offset: 2px;
-  border-radius: 2px;
 }
 
 .sr-only {
@@ -125,19 +116,11 @@ body {
   letter-spacing: 0.01em;
 }
 
-/* 页面容器最大宽度 */
+/* 页面容器：真·全出血——无 max-width，边距随窗口比例放大 */
 .container-page {
   width: 100%;
-  max-width: 1240px;
-  margin: 0 auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-@media (min-width: 768px) {
-  .container-page {
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
+  padding-left: max(16px, 3.5vw);
+  padding-right: max(16px, 3.5vw);
 }
 
 /* ---------------- 减少动态 ---------------- */
@@ -159,40 +142,42 @@ html[data-motion='off'] *::after {
   transition: none !important;
 }
 /* ============================================================
-   压膜活页手册（Acetate Manual）—— 当前世界工具层
-   牛奶压膜地、叶子分层、卡板色带、打孔与页角、铰链步进。
-   旧辞书版式样式（.edu-*）保留在下方，随页面重建清理。
+   瑞士国际主义 —— 当前世界工具层
+   白纸地、灰面板、发丝线、方角、编号刻度、铰链步进。
    ============================================================ */
 
-/* 顶层透明页：当前阅读面（唯一可有短硬影的层） */
+/* 阅读面：与地同白，靠发丝线分层（瑞士平面不靠底色分层） */
 @layer components {
   .leaf {
     background: var(--leaf);
     border: 1px solid var(--rule);
-    border-radius: 4px;
+    border-radius: 0;
   }
   .leaf-active {
-    /* 顶层页切边短硬影：单边、无模糊（世界唯一投影） */
-    box-shadow: 4px 0 0 rgba(23, 20, 14, 0.1);
+    /* 活动页：发丝线换实黑线，零投影（瑞士世界靠线宽分层） */
+    border-color: var(--ink);
   }
   .under-leaf {
     background: var(--under);
     border: 1px solid var(--rule);
-    border-radius: 4px;
+    border-radius: 0;
   }
 }
 
-/* 机器嗓音：课号 / 步数 / 计时 / 题号 / IPA 一律等宽 */
-.machine {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  line-height: 1.6;
-  font-variant-numeric: tabular-nums;
+/* 机器嗓音：课号 / 步数 / 计时 / 题号 / IPA 一律等宽（数据，不是装饰）
+   放进 components 层：字号只作缺省值，utilities 层的 text-[Npx] 可以盖过它 */
+@layer components {
+  .machine {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    line-height: 1.6;
+    font-variant-numeric: tabular-nums;
+  }
 }
 
-/* 铰链步进：状态切换唯一过渡（90ms 两帧，铰在打孔边；无淡入） */
+/* 铰链步进：状态切换唯一过渡（90ms 两帧硬切；无淡入） */
 .hinge {
   transition:
     transform 90ms steps(2),
@@ -201,16 +186,16 @@ html[data-motion='off'] *::after {
     color 90ms steps(2);
 }
 
-/* 卡板章节带：满强度段色带 + 下缘 3px 深一档 */
+/* 卡板章节带：瑞士世界降级——只剩下缘 3px 段色细条 */
 .board-band {
   border-bottom: 3px solid rgba(23, 20, 14, 0.28);
 }
 
-/* 打孔点：空孔未到 / 实心完成 / 半环进行中（状态永远配文字或形状） */
+/* 刻度方块：空未到 / 实心完成 / 半格进行中（状态永远配文字或形状） */
 .punch {
   width: 12px;
   height: 12px;
-  border-radius: 999px;
+  border-radius: 0;
   border: 2px solid var(--rule);
   flex: none;
 }
@@ -237,10 +222,10 @@ html[data-motion='off'] *::after {
 }
 
 /* ============================================================
-   手册输入与滚动（压膜活页手册）
+   输入与滚动（瑞士国际主义）
    ============================================================ */
 
-/* 窄滚动条（书口阶梯轨等内滚区） */
+/* 窄滚动条（步位条等内滚区） */
 .edu-scroll {
   scrollbar-width: thin;
   scrollbar-color: var(--rule) transparent;
@@ -254,19 +239,19 @@ html[data-motion='off'] *::after {
 }
 .edu-scroll::-webkit-scrollbar-thumb {
   background: var(--rule);
-  border-radius: 999px;
+  border-radius: 0;
 }
 .edu-scroll::-webkit-scrollbar-thumb:hover {
-  background: #b9b09a;
+  background: #9a9a9a;
 }
 
-/* 手册输入线：像表格里的填写线（焦点环由全局 :focus-visible 给） */
+/* 表格填写线：1px 实黑、方角（焦点环由全局 :focus-visible 给） */
 @layer components {
   .edu-input {
     width: 100%;
     min-height: 44px;
-    border: 1px solid rgba(23, 20, 14, 0.45);
-    border-radius: 3px;
+    border: 1px solid var(--ink);
+    border-radius: 0;
     background: var(--leaf);
     color: var(--ink);
     caret-color: var(--ink);
@@ -279,6 +264,30 @@ html[data-motion='off'] *::after {
     color: #6f685a;
   }
   .edu-input:hover {
-    border-color: var(--ink);
+    background: var(--under);
   }
+}
+
+/* 瑞士滑杆：方块滑钮，无圆角无辉光（原生 range 造型收敛） */
+input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  background: var(--rule);
+  border: 0;
+}
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  background: var(--ink);
+  border: 0;
+  border-radius: 0;
+}
+input[type='range']::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  background: var(--ink);
+  border: 0;
+  border-radius: 0;
 }

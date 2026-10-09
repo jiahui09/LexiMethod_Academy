@@ -13,7 +13,7 @@ type State = {
   exitResults: Record<string, { score: number; total: number }>;
 };
 
-/** 课的收口判定，与书口阶梯轨同口径：出门条已交或六单元全勾 */
+/** 课的收口判定，与右缘索引轨同口径：出门条已交或六单元全勾 */
 function isCourseDone(c: Course, s: State): boolean {
   return s.exitResults[c.id] != null || (s.completedUnits[c.id]?.length ?? 0) >= c.units.length;
 }
@@ -47,8 +47,8 @@ const stageRange = (list: Course[]) => {
 };
 
 /**
- * 手册总目（压膜活页手册）：第一屏就是目录文档本身。
- * 四段路径按卡板色分章，每课一行叶行；状态打孔三重编码（形状 + 颜色 + 文字）。
+ * 课程总目（瑞士排印世界）：第一屏就是目录文档本身。
+ * 四段路径按段色细条分章，每课一行；状态三重编码（形状 + 颜色 + 文字）。
  */
 export default function MethodList() {
   const completedUnits = useProgress((s) => s.completedUnits);
@@ -78,9 +78,9 @@ export default function MethodList() {
       <EduRunningHead
         left={
           <nav aria-label="面包屑" className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1">
-            <span className="font-display font-bold text-ink">词汇方法手册</span>
+            <span className="font-display font-bold text-ink">英语词汇方法课</span>
             <span aria-hidden className="h-3 w-px bg-rule" />
-            <span aria-current="page">手册总目</span>
+            <span aria-current="page">课程总目</span>
           </nav>
         }
         right={
@@ -91,13 +91,13 @@ export default function MethodList() {
       />
 
       <div className="px-5 py-6 md:px-8 md:py-8">
-        {/* 卷首题名：文档本身即第一屏 */}
+        {/* 首屏题名：文档本身即第一屏 */}
         <header className="border-b border-rule pb-5">
           <p className="machine text-[12px] text-ink2">
             8 门课 · 48 单元 · 约 {totalMin} 分钟
           </p>
           <h1 className="mt-1.5 font-display text-[26px] font-extrabold leading-tight text-ink md:text-[32px]">
-            手册总目
+            课程总目
           </h1>
           <p className="mt-2 max-w-[68ch] text-[15px] leading-[1.85] text-ink2">
             八门课沿一条路径排开。每门课先做开场诊断，再走五到六个短单元，最后交一张出门条，学完即收口。
@@ -110,7 +110,7 @@ export default function MethodList() {
             to={primaryTo}
             onClick={() => playSfx('click')}
             data-testid="intro-next"
-            className="inline-flex min-h-[44px] items-center gap-2 rounded-[3px] bg-ink px-5 py-2.5 font-display text-sm font-bold text-milk transition-colors hover:bg-ink2 active:translate-y-px"
+            className="inline-flex min-h-[44px] items-center gap-2 bg-ink px-5 py-2.5 font-display text-sm font-bold text-milk transition-colors hover:bg-ink2 active:translate-y-px"
           >
             {primaryLabel(nextCourse, target)} <ArrowRight size={15} aria-hidden />
           </Link>
@@ -126,26 +126,29 @@ export default function MethodList() {
           </p>
         </div>
 
-        {/* 四段路径分章卡板带 + 叶行目录 */}
+        {/* 四段路径分章带（段色细条点缀）+ 课程行 */}
         {grouped.map(({ stage, list }) => {
           const meta = STAGE_META[stage];
           const stageMin = list.reduce((a, c) => a + c.durationMin, 0);
           return (
             <section key={stage} aria-label={`${meta.label}段课程`} className="mt-8">
-              {/* 卡板章节带：满强度段色 + 下缘 3px 深一档 */}
+              {/* 分章带：白底墨字，段色只上左侧方片与下缘 3px 细条；章题必须压过行题 */}
               <div
-                className={`${meta.bg} flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 rounded-t-[4px] px-4 py-2.5`}
+                className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 bg-leaf px-4 py-3"
                 style={{ borderBottom: `3px solid ${deepen(meta.hue)}` }}
               >
-                <h2 className={`font-display text-[17px] font-extrabold ${meta.onBand}`}>
-                  {meta.label}
-                </h2>
-                <p className={`machine ${meta.onBand} opacity-90`}>
+                <span className="flex items-baseline gap-2.5">
+                  <span aria-hidden className="h-3 w-3 translate-y-px" style={{ background: meta.hue }} />
+                  <h2 className="font-display text-2xl font-extrabold leading-none text-ink">
+                    {meta.label}
+                  </h2>
+                </span>
+                <p className="machine text-ink2">
                   {stageRange(list)} · {stageMin} 分钟
                 </p>
               </div>
 
-              <ol className="rounded-b-[4px] border border-t-0 border-rule bg-leaf">
+              <ol className="border border-t-0 border-rule bg-leaf">
                 {list.map((c) => {
                   const done = isCourseDone(c, state);
                   const started =
@@ -171,7 +174,7 @@ export default function MethodList() {
                             {c.title}
                           </h3>
                           {c.optional && (
-                            <span className="rounded-[2px] border border-ink/40 px-1.5 py-0.5 text-[12px] text-ink2">
+                            <span className=" border border-ink/40 px-1.5 py-0.5 text-[12px] text-ink2">
                               可跳过
                             </span>
                           )}

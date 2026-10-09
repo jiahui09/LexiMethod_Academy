@@ -54,7 +54,7 @@ export default function DictationTrainer() {
               setMode(m.key);
               setSeed((s) => s + 1);
             }}
-            className={`rounded-[4px] border p-4 text-left transition-colors duration-200 ${
+            className={` border p-4 text-left transition-colors duration-200 ${
               mode === m.key ? 'border-ink bg-ink' : 'border-rule bg-under/50 hover:border-ink'
             }`}
             aria-pressed={mode === m.key}
@@ -69,7 +69,7 @@ export default function DictationTrainer() {
       </div>
 
       {/* 控制条 */}
-      <div className="flex flex-wrap items-center gap-3 rounded-[4px] border border-rule bg-under/60 px-4 py-3">
+      <div className="flex flex-wrap items-center gap-3 border border-rule bg-under/60 px-4 py-3">
         <span className="flex items-center gap-1.5 text-xs text-ink2">
           <Timer size={13} aria-hidden /> 题量
         </span>
@@ -82,7 +82,7 @@ export default function DictationTrainer() {
               setCount(n);
               setSeed((s) => s + 1);
             }}
-            className={`min-h-[44px] rounded-[4px] border px-3 py-1 text-xs transition-colors duration-200 ${
+            className={`min-h-[44px] border px-3 py-1 text-xs transition-colors duration-200 ${
               count === n ? 'border-ink bg-ink text-milk' : 'border-rule text-ink2 hover:border-ink hover:text-ink'
             }`}
             aria-pressed={count === n}
@@ -98,7 +98,7 @@ export default function DictationTrainer() {
             setOnlyTag(null);
             setSeed((s) => s + 1);
           }}
-          className={`min-h-[44px] rounded-[4px] border px-3 py-1 text-xs transition-colors duration-200 ${
+          className={`min-h-[44px] border px-3 py-1 text-xs transition-colors duration-200 ${
             !onlyTag ? 'border-ink bg-ink text-milk' : 'border-rule text-ink2 hover:border-ink hover:text-ink'
           }`}
           aria-pressed={!onlyTag}
@@ -114,7 +114,7 @@ export default function DictationTrainer() {
               setOnlyTag(t);
               setSeed((s) => s + 1);
             }}
-            className={`min-h-[44px] rounded-[4px] border px-3 py-1 text-xs transition-colors duration-200 ${
+            className={`min-h-[44px] border px-3 py-1 text-xs transition-colors duration-200 ${
               onlyTag === t ? 'border-ink bg-ink text-milk' : 'border-rule text-ink2 hover:border-ink hover:text-ink'
             }`}
             aria-pressed={onlyTag === t}
@@ -145,7 +145,7 @@ export default function DictationTrainer() {
 
       {/* 统计与错题 */}
       <div className="grid gap-3 md:grid-cols-2">
-        <div className="rounded-[4px] border border-rule bg-under/60 p-4">
+        <div className=" border border-rule bg-under/60 p-4">
           <div className="mb-1 flex items-center gap-2 text-xs font-semibold text-ink">
             <Info size={13} aria-hidden /> 训练要点
           </div>
@@ -156,7 +156,7 @@ export default function DictationTrainer() {
             <li>· 错题会自动排期，按 1/3/7/14/30 天间隔重现。</li>
           </ul>
         </div>
-        <div className="rounded-[4px] border border-rule bg-under/60 p-4">
+        <div className=" border border-rule bg-under/60 p-4">
           <div
             className={`mb-2 flex items-center gap-2 text-xs font-semibold ${
               listenMistakes.length > 0 ? 'text-errata-deep' : 'text-ink2'
@@ -167,7 +167,7 @@ export default function DictationTrainer() {
           <div className="flex max-h-40 flex-col gap-1.5 overflow-y-auto pr-1">
             {listenMistakes.length === 0 && <p className="text-xs text-ink2">暂无错题，继续保持。</p>}
             {listenMistakes.slice(0, 8).map((m) => (
-              <div key={m.id} className="flex flex-wrap items-center gap-2 rounded-[4px] border border-rule px-3 py-2 text-xs">
+              <div key={m.id} className="flex flex-wrap items-center gap-2 border border-rule px-3 py-2 text-xs">
                 <span className="text-ink2">{m.prompt.slice(0, 26)}</span>
                 <span className="ipa text-errata-deep">你的答案 {m.given || '（空）'}</span>
                 <span className="ipa font-semibold text-ink">标准答案 {m.answer}</span>

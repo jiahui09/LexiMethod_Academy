@@ -10,7 +10,7 @@ import puppeteer from 'puppeteer-core';
 const BASE = process.env.LEXI_BASE || 'http://127.0.0.1:5173';
 const ROUTES = [
   ['/', 'LexiMethod'],
-  ['/methods', '手册总目'],
+  ['/methods', '课程总目'],
   ['/methods/phonics-syllables', '自然拼读法'],
   ['/lab/phonemes', '音标实验室'],
   ['/lab/mapping', '音标拼写对应'],

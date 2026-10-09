@@ -22,7 +22,7 @@ const TIMEOUT = Number(process.env.SMOKE_TIMEOUT ?? 20000);
 /** 路由与预期正文（任一命中即过） */
 const ROUTES = [
   ['/', ['LexiMethod']],
-  ['/methods', ['手册总目']],
+  ['/methods', ['课程总目']],
   ['/methods/phonics-syllables', ['自然拼读法']],
   ['/lab/phonemes', ['音标实验室']],
   ['/lab/mapping', ['音标拼写对应']],

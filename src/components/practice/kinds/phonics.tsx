@@ -56,7 +56,7 @@ const VowelCore: KindComp = ({ onDone }) => {
               aria-pressed={on}
               aria-label={`${c}${on ? '，已圈为核心' : ''}`}
               onClick={() => setPicked((p) => (on ? p.filter((x) => x !== i) : [...p, i]))}
-              className={`hinge machine flex min-h-[44px] min-w-[44px] items-center justify-center rounded-[3px] border-2 px-2 text-[16px] font-bold ${
+              className={`hinge machine flex min-h-[44px] min-w-[44px] items-center justify-center border-2 px-2 text-[16px] font-bold ${
                 on ? 'border-ink bg-ink text-milk' : 'border-ink/30 bg-leaf hover:bg-under'
               }`}
             >
@@ -119,17 +119,17 @@ const SyllableSplit: KindComp = ({ onDone }) => {
   if (wi >= SS_WORDS.length) return <Verdict ok>两个词都切完，后一节都能起音</Verdict>;
   return (
     <div>
-      <div className="under-leaf mb-3 flex flex-wrap items-center gap-3 rounded-[3px] p-3">
+      <div className="under-leaf mb-3 flex flex-wrap items-center gap-3 p-3">
         <span className="machine text-[17px] font-bold">{w.word}</span>
         <span className="machine text-[13px] text-ink2">切 {w.answer.length} 块</span>
         <span className="machine ml-auto text-[13px] text-ink2">
           第 {wi + 1}/{SS_WORDS.length} 词
         </span>
       </div>
-      <div className="mb-3 flex min-h-[52px] flex-wrap items-center gap-1.5 rounded-[3px] border-2 border-dashed border-ink/30 p-2">
+      <div className="mb-3 flex min-h-[52px] flex-wrap items-center gap-1.5 border-2 border-dashed border-ink/30 p-2">
         {slot.length === 0 && <span className="px-1 text-[13px] text-ink2">点下方音块，按顺序放进槽位</span>}
         {slot.map((b, i) => (
-          <span key={b} className="machine rounded-[3px] bg-ink px-2 py-1.5 text-[16px] text-milk">
+          <span key={b} className="machine bg-ink px-2 py-1.5 text-[16px] text-milk">
             {b}
             {i > 0 && <span aria-hidden className="ml-1 opacity-60">·</span>}
           </span>
@@ -142,7 +142,7 @@ const SyllableSplit: KindComp = ({ onDone }) => {
             type="button"
             disabled={slot.includes(b)}
             onClick={() => put(b)}
-            className="hinge machine min-h-[44px] rounded-[3px] border border-ink/40 bg-leaf px-3 text-[16px] font-bold hover:bg-under disabled:opacity-30"
+            className="hinge machine min-h-[44px] border border-ink/40 bg-leaf px-3 text-[16px] font-bold hover:bg-under disabled:opacity-30"
           >
             {b}
           </button>
@@ -191,7 +191,7 @@ const StressPosition: KindComp = ({ onDone }) => {
   if (wi >= SP_WORDS.length) return <Verdict ok>两个词点对，线索也说得出</Verdict>;
   return (
     <div>
-      <div className="under-leaf mb-3 flex flex-wrap items-center gap-3 rounded-[3px] p-3">
+      <div className="under-leaf mb-3 flex flex-wrap items-center gap-3 p-3">
         <span className="machine text-[17px] font-bold">{w.word}</span>
         <SpeakButton text={w.word} size="sm" label={`听 ${w.word}`} />
         <span className="machine ml-auto text-[13px] text-ink2">
@@ -206,7 +206,7 @@ const StressPosition: KindComp = ({ onDone }) => {
             aria-pressed={picked === i}
             aria-label={`${p}${picked === i ? '，已点为重读' : ''}`}
             onClick={() => setPicked(i)}
-            className={`hinge machine min-h-[44px] rounded-[3px] border px-3 text-[16px] font-bold ${
+            className={`hinge machine min-h-[44px] border px-3 text-[16px] font-bold ${
               picked === i ? 'border-ink bg-ink text-milk' : 'border-ink/30 bg-leaf hover:bg-under'
             }`}
           >
@@ -309,7 +309,7 @@ const AlgorithmRun: KindComp = ({ onDone }) => {
   };
   return (
     <div>
-      <div className="under-leaf mb-3 flex flex-wrap items-center gap-3 rounded-[3px] p-3">
+      <div className="under-leaf mb-3 flex flex-wrap items-center gap-3 p-3">
         <span className="machine text-[17px] font-bold">{w.word}</span>
         <SpeakButton text={w.word} size="sm" label={`读出声 ${w.word}`} />
         <Timer className="ml-auto" />
@@ -347,7 +347,7 @@ const AlgorithmRun: KindComp = ({ onDone }) => {
               type="button"
               aria-pressed={stress === i}
               onClick={() => setStress(i)}
-              className={`hinge machine min-h-[44px] rounded-[3px] border px-3 text-[16px] font-bold ${
+              className={`hinge machine min-h-[44px] border px-3 text-[16px] font-bold ${
                 stress === i ? 'border-ink bg-ink text-milk' : 'border-ink/30 bg-leaf hover:bg-under'
               }`}
             >

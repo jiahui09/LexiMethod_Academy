@@ -1,48 +1,49 @@
-# 教程面（课程步进 + 音标实验室）
+# 全站（目录 + 课程步进 + 音标实验室 + 设置 + 壳）
 
 ## Scope and visitor mode
 
-- 范围：`/methods` 路由族（8 门方法课 × 9 步结构）与 `/phonics` 音标实验室三 tab。导航壳、Home 方法地图、其他路由**不在本轮**——壳维持既有深色世界，标记为阶段二迁移。
-- Mode：read（comprehension 与 wayfinding 恒在，世界拥有框架，阅读栏恒静）。
+- 范围：**全站所有界面**——`/methods` 路由族（8 门方法课 × 9 步结构）、`/lab` 三 tab、`/settings`、404、导航壳与页脚。上一世界（压膜活页手册，seed `9f19875c`）整体作反参考推翻。
+- Mode：read（comprehension 与 wayfinding 恒在；世界拥框——报头、导轨、地面、章节开启、表格与提示的排法，阅读栏恒静，65–75ch，正文背后无表演）。
 
 ## Audience, job, action, proof, constraints
 
 - 受众：中文环境的英语学习者，自习场景随开随用。
 - Job：读懂背词方法并当场练会。
-- Action/task：步进推进（「下一步」「完成本课」）；实验室三 tab 内的听音、辨音、拼写练习。
+- Action/task：步进推进（「下一步」「完成本课」）；实验室三 tab 内的听音、辨音、拼写练习；目录开课。
 - Proof/content：9 步结构的分步讲解、口型/音节/拆词交互动画、926 词 + 48 音素离线发音。
-- Constraints：底线审计 A/B/C/D = 0（对比度 ≥4.5:1、字号 ≥12px、触控 ≥44×44、单 h1、零重复 id）；零登录零存储零外部请求；全部 testid（`course-step`/`finish-course`/`next-step-bar`/`data-step-inc`/`intro-next`/`progress-panel`/`data-method-row`/`bottom-nav`/`hero-resume`/`zero-storage-note`/面包屑 nav/48×`选择音标`/「完成本课」）与朗读接线原样保留；内容型动画（口型、音节块、gsap 拼装、词根树）保留并重做视觉。
+- Constraints：**真·全出血版心**——`.container-page` 不设 max-width，边距随窗口走；段落行长仍 65–75ch，版块（网格/表格/卡板）铺满可用宽。**圆角归零**（全站方角）。**卡板四段色降为点缀**（编号方片、细条、页签、答题状态），大面积只有黑/白/灰/信号红。底线审计 A/B/C/D = 0（对比度 ≥4.5:1、字号 ≥12px、触控 ≥44×44、单 h1、零重复 id）；零登录零存储零外部请求（CDN 仅字体）；全部 testid 与朗读接线原样保留；内容型动画（口型、音节块、拼装、词根树）保留并重做视觉。
 
 ## Chosen direction and memorable moment
 
-- 选定：**辞书版式**（THE ROLL，七候选序位 4，seed `a6e5a7dd`，code-led，决策页锁定）。
-- Memorable moment：词头朗读时被批注红章盖下，装订线（页边进度绳）推进一格义项——像用红笔在词典上做了记号。
+- 选定：**瑞士国际主义（International Typographic Style）**——用户在方向轮外亲点的固定方向（user-pinned，不掷 seed；辞书版式与压膜活页手册两轮旧世界均作反参考），code-led，无 comp。
+- Memorable moment：大屏打开课程页，版心铺满整个窗口，编号导轨的巨号 Helvetica 步位与黑块当前标一齐左压下来——像在看一版排好的《新方向》海报，而不是一根中间的竖棍。
 
 ## Direction contract
 
 ### THESIS
 
-把方法课排成一部双解词典：方法是词目，步骤是义项，演示是例句，误区是辨析。拒绝的品类默认是「白底卡片网格 + 渐变 hero + 进度环」的网课站与翻转词卡流——本站不做课程货架，做一部可读可练的书。
+全站排成一版瑞士国际主义海报：网格即秩序，字体即层级，颜色只做路标。拒绝的品类默认是纸物拟态（书口贴、打孔、掀角的活页书）与网课站的卡片货架——本站不做手工书，也不做课程货架，做一台排版机。
 
 ### OWN-WORLD
 
-骨白纸 `#F7F2E8` 满地，墨 `#16130F` 承文，结构蓝 `#1E4B7A` 只上书眉、导轨与链接，批注红 `#B3311E` 是唯一功能色（朗读/重读/当前）。发丝线 `#D8CFBC` 划栏。系统衬线（Georgia/Times）只给英文词头，中文正文系统无衬线 16px/1.75。组件族：书眉 running head、义项导轨、词条装置块（词头+IPA+朗读钮）、栏外边注 apparatus、页脚刻线导览、辨析警示框——无玻璃、无辉光、无渐变。
+白纸 `#FFFFFF` 满地全出血，黑 `#111111` 承字，灰面板 `#F1F1F1` 分层，发丝 `#D9D9D9` 划界；信号红 `#E34234` / `#C1301A` 做勘误与强调。四段路径色（铬黄/群青/青/草绿/紫罗兰）降为点缀：编号方片、3–4px 细条、页签、答题对错状态，绝不再做整幅色带。标题与界面走 Helvetica 系无衬线（Inter 兜底）粗体齐左、行距紧、字距 -0.025em；中文正文衬线 17px/1.8、65–75ch。组件族：满宽报头（字标 + 导航 + 1px 黑下线）、编号导轨（01–09 大数字，当前黑底白字）、灰面板边注、平底方角按钮、红勘误条、横向刻度步位——零圆角、零阴影堆叠、零渐变、零图标 emoji。
 
 ### STORY
 
-学习者像翻学生词典那样读课：书眉告诉他在第几义项，导轨随时跳步，词条块把音形义立起来，栏外是老师的批注；每个方法读完，立刻在实验室三个分卷里验收听辨拼。读的时候知道「我在哪、这在教什么、下一步去哪」。
+学习者打开的是一版排好的版面：报头黑线之下，网格告诉他哪儿是哪儿；巨号步位数字告诉他身在第几步；色小片告诉他属于哪一段路径。正文一行行读过去，点了「下一步」，版面推进一格，依旧齐左、干净，没有东西在文字背后表演；到了实验室，同一版式换上密排的练习格。
 
 ### FIRST VIEWPORT
 
-课程步页首屏：顶栏满宽书眉（课名 · 步序 n/9 · 刻线进度）；左 2/12 义项导轨（编号 01–09，当前项红批标记 + 纹样，装订线贯穿）；中 7/12 阅读栏（步题作词目行：加粗英文词头 + IPA + 朗读钮，下接中文散文讲解，60–75 字符/行，上方留白大于下方）；右 3/12 栏外边注（术语、出处、提示）；页脚刻线导览（上一步/下一步）。实验室首屏同构：书眉换成三 tab 分卷，导轨换 48 音素索引，主栏是音标词条页。签名交互：义项导轨即装订线，朗读时词头盖红批章。
+1440–1920 全出血：顶栏满宽（字标 · 导航 · 1px 黑下线）；左 136px 编号导轨（Helvetica 巨号 01–09，当前项黑块反白）；中栏阅读区（步题大号粗体齐左，下接中文衬线正文 68ch，上留白大于下）；右 240px 灰面板 apparatus（术语、深链、词表）。版心无上限，网格与表格随窗口铺满；移动端导轨退为顶部横滚刻度条。签名交互：步进时导轨黑块 90ms `steps(2)` 瞬移到下一位，段位色小片随段切换。
 
 ### FORM
 
-辞书版式——用户七候选序位 4，经 direction 掷向领队（THE ROLL，seed `a6e5a7dd`），code-led，无 comp；野心全在 FIRST VIEWPORT 与签名交互上。
+瑞士国际主义——用户固定方向（user-pinned，前轮 `9f19875c` 压膜世界作反参考），code-led，无 comp；野心全在 FIRST VIEWPORT 与签名交互上。
 
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance.
 
 ## Unresolved decisions
 
-- 导航壳 / Home / 其余路由仍为遗留深色世界（Backdrop/ParticleField 在范围内路由静音），阶段二迁移。
-- DESIGN.md 与 `.impeccable/design.json` 由 documenter 在 finish 阶段基于已建成世界替换，不在构建前预写。
+- 无 comp 轮；首屏与签名交互的承诺由 finish reviewer 对照本契约审计。
+- DESIGN.md 与 `.impeccable/design.json` 由 documenter 在 finish 阶段基于已建成世界整体替换（旧压膜叙述与 14 色 tonalRamps、leaf-edge 阴影、书口/打孔组件全部作废），不在构建前预写。
+- 旧世界签名件（ForeEdge 书口贴、PunchedDot 打孔、HingeCorner 掀角）保留结构与 aria，视觉改为瑞士语言（方角、编号、色细条）。

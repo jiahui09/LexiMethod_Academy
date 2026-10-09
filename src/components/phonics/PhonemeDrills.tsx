@@ -67,7 +67,7 @@ export function MinimalPairJudge({ phoneme }: { phoneme: Phoneme }) {
   };
 
   return (
-    <div className="rounded-[4px] border border-rule bg-under/60 p-4">
+    <div className=" border border-rule bg-under/60 p-4">
       <div className="mb-3 flex items-center justify-between gap-2">
         <span className="flex items-center gap-1.5 text-xs font-semibold text-ink">
           <Ear size={13} aria-hidden /> 最小对立对，听清哪一个
@@ -86,7 +86,7 @@ export function MinimalPairJudge({ phoneme }: { phoneme: Phoneme }) {
               type="button"
               onClick={() => choose(side)}
               disabled={Boolean(chosen)}
-              className={`rounded-[4px] border px-4 py-3 text-left transition-colors duration-200 ${
+              className={` border px-4 py-3 text-left transition-colors duration-200 ${
                 isRight
                   ? 'border-ink bg-leaf font-semibold text-ink'
                   : isWrong
@@ -143,7 +143,7 @@ export function ListenChooseDrill({ phoneme }: { phoneme: Phoneme }) {
   const ok = chosen === target.id;
 
   return (
-    <div className="rounded-[4px] border border-rule bg-under/60 p-4">
+    <div className=" border border-rule bg-under/60 p-4">
       <div className="mb-3 flex items-center justify-between gap-2">
         <span className="flex items-center gap-1.5 text-xs font-semibold text-ink">
           <Ear size={13} aria-hidden /> 听音选音标
@@ -177,7 +177,7 @@ export function ListenChooseDrill({ phoneme }: { phoneme: Phoneme }) {
                 recordAnswer('listenChoosePhoneme', good);
                 schedule('phoneme', o.id, `${o.symbol} 听音辨认`, good);
               }}
-              className={`rounded-[4px] border px-3 py-3 transition-colors duration-200 ${
+              className={` border px-3 py-3 transition-colors duration-200 ${
                 right
                   ? 'border-ink bg-leaf font-semibold text-ink'
                   : chosenThis
@@ -227,7 +227,7 @@ export function MouthGuessDrill({ phoneme }: { phoneme: Phoneme }) {
   const ok = chosen === target.id;
 
   return (
-    <div className="rounded-[4px] border border-rule bg-under/60 p-4">
+    <div className=" border border-rule bg-under/60 p-4">
       <div className="mb-3 flex items-center justify-between gap-2">
         <span className="flex items-center gap-1.5 text-xs font-semibold text-ink">
           <Eye size={13} aria-hidden /> 看口型猜音标
@@ -236,7 +236,7 @@ export function MouthGuessDrill({ phoneme }: { phoneme: Phoneme }) {
           换一题
         </EduButton>
       </div>
-      <div className="mb-3 overflow-hidden rounded-[4px] border border-rule">
+      <div className="mb-3 overflow-hidden border border-rule">
         <MouthSideView geo={target.geo} voiced={target.voiced} showFront />
       </div>
       <div className="grid grid-cols-2 gap-2">
@@ -254,7 +254,7 @@ export function MouthGuessDrill({ phoneme }: { phoneme: Phoneme }) {
                 playSfx(good ? 'correct' : 'wrong');
                 recordAnswer('wordChoosePhoneme', good);
               }}
-              className={`ipa rounded-[4px] border px-3 py-3 text-base font-semibold transition-colors duration-200 ${
+              className={`ipa border px-3 py-3 text-base font-semibold transition-colors duration-200 ${
                 right
                   ? 'border-ink bg-leaf font-semibold text-ink'
                   : chosenThis
@@ -324,7 +324,7 @@ export function RecordCompare({ phoneme }: { phoneme: Phoneme }) {
   };
 
   return (
-    <div className="rounded-[4px] border border-rule bg-under/60 p-4">
+    <div className=" border border-rule bg-under/60 p-4">
       <div className="mb-3 flex items-center gap-1.5 text-xs font-semibold text-ink">
         <Mic size={13} aria-hidden /> 录音对比，先听原声再录自己
       </div>
@@ -348,7 +348,7 @@ export function RecordCompare({ phoneme }: { phoneme: Phoneme }) {
       </div>
 
       {state === 'unsupported' && (
-        <p className="mt-3 rounded-[4px] border border-errata/60 bg-leaf px-3 py-2 text-xs leading-relaxed text-ink2">
+        <p className="mt-3 border border-errata/60 bg-leaf px-3 py-2 text-xs leading-relaxed text-ink2">
           当前环境不支持麦克风，或权限被拒绝。降级路径是播放原声跟读 3 遍，再用「听音选音标」自测。
         </p>
       )}
@@ -363,7 +363,7 @@ export function RecordCompare({ phoneme }: { phoneme: Phoneme }) {
               setSelfOk(true);
               playSfx('correct');
             }}
-            className={`min-h-[44px] rounded-[3px] border px-3 py-1 transition-colors duration-200 ${
+            className={`min-h-[44px] border px-3 py-1 transition-colors duration-200 ${
               selfOk === true
                 ? 'border-ink bg-under text-ink'
                 : 'border-rule text-ink hover:border-ink'
@@ -377,7 +377,7 @@ export function RecordCompare({ phoneme }: { phoneme: Phoneme }) {
               setSelfOk(false);
               playSfx('wrong');
             }}
-            className={`min-h-[44px] rounded-[3px] border px-3 py-1 transition-colors duration-200 ${
+            className={`min-h-[44px] border px-3 py-1 transition-colors duration-200 ${
               selfOk === false
                 ? 'border-errata bg-errata/[0.08] text-errata-deep'
                 : 'border-rule text-ink hover:border-errata hover:text-errata-deep'

@@ -26,14 +26,14 @@ function DiagnosticReveal() {
               type="button"
               onClick={() => setOpen(i)}
               aria-expanded={open === i}
-              className={`hinge flex min-h-[44px] w-full items-center gap-3 rounded-[3px] border px-3 text-left ${
+              className={`hinge flex min-h-[44px] w-full items-center gap-3 border px-3 text-left ${
                 open === i ? 'border-ink bg-leaf' : 'border-ink/30 bg-leaf hover:bg-under'
               }`}
             >
               <span className="machine w-8 text-[14px] font-bold">{d.k}</span>
-              <span className="h-3 flex-1 rounded-[2px] border border-ink/30 bg-milk">
+              <span className="h-3 flex-1 border border-ink/30 bg-milk">
                 <span
-                  className="block h-full rounded-[2px]"
+                  className="block h-full"
                   style={{ width: `${d.score}%`, background: d.score < 60 ? '#E34234' : '#137574' }}
                 />
               </span>
@@ -70,12 +70,12 @@ function ChecklistFill() {
       <ul className="space-y-1.5">
         {items.map((it, i) => (
           <li key={it.id}>
-            <label className="flex min-h-[44px] cursor-pointer items-center gap-3 rounded-[3px] border border-ink/30 bg-leaf px-3 hover:bg-under">
+            <label className="flex min-h-[44px] cursor-pointer items-center gap-3 border border-ink/30 bg-leaf px-3 hover:bg-under">
               <input
                 type="checkbox"
                 checked={i < n}
                 onChange={() => setN((c) => (i < c ? c : c + 1))}
-                className="h-5 w-5 accent-[#17140E]"
+                className="h-5 w-5 accent-[#111111]"
                 aria-label={it.label}
               />
               <span className="flex-1 text-[14px]">{it.label}</span>
@@ -113,7 +113,7 @@ function SignalMatch() {
                 setOpen(true);
               }}
               aria-expanded={si === i && open}
-              className={`hinge flex min-h-[44px] w-full items-center gap-3 rounded-[3px] border px-3 text-left text-[14px] ${
+              className={`hinge flex min-h-[44px] w-full items-center gap-3 border px-3 text-left text-[14px] ${
                 si === i && open ? 'border-ink bg-leaf' : 'border-ink/30 bg-leaf hover:bg-under'
               }`}
             >
@@ -121,7 +121,7 @@ function SignalMatch() {
               <span className="font-bold">{r.signal}</span>
             </button>
             {si === i && open && (
-              <div className="hinge ml-6 mt-1 space-y-1 rounded-[3px] border border-rule p-3 text-[14px]">
+              <div className="hinge ml-6 mt-1 space-y-1 border border-rule p-3 text-[14px]">
                 <p>
                   <span className="machine text-[13px] text-ink2">诊断</span> {r.diagnosis}
                 </p>
@@ -161,7 +161,7 @@ function ErrorClassify() {
     <DemoPanel label="错因归类 · 5 题">
       <ul className="space-y-3">
         {ERRORS.map((e, i) => (
-          <li key={i} className="under-leaf rounded-[3px] p-3">
+          <li key={i} className="under-leaf p-3">
             <p className="machine text-[15px]">{e.q}</p>
             <div className="mt-2 flex flex-wrap gap-2">
               {CLASSES.map((c) => (
@@ -182,8 +182,8 @@ function ErrorClassify() {
         {CLASSES.map((c) => {
           const n = Object.entries(pick).filter(([, v]) => v === c).length;
           return (
-            <span key={c} className="machine rounded-[3px] border border-rule px-2 py-1 text-[13px]">
-              <span aria-hidden className="mr-1 inline-block h-2 w-2 rounded-[2px]" style={{ background: CLS_HUE[c] }} />
+            <span key={c} className="machine border border-rule px-2 py-1 text-[13px]">
+              <span aria-hidden className="mr-1 inline-block h-2 w-2" style={{ background: CLS_HUE[c] }} />
               {c} {n}
             </span>
           );
@@ -215,7 +215,7 @@ function DebriefForm() {
               type="button"
               onClick={() => setFilled((f) => f.map((v, j) => (j === i ? !v : v)))}
               aria-pressed={filled[i]}
-              className={`hinge flex min-h-[44px] w-full items-center gap-3 rounded-[3px] border px-3 text-left ${
+              className={`hinge flex min-h-[44px] w-full items-center gap-3 border px-3 text-left ${
                 filled[i] ? 'border-ink bg-leaf' : 'border-ink/30 bg-leaf hover:bg-under'
               }`}
             >

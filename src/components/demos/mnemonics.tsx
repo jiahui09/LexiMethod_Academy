@@ -23,7 +23,7 @@ function AmbulanceChain() {
         {CHAIN.map((c, i) => (
           <li
             key={c.step}
-            className={`hinge rounded-[3px] border px-3 py-2 ${
+            className={`hinge border px-3 py-2 ${
               i < step ? 'border-ink/40 bg-leaf' : 'border-rule opacity-50'
             }`}
           >
@@ -71,7 +71,7 @@ function ThreeRetrievalPaths() {
             type="button"
             onClick={() => setLit((l) => l.map((v, j) => (j === i ? !v : v)))}
             aria-pressed={lit[i]}
-            className={`hinge rounded-[3px] border p-3 text-left ${
+            className={`hinge border p-3 text-left ${
               lit[i] ? 'border-ink bg-leaf' : 'border-ink/30 bg-leaf hover:bg-under'
             }`}
           >
@@ -113,7 +113,7 @@ function AssociationChecklist() {
         {SCORE_ITEMS.map((it) => {
           const v = scores[it.k];
           return (
-            <li key={it.k} className="under-leaf rounded-[3px] p-3">
+            <li key={it.k} className="under-leaf p-3">
               <p className="text-[15px] font-bold">{it.k}</p>
               <p className="mt-0.5 text-[14px] text-ink2">{it.q}</p>
               <div className="mt-2 flex gap-2">
@@ -134,7 +134,7 @@ function AssociationChecklist() {
             <Verdict ok>三项都过得去，这条联想可以入库</Verdict>
           ) : (
             <p className="flex items-start gap-2 text-[14px] text-errata">
-              <span aria-hidden className="mt-0.5 inline-block h-4 w-4 shrink-0 rounded-full border-2 border-errata" />
+              <span aria-hidden className="mt-0.5 inline-block h-4 w-4 shrink-0 border-2 border-errata" />
               <span className="font-bold">缺「{low.map((l) => l.k).join('、')}」，对着原句补；补不上就换画面重来。</span>
             </p>
           ))}
@@ -156,7 +156,7 @@ function AssociationBuilder() {
     <DemoPanel label="联想搭建台 · diagnosis">
       <ol className="space-y-2">
         {BUILD_STAGES.map((s, i) => (
-          <li key={s.t} className={`hinge rounded-[3px] border p-3 ${i < stage ? 'border-ink/40 bg-leaf' : 'border-rule opacity-50'}`}>
+          <li key={s.t} className={`hinge border p-3 ${i < stage ? 'border-ink/40 bg-leaf' : 'border-rule opacity-50'}`}>
             <div className="flex items-center gap-3">
               <span aria-hidden className={`punch ${i < stage ? 'punch-done' : ''}`} />
               <span className="machine text-[14px] font-bold">{s.t}</span>
@@ -190,7 +190,7 @@ function ScaffoldRemoval() {
     <DemoPanel label="撤拐三步 · ambulance">
       <ul className="space-y-2">
         {SCAFFOLD.map((s, i) => (
-          <li key={s.t} className="under-leaf rounded-[3px] p-3">
+          <li key={s.t} className="under-leaf p-3">
             <div className="flex items-center gap-3">
               <span aria-hidden className={`punch ${gone[i] ? 'punch-done' : ''}`} />
               <span className="text-[15px] font-bold">{s.t}</span>
@@ -247,7 +247,7 @@ function AssociationRatio() {
         </div>
       ) : (
         <div className="grid gap-3 sm:grid-cols-2">
-          <div className="under-leaf rounded-[3px] p-3">
+          <div className="under-leaf p-3">
             <p className="machine mb-2 text-[13px] text-ink2">直接读用 · {easy.length} 个</p>
             <div className="flex flex-wrap gap-2">
               {easy.map((r) => (
@@ -258,7 +258,7 @@ function AssociationRatio() {
             </div>
             <p className="mt-2 text-[13px] text-ink2">高频、一眼熟，多读多用就够。</p>
           </div>
-          <div className="under-leaf rounded-[3px] p-3">
+          <div className="under-leaf p-3">
             <p className="machine mb-2 text-[13px] text-ink2">进联想台 · {hard.length} 个</p>
             <div className="flex flex-wrap gap-2">
               {hard.map((r) => (

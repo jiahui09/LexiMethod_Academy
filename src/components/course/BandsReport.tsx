@@ -17,7 +17,7 @@ function RouteHint({ route, courseId }: { route?: string; courseId: string }) {
     return (
       <Link
         to={`/methods/${courseId}?step=${unit[1]}`}
-        className="hinge inline-flex min-h-[44px] items-center gap-1.5 rounded-[3px] border border-ink/40 px-3 text-[13px] text-ink hover:bg-under"
+        className="hinge inline-flex min-h-[44px] items-center gap-1.5 border border-ink/40 px-3 text-[13px] text-ink hover:bg-under"
       >
         去 {route.toUpperCase()} <ArrowRight size={13} aria-hidden />
       </Link>
@@ -27,7 +27,7 @@ function RouteHint({ route, courseId }: { route?: string; courseId: string }) {
     return (
       <Link
         to={`/methods/${other.id}`}
-        className="hinge inline-flex min-h-[44px] items-center gap-1.5 rounded-[3px] border border-ink/40 px-3 text-[13px] text-ink hover:bg-under"
+        className="hinge inline-flex min-h-[44px] items-center gap-1.5 border border-ink/40 px-3 text-[13px] text-ink hover:bg-under"
       >
         去 {String(other.order).padStart(2, '0')} {other.title} <ArrowRight size={13} aria-hidden />
       </Link>

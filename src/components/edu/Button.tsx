@@ -10,7 +10,7 @@ type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 const base =
-  'hinge inline-flex items-center justify-center gap-2 rounded-[3px] border font-medium min-h-[44px] disabled:cursor-not-allowed disabled:opacity-45 active:translate-y-px';
+  'hinge inline-flex items-center justify-center gap-2 border font-medium min-h-[44px] disabled:cursor-not-allowed disabled:opacity-45 active:translate-y-px';
 const variants = {
   default: 'border-ink/60 bg-transparent text-ink hover:bg-ink hover:text-milk',
   primary: 'border-ink bg-ink text-milk hover:bg-ink2 hover:border-ink2',
@@ -19,7 +19,7 @@ const variants = {
 const sizes = { sm: 'px-3 py-1.5 text-sm', md: 'px-4 py-2 text-sm' };
 
 /**
- * 手册按钮：印刷表单里的控件——方正圆角、墨线描边、无辉光。
+ * 瑞士按钮：方正无圆角、墨线描边、无辉光。
  * primary 是墨色实底（本页唯一主行动）；朱红不参与按钮。
  */
 export default function EduButton({

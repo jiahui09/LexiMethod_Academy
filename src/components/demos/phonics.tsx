@@ -28,7 +28,7 @@ function DiagnosticReport() {
               type="button"
               onClick={() => setOpen(open === i ? null : i)}
               aria-expanded={open === i}
-              className="hinge flex min-h-[44px] w-full items-center gap-3 rounded-[3px] border border-ink/30 bg-leaf px-3 text-left text-[14px] hover:bg-under"
+              className="hinge flex min-h-[44px] w-full items-center gap-3 border border-ink/30 bg-leaf px-3 text-left text-[14px] hover:bg-under"
             >
               <span aria-hidden className="machine text-ink2">
                 {i + 1}
@@ -39,7 +39,7 @@ function DiagnosticReport() {
               </span>
             </button>
             {open === i && (
-              <div className="hinge under-leaf ml-6 rounded-[3px] p-3 text-[14px]">
+              <div className="hinge under-leaf ml-6 p-3 text-[14px]">
                 <span className="machine text-[13px] text-ink2">{c.crack}</span>
                 <p className="mt-1">{c.why}</p>
               </div>
@@ -70,7 +70,7 @@ function DictationDimensions() {
         {DICTATION.map((d, i) => {
           const t = tagged[i] ?? null;
           return (
-            <li key={i} className="under-leaf rounded-[3px] p-3">
+            <li key={i} className="under-leaf p-3">
               <div className="flex flex-wrap items-center gap-2 text-[15px]">
                 <span className="machine text-errata">{d.got}</span>
                 <span aria-hidden className="text-ink2">≠</span>
@@ -113,7 +113,7 @@ function MinimalPairContrast() {
     <DemoPanel label="最小对立对 · 动作差">
       <div className="flex flex-wrap items-center gap-3">
         {[p.a, p.b].map((w, i) => (
-          <div key={w} className="under-leaf flex items-center gap-2 rounded-[3px] px-3 py-2">
+          <div key={w} className="under-leaf flex items-center gap-2 px-3 py-2">
             <span className="machine text-[15px] font-bold">{w}</span>
             <span className="machine text-[13px] text-ink2">{i === 0 ? p.ipaA : p.ipaB}</span>
             <SpeakButton text={w} size="sm" />
@@ -136,9 +136,9 @@ function MinimalPairContrast() {
       <div className="hinge mt-3" aria-live="polite">
         {show ? (
           <p className="text-[15px]">
-            <span className="machine rounded-[3px] border-2 border-ink px-1.5 py-0.5 font-bold">{p.diffA}</span>
+            <span className="machine border-2 border-ink px-1.5 py-0.5 font-bold">{p.diffA}</span>
             <span aria-hidden className="mx-2 text-ink2">对</span>
-            <span className="machine rounded-[3px] border-2 border-ink px-1.5 py-0.5 font-bold">{p.diffB}</span>
+            <span className="machine border-2 border-ink px-1.5 py-0.5 font-bold">{p.diffB}</span>
             <span className="mt-1 block">{p.move}</span>
           </p>
         ) : (
@@ -185,7 +185,7 @@ function MouthActionFamily() {
             type="button"
             onClick={() => setId(pid)}
             aria-pressed={pid === id}
-            className={`hinge machine min-h-[44px] min-w-[44px] rounded-[3px] border px-3 text-[16px] font-bold ${
+            className={`hinge machine min-h-[44px] min-w-[44px] border px-3 text-[16px] font-bold ${
               pid === id ? 'border-ink bg-ink text-milk' : 'border-ink/40 bg-leaf hover:bg-under'
             }`}
           >
@@ -193,7 +193,7 @@ function MouthActionFamily() {
           </button>
         ))}
       </div>
-      <div className="under-leaf mt-3 rounded-[3px] p-3">
+      <div className="under-leaf mt-3 p-3">
         <p className="text-[15px] font-bold">
           {f.name}家族，{f.move}
         </p>
@@ -232,7 +232,7 @@ function SpellingSoundMap() {
           const w = e.split(' ')[0];
           return (
             <li key={e}>
-              <span className="under-leaf machine inline-flex items-center gap-1 rounded-[3px] px-2 py-1.5 text-[13px]">
+              <span className="under-leaf machine inline-flex items-center gap-1 px-2 py-1.5 text-[13px]">
                 {e}
                 <SpeakButton text={w} size="sm" />
               </span>
@@ -242,7 +242,7 @@ function SpellingSoundMap() {
       </ul>
       {s.exceptions.length > 0 && (
         <p className="mt-2 text-[14px]">
-          <span className="machine rounded-[3px] border border-errata px-1.5 py-0.5 text-[13px] text-errata">例外</span>{' '}
+          <span className="machine border border-errata px-1.5 py-0.5 text-[13px] text-errata">例外</span>{' '}
           <span className="machine text-[14px]">{s.exceptions.join('、')}</span>
           <span className="text-ink2">，单独标出来记。</span>
         </p>
@@ -324,7 +324,7 @@ function LetterVsBlockContrast() {
             {letters.map((l, i) => (
               <span
                 key={i}
-                className="machine flex h-9 w-9 items-center justify-center rounded-[3px] border border-ink/40 text-[15px]"
+                className="machine flex h-9 w-9 items-center justify-center border border-ink/40 text-[15px]"
               >
                 {l}
               </span>
@@ -369,7 +369,7 @@ function VowelCoreCounter() {
               aria-pressed={on}
               aria-label={`${c}${on ? '，已圈为核心' : ''}`}
               onClick={() => setPicked((p) => (on ? p.filter((x) => x !== i) : [...p, i]))}
-              className={`hinge machine flex min-h-[44px] min-w-[44px] items-center justify-center rounded-[3px] border-2 px-2 text-[17px] font-bold ${
+              className={`hinge machine flex min-h-[44px] min-w-[44px] items-center justify-center border-2 px-2 text-[17px] font-bold ${
                 on ? 'border-ink bg-ink text-milk' : 'border-ink/30 bg-leaf hover:bg-under'
               }`}
             >
@@ -402,7 +402,7 @@ function ConsonantSplitStr() {
         <PunchRow total={3} done={step} active={step < 3 ? step : undefined} />
         <span className="machine text-[13px] text-ink2">步 {step}/3</span>
       </div>
-      <div className="under-leaf rounded-[3px] p-4 text-center">
+      <div className="under-leaf p-4 text-center">
         <div className="flex justify-center gap-3">
           {step < 2 ? (
             <span className="machine text-[22px] font-bold">construction</span>
@@ -447,12 +447,12 @@ function StressThreeClues() {
   return (
     <DemoPanel label="重音三线索 · record">
       <div className="mb-3 flex flex-wrap gap-3">
-        <div className="under-leaf flex items-center gap-2 rounded-[3px] px-3 py-2">
+        <div className="under-leaf flex items-center gap-2 px-3 py-2">
           <span className="machine text-[16px] font-bold">ˈrecord</span>
           <span className="text-[13px] text-ink2">名词，唱片</span>
           <SpeakButton text="record" size="sm" />
         </div>
-        <div className="under-leaf flex items-center gap-2 rounded-[3px] px-3 py-2">
+        <div className="under-leaf flex items-center gap-2 px-3 py-2">
           <span className="machine text-[16px] font-bold">reˈcord</span>
           <span className="text-[13px] text-ink2">动词，记录</span>
           <SpeakButton text="record" slow size="sm" />
@@ -465,7 +465,7 @@ function StressThreeClues() {
               type="button"
               onClick={() => setLit(i + 1)}
               aria-expanded={lit > i}
-              className={`hinge flex min-h-[44px] w-full items-center gap-3 rounded-[3px] border px-3 text-left text-[14px] ${
+              className={`hinge flex min-h-[44px] w-full items-center gap-3 border px-3 text-left text-[14px] ${
                 lit > i ? 'border-ink bg-leaf' : 'border-ink/30 bg-leaf hover:bg-under'
               }`}
             >
@@ -495,12 +495,12 @@ function TionFamilyMap() {
     <DemoPanel label="-tion 族谱 · /ʃn/">
       <ul className="space-y-2">
         {TION_WORDS.map((row) => (
-          <li key={row.ipa} className="under-leaf flex flex-wrap items-center gap-2 rounded-[3px] px-3 py-2">
+          <li key={row.ipa} className="under-leaf flex flex-wrap items-center gap-2 px-3 py-2">
             <span className="flex gap-1">
               {row.parts.map((p, i) => (
                 <span
                   key={i}
-                  className={`machine rounded-[3px] px-1.5 py-1 text-[16px] ${
+                  className={`machine px-1.5 py-1 text-[16px] ${
                     i === row.stress ? 'bg-ink font-bold text-milk' : 'border border-ink/30'
                   }`}
                 >
@@ -538,7 +538,7 @@ function AlgorithmFullRun() {
           步 {step}/3 · {step < 3 ? ALGO_STEPS[step].t : '完成'}
         </span>
       </div>
-      <div className="under-leaf rounded-[3px] p-4">
+      <div className="under-leaf p-4">
         <div className="flex flex-wrap justify-center gap-2">
           {step === 0 ? (
             <span className="machine text-[22px] font-bold">transportation</span>

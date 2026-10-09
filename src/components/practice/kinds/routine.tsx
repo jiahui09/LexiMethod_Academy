@@ -18,14 +18,14 @@ function StepPointer({ step, label, note }: { step: 0 | 7; label: string; note: 
           setClicked(true);
           playSfx('click');
         }}
-        className="hinge inline-flex min-h-[44px] items-center gap-2 rounded-[3px] bg-ink px-4 font-display text-sm font-bold text-milk hover:bg-ink2"
+        className="hinge inline-flex min-h-[44px] items-center gap-2 bg-ink px-4 font-display text-sm font-bold text-milk hover:bg-ink2"
       >
         {label}
         <ArrowRight size={15} strokeWidth={3} aria-hidden />
       </a>
       <span className="text-[13px] text-ink2">{note}</span>
       {clicked && (
-        <span className="hinge machine rounded-[3px] border border-ink/40 px-2 py-1 text-[12px]">
+        <span className="hinge machine border border-ink/40 px-2 py-1 text-[12px]">
           新页面做完记得回来收口
         </span>
       )}
@@ -206,7 +206,7 @@ const ContextChoice: KindComp = ({ onDone }) => {
     <div className="space-y-3">
       <ul className="space-y-3">
         {CC_ITEMS.map((it, i) => (
-          <li key={i} className="under-leaf rounded-[3px] p-3">
+          <li key={i} className="under-leaf p-3">
             <div className="mb-1.5 flex flex-wrap items-center gap-2">
               <span className="machine text-[15px]">{it.sentence}</span>
               <SpeakButton text={it.sentence} size="sm" label="朗读" />
@@ -393,7 +393,7 @@ const AssociationFault: KindComp = ({ onDone }) => {
   };
   return (
     <div className="space-y-3">
-      <div className="under-leaf rounded-[3px] p-3">
+      <div className="under-leaf p-3">
         <p className="text-[15px]">{item.story}</p>
       </div>
       <p className="mb-1.5 text-[14px] font-bold">断掉的是哪一环？</p>
@@ -444,7 +444,7 @@ const RevealSelf: KindComp = ({ onDone }) => {
   if (!card || i >= 3) return <Verdict ok>三张卡都过了，记得忘了都如实标了</Verdict>;
   return (
     <div className="space-y-3">
-      <div className="under-leaf flex min-h-[72px] items-center justify-center rounded-[3px] p-4">
+      <div className="under-leaf flex min-h-[72px] items-center justify-center p-4">
         {revealed ? (
           <div className="text-center">
             <p className="machine text-[22px] font-bold">{card.word}</p>
@@ -485,13 +485,13 @@ function RecallTimingSvg() {
   }
   return (
     <svg viewBox={`0 0 ${w} 130`} className="w-full" role="img" aria-label="遗忘曲线与三个复习时机区">
-      <line x1="10" y1="110" x2={w - 10} y2="110" stroke="#17140E" strokeWidth="1.5" />
-      <line x1="10" y1="10" x2="10" y2="110" stroke="#17140E" strokeWidth="1.5" />
+      <line x1="10" y1="110" x2={w - 10} y2="110" stroke="#111111" strokeWidth="1.5" />
+      <line x1="10" y1="10" x2="10" y2="110" stroke="#111111" strokeWidth="1.5" />
       <polyline points={pts.join(' ')} fill="none" stroke="#2A4BD7" strokeWidth="2.5" />
-      <text x={w - 12} y="125" textAnchor="end" fontSize="10" fill="#57503F" className="machine">
+      <text x={w - 12} y="125" textAnchor="end" fontSize="10" fill="#555555" className="machine">
         时间
       </text>
-      <text x="14" y="20" fontSize="10" fill="#57503F" className="machine">
+      <text x="14" y="20" fontSize="10" fill="#555555" className="machine">
         记住量
       </text>
     </svg>
@@ -526,7 +526,7 @@ const RecallTiming: KindComp = ({ onDone }) => {
             type="button"
             aria-pressed={zone === z.id}
             onClick={() => { setZone(z.id); setReason(null); playSfx('click'); }}
-            className={`hinge machine min-h-[44px] rounded-[3px] border px-3 text-[15px] font-bold ${
+            className={`hinge machine min-h-[44px] border px-3 text-[15px] font-bold ${
               zone === z.id ? 'border-ink bg-ink text-milk' : 'border-ink/40 bg-leaf hover:bg-under'
             }`}
           >
@@ -639,7 +639,7 @@ const LoopTimer: KindComp = ({ onDone }) => {
           第 {wi + 1}/3 词 · 拍 {LT_BEATS[beat]}
         </span>
       </div>
-      <div className="under-leaf rounded-[3px] p-3">
+      <div className="under-leaf p-3">
         <div className="flex flex-wrap items-center gap-2">
           <span className="machine text-[19px] font-bold">{w.word}</span>
           <SpeakButton text={w.word} size="sm" label={`听 ${w.word}`} />
@@ -649,7 +649,7 @@ const LoopTimer: KindComp = ({ onDone }) => {
             {w.parts.map((p, i) => (
               <React.Fragment key={i}>
                 {i > 0 && <span aria-hidden className="text-ink2">·</span>}
-                <span className="machine rounded-[3px] border border-ink/30 px-1.5 py-0.5 text-[15px]">{p}</span>
+                <span className="machine border border-ink/30 px-1.5 py-0.5 text-[15px]">{p}</span>
               </React.Fragment>
             ))}
           </p>
@@ -665,7 +665,7 @@ const LoopTimer: KindComp = ({ onDone }) => {
               value={guess}
               onChange={(e) => setGuess(e.target.value)}
               placeholder="用中文写猜的意思"
-              className="h-11 w-full rounded-[3px] border border-ink/40 bg-milk px-3 text-[15px] outline-none placeholder:text-ink2 focus:border-ink"
+              className="h-11 w-full border border-ink/40 bg-milk px-3 text-[15px] placeholder:text-ink2 focus:border-ink"
             />
           </div>
         )}

@@ -19,7 +19,7 @@ const FILTERS: { key: Filter; label: string }[] = [
 /**
  * 48 音标图表：分组、筛选、点击选中。
  * 纸面音标表——发丝线分隔的网格，不装盒不发光；
- * 选中 = 批注红描边 + 红字（当前），已学 = 结构蓝 ✓ 角标（颜色之外还有形状差）。
+ * 选中 = 墨色描边加粗（形状通道），已学 = ✓ 角标，清音 = 空心方块（从不只靠颜色）。
  */
 export default function PhonemeChart({
   selected,
@@ -57,7 +57,7 @@ export default function PhonemeChart({
               playSfx('click');
               setFilter(f.key);
             }}
-            className={`min-h-[44px] rounded-[3px] border px-3.5 py-1.5 text-xs font-medium transition-colors duration-200 ${
+            className={`min-h-[44px] border px-3.5 py-1.5 text-xs font-medium transition-colors duration-200 ${
               filter === f.key
                 ? 'border-ink bg-under font-semibold text-ink'
                 : 'border-rule bg-transparent text-ink2 hover:border-ink/50 hover:text-ink'
@@ -73,8 +73,8 @@ export default function PhonemeChart({
         {groups.map((g) => (
           <div key={g.key}>
             <div className="mb-1.5 text-xs font-semibold tracking-wider text-ink2">{g.label}</div>
-            {/* 发丝线网格：gap 由 rule 底色透出，像音标表的表格线 */}
-            <div className="grid grid-cols-4 gap-px border border-rule bg-rule sm:grid-cols-6 md:grid-cols-7">
+            {/* 发丝线网格：单元格自带右/下细线，行尾空位留白（不出灰块） */}
+            <div className="grid grid-cols-4 border-l border-t border-rule bg-leaf sm:grid-cols-6 md:grid-cols-7">
               {g.items.map((p, i) => {
                 const active = p.id === selected;
                 const done = learned.includes(p.id);
@@ -89,7 +89,7 @@ export default function PhonemeChart({
                       }
                       onSelect(p);
                     }}
-                    className={`relative flex min-h-[44px] flex-col items-center justify-center gap-0.5 px-1 py-2.5 transition-colors duration-200 ${
+                    className={`relative flex min-h-[44px] flex-col items-center justify-center gap-0.5 border-b border-r border-rule px-1 py-2.5 transition-colors duration-200 ${
                       active
                         ? 'z-10 bg-under text-ink outline outline-2 -outline-offset-2 outline-ink'
                         : 'bg-leaf text-ink hover:bg-under'
@@ -109,7 +109,7 @@ export default function PhonemeChart({
                     )}
                     {!p.voiced && (
                       <span
-                        className="absolute left-1 top-1 h-1.5 w-1.5 rounded-full border border-ink2 bg-transparent"
+                        className="absolute left-1 top-1 h-1.5 w-1.5 border border-ink2 bg-transparent"
                         title="清音"
                         aria-label="清音"
                       />
@@ -124,7 +124,7 @@ export default function PhonemeChart({
 
       <div className="flex flex-wrap items-center gap-3 border-t border-rule pt-3 text-xs text-ink2">
         <span className="flex items-center gap-1.5">
-          <span className="h-2 w-2 rounded-full border border-ink2" aria-hidden /> 清音（声带不振动）
+          <span className="h-2 w-2 border border-ink2" aria-hidden /> 清音（声带不振动）
         </span>
         <span className="flex items-center gap-1.5">
           <Check size={12} strokeWidth={3} className="text-ink" aria-hidden /> 已学过
