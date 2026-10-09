@@ -5,7 +5,7 @@ export const words: WordExample[] = [
   {
     id: 'construction',
     word: 'construction',
-    phoneticUK: '/kənˈstrʌkʃn/',
+    phoneticUK: '/kənˈstrʌkʃən/',
     phoneticUS: '/kənˈstrʌkʃən/',
     syllables: ['con', 'struc', 'tion'],
     stressIndex: 1,
@@ -112,7 +112,7 @@ export const words: WordExample[] = [
   {
     id: 'decision',
     word: 'decision',
-    phoneticUK: '/dɪˈsɪʒn/',
+    phoneticUK: '/dɪˈsɪʒən/',
     phoneticUS: '/dɪˈsɪʒən/',
     syllables: ['de', 'ci', 'sion'],
     stressIndex: 1,
@@ -140,7 +140,7 @@ export const words: WordExample[] = [
   {
     id: 'transportation',
     word: 'transportation',
-    phoneticUK: '/ˌtrænspɔːˈteɪʃn/',
+    phoneticUK: '/ˌtrænspɔːˈteɪʃən/',
     phoneticUS: '/ˌtrænspɔːrˈteɪʃən/',
     syllables: ['trans', 'por', 'ta', 'tion'],
     stressIndex: 2,
@@ -196,7 +196,7 @@ export const words: WordExample[] = [
   {
     id: 'information',
     word: 'information',
-    phoneticUK: '/ˌɪnfəˈmeɪʃn/',
+    phoneticUK: '/ˌɪnfəˈmeɪʃən/',
     phoneticUS: '/ˌɪnfərˈmeɪʃən/',
     syllables: ['in', 'for', 'ma', 'tion'],
     stressIndex: 2,
@@ -224,7 +224,7 @@ export const words: WordExample[] = [
   {
     id: 'education',
     word: 'education',
-    phoneticUK: '/ˌedʒuˈkeɪʃn/',
+    phoneticUK: '/ˌedʒuˈkeɪʃən/',
     phoneticUS: '/ˌedʒuˈkeɪʃən/',
     syllables: ['ed', 'u', 'ca', 'tion'],
     stressIndex: 2,
@@ -306,7 +306,7 @@ export const words: WordExample[] = [
   {
     id: 'instruction',
     word: 'instruction',
-    phoneticUK: '/ɪnˈstrʌkʃn/',
+    phoneticUK: '/ɪnˈstrʌkʃən/',
     phoneticUS: '/ɪnˈstrʌkʃən/',
     syllables: ['in', 'struc', 'tion'],
     stressIndex: 1,
@@ -793,7 +793,7 @@ export const words: WordExample[] = [
   {
     id: 'transformation',
     word: 'transformation',
-    phoneticUK: '/ˌtrænsfɔːˈmeɪʃn/',
+    phoneticUK: '/ˌtrænsfɔːˈmeɪʃən/',
     phoneticUS: '/ˌtrænsfɔːrˈmeɪʃən/',
     syllables: ['trans', 'for', 'ma', 'tion'],
     stressIndex: 2,

@@ -45,7 +45,7 @@ export type Diagnostic = {
  * 每单元 = 一句 claim（≤40字）+ 若干 blocks + 可练习 + 可自检。
  */
 export type Block =
-  | { kind: 'example'; text: string; speak?: string; ipa?: string; note?: string }
+  | { kind: 'example'; text: string; speak?: string; speakAudio?: string; ipa?: string; note?: string }
   | { kind: 'demo'; ref: string; caption: string } // 演示引用：UI 阶段按 ref 分发渲染器
   | { kind: 'warning'; text: string }
   | { kind: 'list'; items: string[] };

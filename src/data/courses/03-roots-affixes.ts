@@ -108,7 +108,7 @@ export const course03: Course = {
       {
         id: 'c03-diag-7',
         type: 'choice',
-        prompt: '在 inspect、transport、predict 这些词里，port 这块零件的意思是？',
+        prompt: '在 transport、export、import 这些词里，port 这块零件的意思是？',
         narration: '词根的含义在整族词里保持稳定。',
         choices: [
           { label: '搬运，携带', correct: true },
@@ -117,7 +117,7 @@ export const course03: Course = {
         ],
         answer: '搬运，携带',
         hint: 'port 单独当单词时另有意思，看它在这几个词里的共同点。',
-        explain: 'port 作词根一律是搬运，export 运出去、import 运进来、portable 能搬走。',
+        explain: 'port 作词根都是搬运，transport 搬过去，export 运出去，import 运进来。',
       },
       {
         id: 'c03-diag-8',
@@ -138,17 +138,16 @@ export const course03: Course = {
       {
         until: 8,
         verdict: '八题全对，你敢拆也拆得准，接下来练的是速度和核对。',
-        route: '直接进 U2 前缀送料线',
+        route: 'u2',
       },
       {
         until: 6,
-        verdict: '方向有了，词性和词根还会串线，跟着三条送料线补齐。',
-        route: '按 U2 到 U4 的顺序走',
+        verdict: '方向有了，词性和词根还会串线，回 U2 到 U4 按顺序补齐。',
       },
       {
         until: 3,
         verdict: '你多半还在整词硬背，先把 contradiction 拆开成三块。',
-        route: '回 U1 看拆解示范',
+        route: 'u1',
       },
       {
         until: 0,
@@ -199,12 +198,12 @@ export const course03: Course = {
         {
           kind: 'list',
           items: [
-            '否定与拒绝，un- dis- non- anti-',
-            '时间与空间，pre- sub- inter- trans-',
-            '方向与进出，in- im- ex- ab-',
+            '否定与拒绝，un- dis- non- anti- de-',
+            '时间与空间，pre- sub- inter-',
+            '方向与进出，in- ex- ab- trans- pro-',
             '程度数量，over- under- multi- semi-',
-            '共同与促成，com- con- pro- en-',
-            '错误与反复，mis- re- de-',
+            '共同与促成，com- con- en-',
+            '错误与反复，mis- re-',
           ],
         },
         {
@@ -217,6 +216,10 @@ export const course03: Course = {
           kind: 'demo',
           ref: 'prefix-family-board',
           caption: '前缀家族板，24 个高频前缀按语义分成 6 组上墙。',
+        },
+        {
+          kind: 'warning',
+          text: 'in-、im- 有否定和进入两个意思，impossible 取否定，inspect 取进入。',
         },
       ],
       practice: {
@@ -242,13 +245,23 @@ export const course03: Course = {
         },
         {
           kind: 'example',
-          text: 'predict 提前说，contradict 反着说，dict 永远是「说」。',
+          text: 'predict 提前说，contradict 反着说，dict 的本义都是「说」。',
           speak: 'predict',
         },
         {
           kind: 'demo',
           ref: 'word-family-port',
           caption: 'port 家族树，前缀换方向，搬运这层意思不动。',
+        },
+        {
+          kind: 'list',
+          items: [
+            '词根有变体，spec 和 spic 是一家',
+            'dict 也写作 dic，duct 也写作 duc',
+            'ceive 与 cept 是同一个词根的两种写法',
+            'receive 收下，reception 是它的名词',
+            '词形换了，核心义还是那一层',
+          ],
         },
         {
           kind: 'warning',
@@ -284,7 +297,7 @@ export const course03: Course = {
           kind: 'example',
           text: 'transportation 尾巴是 -ation，重音被压到它前一个音节。',
           speak: 'transportation',
-          ipa: '/ˌtrænspɔːˈteɪʃn/',
+          ipa: '/ˌtrænspɔːˈteɪʃən/',
         },
         {
           kind: 'demo',
@@ -320,6 +333,7 @@ export const course03: Course = {
             'in- 后接 l 写成 il-',
             'in- 后接 r 写成 ir-',
             'com- 常同化成 con-、col-',
+            'in- 也有进入义，inspect 往里看',
           ],
         },
         {
@@ -497,7 +511,7 @@ export const course03: Course = {
       {
         until: 0,
         verdict: '整词硬背还在，回 U1 把 contradiction 重新拆开三块。',
-        route: '从拆解示范重看',
+        route: 'u1',
       },
     ],
   },

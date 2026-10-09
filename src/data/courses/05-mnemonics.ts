@@ -33,7 +33,7 @@ export const course05: Course = {
         id: 'c05-diag-2',
         type: 'choice',
         prompt: '四条记 ambulance 的办法，哪一条真的把画面挂到了词义上？',
-        narration: '选出那条走到最后能通到“急救车”意思的路子。',
+        narration: '选出那条走到最后能通到「急救车」意思的路子。',
         speak: 'ambulance',
         choices: [
           { label: '一个人追着救护车喊俺不能死', correct: true },
@@ -48,7 +48,7 @@ export const course05: Course = {
       {
         id: 'c05-diag-3',
         type: 'choice',
-        prompt: '“俺不能死”这四个字和 ambulance 的读音咬得住，靠的是三要素里的哪一项？',
+        prompt: '「俺不能死」这四个字和 ambulance 的读音咬得住，靠的是三要素里的哪一项？',
         narration: '三要素是音近、义通、动感，这一条问读音和中文的咬合。',
         speak: 'ambulance',
         choices: [
@@ -94,7 +94,7 @@ export const course05: Course = {
       {
         id: 'c05-diag-6',
         type: 'choice',
-        prompt: '“ambulance → 俺跑死，画面是一个人跑得瘫倒在地”，这条断在哪一环？',
+        prompt: '「ambulance → 俺跑死，画面是一个人跑得瘫倒在地」，这条断在哪一环？',
         narration: '画面挺热闹，但要小心，热闹和记牢是两回事。',
         speak: 'ambulance',
         choices: [
@@ -104,7 +104,7 @@ export const course05: Course = {
           { label: '拼写，字母顺序记错了', correct: false },
         ],
         answer: '义通，画面到不了词义',
-        hint: '先看画面能不能走到“急救车”这个词义。',
+        hint: '先看画面能不能走到「急救车」这个词义。',
         explain: '动作和读音都在，画面却和急救没关系，取词时拉不出词义，坏在义通。',
       },
       {
@@ -142,22 +142,22 @@ export const course05: Course = {
       {
         until: 7,
         verdict: '你已经在用带画面的路子，断点少，往下重点补质检和撤拐。',
-        route: 'U3 三要素质检表',
+        route: 'u3',
       },
       {
         until: 5,
         verdict: '记法有雏形，音和画面还没挂钩，先看三条路径怎么互备。',
-        route: 'U2 三条检索路径',
+        route: 'u2',
       },
       {
         until: 3,
         verdict: '你多半在抄写硬记，画面这条路还没开，从完整链走一遍。',
-        route: 'U1 俺不能死',
+        route: 'u1',
       },
       {
         until: 0,
         verdict: '你现在基本靠死记，本课从造第一条通到词义的联想开始。',
-        route: 'U1 俺不能死',
+        route: 'u1',
       },
     ],
   },
@@ -195,7 +195,7 @@ export const course05: Course = {
     },
     {
       id: 'u2',
-      title: '三条检索路径',
+      title: '三条提取路径',
       durationMin: 6,
       claim: '死记只剩字形一条路，加上读音和画面就有三条路互备。',
       blocks: [
@@ -205,6 +205,7 @@ export const course05: Course = {
             '只抄词表，就剩字形一条路',
             '加上读音，多一条听觉路',
             '画面一来，视觉这条路也开了',
+            '字形和画面两路同存，Paivio 叫它双编码',
           ],
         },
         {
@@ -278,6 +279,7 @@ export const course05: Course = {
             '顺着读音找中文谐音',
             '画面里要有动作和情绪',
             '收尾补一句英文',
+            '造联想就是精细化加工 elaboration',
           ],
         },
         {
@@ -285,14 +287,14 @@ export const course05: Course = {
           text: 'portable 咬住跑他抱，画面里一只手把台灯抱走',
           speak: 'portable',
           ipa: '/ˈpɔːtəbl/',
-          note: '参考范例，三要素齐，收尾句为 This lamp is portable.',
+          note: '参考范例，画面夸张、三要素齐，收尾句为 This lamp is portable.',
         },
       ],
       practice: {
         kind: 'sentenceBuilder',
         title: '自造联想台',
         prompt: '给三个难词各造一条联想写下来，三要素逐项自勾，三项全勾才算过。',
-        debrief: '开放输入，站内用三要素自检表加参考范例对照讲评，不做自动对错判定。',
+        debrief: '造完先按三要素自检表打分，再对照参考范例，缺哪项补哪项。',
       },
       check: '三个词都能看着英文想起画面，缺的回去补。',
     },
@@ -305,16 +307,17 @@ export const course05: Course = {
         {
           kind: 'list',
           items: [
-            '遮住画面，只看英文反应词义',
+            '先看着画面，还原出发音和拼写',
+            '再遮住画面，看英文直接反应词义',
             '跟读发音，确认音形还连着',
             '放进句子，看语境接不接得住',
-            '48 小时后再还原一次',
+            '第 3 天先还原，第 7 天不看画面',
           ],
         },
         {
           kind: 'demo',
           ref: 'scaffold-removal',
-          caption: '遮画面说词义 → 读发音回拼写 → 一周后不靠画面直接反应',
+          caption: '遮画面说词义 → 读发音回拼写 → 第 7 天不靠画面直接反应',
         },
         {
           kind: 'warning',
@@ -351,7 +354,7 @@ export const course05: Course = {
         },
         {
           kind: 'warning',
-          text: '给已经会的词造联想，白花编码时间。',
+          text: '编码是把词存进记忆这道工序，给已会的词造联想是白花。',
         },
       ],
       practice: {
@@ -400,7 +403,7 @@ export const course05: Course = {
       {
         id: 'c05-exit-3',
         type: 'choice',
-        prompt: '48 小时后的还原测试，下面哪种做法算通过？',
+        prompt: '第 3 天的还原测试，下面哪种做法算通过？',
         narration: '还原测的是画面能不能把你带回词本身。',
         choices: [
           { label: '看着画面，说出发音并拼出单词', correct: true },
@@ -415,7 +418,7 @@ export const course05: Course = {
       {
         id: 'c05-exit-4',
         type: 'choice',
-        prompt: '一周后你不看画面也能直接反应 ambulance 的词义，这说明什么？',
+        prompt: '第 7 天你不看画面也能直接反应 ambulance 的词义，这说明什么？',
         narration: '这一步是本课的终点，先判断它到了没有。',
         speak: 'ambulance',
         choices: [
@@ -498,12 +501,12 @@ export const course05: Course = {
       {
         until: 5,
         verdict: '造和质检基本过关，撤这步还不稳，回 U5 把回收顺序走一遍。',
-        route: 'U5 回收仪式',
+        route: 'u5',
       },
       {
         until: 0,
         verdict: '三道工序还没成形，回 U1 把完整链从头走一遍再出门。',
-        route: 'U1 俺不能死',
+        route: 'u1',
       },
     ],
   },
@@ -512,7 +515,7 @@ export const course05: Course = {
     '我能不看画面说出 ambulance 的词义和发音吗？',
     '我能指出一条联想断在音近、义通还是动感吗？',
     '我能给三个难词各造一条三要素齐备的联想吗？',
-    '48 小时后，我能看着画面说出发音并拼出单词吗？',
+    '第 3 天，我能看着画面说出发音并拼出单词吗？',
     '我最近的生词里，造联想的比例压在 30% 以内了吗？',
   ],
 };

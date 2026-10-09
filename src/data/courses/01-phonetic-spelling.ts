@@ -15,7 +15,7 @@ export const course01: Course = {
   durationMin: 36,
 
   opening: {
-    lead: '先做 10 道一分钟快测，4 道听音选音、4 道看词读音、2 道最小对立，做完当场给你三条裂缝的报告和一条学习路线。',
+    lead: '先做 10 道一分钟快测，4 道听音选音、4 道看词读音、2 道最小对立，做完当场给你三条裂缝的报告和一条学习路线。全站音标按英式 IPA 体例标注，点读音频为美音，口音开关只影响浏览器朗读。',
     questions: [
       {
         id: 'c01-diag-1',
@@ -136,14 +136,14 @@ export const course01: Course = {
         narration: '整个后缀当成一个声音块来读。',
         speak: 'nation',
         choices: [
-          { label: '/ʃn/', correct: true },
+          { label: '/ʃən/', correct: true },
           { label: '/tʃən/', correct: false },
           { label: '/sn/', correct: false },
-          { label: '/ʒn/', correct: false },
+          { label: '/ʒən/', correct: false },
         ],
-        answer: '/ʃn/',
+        answer: '/ʃən/',
         hint: '不要把它拆成单个字母的声音。',
-        explain: '-tion 几乎总读 /ʃn/，重音落在它前一个音节，question、suggestion 才读 /tʃən/。',
+        explain: '-tion 几乎总读 /ʃən/，重音落在它前一个音节，question、suggestion 才读 /tʃən/。',
       },
       {
         id: 'c01-diag-9',
@@ -182,7 +182,7 @@ export const course01: Course = {
       { until: 10, verdict: '十条全对，听觉与对应两条通路都通，直接进出门条验收。', route: 'u6' },
       { until: 7, verdict: '耳朵基本没问题，裂缝集中在拼写对应，按 U4 到 U5 的顺序补。', route: 'u4' },
       { until: 4, verdict: '听觉与对应各漏一半，从动作家族单元开始逐个补。', route: 'u2' },
-      { until: 0, verdict: '四个维度都在漏，先去动作家族单元练发音动作再回来重测。', route: 'u2' },
+      { until: 0, verdict: '三条裂缝都在漏，先去动作家族单元练发音动作再回来重测。', route: 'u2' },
     ],
   },
 
@@ -195,7 +195,7 @@ export const course01: Course = {
       blocks: [
         {
           kind: 'example',
-          text: '报告按两个维度给分，听觉维度看 6 道听音与最小对立，对应维度看 4 道看词读音。',
+          text: '报告按两个维度给分，听觉维度看 6 道听音与最小对立，对应维度看 4 道看词读音，错题归进三条裂缝。',
         },
         { kind: 'demo', ref: 'diagnostic-report', caption: '每道错题当场标出属于哪条裂缝，报告按维度汇总。' },
         {
@@ -218,11 +218,11 @@ export const course01: Course = {
 
     {
       id: 'u2',
-      title: '48 个音标归成五个动作家族',
+      title: '按发音部位归成五个动作家族',
       durationMin: 7,
       claim: '每个音标都对应一套动作，先把口型和舌位做对。',
       blocks: [
-        { kind: 'demo', ref: 'mouth-action-family', caption: '48 个音按发音部位归成五个家族，代表音给口型侧面动画。' },
+        { kind: 'demo', ref: 'mouth-action-family', caption: '辅音符号按发音部位归成五个家族，代表音给口型侧面动画。' },
         {
           kind: 'example',
           text: '发 /θ/ 时舌尖抵住上齿，气流从齿缝挤出，声带不振动，照做一遍就能读出 think。',
@@ -273,19 +273,23 @@ export const course01: Course = {
       id: 'u4',
       title: '通路A看词读出声',
       durationMin: 5,
-      claim: '四条高频拼写对应记住，看到词就能直接读。',
+      claim: '四条高频辅音组合记住，见词就能读出声。',
       blocks: [
+        {
+          kind: 'example',
+          text: '通路A从词到音，看到 phone 就读出 /fəʊn/，通路B从音到形，听到 /fəʊn/ 就写出 phone。',
+        },
         {
           kind: 'list',
           items: [
             'th 读 /θ/ 或 /ð/，think 对 this',
             'ph 读 /f/，phone 对 photo',
             'g 在 e i y 前读 /dʒ/，gentle 对 go',
-            '-tion 读 /ʃn/，nation 对 station',
+            '-tion 读 /ʃən/，nation 对 station',
           ],
         },
         { kind: 'demo', ref: 'spelling-sound-map', caption: '一条对应带出一族例词，例外单独标出来记。' },
-        { kind: 'warning', text: '按字母名读组合，-tion 会被拆成 t 加 e 加 n。' },
+        { kind: 'warning', text: '按字母名读组合，-tion 会被拆成 t、i、o、n。' },
       ],
       practice: {
         kind: 'spellingChoosePhoneme',
@@ -329,7 +333,7 @@ export const course01: Course = {
       claim: '双向配对做完再考八道出门条，当场出诊断。',
       blocks: [
         { kind: 'demo', ref: 'bidirectional-flip', caption: '音标与拼写两栏翻牌配对，限时翻完八对。' },
-        { kind: 'example', text: '出门条 8 题当场判分，分数带给你一句诊断，刷新后成绩消失。' },
+        { kind: 'example', text: '出门条 8 题当场判分，分数带给你一句诊断和一条复习路线。' },
       ],
       practice: {
         kind: 'matchPairs',
@@ -342,7 +346,7 @@ export const course01: Course = {
   ],
 
   exitTicket: {
-    intro: '8 道快测覆盖本课可观察目标，做完当场判分并给一句诊断，刷新后成绩消失。',
+    intro: '8 道快测覆盖本课可观察目标，做完当场判分并给你一句诊断。',
     questions: [
       {
         id: 'c01-exit-1',
@@ -422,7 +426,7 @@ export const course01: Course = {
         ],
         answer: 'sheep',
         hint: '元音是长是短，嘴角能不能保持住？',
-        explain: 'sheep=/ʃiːp/ 长音，ship=/ʃɪp/ 短音，长度就是这两个词的全部差别。',
+        explain: 'sheep=/ʃiːp/ 长音，ship=/ʃɪp/ 短音，差别集中在元音的长度上。',
       },
       {
         id: 'c01-exit-6',

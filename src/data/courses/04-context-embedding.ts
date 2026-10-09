@@ -141,8 +141,7 @@ export const course04: Course = {
           kind: 'example',
           text: 'The ship was visible from the shore.',
           speak: 'The ship was visible from the shore.',
-          ipa: '/ˈvɪzəbl/',
-          note: 'visible 你背过，整句却要逐词翻译才懂。',
+          note: 'visible 读 /ˈvɪzəbl/，你背过它，整句却要逐词翻译才懂。',
         },
         {
           kind: 'demo',
@@ -327,7 +326,7 @@ export const course04: Course = {
 
   exitTicket: {
     intro:
-      '8 题当场判分给一句诊断，成绩只在本轮有效，刷新就没了，打完补一句你最弱的一环在哪里。',
+      '8 题当场判分给一句诊断，打完记下你最弱的一环在哪里。',
     questions: [
       {
         id: 'c04-exit-1',
@@ -406,7 +405,7 @@ export const course04: Course = {
         prompt: '用惯用动词补全句子。He ___ knowledge about finance every week.',
         narration: '动词要和英语的习惯搭配对上，同时跟着主语变位。',
         answer: 'gains',
-        hint: '英文里和 knowledge 常年连用的动词是 gain 或 acquire。',
+        hint: 'gain 和 knowledge 是老搭档，He 作主语，动词记得跟着变位。',
         explain:
           'learn knowledge 是中文逐字搬来的，英文固定说 gain knowledge，第三人称单数写成 gains。',
       },

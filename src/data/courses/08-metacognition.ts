@@ -80,7 +80,7 @@ export const course08: Course = {
         ],
         answer: '把流畅感当成了掌握',
         hint: '判断有没有学会，要一个能分对错的结果。',
-        explain: '看顺来自反复读，流畅度错觉要靠抽测来破，合上书写一遍才算数。',
+        explain: '看顺来自反复读，流畅度错觉是把熟悉感当成掌握，要靠抽测来破，合上书写一遍才算数。',
       },
       {
         id: 'c08-diag-6',
@@ -126,10 +126,10 @@ export const course08: Course = {
       },
     ],
     bands: [
-      { until: 8, verdict: '每道错题都落到了具体原因，仪表盘已经通电。', route: '直接去 U3，把信号表配上你的弱项' },
-      { until: 5, verdict: '大类分得清，细分归因还会串，答案说得太笼统。', route: 'U4 归因训练重点看' },
-      { until: 2, verdict: '归因多数落在「我粗心」上，原因没落到点上。', route: '从 U2 三张清单开始走' },
-      { until: 0, verdict: '说不出最近一次错题为什么错，这就是没读数的样子。', route: '回 U1 跟着走，别跳单元' },
+      { until: 8, verdict: '每道错题都落到了具体原因，仪表盘已经通电，直接去 U3 把信号表配上弱项。', route: 'u3' },
+      { until: 5, verdict: '大类分得清，细分归因还会串，答案说得太笼统，去 U4 练归因。', route: 'u4' },
+      { until: 2, verdict: '归因多数落在「我粗心」上，原因没落到点上，从 U2 三张清单开始走。', route: 'u2' },
+      { until: 0, verdict: '说不出最近一次错题为什么错，这就是没读数的样子，回 U1 跟着走别跳单元。', route: 'u1' },
     ],
   },
 
@@ -171,7 +171,16 @@ export const course08: Course = {
       blocks: [
         {
           kind: 'list',
-          items: ['学前，定题量、目标正确率和时限', '学中，走神或假装会了就停', '学后，给错题归类再定动作'],
+          items: [
+            '学前，定题量、目标正确率和时限',
+            '学中，走神或假装会了就停',
+            '学后，给错题归类再定动作',
+            '交卷前先猜对几道，判分后核对，这叫校准',
+          ],
+        },
+        {
+          kind: 'example',
+          text: '预估对 8 道实际只对 5 道，差的这 3 道就是你高估的地方，下次把目标定低一档。',
         },
         {
           kind: 'demo',
@@ -187,7 +196,7 @@ export const course08: Course = {
         kind: 'checklistFill',
         title: '填清单',
         prompt: '按今天的真实情况勾完学前与学中两张清单，学中至少勾出一处走神或假装会了。',
-        debrief: '勾不出来的那项就是模糊的地方，下次先补那一项。',
+        debrief: '勾不出来的那项就是模糊的地方，下次先补那一项，交卷前先猜分再核对。',
       },
       check: '开始练习前，我能一句话说清练什么、练到多少吗？',
     },
@@ -209,8 +218,8 @@ export const course08: Course = {
         },
         {
           kind: 'example',
-          text: 'decision 划了 30 秒还没把握，回 02 课跑算法步 2 分辅音。',
-          speak: 'decision',
+          text: '四音节的 transportation 划了 30 秒还没把握，回 02 课跑算法步 2 分辅音。',
+          speak: 'transportation',
         },
         {
           kind: 'demo',
@@ -323,8 +332,8 @@ export const course08: Course = {
       practice: {
         kind: 'exitTicket',
         title: '出门条',
-        prompt: '先写一条带数字的改进条，再做完 8 道出门条，答对 6 道算过关。',
-        debrief: '分数只在本次会话有效，改进条要自己抄走才算数。',
+        prompt: '先写一条带数字的改进条，再做完 8 道出门条，8 道全对算过关。',
+        debrief: '分数会存进本机进度，改进条要自己抄走才算数。',
       },
       check: '我能一句话说出自己最弱的 2 个环节和对应动作吗？',
     },
@@ -448,9 +457,13 @@ export const course08: Course = {
       },
     ],
     bands: [
-      { until: 8, verdict: '三张清单、信号表、归因三分类全部落地，仪表盘开得起来。', route: '把改进条抄进明晚的学前清单' },
-      { until: 4, verdict: '信号和清单记住大半，归因还会串类，回 U4 再跑一轮。', route: '重做 U4 错因归类' },
-      { until: 0, verdict: '今天的内容还没落地，回 U2 从三张清单重新走。', route: '按单元顺序走，别跳' },
+      {
+        until: 8,
+        verdict: '三张清单、信号表、归因三分类全部落地，仪表盘开得起来，改进条抄进明晚的学前清单。',
+        route: 'u2',
+      },
+      { until: 4, verdict: '信号和清单记住大半，归因还会串类，回 U4 再跑一轮。', route: 'u4' },
+      { until: 0, verdict: '今天的内容还没落地，回 U2 从三张清单按顺序重新走，别跳单元。', route: 'u2' },
     ],
   },
 

@@ -27,7 +27,7 @@ export const course02: Course = {
         answer: 'de-ci-sion',
         speak: 'decision',
         hint: '先数清元音字母有几个，再决定切口落在哪里。',
-        explain: 'decision 划成 de-ci-sion 三块，读作 /dɪˈsɪʒn/，重音在 ci 上。',
+        explain: 'decision 划成 de-ci-sion 三块，读作 /dɪˈsɪʒən/，重音在 ci 上。',
       },
       {
         id: 'c02-diag-2',
@@ -38,7 +38,7 @@ export const course02: Course = {
         answer: '1',
         speak: 'decision',
         hint: '重读音节更响更长，其余音节会弱读成 /ə/。',
-        explain: 'decision 重读第 2 音节 ci，/dɪˈsɪʒn/，de 与 sion 都弱读。',
+        explain: 'decision 重读第 2 音节 ci，/dɪˈsɪʒən/，de 与 sion 都弱读。',
       },
       {
         id: 'c02-diag-3',
@@ -88,7 +88,7 @@ export const course02: Course = {
         answer: '1',
         speak: 'construction',
         hint: '结尾的 -tion 会把重音压到它前面那一节。',
-        explain: 'construction 重读第 2 音节 struc，/kənˈstrʌkʃn/，con 与 tion 弱读。',
+        explain: 'construction 重读第 2 音节 struc，/kənˈstrʌkʃən/，con 与 tion 弱读。',
       },
       {
         id: 'c02-diag-7',
@@ -106,9 +106,9 @@ export const course02: Course = {
       },
     ],
     bands: [
-      { until: 7, verdict: '三步你都会走，直接进 U6 连跑计时。', route: 'U6 算法连跑' },
-      { until: 4, verdict: '能划开词，元音核心没数稳，回 U2 补第一步。', route: 'U2 数元音核心' },
-      { until: 0, verdict: '你还在逐字母看词，从 U1 的对比看起。', route: 'U1 逐字母背为什么崩' },
+      { until: 7, verdict: '三步你都会走，直接进 U6 连跑计时。', route: 'u6' },
+      { until: 4, verdict: '能划开词，元音核心没数稳，回 U2 补第一步。', route: 'u2' },
+      { until: 0, verdict: '你还在逐字母看词，从 U1 的对比看起。', route: 'u1' },
     ],
   },
 
@@ -129,7 +129,7 @@ export const course02: Course = {
           kind: 'example',
           text: 'decision 切成 de、ci、sion 三块，每块都能读出声。',
           speak: 'decision',
-          ipa: '/dɪˈsɪʒn/',
+          ipa: '/dɪˈsɪʒən/',
         },
         {
           kind: 'list',
@@ -164,7 +164,7 @@ export const course02: Course = {
         },
         {
           kind: 'warning',
-          text: '-tion 里的 o 不发音，整块只提供一个核心，逐字母数会多算。',
+          text: '-tion 整块只提供一个核心，块里的 io 读成 /ə/，逐字母数会多算。',
         },
       ],
       practice: {
@@ -192,7 +192,7 @@ export const course02: Course = {
           kind: 'example',
           text: 'str 能当起音就整体给后一节，前一节只留 con。',
           speak: 'construction',
-          ipa: '/kənˈstrʌkʃn/',
+          ipa: '/kənˈstrʌkʃən/',
         },
         {
           kind: 'warning',
@@ -225,11 +225,17 @@ export const course02: Course = {
           text: 'record 作名词时重音在前，作动词时重音移到后一节。',
           speak: 'record',
           ipa: '/ˈrekɔːd/',
-          note: '给出的读音是名词一读。',
+          speakAudio: 'record-noun',
+          note: '这里播的是名词读音，动词读音在出门条的重音题里。',
         },
         {
           kind: 'list',
-          items: ['-tion 与 -sion 把重音定在前一节', '两音节动词常重后一个音节', '重读音节更响更长'],
+          items: [
+            '-tion 与 -sion 把重音定在前一节',
+            '两音节动词常重后一个音节',
+            '词根扛底音，transport 重音在 port',
+            '重读音节更响更长',
+          ],
         },
       ],
       practice: {
@@ -246,12 +252,12 @@ export const course02: Course = {
       id: 'u5',
       title: '焊点 -tion 与 -sion 家族',
       durationMin: 5,
-      claim: '看到 -tion 就读 /ʃn/，重音落在它前一个音节。',
+      claim: '看到 -tion 就读 /ʃən/，重音落在它前一个音节。',
       blocks: [
         {
           kind: 'demo',
           ref: 'tion-family-map',
-          caption: 'construction、information、education 的 -tion 同读 /ʃn/，重音同落前一节。',
+          caption: 'construction、information、education 的 -tion 同读 /ʃən/，重音同落前一节。',
         },
         {
           kind: 'example',
@@ -261,17 +267,17 @@ export const course02: Course = {
         },
         {
           kind: 'warning',
-          text: '按字母名读成 ti-e-n，朗读和听写会一起错。',
+          text: '按字母名读成 t-i-o-n，朗读和听写会一起错。',
         },
       ],
       practice: {
         kind: 'listenWriteWord',
         title: '家族听写',
         prompt: '听音写出 -tion 家族的词，正确率达到 80% 算过。',
-        debrief: '听到 /ʃn/ 直接落笔 tion，听到 /tʃən/ 先想到 question 这类例外。',
+        debrief: '听到 /ʃən/ 直接落笔 tion，听到 /tʃən/ 先想到 question 这类例外。',
       },
       labLink: { tab: 'mapping', label: '去实验室加练音标拼写对应' },
-      check: '听到 /ʃn/，你会先落笔 tion 并把重音放前一节吗？',
+      check: '听到 /ʃən/，你会先落笔 tion 并把重音放前一节吗？',
     },
 
     /* ---------------------------------------------------------- */
@@ -296,6 +302,17 @@ export const course02: Course = {
           kind: 'list',
           items: ['数元音核心定音节数', '分辅音让后节读得出', '定重音并读出声'],
         },
+        {
+          kind: 'list',
+          items: [
+            '开音节，元音念字母音，name',
+            '闭音节，元音念短音，cat、dog',
+            'magic e 拉长元音，kite、home',
+            '字母组合整块读，ph 读 /f/',
+            '例外词单记，question 读 /tʃən/',
+            '四个词类各拿两个词，出声读到顺',
+          ],
+        },
       ],
       practice: {
         kind: 'algorithmRun',
@@ -319,7 +336,7 @@ export const course02: Course = {
         answer: 'trans-por-ta-tion',
         speak: 'transportation',
         hint: 'a、o、a 加 -tion 整块，先数出四个核心。',
-        explain: 'transportation 划成 trans-por-ta-tion，/ˌtrænspɔːˈteɪʃn/，重音在 ta。',
+        explain: 'transportation 划成 trans-por-ta-tion，/ˌtrænspɔːˈteɪʃən/，重音在 ta。',
       },
       {
         id: 'c02-exit-2',
@@ -341,7 +358,7 @@ export const course02: Course = {
         answer: 'in-for-ma-tion',
         speak: 'information',
         hint: '-tion 整块只算一个核心，前面还剩三个核心。',
-        explain: 'information 划成 in-for-ma-tion，/ˌɪnfəˈmeɪʃn/，四个核心对四个音节。',
+        explain: 'information 划成 in-for-ma-tion，/ˌɪnfəˈmeɪʃən/，四个核心对四个音节。',
       },
       {
         id: 'c02-exit-4',
@@ -383,12 +400,12 @@ export const course02: Course = {
         narration: '-tion 家族有一个常见例外。',
         choices: [
           { label: '/tʃən/，如 question', correct: true },
-          { label: '/ʃn/，如 construction', correct: false },
+          { label: '/ʃən/，如 construction', correct: false },
           { label: '/tiːən/，照字母名读', correct: false },
         ],
         answer: '/tʃən/，如 question',
         hint: 's 出现在 -tion 前面时，读音会变。',
-        explain: 'question 读 /ˈkwestʃən/，-tion 前面是 s 加元音时读 /tʃən/，其余多读 /ʃn/。',
+        explain: 'question 读 /ˈkwestʃən/，-tion 前面是 s 加元音时读 /tʃən/，其余多读 /ʃən/。',
       },
       {
         id: 'c02-exit-8',
@@ -398,14 +415,15 @@ export const course02: Course = {
         syllableUnits: ['re', 'cord'],
         answer: '1',
         speak: 'record',
+        speakAudio: 'record-verb',
         hint: '两音节动词常把重音放在后一节。',
         explain: 'record 作名词重读第 1 音节（/ˈrekɔːd/），作动词重音移到第 2 音节 cord。',
       },
     ],
     bands: [
       { until: 8, verdict: '四音节词 10 秒内出结果，这条目标已经拿到。' },
-      { until: 5, verdict: '划分没问题，重音线索还不稳，回 U4 再跑一遍。', route: 'U4 定重音' },
-      { until: 0, verdict: '三步算法还没走顺，回 U2 从数核心重装。', route: 'U2 数元音核心' },
+      { until: 5, verdict: '划分没问题，重音线索还不稳，回 U4 再跑一遍。', route: 'u4' },
+      { until: 0, verdict: '三步算法还没走顺，回 U2 从数核心重装。', route: 'u2' },
     ],
   },
 

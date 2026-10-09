@@ -19,7 +19,7 @@ export const course07: Course = {
         narration: '第一题不考默写，考你能不能把它当场用出来。',
         answer: 'Her transformation from a shy student to a confident speaker was remarkable.',
         hint: '先想一个你熟悉的场景，比如一个人的变化，再把这个词放进去。',
-        explain: '参考句含目标词且超过 4 个词，算过线。站内只查词数和含不含目标词，三问自检留给你自己做。',
+        explain: '参考句含目标词且超过 4 个词，算过线，搭配、词性、像不像真人话这三问留给你自己做。',
       },
       {
         id: 'c07-diag-2',
@@ -113,12 +113,12 @@ export const course07: Course = {
       {
         until: 3,
         verdict: '你多半停在看和抄，写句子时卡住，从 U1 重新走一遍漏斗。',
-        route: 'U1 造句诊断',
+        route: 'u1',
       },
       {
         until: 0,
         verdict: '一个含目标词的句子都没写出来，这门课正是为你准备的。',
-        route: 'U1 起步，先过造句关',
+        route: 'u1',
       },
     ],
   },
@@ -139,7 +139,7 @@ export const course07: Course = {
           kind: 'example',
           text: 'transformation 见过很多次，轮到自己造句却卡在半空，这就是被动词汇。',
           speak: 'transformation',
-          ipa: '/ˌtrænsfɔːˈmeɪʃn/',
+          ipa: '/ˌtrænsfɔːˈmeɪʃən/',
         },
         { kind: 'warning', text: '把词抄十遍也没让句子出现，抄写不产生输出。' },
       ],
@@ -148,7 +148,7 @@ export const course07: Course = {
         title: '造句诊断',
         prompt: '用 transformation 造一个至少 4 个词、含目标词的句子，过线才进下一关。',
         debrief:
-          '站内做规则检查，至少 4 个词且含目标词，再用三问自检，搭配对吗、词性对吗、像真人会说的话吗，不做语法 AI 判分。',
+          '先过两道硬门槛，四个词以上、含目标词，再过搭配、词性、像不像真人话这三问。',
       },
       check: '离开本单元前，纸上要有一个含 transformation 的完整句子。',
     },
@@ -173,7 +173,7 @@ export const course07: Course = {
         kind: 'choice',
         title: '哪种练法算输出',
         prompt: '从四条练法里挑出算主动输出的那条，选对才放行到下一关。',
-        debrief: '只有你自己产出句子或答案才算输出，抄写和重读都只是又看了一遍。',
+        debrief: '只有自己产出才算输出，这个动作就叫提取练习，抄写和重读只是又看了一遍。',
       },
       check: '出单元前说出你今天产出的一句话，它得是你从零写出来的。',
     },
@@ -229,7 +229,7 @@ export const course07: Course = {
         title: '造句自检台',
         prompt: '用目标词造至少 4 个词的句子，先过规则检查，再过三问自检，安全句打回重写。',
         debrief:
-          '站内做规则检查，至少 4 个词、含目标词，再问搭配、词性、像不像真人话这三问，不做语法 AI 判分。',
+          '闸口会记你的通过率，本站把 80% 当验收线，低于它就回上一关补齐再过。',
       },
       check: '三问都答是，这个句子才算过闸。',
     },
@@ -263,14 +263,15 @@ export const course07: Course = {
       id: 'u6',
       title: '每天 15 分钟配比与出门条',
       durationMin: 6,
-      claim: '每天 15 分钟，朗读、造句、复述各占 5 分钟。',
+      claim: '每天 15 分钟，朗读热身，造句和复述才是产出。',
       blocks: [
         {
           kind: 'list',
           items: [
-            '5 分钟朗读昨天的生词和搭配',
+            '5 分钟朗读昨天的生词和搭配，这段是热身',
             '造句 8 句，占 5 分钟',
             '还有 5 分钟口头复述今天读到的一段',
+            '三类混着排，这个练法叫交错练习 interleaving',
           ],
         },
         {
@@ -283,7 +284,7 @@ export const course07: Course = {
         kind: 'exitTicket',
         title: '配比与出门条',
         prompt: '排出你每天 15 分钟的朗读、造句、复述配比，再打完 8 题出门条。',
-        debrief: '配比按次数记输出量，出门条当场给你一句报告和本轮最弱的一环。',
+        debrief: '配比里造句和复述计输出，朗读管热身，出门条当场给你一句报告。',
       },
       check: '出门条打完，记下本轮最弱的一环。',
     },
@@ -371,7 +372,7 @@ export const course07: Course = {
       {
         id: 'c07-exit-8',
         type: 'choice',
-        prompt: '下面哪个是本课每天 15 分钟的输出配比？',
+        prompt: '下面哪个是本课每天 15 分钟的练习配比？',
         narration: '配比定下来，明天就能照着执行。',
         choices: [
           { label: '朗读 5 分钟，造句 5 分钟，复述 5 分钟', correct: true },
@@ -380,7 +381,7 @@ export const course07: Course = {
           { label: '造句 10 分钟，复述 5 分钟', correct: false },
         ],
         answer: '朗读 5 分钟，造句 5 分钟，复述 5 分钟',
-        hint: '三级产出各占三分之一，缺一级就是瘸腿输出。',
+        hint: '三段各占三分之一，朗读是热身，造句和复述才是产出。',
         explain: '朗读激活口语和听力，造句练单句提取，复述练段落调用，各 5 分钟刚好凑满 15 分钟。',
       },
     ],
@@ -389,21 +390,21 @@ export const course07: Course = {
       {
         until: 5,
         verdict: '裂缝在造句这一级，回 U4 重过安全句拦截器和三问自检。',
-        route: 'U4 漏斗第三级',
+        route: 'u4',
       },
       {
         until: 0,
         verdict: '从 L1 听写重走漏斗，先把音到形这一步补齐。',
-        route: 'U3 漏斗前两级',
+        route: 'u3',
       },
     ],
   },
 
   selfCheck: [
-    '我每周完成的造句达到 50 句以上吗？',
+    '我这一周做到了每天 8 句、合计 50 句造句吗？',
     '我最近一周的造句通过率保持在 80% 以上吗？',
     '每句写完我都问过搭配、词性、像不像真人话这三问吗？',
-    '我每周至少开口复述过 3 次吗？',
+    '我每天都有 5 分钟口头复述今天读到的一段吗？',
     '我每天的 15 分钟里朗读、造句、复述都各占到 5 分钟吗？',
   ],
 };

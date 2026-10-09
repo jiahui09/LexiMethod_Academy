@@ -16,7 +16,7 @@ export const prefixes: Affix[] = [
   { text: 'com-', type: 'prefix', meaning: '共同，一起（con- 的变体）', examples: ['combine', 'common', 'compose', 'compete'] },
   { text: 'con-', type: 'prefix', meaning: '共同，一起', examples: ['connect', 'construct', 'consent', 'contract'] },
   { text: 'in-', type: 'prefix', meaning: '在内，进入；形容词前表“不”', examples: ['inside', 'inject', 'inspect', 'invisible'] },
-  { text: 'im-', type: 'prefix', meaning: '向内，向上（in- 的变体）', examples: ['import', 'impress', 'impossible', 'implant'] },
+  { text: 'im-', type: 'prefix', meaning: '向内，向上；形容词前表“不”（in- 的变体）', examples: ['import', 'impress', 'impossible', 'implant'] },
   { text: 'ex-', type: 'prefix', meaning: '向外，出', examples: ['export', 'exclude', 'exhale', 'express'] },
   { text: 'ab-', type: 'prefix', meaning: '离开，脱离', examples: ['abnormal', 'abstract', 'absent', 'absorb'] },
   { text: 'ad-', type: 'prefix', meaning: '向，靠近', examples: ['advance', 'admit', 'adapt', 'adhere'] },

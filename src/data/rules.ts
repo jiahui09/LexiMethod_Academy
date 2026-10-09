@@ -59,17 +59,17 @@ export const rules: Rule[] = [
   {
     id: 'r-phonics-07',
     type: 'phonics',
-    pattern: '-tion 读 /ʃn/，-sion 读 /ʒn/ 或 /ʃn/',
+    pattern: '-tion 读 /ʃən/，-sion 读 /ʒən/ 或 /ʃən/',
     explanation:
-      '词尾 -tion 固定读 /ʃn/，-sion 在元音后读 /ʒn/、在辅音后读 /ʃn/，且重音都落在它们前面那个音节上。看到 tion 就切出 na·tion 这样的整体音节块，长词的读音和重音一步确定。',
-    examples: ['nation /ˈneɪʃn/', 'invention /ɪnˈvenʃn/', 'decision /dɪˈsɪʒn/', 'mission /ˈmɪʃn/'],
+      '词尾 -tion 固定读 /ʃən/，-sion 在元音后读 /ʒən/、在辅音后读 /ʃən/，且重音都落在它们前面那个音节上。看到 tion 就切出 na·tion 这样的整体音节块，长词的读音和重音一步确定。',
+    examples: ['nation /ˈneɪʃən/', 'invention /ɪnˈvenʃən/', 'decision /dɪˈsɪʒən/', 'mission /ˈmɪʃən/'],
   },
   {
     id: 'r-phonics-08',
     type: 'phonics',
     pattern: '-tion → /tʃən/ 的少数例外',
     explanation:
-      '绝大多数 -tion 读 /ʃn/，但在 s 之后的 -stion 以及少数词里读 /tʃən/，最常用的就是 question 和 suggestion。这两个词高频到必须整体记住：看到 qu-s-tion 要读出“丘申”的感觉，别按通用规则硬套。',
+      '绝大多数 -tion 读 /ʃən/，但在 s 之后的 -stion 以及少数词里读 /tʃən/，最常用的就是 question 和 suggestion。这两个词高频到必须整体记住：看到 qu-s-tion 要读出“丘申”的感觉，别按通用规则硬套。',
     examples: ['question /ˈkwestʃən/', 'suggestion /səˈdʒestʃən/', 'congestion /kənˈdʒestʃən/'],
   },
   {
@@ -225,7 +225,7 @@ export const rules: Rule[] = [
     type: 'suffix',
     pattern: '-tion / -sion：动词→名词',
     explanation:
-      '把动词变成名词最常用的后缀，读 /ʃn/ 或 /ʒn/，重音固定在它前一个音节：act→action、decide→decision。阅读与口语里极高频；见到 -tion 先反推它的动词原形，词义往往直接揭晓。',
+      '把动词变成名词最常用的后缀，读 /ʃən/ 或 /ʒən/，重音固定在它前一个音节：act→action、decide→decision。阅读与口语里极高频；见到 -tion 先反推它的动词原形，词义往往直接揭晓。',
     examples: ['action', 'invention', 'decision', 'education'],
   },
   {
@@ -486,7 +486,7 @@ export const rules: Rule[] = [
     pattern: '-tion / -sion 前一个音节重读',
     explanation:
       '凡是以 -tion、-sion 结尾的多音节词，重音几乎必然落在它前面那个音节上，可当铁律使用：invention 重在 ven、decision 重在 ci。看到 tion 就往前数一格标重音，读音基本不会错。',
-    examples: ['invention /ɪnˈvenʃn/', 'decision /dɪˈsɪʒn/', 'education /ˌedʒuˈkeɪʃn/', 'organization /ˌɔːɡənaɪˈzeɪʃn/'],
+    examples: ['invention /ɪnˈvenʃən/', 'decision /dɪˈsɪʒən/', 'education /ˌedʒuˈkeɪʃən/', 'organization /ˌɔːɡənaɪˈzeɪʃən/'],
   },
   {
     id: 'r-stress-03',
