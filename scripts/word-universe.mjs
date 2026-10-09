@@ -36,6 +36,16 @@ export const WORD_SKIP = [
 /** 合法词 token：纯小写 a-z 且 ≥2 字符 */
 const TOKEN = /^[a-z]{2,}$/;
 
+/**
+ * 显式补录词（不来自数据源，直接写定合成输入）。
+ * token 即文件名（public/audio/words/<token>.mp3），phonemes 为 [[IPA]] 原始音素输入。
+ * 用途：同形异读词必须分别合成（如 record 名词/动词重音不同，纯文本会读成同一个音）。
+ */
+export const EXTRA_WORDS = [
+  { token: 'record-noun', phonemes: '[[ˈɹɛkɚd]]', note: 'record 名词重音在首音节（课程 02 演示/出门条用）' },
+  { token: 'record-verb', phonemes: '[[ɹɪˈkɔɹd]]', note: 'record 动词重音在第二音节' },
+];
+
 /** esbuild 打包数据入口 → 可导入的模块（每进程一次） */
 let cachedData = null;
 export async function loadData() {
@@ -132,6 +142,17 @@ export function extractWords(mod) {
 
   /* 组件内写死的英文词 */
   for (const w of ['ambulance', 'construction']) take('literals', w);
+
+  /* 显式补录词（同形异读等，合成输入见 EXTRA_WORDS） */
+  for (const e of EXTRA_WORDS) {
+    if (skip.has(e.token)) continue;
+    const s = (bySource['extra'] ??= { raw: 0, ok: 0 });
+    s.raw++;
+    if (!collected.has(e.token)) {
+      collected.set(e.token, 'extra');
+      s.ok++;
+    }
+  }
 
   const words = [...collected.keys()].sort();
   return { words, skipped, bySource };

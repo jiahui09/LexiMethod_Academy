@@ -46,7 +46,7 @@ function pickVoice(accent: 'uk' | 'us'): SpeechSynthesisVoice | undefined {
   return natural ?? primary[0] ?? en.find((v) => /google|siri|samantha|daniel/i.test(v.name)) ?? en[0];
 }
 
-export type SpeakOptions = { slow?: boolean; forceAccent?: 'uk' | 'us'; rate?: number };
+export type SpeakOptions = { slow?: boolean; forceAccent?: 'uk' | 'us'; rate?: number; audioKey?: string };
 
 let currentUtterance: SpeechSynthesisUtterance | null = null;
 
@@ -62,8 +62,9 @@ function endTts() {
 export function speakText(text: string, opts: SpeakOptions = {}): boolean {
   if (!text) return false;
 
-  /* 例词命中离线音频 → 直接播放（同源 mp3，无外部请求） */
-  const clipUrl = wordAudioUrl(text);
+  /* 例词命中离线音频 → 直接播放（同源 mp3，无外部请求）
+     audioKey：同形异读词（record 名/动）按指定键取音频，而非按朗读文本 */
+  const clipUrl = wordAudioUrl(opts.audioKey ?? text);
   if (clipUrl) {
     const s = useSettings.getState();
     return playClip(clipUrl, { rate: opts.rate ?? (opts.slow ? s.ttsSlowRate : 1) });

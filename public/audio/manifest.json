@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-08T12:53:53.130Z",
+  "generatedAt": "2026-10-09T08:39:47.766Z",
   "engine": {
     "tts": "piper-tts",
     "model": "en_US-lessac-medium",
@@ -194,7 +194,7 @@
       "slug": "g",
       "file": "phonemes/g.mp3",
       "durationMs": 189,
-      "meanDb": -16.7
+      "meanDb": -17.2
     },
     {
       "id": "f",
@@ -1544,7 +1544,7 @@
       "word": "detach",
       "file": "words/detach.mp3",
       "durationMs": 559,
-      "meanDb": -16.2
+      "meanDb": -17.6
     },
     {
       "word": "development",
@@ -2492,7 +2492,7 @@
       "word": "hi",
       "file": "words/hi.mp3",
       "durationMs": 405,
-      "meanDb": -16.4
+      "meanDb": -17.8
     },
     {
       "word": "history",
@@ -4313,6 +4313,18 @@
       "meanDb": -16.3
     },
     {
+      "word": "record-noun",
+      "file": "words/record-noun.mp3",
+      "durationMs": 508,
+      "meanDb": -15.8
+    },
+    {
+      "word": "record-verb",
+      "file": "words/record-verb.mp3",
+      "durationMs": 642,
+      "meanDb": -15.8
+    },
+    {
       "word": "recorded",
       "file": "words/recorded.mp3",
       "durationMs": 639,
@@ -4430,7 +4442,7 @@
       "word": "resistance",
       "file": "words/resistance.mp3",
       "durationMs": 698,
-      "meanDb": -15.8
+      "meanDb": -17.1
     },
     {
       "word": "resolve",
@@ -5540,7 +5552,7 @@
       "word": "upright",
       "file": "words/upright.mp3",
       "durationMs": 542,
-      "meanDb": -16.8
+      "meanDb": -18.2
     },
     {
       "word": "upset",

@@ -162,6 +162,8 @@ export type Question = {
   narration: string; // 旁白：不依赖动画也能理解
   speak?: string; // 需要朗读的文本
   speakSlow?: boolean;
+  /** 离线音频键（WORD_AUDIO key）：朗读文本与实际要播的音频不一致时用（如同形异读词 record） */
+  speakAudio?: string;
   choices?: Choice[];
   answer: string; // 标准答案（字符串）
   /** 音节划分题 */

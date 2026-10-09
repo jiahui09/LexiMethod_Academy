@@ -20,7 +20,7 @@ import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { buildWordUniverse, loadData as loadUniverseData } from './word-universe.mjs';
+import { buildWordUniverse, loadData as loadUniverseData, EXTRA_WORDS } from './word-universe.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const VENV = path.join(ROOT, '.venv-audio');
@@ -49,6 +49,14 @@ const SLUG = {
 };
 
 /* ---------------- 管线参数（与 NOTICE-AUDIO.md 同步） ---------------- */
+/**
+ * 音标 id → 合成输入修正（id 用于运行时映射/文件名，输入必须是模型 id 表里的码位）。
+ * 教学 id 用 ASCII `g`，而 en_US-lessac 的 phoneme_id_map 只有 IPA `ɡ`(U+0261)；
+ * 直接喂 `[[g]]` 会被 piper 静默跳过（phoneme_ids.py:194-197），产出无效音频。
+ */
+const IPA_FIX = { g: 'ɡ' };
+/** EXTRA_WORDS token → [[IPA]] 原始音素输入（同形异读词不能用纯文本合成） */
+const EXTRA_PHONEMES = new Map(EXTRA_WORDS.map((e) => [e.token, e.phonemes]));
 const TARGET_MEAN_DB = -16;   // 归一化目标响度（mean_volume）
 const VOLUME_CLAMP = 12;      // 增益修正上限 ±dB
 const TRIM_HEAD = '0.03';     // 裁剪后保留头/尾静音（s）
@@ -167,8 +175,8 @@ async function main() {
   const needW = uniqueWords.filter((w) => force || !fs.existsSync(path.join(OUT_W_DIR, `${w}.mp3`)));
 
   const items = [
-    ...needPh.map((p) => ({ out: path.join(TMP, `ph_${SLUG[p.id]}.wav`), text: `[[${p.id}]]` })),
-    ...needW.map((w) => ({ out: path.join(TMP, `w_${w}.wav`), text: w })),
+    ...needPh.map((p) => ({ out: path.join(TMP, `ph_${SLUG[p.id]}.wav`), text: `[[${IPA_FIX[p.id] ?? p.id}]]` })),
+    ...needW.map((w) => ({ out: path.join(TMP, `w_${w}.wav`), text: EXTRA_PHONEMES.get(w) ?? w })),
   ];
   log(`▸ 词表 ${uniqueWords.length} 词；本次合成 ${items.length} 条（音素 ${needPh.length}/48 + 词 ${needW.length}${force ? '，全量' : '，增量'}）…`);
   if (items.length) {
@@ -178,6 +186,10 @@ async function main() {
       input: spec, encoding: 'utf8', cwd: TMP, maxBuffer: 32 * 1024 * 1024,
     });
     if (r.status !== 0) die(`piper 批量合成失败:\n${r.stderr}`);
+    // 门禁：任何「音素表缺码位」警告都意味着该条音频内容无效（piper 会静默跳过），必须失败
+    if (/Missing phoneme from id map/.test(r.stderr ?? '')) {
+      die(`piper 音素表缺码位（合成内容将无效，已中止）:\n${r.stderr}`);
+    }
     const batch = JSON.parse(r.stdout.trim());
     if (batch.errors.length) die(`合成失败:\n${batch.errors.map((e) => `${e.out}: ${e.error}`).join('\n')}`);
   } else {

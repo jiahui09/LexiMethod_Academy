@@ -112,6 +112,12 @@ export function playClip(url: string, opts: { rate?: number } = {}): boolean {
     /* noop */
   }
   a.playbackRate = Math.max(0.3, Math.min(1.6, opts.rate ?? 1));
+  /* 慢速播放必须保音高：音标学习里降调会改变元音音质（旧 Safari/WebKit 前缀分支） */
+  if ('preservesPitch' in a) {
+    a.preservesPitch = true;
+  } else {
+    (a as HTMLMediaElement & { webkitPreservesPitch?: boolean }).webkitPreservesPitch = true;
+  }
   const p = a.play();
   if (p) {
     p.then(() => emitSpeaking(true)).catch(() => {

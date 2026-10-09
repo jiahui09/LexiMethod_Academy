@@ -715,6 +715,8 @@ export const WORD_AUDIO: Record<string, string> = {
   "recognise": "recognise",
   "reconstruction": "reconstruction",
   "record": "record",
+  "record-noun": "record-noun",
+  "record-verb": "record-verb",
   "recorded": "recorded",
   "recorder": "recorder",
   "recording": "recording",
