@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Volume2, VolumeX, Gauge, Sparkles, Accessibility, RotateCcw, ShieldCheck, Monitor, Check, ChevronRight } from 'lucide-react';
+import { Volume2, VolumeX, Gauge, Sparkles, Accessibility, RotateCcw, ShieldCheck, Monitor, Check, ChevronRight, HardDrive, Trash2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useSettings, resolveMotionTier, applyMotionTier } from '@/store/settingsStore';
 import { useProgress } from '@/store/progressStore';
 import { useReview } from '@/store/reviewStore';
+import { clearLocalData } from '@/store/persistence';
 import { useSpeech, speechSupported } from '@/hooks/useSpeech';
 import { useReduced, useIsMobile } from '@/hooks/useMotionTier';
 import { EduButton, EduChip } from '@/components/edu';
@@ -22,6 +23,7 @@ export default function Settings() {
   const reduced = useReduced();
   const isMobile = useIsMobile();
   const [confirmReset, setConfirmReset] = useState(false);
+  const [confirmClear, setConfirmClear] = useState(false);
 
   const accentOptions: { key: 'uk' | 'us'; label: string; sample: string }[] = [
     { key: 'uk', label: '英式发音', sample: 'photograph /ˈfəʊtəɡrɑːf/' },
@@ -55,7 +57,8 @@ export default function Settings() {
         <div>
           <h1 className="font-display text-[26px] font-extrabold leading-tight text-ink md:text-[32px]">设置</h1>
           <p className="mt-2 max-w-[68ch] text-[15px] leading-[1.8] text-ink2">
-            发音口音、动画强度、音效与语速都可调。本站零数据存储，这些偏好只存在于当前会话。
+            发音口音、动画强度、音效与语速都可调。偏好本身只存在于当前会话；学习进度默认存在本机
+            localStorage（开关与清除入口见下方「数据与隐私」），既不上传也不追踪。
           </p>
         </div>
       </header>
@@ -67,7 +70,8 @@ export default function Settings() {
             <Volume2 size={15} className="text-ink2" aria-hidden /> 发音口音
           </div>
           <p className="mb-3 text-xs text-ink2">
-            影响所有朗读与听力题的发音风格（系统语音包支持范围内）。48 个音标本体使用内置离线音频（美式），不随口音切换。
+            只影响浏览器语音合成（TTS）的朗读与听力题：系统语音包支持范围内才生效，不支持时回落浏览器默认嗓音。
+            离线点读音不受影响——48 个音标本体与全部例词的内置 mp3 固定为美音，点开即播，不随口音开关切换。
           </p>
           <div className="grid grid-cols-2 gap-2.5">
             {accentOptions.map((o) => (
@@ -252,15 +256,55 @@ export default function Settings() {
         </section>
       </div>
 
-      {/* 数据与隐私：零存储声明 */}
+      {/* 数据与隐私：本机存储开关 + 立即清除 */}
       <section className=" border-2 border-ink bg-leaf p-5" data-testid="zero-storage-note">
         <div className="mb-1 flex items-center gap-2 font-display text-sm font-bold text-ink">
-          <ShieldCheck size={15} className="text-ink2" aria-hidden /> 数据与隐私，零存储
+          <ShieldCheck size={15} className="text-ink2" aria-hidden /> 数据与隐私 · 零上传存储
         </div>
-        <p className="machine mb-2 text-ink">localStorage · sessionStorage · cookies 全部为空，刷新即归零</p>
-        <p className="mb-4 text-xs text-ink2">
-          本站不写任何浏览器存储，也不上传任何数据。下面这些数字、复习卡、错题与设置只活在当前标签页里，刷新或关闭即回到初始状态。
+        <p className="machine mb-2 text-ink">
+          零存储服务器 · 只写本机 localStorage（leximethod.progress.v1 / leximethod.review.v1）· 零追踪
         </p>
+        <p className="mb-4 text-xs text-ink2">
+          本站没有账号、没有服务端数据库：零存储服务器、零上传，一切数据只留在你这台机器的浏览器里。
+          进度持久化开关<strong className="text-ink">打开</strong>时，学习进度与错题写入本机
+          localStorage（刷新、关页都在）；<strong className="text-ink">关闭</strong>则不保存——本会话还能用，
+          刷新即归零，并删除已存数据。口音、动画、音效等偏好仍只活在当前会话。
+        </p>
+
+        {/* 持久化开关 */}
+        <div className="mb-4 flex flex-wrap items-center gap-3 border-2 border-ink bg-under/60 px-4 py-3">
+          <span className="flex items-center gap-1.5 text-xs font-semibold text-ink">
+            <HardDrive size={13} aria-hidden /> 进度存本机
+          </span>
+          <div className="flex gap-2" role="group" aria-label="进度持久化开关">
+            {[
+              { on: true, label: '开' },
+              { on: false, label: '关' },
+            ].map((o) => (
+              <button
+                key={o.label}
+                type="button"
+                onClick={() => {
+                  playSfx('tick');
+                  s.setPersistProgress(o.on);
+                }}
+                aria-pressed={s.persistProgress === o.on}
+                className={`hinge min-h-[44px] min-w-[56px] border-2 px-3 text-xs font-semibold ${
+                  s.persistProgress === o.on
+                    ? 'border-ink bg-ink text-milk'
+                    : 'border-ink bg-leaf text-ink2 hover:text-ink'
+                }`}
+              >
+                {o.on ? '开 · 存本机' : '关 · 不保存'}
+              </button>
+            ))}
+          </div>
+          <span className="text-xs text-ink2" aria-live="polite">
+            {s.persistProgress
+              ? '进度存在本机，清除数据见这一栏。'
+              : '当前未保存，刷新即归零。'}
+          </span>
+        </div>
 
         <div className="grid gap-3 sm:grid-cols-3">
           <div className=" bg-under px-4 py-3 text-xs text-ink2">
@@ -278,10 +322,15 @@ export default function Settings() {
           </div>
         </div>
 
+        <p className="mt-3 text-xs text-ink2">
+          复习卡与错题只是记录：站内不排复习、不弹提醒，也不会替你安排「明天再来」。想让它们按
+          1/3/7/14/30 天重现，请抄进你自己的日历或 Anki。
+        </p>
+
         <div className="mt-4 flex flex-wrap items-center gap-3">
           {!confirmReset ? (
             <EduButton variant="default" size="sm" onClick={() => setConfirmReset(true)}>
-              <RotateCcw size={14} aria-hidden /> 清空本次会话…
+              <RotateCcw size={14} aria-hidden /> 清空进度与错题…
             </EduButton>
           ) : (
             <div className="flex flex-wrap items-center gap-2 border-y-2 border-errata py-2">
@@ -307,6 +356,42 @@ export default function Settings() {
               </button>
             </div>
           )}
+        </div>
+
+        {/* 立即清除本机数据：连 localStorage 里的键一起删干净 */}
+        <div className="mt-3 flex flex-wrap items-center gap-3 border-t border-rule pt-4">
+          {!confirmClear ? (
+            <EduButton variant="ghost" size="sm" onClick={() => setConfirmClear(true)}>
+              <Trash2 size={14} aria-hidden /> 立即清除本机数据…
+            </EduButton>
+          ) : (
+            <div className="flex flex-wrap items-center gap-2 border-y-2 border-errata py-2">
+              <span className="text-xs text-errata-deep">
+                确认删除本机 localStorage 里的全部学习数据（进度、错题、开关本身）？不可撤销。
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  playSfx('wrong');
+                  progress.resetAll();
+                  review.reset();
+                  clearLocalData();
+                  setConfirmClear(false);
+                }}
+                className="hinge min-h-[44px] border-2 border-errata bg-leaf px-3 text-xs font-semibold text-errata-deep transition-colors hover:bg-errata/[0.08]"
+              >
+                确认清空本机数据
+              </button>
+              <button
+                type="button"
+                onClick={() => setConfirmClear(false)}
+                className="hinge min-h-[44px] border-2 border-ink px-3 text-xs text-ink transition-colors hover:bg-under"
+              >
+                取消
+              </button>
+            </div>
+          )}
+          <span className="text-xs text-ink2">清除后本机不再有任何键，下次打开站点时开关回到默认「开」，进度从零开始记。</span>
         </div>
       </section>
     </div>

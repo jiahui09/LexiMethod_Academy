@@ -1,5 +1,7 @@
 import { create } from 'zustand';
 import type { QuestionType } from '@/types';
+import { PROGRESS_KEY, readJSON, registerSaver, writeJSON } from './persistence';
+import { useSettings } from './settingsStore';
 
 type ProgressState = {
   /** methodId -> 已完成的 step 索引列表（旧模型，随旧课程页退役） */
@@ -19,17 +21,20 @@ type ProgressState = {
   markPhonemeLearned: (id: string) => void;
   addAnalyzedWord: (word: string) => void;
 
-  // ---------- 新课程体系（src/data/courses，内存态，刷新归零） ----------
+  // ---------- 新课程体系（src/data/courses） ----------
   /** courseId -> 已完成单元 id（u1..u6） */
   completedUnits: Record<string, string[]>;
   /** 诊断已做的课程（决策点1：诊断先行） */
   diagnosticTaken: string[];
-  /** 出门条成绩（决策点3：当场快测，刷新即失效） */
+  /** 诊断成绩（分数带分流的依据；P0-5：defaultStep / 报告去向按它读 band.route） */
+  diagnosticResults: Record<string, { score: number; total: number }>;
+  /** 出门条成绩（决策点3：当场快测） */
   exitResults: Record<string, { score: number; total: number }>;
   /** 离场自测已勾选的课程 */
   selfChecked: string[];
   completeUnit: (courseId: string, unitId: string) => void;
   markDiagnosticTaken: (courseId: string) => void;
+  recordDiagnosticResult: (courseId: string, score: number, total: number) => void;
   recordExitResult: (courseId: string, score: number, total: number) => void;
   markSelfChecked: (courseId: string) => void;
 
@@ -44,6 +49,7 @@ const initial = {
   analyzedWords: [] as { word: string; at: number; step: number }[],
   completedUnits: {} as Record<string, string[]>,
   diagnosticTaken: [] as string[],
+  diagnosticResults: {} as Record<string, { score: number; total: number }>,
   exitResults: {} as Record<string, { score: number; total: number }>,
   selfChecked: [] as string[],
 };
@@ -58,14 +64,25 @@ function syncCompletedMethods(s: ProgressState, methodId: string, stepCount: num
     : s.completedMethods.filter((m) => m !== methodId);
 }
 
+/** 只序列化数据字段（函数动作不落盘），键名带版本 `leximethod.progress.v1` */
+function serializable(s: ProgressState): Record<string, unknown> {
+  const out: Record<string, unknown> = {};
+  for (const [k, v] of Object.entries(s)) if (typeof v !== 'function') out[k] = v;
+  return out;
+}
+
+const saved = readJSON<Partial<ProgressState>>(PROGRESS_KEY) ?? {};
+
 /**
- * 站点零数据存储：本 store 只存在于内存，**不写 localStorage / sessionStorage**。
- * 刷新即回到初始状态。
- * 角色化数值（XP / 连击 / 连续天数 / 成就徽章）已按 DESIGN.md 去角色化原则移除；
- * 保留的是学习反馈：课程进度、音标进度与听写累计。
+ * 存储口径（P0-2，用户已拍板，推翻旧「零存储」条款）：
+ * 开关 `settingsStore.persistProgress`（默认开）打开时，状态写本机 localStorage
+ * （键 `leximethod.progress.v1`），启动时回读；开关关闭时不写、并已删除旧数据。
+ * 无论开关如何，**一律不上行、不追踪、不发外部请求**——数据只在你这台机器上。
+ * 角色化数值（XP / 连击 / 连续天数 / 成就徽章）仍按 DESIGN.md 去角色化原则不存。
  */
 export const useProgress = create<ProgressState>()((set) => ({
       ...initial,
+      ...(saved as Partial<ProgressState>),
 
       completeStep: (methodId, stepIndex, total) =>
         set((s) => {
@@ -97,7 +114,7 @@ export const useProgress = create<ProgressState>()((set) => ({
           analyzedWords: [{ word, at: Date.now(), step: 6 }, ...s.analyzedWords].slice(0, 50),
         })),
 
-      // ---------- 新课程体系（全部内存态：刷新归零，零持久化） ----------
+      // ---------- 新课程体系（开关打开时持久化到本机，见文件头注释） ----------
       completeUnit: (courseId, unitId) =>
         set((s) => {
           const prev = s.completedUnits[courseId] ?? [];
@@ -114,6 +131,11 @@ export const useProgress = create<ProgressState>()((set) => ({
             : { diagnosticTaken: [...s.diagnosticTaken, courseId] },
         ),
 
+      recordDiagnosticResult: (courseId, score, total) =>
+        set((s) => ({
+          diagnosticResults: { ...s.diagnosticResults, [courseId]: { score, total } },
+        })),
+
       recordExitResult: (courseId, score, total) =>
         set((s) => ({
           exitResults: { ...s.exitResults, [courseId]: { score, total } },
@@ -127,6 +149,16 @@ export const useProgress = create<ProgressState>()((set) => ({
       resetAll: () => set({ ...initial }),
   }),
 );
+
+// 每次状态变化后按开关落盘；开关关闭时 subscribe 直接不写。
+useProgress.subscribe((state) => {
+  if (!useSettings.getState().persistProgress) return;
+  writeJSON(PROGRESS_KEY, serializable(state));
+});
+registerSaver(() => {
+  if (!useSettings.getState().persistProgress) return;
+  writeJSON(PROGRESS_KEY, serializable(useProgress.getState()));
+});
 
 /** 整体课程进度 0~1 */
 export function useOverallProgress(methodCount: number, stepsPerMethod = 8) {
