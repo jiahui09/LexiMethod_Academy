@@ -53,7 +53,7 @@ const ListenChoosePhoneme: KindComp = ({ onDone }) => {
             key={o}
             type="button"
             onClick={() => pick(o)}
-            className="hinge machine min-h-[44px] min-w-[52px] border border-ink/40 bg-leaf px-3 text-[17px] font-bold hover:bg-under"
+            className="hinge machine min-h-[44px] min-w-[52px] border-2 border-ink bg-leaf px-3 text-[17px] font-bold hover:bg-under"
           >
             {o}
           </button>
@@ -214,7 +214,7 @@ const ListenWriteWord: KindComp = ({ onDone }) => {
                 setChecked(false);
               }}
               aria-label={`第 ${i + 1} 个听写词`}
-              className="machine h-11 w-40 border border-ink/40 bg-leaf px-3 text-[15px] focus:border-ink"
+              className="machine h-11 w-40 border-2 border-ink bg-leaf px-3 text-[15px] focus:border-ink"
             />
             {checked && (
               <span className={`machine text-[14px] ${vals[i].trim().toLowerCase() === w ? 'text-ink' : 'text-errata'}`}>

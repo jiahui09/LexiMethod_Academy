@@ -113,7 +113,7 @@ export default function MethodCourse() {
             <span className="machine text-ink">{String(course.order).padStart(2, '0')}</span>
             <span className="font-display font-bold text-ink">{course.title}</span>
             {course.optional && (
-              <span className="border border-ink px-1.5 py-0.5 text-[12px] text-ink2">
+              <span className="border-2 border-ink px-1.5 py-0.5 text-[12px] text-ink2">
                 可跳过
               </span>
             )}
@@ -167,7 +167,7 @@ export default function MethodCourse() {
                 <div className="mt-8 flex flex-col gap-3 border-t border-rule pt-5 sm:flex-row sm:items-center sm:justify-between">
                   <Link
                     to={`/methods/${course.id}?step=${step > 1 ? step - 1 : 0}`}
-                    className="hinge inline-flex min-h-[44px] items-center justify-center gap-1.5 border border-ink px-4 text-[13px] text-ink hover:bg-under"
+                    className="hinge inline-flex min-h-[44px] items-center justify-center gap-1.5 border-2 border-ink px-4 text-[13px] text-ink hover:bg-under"
                   >
                     <ArrowLeft size={14} aria-hidden />
                     {step > 1 ? `上一步 U${step - 1}` : '回诊断'}
@@ -176,7 +176,7 @@ export default function MethodCourse() {
                     type="button"
                     onClick={() => goStep(step + 1)}
                     data-testid="step-next"
-                    className="hinge inline-flex min-h-[44px] items-center justify-center gap-2 bg-ink px-5 py-2.5 font-display text-sm font-bold text-milk hover:bg-ink2 active:translate-y-px sm:ml-auto"
+                    className="hinge inline-flex min-h-[44px] items-center justify-center gap-2 bg-ink px-5 py-2.5 font-display text-sm font-bold text-milk press shadow-hard hover:bg-ink2 sm:ml-auto"
                   >
                     {step === 6 ? '去出门条' : `下一步 U${step + 1}`}
                     <ArrowRight size={15} className="text-errata" aria-hidden />
@@ -191,7 +191,7 @@ export default function MethodCourse() {
           {/* 页边批注（宽屏右栏）：灰面板边注——重线分隔的事实与深链 */}
           <aside className="hidden xl:block" aria-label="本课页边">
             <div className="sticky top-24 flex flex-col gap-6">
-              <div className="bg-under px-4 pb-4 pt-3 border-t-2 border-ink">
+              <div className="bg-under px-4 pb-4 pt-3 border-2 border-ink shadow-hard">
                 <p className="machine text-[12px] text-ink2">本课</p>
                 <div className="mt-1 flex items-baseline gap-2.5">
                   <span className="font-display text-[44px] font-extrabold leading-none tracking-tight text-ink tabular-nums">
@@ -204,7 +204,7 @@ export default function MethodCourse() {
                 </div>
               </div>
 
-              <div className="bg-under px-4 pb-4 pt-3 border-t border-rule">
+              <div className="bg-under px-4 pb-4 pt-3 border-2 border-ink shadow-hard">
                 <p className="machine text-[12px] text-ink2">进度</p>
                 <dl className="mt-2 space-y-1.5 text-[13px]">
                   <div className="flex items-baseline justify-between gap-2">
@@ -227,7 +227,7 @@ export default function MethodCourse() {
                 </div>
               </div>
 
-              <div className="bg-under px-4 pb-4 pt-3 border-t border-rule">
+              <div className="bg-under px-4 pb-4 pt-3 border-2 border-ink shadow-hard">
                 <p className="machine text-[12px] text-ink2">页边深链</p>
                 <Link
                   to={lab.to}
@@ -237,7 +237,7 @@ export default function MethodCourse() {
                 </Link>
               </div>
 
-              <div className="bg-under px-4 pb-4 pt-3 border-t border-rule">
+              <div className="bg-under px-4 pb-4 pt-3 border-2 border-ink shadow-hard">
                 <p className="machine text-[12px] text-ink2">事实</p>
                 <p className="mt-1.5 text-[13px] leading-[1.7] text-ink2">
                   {course.durationMin} 分钟 · {course.units.length} 单元 · {metas.length} 步

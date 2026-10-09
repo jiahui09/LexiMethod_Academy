@@ -162,7 +162,7 @@ export default function TokenPlacer({
                     : { x: 0 }
               }
               transition={{ duration: 0.4 }}
-              className={`relative flex min-w-[76px] min-h-[56px] items-center justify-center border px-4 py-4 font-serif text-lg font-semibold transition-colors ${
+              className={`relative flex min-w-[76px] min-h-[56px] items-center justify-center border-2 px-4 py-4 font-serif text-lg font-semibold transition-colors ${
                 piece
                   ? 'border-ink/55 bg-leaf text-ink'
                   : 'border-dashed border-rule bg-transparent ink2/70'
@@ -198,10 +198,10 @@ export default function TokenPlacer({
                 }
               }}
               onClick={() => handlePick(piece, 'pool')}
-              className={`min-h-[44px] cursor-grab border px-4 py-2.5 font-serif text-base font-semibold transition-colors active:cursor-grabbing ${
+              className={`min-h-[44px] cursor-grab border-2 px-4 py-2.5 font-serif text-base font-semibold transition-colors active:cursor-grabbing ${
                 picked?.piece.id === piece.id
                   ? 'border-ink bg-under text-errata-deep'
-                  : 'border-rule bg-leaf text-ink hover:border-ink'
+                  : 'border-ink bg-leaf text-ink hover:border-ink'
               }`}
               aria-pressed={picked?.piece.id === piece.id}
             >
@@ -221,7 +221,7 @@ export default function TokenPlacer({
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            className={` border px-4 py-3 text-sm ${
+            className={` border-2 px-4 py-3 text-sm ${
               status === 'correct' ? 'border-ink/60 bg-leaf text-ink' : 'border-errata bg-leaf text-ink'
             }`}
             role="status"
@@ -251,7 +251,7 @@ export default function TokenPlacer({
         <button
           type="button"
           onClick={reset}
-          className="min-h-[44px] border border-rule px-3 py-1 transition-colors hover:border-ink hover:text-ink"
+          className="min-h-[44px] border-2 border-ink px-3 py-1 transition-colors hover:border-ink hover:text-ink"
         >
           重新出题
         </button>

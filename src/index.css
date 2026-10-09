@@ -154,7 +154,7 @@ html[data-motion='off'] *::after {
     border-radius: 0;
   }
   .leaf-active {
-    /* 活动页：发丝线换实黑线，零投影（瑞士世界靠线宽分层） */
+    /* 活动页：发丝线换实黑线；浮动件的硬影见 .shadow-hard */
     border-color: var(--ink);
   }
   .under-leaf {
@@ -193,8 +193,8 @@ html[data-motion='off'] *::after {
 
 /* 刻度方块：空未到 / 实心完成 / 半格进行中（状态永远配文字或形状） */
 .punch {
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   border-radius: 0;
   border: 2px solid var(--rule);
   flex: none;
@@ -250,7 +250,7 @@ html[data-motion='off'] *::after {
   .edu-input {
     width: 100%;
     min-height: 44px;
-    border: 1px solid var(--ink);
+    border: 2px solid var(--ink);
     border-radius: 0;
     background: var(--leaf);
     color: var(--ink);
@@ -290,4 +290,41 @@ input[type='range']::-moz-range-thumb {
   background: var(--ink);
   border: 0;
   border-radius: 0;
+}
+
+/* ============================================================
+   狂野吸收（第三轮修订，用户放行「零 box-shadow」旧锁）：
+   硬偏移影 = 实心墨、零模糊；软影仍禁
+   ============================================================ */
+.shadow-hard {
+  box-shadow: 4px 4px 0 var(--ink);
+}
+.shadow-hard-lg {
+  box-shadow: 8px 8px 0 var(--ink);
+}
+/* 墨上浅件：墨影在墨面上不可见，换次级墨 */
+.shadow-hard-invert {
+  box-shadow: 4px 4px 0 var(--ink2);
+}
+
+/* 按压：hover 抬 2px 影胀到 6px，active 压回 4px 影归零
+   ——与 .hinge 同款 90ms steps(2) 硬跳（同一条动效语言，无缓动新词） */
+.press {
+  transition:
+    transform 90ms steps(2),
+    box-shadow 90ms steps(2);
+}
+.press:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+.press:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 var(--ink);
+}
+.press-invert:hover {
+  box-shadow: 6px 6px 0 var(--ink2);
+}
+.press-invert:active {
+  box-shadow: 0 0 0 var(--ink2);
 }

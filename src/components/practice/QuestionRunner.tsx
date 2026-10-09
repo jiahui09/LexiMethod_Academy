@@ -129,7 +129,7 @@ export default function QuestionRunner({
     const pct = results.length ? Math.round((correct / results.length) * 100) : 0;
     const wrongList = questions.filter((_, i) => results[i] && !results[i].correct);
     return (
-      <div className="relative border border-rule bg-under/60 p-6 text-center">
+      <div className="relative border-2 border-ink bg-under/60 p-6 text-center">
         <div className="mb-3 flex items-center justify-center gap-2">
           <span className="punch punch-done" aria-hidden />
           <span className="machine text-ink2">已阅</span>
@@ -140,7 +140,7 @@ export default function QuestionRunner({
           <span className="tabular-nums text-board-deconstruct">{pct}%</span>）
         </p>
         {wrongList.length > 0 && (
-          <div className="mx-auto mt-4 max-w-xl border border-errata/45 bg-errata/[0.05] p-4 text-left text-xs text-ink2">
+          <div className="mx-auto mt-4 max-w-xl border-2 border-errata/45 bg-errata/[0.05] p-4 text-left text-xs text-ink2">
             <div className="mb-1.5 font-semibold text-errata-deep">错题已排入间隔重复队列，稍后重现</div>
             <ul className="space-y-1">
               {wrongList.slice(0, 4).map((wq) => (
@@ -172,11 +172,11 @@ export default function QuestionRunner({
   const writeType = isWriteType(q.type);
 
   return (
-    <div className="relative border border-rule bg-under/60 p-5 md:p-6">
+    <div className="relative border-2 border-ink bg-under/60 p-5 md:p-6">
       {/* 头部：题号 / 题型 */}
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2 text-xs text-ink2">
-          <span className=" border border-board-deconstruct/45 px-2 py-0.5 font-semibold text-board-deconstruct">
+          <span className=" border-2 border-board-deconstruct/45 px-2 py-0.5 font-semibold text-board-deconstruct">
             {TYPE_LABELS[q.type]}
           </span>
           <span className="tabular-nums">
@@ -213,7 +213,7 @@ export default function QuestionRunner({
           <button
             type="button"
             onClick={() => speak(q.speak!, { slow: q.speakSlow })}
-            className="flex min-h-[44px] items-center gap-1.5 border border-rule px-3 py-2 text-xs text-ink2 transition-colors hover:border-ink hover:text-ink"
+            className="flex min-h-[44px] items-center gap-1.5 border-2 border-ink px-3 py-2 text-xs text-ink2 transition-colors hover:border-ink hover:text-ink"
           >
             <Headphones size={14} aria-hidden /> 播放
           </button>
@@ -239,18 +239,18 @@ export default function QuestionRunner({
                   transition={{ delay: i * 0.05 }}
                   whileHover={reveal ? undefined : { scale: 1.015, y: -2 }}
                   whileTap={reveal ? undefined : { scale: 0.98 }}
-                  className={`relative flex min-h-[44px] items-center justify-between gap-3 overflow-hidden border px-4 py-3.5 text-left transition-colors duration-300 ${
+                  className={`relative flex min-h-[44px] items-center justify-between gap-3 overflow-hidden border-2 px-4 py-3.5 text-left transition-colors duration-300 ${
                     reveal && isRight
                       ? 'border-board-deconstruct bg-board-deconstruct/[0.07]'
                       : reveal && chosen
                         ? 'border-errata bg-errata/[0.07] animate-shake'
                         : reveal
-                          ? 'border-rule bg-transparent'
-                          : 'border-rule bg-leaf hover:border-board-deconstruct hover:bg-board-deconstruct/[0.04]'
+                          ? 'border-ink bg-transparent'
+                          : 'border-ink bg-leaf hover:border-board-deconstruct hover:bg-board-deconstruct/[0.04]'
                   }`}
                 >
                   <span className="flex items-center gap-2.5">
-                    <span className="flex h-6 w-6 items-center justify-center border border-rule bg-under text-xs font-bold text-board-deconstruct">
+                    <span className="flex h-6 w-6 items-center justify-center border-2 border-ink bg-under text-xs font-bold text-board-deconstruct">
                       {String.fromCharCode(65 + i)}
                     </span>
                     <span className={`font-semibold text-ink ${c.sub ? '' : 'ipa text-base'}`}>{c.label}</span>
@@ -305,7 +305,7 @@ export default function QuestionRunner({
                     initial={tier === 'off' ? false : { scale: 0.5, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ delay: i * 0.06 }}
-                    className={`flex h-9 w-8 items-center justify-center border font-mono text-sm font-semibold ${
+                    className={`flex h-9 w-8 items-center justify-center border-2 font-mono text-sm font-semibold ${
                       l.status === 'same'
                         ? 'border-board-deconstruct bg-board-deconstruct/[0.08] text-board-deconstruct'
                         : 'border-errata bg-errata/[0.08] text-errata-deep animate-shake'
@@ -358,12 +358,12 @@ export default function QuestionRunner({
                     disabled={reveal}
                     onClick={() => commit(String(i))}
                     whileHover={reveal ? undefined : { y: -3 }}
-                    className={`inline-flex min-h-[44px] items-center gap-2 border px-5 py-4 text-lg font-bold transition-colors ${
+                    className={`inline-flex min-h-[44px] items-center gap-2 border-2 px-5 py-4 text-lg font-bold transition-colors ${
                       right
                         ? 'border-board-deconstruct bg-board-deconstruct/[0.08] text-board-deconstruct'
                         : reveal && chosen
                           ? 'border-errata bg-errata/[0.08] text-errata-deep animate-shake'
-                          : 'border-rule bg-leaf text-ink hover:border-board-deconstruct'
+                          : 'border-ink bg-leaf text-ink hover:border-board-deconstruct'
                     }`}
                     aria-label={`第 ${i + 1} 音节 ${s}${right ? ' 正确' : ''}`}
                   >
@@ -386,7 +386,7 @@ export default function QuestionRunner({
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}
-            className={`mt-4 border p-4 text-sm text-ink ${
+            className={`mt-4 border-2 p-4 text-sm text-ink ${
               status === 'correct' ? 'border-board-deconstruct/60 bg-board-deconstruct/[0.06]' : 'border-errata/60 bg-errata/[0.06]'
             }`}
             role="status"

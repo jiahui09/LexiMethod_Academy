@@ -63,10 +63,10 @@ export default function SpellingMapDrill() {
               setDir(d.key);
               setSeed((s) => s + 1);
             }}
-            className={` border p-4 text-left transition-colors duration-200 ${
+            className={` border-2 p-4 text-left transition-colors duration-200 ${
               dir === d.key
                 ? 'border-ink bg-ink'
-                : 'border-rule bg-under/50 hover:border-ink'
+                : 'border-ink bg-under/50 hover:border-ink'
             }`}
             aria-pressed={dir === d.key}
           >
@@ -117,7 +117,7 @@ function PatternSpotlight() {
   if (!pat) return null;
 
   return (
-    <section className=" border border-rule bg-under/60 p-5">
+    <section className=" border-2 border-ink bg-under/60 p-5">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2 text-sm font-semibold text-ink">
           <Sparkles size={15} aria-hidden /> 拼写规则动画
@@ -131,10 +131,10 @@ function PatternSpotlight() {
                 playSfx('tick');
                 setPatternId(p.id);
               }}
-              className={`ipa min-h-[44px] min-w-[44px] border px-2.5 py-1 text-xs transition-colors duration-200 ${
+              className={`ipa min-h-[44px] min-w-[44px] border-2 px-2.5 py-1 text-xs transition-colors duration-200 ${
                 p.id === patternId
                   ? 'border-ink bg-ink text-milk'
-                  : 'border-rule bg-under/50 text-ink2 hover:border-ink hover:text-ink'
+                  : 'border-ink bg-under/50 text-ink2 hover:border-ink hover:text-ink'
               }`}
               aria-pressed={p.id === patternId}
             >
@@ -148,14 +148,14 @@ function PatternSpotlight() {
       <div className="mb-4 flex flex-wrap items-center justify-center gap-4">
         <span
           key={`a-${pat.id}`}
-          className="ipa hinge border border-rule bg-under/50 px-6 py-3 text-2xl font-bold text-ink"
+          className="ipa hinge border-2 border-ink bg-under/50 px-6 py-3 text-2xl font-bold text-ink"
         >
           {pat.pattern}
         </span>
         <span key={`l-${pat.id}`} className="h-0.5 w-20 bg-ink" aria-hidden />
         <span
           key={`b-${pat.id}`}
-          className="ipa hinge border border-ink bg-under px-6 py-3 text-2xl font-bold text-ink"
+          className="ipa hinge border-2 border-ink bg-under px-6 py-3 text-2xl font-bold text-ink"
         >
           {pat.phoneme}
         </span>
@@ -177,7 +177,7 @@ function PatternSpotlight() {
                 playSfx('tick');
                 speak(w);
               }}
-              className="flex items-center gap-3 border border-rule bg-under/50 px-4 py-3 text-left transition-colors hover:border-ink"
+              className="flex items-center gap-3 border-2 border-ink bg-under/50 px-4 py-3 text-left transition-colors hover:border-ink"
               aria-label={`朗读 ${w}`}
             >
               <span className="font-serif text-base font-semibold text-ink">
@@ -202,13 +202,13 @@ function PatternSpotlight() {
 
       {/* 例外 */}
       {pat.exceptions.length > 0 && (
-        <div className=" border border-errata/60 bg-leaf p-4">
+        <div className=" border-2 border-errata/60 bg-leaf p-4">
           <div className="mb-1.5 flex items-center gap-2 text-xs font-semibold text-errata-deep">
             <AlertTriangle size={13} aria-hidden /> 例外（规则 ≠ 100%）
           </div>
           <div className="flex flex-wrap gap-2 text-sm">
             {pat.exceptions.map((e) => (
-              <span key={e} className=" border border-errata/40 bg-under/60 px-3 py-1.5 font-serif text-ink">
+              <span key={e} className=" border-2 border-errata/40 bg-under/60 px-3 py-1.5 font-serif text-ink">
                 {e}
               </span>
             ))}

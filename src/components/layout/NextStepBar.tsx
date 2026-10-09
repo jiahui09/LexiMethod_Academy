@@ -49,7 +49,7 @@ export default function NextStepBar() {
 
   return (
     <div
-      className="paper-chrome mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-ink bg-milk px-4 py-3"
+      className="paper-chrome mt-8 flex flex-wrap items-center justify-between gap-3 border-t-2 border-ink bg-milk px-4 py-3"
       data-testid="next-step-bar"
       aria-label="下一步引导"
     >
@@ -60,13 +60,13 @@ export default function NextStepBar() {
       <div className="flex flex-wrap items-center gap-2">
         <Link
           to={primary.to}
-          className="inline-flex min-h-[44px] items-center gap-1.5 bg-ink px-4 py-2 font-display text-[13px] font-bold text-milk transition-colors hover:bg-ink2 active:translate-y-px"
+          className="inline-flex min-h-[44px] items-center gap-1.5 bg-ink px-4 py-2 font-display text-[13px] font-bold text-milk transition-colors press shadow-hard hover:bg-ink2"
         >
           {primary.label} <ArrowRight size={13} className="text-errata" aria-hidden />
         </Link>
         <Link
           to={secondary.to}
-          className="hinge inline-flex min-h-[44px] items-center gap-1.5 border border-ink/40 px-3.5 py-2 text-[13px] text-ink transition-colors hover:bg-under"
+          className="hinge inline-flex min-h-[44px] items-center gap-1.5 border-2 border-ink px-3.5 py-2 text-[13px] text-ink transition-colors hover:bg-under"
         >
           {secondary.label}
         </Link>

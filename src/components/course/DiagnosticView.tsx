@@ -47,7 +47,7 @@ export default function DiagnosticView({
             type="button"
             onClick={onEnterU1}
             data-testid="diag-enter-u1"
-            className="hinge inline-flex min-h-[44px] items-center gap-2 bg-ink px-5 py-2.5 font-display text-sm font-bold text-milk hover:bg-ink2 active:translate-y-px"
+            className="hinge inline-flex min-h-[44px] items-center gap-2 bg-ink px-5 py-2.5 font-display text-sm font-bold text-milk press shadow-hard hover:bg-ink2"
           >
             进入 U1 <ArrowRight size={15} className="text-errata" aria-hidden />
           </button>
@@ -76,7 +76,7 @@ export default function DiagnosticView({
       <div className="mt-6 flex justify-start">
         <Link
           to="/methods"
-          className="hinge inline-flex min-h-[44px] items-center border border-ink/40 px-4 text-[13px] text-ink hover:bg-under"
+          className="hinge inline-flex min-h-[44px] items-center border-2 border-ink px-4 text-[13px] text-ink hover:bg-under"
         >
           回课程总目
         </Link>

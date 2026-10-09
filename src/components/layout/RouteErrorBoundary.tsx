@@ -38,14 +38,14 @@ export default class RouteErrorBoundary extends Component<Props, State> {
               <button
                 type="button"
                 onClick={() => this.setState({ error: null })}
-                className="inline-flex min-h-[44px] items-center gap-1.5 bg-ink px-5 py-2 font-display text-sm font-bold text-milk transition-colors hover:bg-ink2"
+                className="inline-flex min-h-[44px] items-center gap-1.5 bg-ink px-5 py-2 font-display text-sm font-bold text-milk transition-colors press shadow-hard hover:bg-ink2"
               >
                 <RotateCcw size={15} aria-hidden /> 重试
               </button>
               <button
                 type="button"
                 onClick={() => window.location.reload()}
-                className="hinge inline-flex min-h-[44px] items-center gap-1.5 border border-ink px-5 py-2 text-sm text-ink transition-colors hover:bg-under"
+                className="hinge inline-flex min-h-[44px] items-center gap-1.5 border-2 border-ink px-5 py-2 text-sm text-ink transition-colors hover:bg-under"
               >
                 <RefreshCw size={15} aria-hidden /> 刷新页面
               </button>

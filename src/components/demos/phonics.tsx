@@ -28,7 +28,7 @@ function DiagnosticReport() {
               type="button"
               onClick={() => setOpen(open === i ? null : i)}
               aria-expanded={open === i}
-              className="hinge flex min-h-[44px] w-full items-center gap-3 border border-ink/30 bg-leaf px-3 text-left text-[14px] hover:bg-under"
+              className="hinge flex min-h-[44px] w-full items-center gap-3 border-2 border-ink bg-leaf px-3 text-left text-[14px] hover:bg-under"
             >
               <span aria-hidden className="machine text-ink2">
                 {i + 1}
@@ -185,8 +185,8 @@ function MouthActionFamily() {
             type="button"
             onClick={() => setId(pid)}
             aria-pressed={pid === id}
-            className={`hinge machine min-h-[44px] min-w-[44px] border px-3 text-[16px] font-bold ${
-              pid === id ? 'border-ink bg-ink text-milk' : 'border-ink/40 bg-leaf hover:bg-under'
+            className={`hinge machine min-h-[44px] min-w-[44px] border-2 px-3 text-[16px] font-bold ${
+              pid === id ? 'border-ink bg-ink text-milk' : 'border-ink bg-leaf hover:bg-under'
             }`}
           >
             {phonemeById[pid]?.symbol ?? pid}
@@ -242,7 +242,7 @@ function SpellingSoundMap() {
       </ul>
       {s.exceptions.length > 0 && (
         <p className="mt-2 text-[14px]">
-          <span className="machine border border-errata px-1.5 py-0.5 text-[13px] text-errata">例外</span>{' '}
+          <span className="machine border-2 border-errata px-1.5 py-0.5 text-[13px] text-errata">例外</span>{' '}
           <span className="machine text-[14px]">{s.exceptions.join('、')}</span>
           <span className="text-ink2">，单独标出来记。</span>
         </p>
@@ -324,7 +324,7 @@ function LetterVsBlockContrast() {
             {letters.map((l, i) => (
               <span
                 key={i}
-                className="machine flex h-9 w-9 items-center justify-center border border-ink/40 text-[15px]"
+                className="machine flex h-9 w-9 items-center justify-center border-2 border-ink text-[15px]"
               >
                 {l}
               </span>
@@ -370,7 +370,7 @@ function VowelCoreCounter() {
               aria-label={`${c}${on ? '，已圈为核心' : ''}`}
               onClick={() => setPicked((p) => (on ? p.filter((x) => x !== i) : [...p, i]))}
               className={`hinge machine flex min-h-[44px] min-w-[44px] items-center justify-center border-2 px-2 text-[17px] font-bold ${
-                on ? 'border-ink bg-ink text-milk' : 'border-ink/30 bg-leaf hover:bg-under'
+                on ? 'border-ink bg-ink text-milk' : 'border-ink bg-leaf hover:bg-under'
               }`}
             >
               {c}
@@ -465,8 +465,8 @@ function StressThreeClues() {
               type="button"
               onClick={() => setLit(i + 1)}
               aria-expanded={lit > i}
-              className={`hinge flex min-h-[44px] w-full items-center gap-3 border px-3 text-left text-[14px] ${
-                lit > i ? 'border-ink bg-leaf' : 'border-ink/30 bg-leaf hover:bg-under'
+              className={`hinge flex min-h-[44px] w-full items-center gap-3 border-2 px-3 text-left text-[14px] ${
+                lit > i ? 'border-ink bg-leaf' : 'border-ink bg-leaf hover:bg-under'
               }`}
             >
               <span aria-hidden className={`punch ${lit > i ? 'punch-done' : ''}`} />
@@ -501,7 +501,7 @@ function TionFamilyMap() {
                 <span
                   key={i}
                   className={`machine px-1.5 py-1 text-[16px] ${
-                    i === row.stress ? 'bg-ink font-bold text-milk' : 'border border-ink/30'
+                    i === row.stress ? 'bg-ink font-bold text-milk' : 'border-2 border-ink'
                   }`}
                 >
                   {p}

@@ -8,7 +8,7 @@ import { Practice } from '@/components/practice/Practice';
 /** 例句块：面板 + 朗读钮 + IPA 机器嗓音 */
 function ExampleBlock({ b }: { b: Extract<Block, { kind: 'example' }> }) {
   return (
-    <figure className="border border-rule bg-leaf px-4 py-3.5">
+    <figure className="border-2 border-ink bg-leaf px-4 py-3.5">
       <div className="flex flex-wrap items-start gap-x-3 gap-y-1.5">
         {b.speak && <SpeakButton text={b.speak} size="sm" />}
         <div className="min-w-0 flex-1">
@@ -115,10 +115,10 @@ export function UnitView({
             disabled={done}
             onClick={onToggleCheck}
             data-testid="unit-check"
-            className={`hinge mt-1.5 flex min-h-[44px] w-full items-center gap-3 border px-3 py-2.5 text-left ${
+            className={`hinge mt-1.5 flex min-h-[44px] w-full items-center gap-3 border-2 px-3 py-2.5 text-left ${
               done
                 ? 'border-ink bg-under text-ink'
-                : 'border-ink/40 bg-leaf text-ink hover:bg-under'
+                : 'border-ink bg-leaf text-ink hover:bg-under'
             }`}
           >
             <span className={`punch ${done ? 'punch-done' : ''}`} aria-hidden />
@@ -134,7 +134,7 @@ export function UnitView({
         <div className="mt-4">
           <Link
             to={`/lab/${unit.labLink.tab}`}
-            className="hinge inline-flex min-h-[44px] items-center gap-2 border border-ink/40 px-3.5 text-[13px] text-ink hover:bg-under"
+            className="hinge inline-flex min-h-[44px] items-center gap-2 border-2 border-ink px-3.5 text-[13px] text-ink hover:bg-under"
           >
             <FlaskConical size={14} aria-hidden />
             {unit.labLink.label}

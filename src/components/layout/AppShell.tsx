@@ -25,7 +25,7 @@ function Logo() {
       className="group flex min-h-[44px] min-w-[44px] items-center justify-center gap-2.5"
       aria-label="LexiMethod Academy 课程总目"
     >
-      <span className="flex h-10 w-10 items-center justify-center bg-errata">
+      <span className="flex h-10 w-10 items-center justify-center bg-errata shadow-hard">
         <span className="font-display text-[19px] font-extrabold leading-none text-milk">Lx</span>
       </span>
       <span className="hidden flex-col leading-tight sm:flex">
@@ -86,14 +86,14 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             <Link
               to="/methods"
               onClick={() => playSfx('click')}
-              className="hidden min-h-[44px] items-center gap-1.5 bg-ink px-4 py-2 font-display text-sm font-bold text-milk transition-colors hover:bg-ink2 active:translate-y-px sm:inline-flex"
+              className="hidden min-h-[44px] items-center gap-1.5 bg-ink px-4 py-2 font-display text-sm font-bold text-milk transition-colors press shadow-hard hover:bg-ink2 sm:inline-flex"
             >
               继续学习
               <ArrowRight size={15} className="text-errata" aria-hidden />
             </Link>
             <button
               type="button"
-              className="flex h-11 w-11 items-center justify-center border border-ink bg-transparent text-ink transition-colors hover:bg-ink hover:text-milk lg:hidden"
+              className="press shadow-hard flex h-11 w-11 items-center justify-center border-2 border-ink bg-transparent text-ink transition-colors hover:bg-ink hover:text-milk lg:hidden"
               onClick={() => setOpen((v) => !v)}
               aria-label={open ? '关闭菜单' : '打开菜单'}
               aria-expanded={open}
@@ -135,6 +135,9 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       <footer className="paper-chrome mt-16 border-t-2 border-ink bg-under">
         <div className="container-page flex flex-col gap-3 py-8 text-sm text-ink2 md:flex-row md:items-center md:justify-between">
           <div className="flex flex-col gap-1">
+            <span className="font-display text-[32px] font-extrabold leading-none tracking-[-0.02em] text-ink md:text-[48px]">
+              LEXIMETHOD
+            </span>
             <span className="font-display text-sm font-bold text-ink">LexiMethod Academy · 英语词汇方法课</span>
             <span className="text-[13px]">授人以渔：音形对应 · 拼读拆词 · 语境存入 · 间隔复习 · 主动输出</span>
           </div>

@@ -54,8 +54,8 @@ function ForgettingCurve() {
               type="button"
               onClick={() => setLit(i + 1)}
               aria-expanded={lit > i}
-              className={`hinge flex min-h-[44px] w-full items-center gap-3 border px-3 text-left text-[14px] ${
-                lit > i ? 'border-ink bg-leaf' : 'border-ink/30 bg-leaf hover:bg-under'
+              className={`hinge flex min-h-[44px] w-full items-center gap-3 border-2 px-3 text-left text-[14px] ${
+                lit > i ? 'border-ink bg-leaf' : 'border-ink bg-leaf hover:bg-under'
               }`}
             >
               <span aria-hidden className={`punch ${lit > i ? 'punch-done' : ''}`} />
@@ -89,8 +89,8 @@ function DesirableDifficulty() {
             type="button"
             onClick={() => setPick(i)}
             aria-pressed={pick === i}
-            className={`hinge border p-3 text-left ${
-              pick === i ? 'border-ink bg-leaf' : 'border-ink/30 bg-leaf hover:bg-under'
+            className={`hinge border-2 p-3 text-left ${
+              pick === i ? 'border-ink bg-leaf' : 'border-ink bg-leaf hover:bg-under'
             }`}
           >
             <span className="mb-1 flex items-center gap-2">
@@ -198,12 +198,12 @@ function SrsTimeline() {
         {SLOTS.map((d, i) => (
           <React.Fragment key={d}>
             <span
-              className={`machine flex h-11 flex-1 items-center justify-center border text-[14px] ${
+              className={`machine flex h-11 flex-1 items-center justify-center border-2 text-[14px] ${
                 i < stage
-                  ? 'border-rule text-ink2 line-through'
+                  ? 'border-ink text-ink2 line-through'
                   : i === stage
                     ? 'border-2 border-ink bg-ink font-bold text-milk'
-                    : 'border-ink/30 bg-leaf text-ink2'
+                    : 'border-ink bg-leaf text-ink2'
               }`}
             >
               {d}天
@@ -267,8 +267,8 @@ function ScheduleBuilder() {
               {SLOTS.map((d, i) => (
                 <span
                   key={d}
-                  className={`machine border px-2 py-1.5 text-[13px] ${
-                    i === rows[ri] ? 'border-ink bg-ink text-milk' : i < rows[ri] ? 'border-rule text-ink2' : 'border-ink/30 text-ink2'
+                  className={`machine border-2 px-2 py-1.5 text-[13px] ${
+                    i === rows[ri] ? 'border-ink bg-ink text-milk' : i < rows[ri] ? 'border-ink text-ink2' : 'border-ink text-ink2'
                   }`}
                 >
                   {d}天

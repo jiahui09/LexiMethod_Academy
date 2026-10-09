@@ -61,10 +61,10 @@ export function Btn({
     'hinge inline-flex min-h-[44px] items-center justify-center gap-1.5 px-4 text-[14px] font-display font-bold disabled:opacity-40';
   const skin =
     variant === 'primary'
-      ? 'bg-ink text-milk hover:bg-ink2'
+      ? 'bg-ink text-milk press shadow-hard hover:bg-ink2'
       : pressed
-        ? 'border border-ink bg-ink text-milk'
-        : 'border border-ink/40 text-ink hover:bg-under';
+        ? 'border-2 border-ink bg-ink text-milk'
+        : 'border-2 border-ink text-ink hover:bg-under';
   return (
     <button
       type="button"
@@ -101,7 +101,7 @@ export function OptionBtn({
         ? 'border-2 border-errata bg-leaf'
         : state === 'selected'
           ? 'border-2 border-ink bg-leaf'
-          : 'border border-ink/40 bg-leaf hover:bg-under';
+          : 'border-2 border-ink bg-leaf hover:bg-under';
   const dot =
     state === 'right' ? (
       <Check size={14} strokeWidth={3} aria-hidden />
@@ -197,7 +197,7 @@ export function Timer({
   const ss = String(sec % 60).padStart(2, '0');
   return (
     <div className={`flex items-center gap-3 ${className}`}>
-      <span className="machine border border-rule bg-under px-3 py-2 text-[15px] tabular-nums text-ink" aria-live="off">
+      <span className="machine border-2 border-ink bg-under px-3 py-2 text-[15px] tabular-nums text-ink" aria-live="off">
         {mm}:{ss}
       </span>
       <Btn onClick={() => setRun((v) => !v)} variant={run ? 'primary' : 'ghost'} ariaLabel={run ? '停止计时' : '开始计时'}>
@@ -237,7 +237,7 @@ export function Bar({
   return (
     <div className="flex items-center gap-3">
       <span className="w-24 shrink-0 text-[13px] text-ink2 sm:w-32">{label}</span>
-      <span className="h-5 flex-1 border border-rule bg-under" aria-hidden>
+      <span className="h-5 flex-1 border-2 border-ink bg-under" aria-hidden>
         <span className="hinge block h-full" style={{ width: `${pct}%`, background: hue ?? '#111111' }} />
       </span>
       <span className="machine w-16 shrink-0 text-right text-[13px] text-ink">
@@ -282,7 +282,7 @@ export function Verdict({ ok, children }: { ok: boolean; children?: React.ReactN
 export function Token({ children, hue, className = '' }: { children: React.ReactNode; hue?: string; className?: string }) {
   return (
     <span
-      className={`inline-flex min-h-[36px] items-center border border-ink/30 px-2.5 py-1 ${className}`}
+      className={`inline-flex min-h-[36px] items-center border-2 border-ink px-2.5 py-1 ${className}`}
       style={hue ? { background: hue, borderColor: hue, color: '#FFFFFF' } : { background: '#FFFFFF' }}
     >
       {children}

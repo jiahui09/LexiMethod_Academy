@@ -24,7 +24,7 @@ export default function StressBody({ q, given, revealed, onSubmit }: BodyProps) 
             disabled={revealed}
             onClick={() => onSubmit(String(i), i === answerIndex)}
             aria-label={`第 ${i + 1} 音节 ${u}`}
-            className={`hinge flex min-h-[44px] items-center gap-2 border px-5 py-3.5 font-serif text-lg font-bold ${
+            className={`hinge flex min-h-[44px] items-center gap-2 border-2 px-5 py-3.5 font-serif text-lg font-bold ${
               wrongPick
                 ? 'border-2 border-errata bg-leaf text-errata'
                 : right

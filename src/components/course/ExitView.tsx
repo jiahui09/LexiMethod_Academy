@@ -46,10 +46,10 @@ function SelfCheckCard({
                     type="button"
                     aria-pressed={sel}
                     onClick={() => onAnswer(i, v)}
-                    className={`hinge min-h-[44px] min-w-[52px] border px-3 text-[14px] ${
+                    className={`hinge min-h-[44px] min-w-[52px] border-2 px-3 text-[14px] ${
                       sel
                         ? 'border-ink bg-under font-bold text-ink'
-                        : 'border-ink/40 bg-leaf text-ink2 hover:text-ink'
+                        : 'border-ink bg-leaf text-ink2 hover:text-ink'
                     }`}
                   >
                     {v}
@@ -68,7 +68,7 @@ function SelfCheckCard({
           <Link
             to="/methods"
             data-testid="exit-to-catalog"
-            className="hinge inline-flex min-h-[44px] items-center gap-2 bg-ink px-5 py-2.5 font-display text-sm font-bold text-milk hover:bg-ink2 active:translate-y-px"
+            className="hinge inline-flex min-h-[44px] items-center gap-2 bg-ink px-5 py-2.5 font-display text-sm font-bold text-milk press shadow-hard hover:bg-ink2"
           >
             回课程总目
           </Link>
@@ -135,7 +135,7 @@ export default function ExitView({ course }: { course: Course }) {
         <div className="mt-6 flex justify-start">
           <Link
             to="/methods"
-            className="hinge inline-flex min-h-[44px] items-center border border-ink/40 px-4 text-[13px] text-ink hover:bg-under"
+            className="hinge inline-flex min-h-[44px] items-center border-2 border-ink px-4 text-[13px] text-ink hover:bg-under"
           >
             回课程总目
           </Link>
@@ -149,7 +149,7 @@ export default function ExitView({ course }: { course: Course }) {
 
   return (
     <div>
-      <p className="machine border border-ink/40 bg-leaf px-3 py-2 text-[12px] text-ink">
+      <p className="machine border-2 border-ink bg-leaf px-3 py-2 text-[12px] text-ink">
         本成绩仅本会话，刷新即失效。
       </p>
       <BandsReport
@@ -168,7 +168,7 @@ export default function ExitView({ course }: { course: Course }) {
             setFresh(null);
             setRerun(true);
           }}
-          className="hinge inline-flex min-h-[44px] items-center gap-2 border border-ink/40 px-4 text-[13px] text-ink hover:bg-under"
+          className="hinge inline-flex min-h-[44px] items-center gap-2 border-2 border-ink px-4 text-[13px] text-ink hover:bg-under"
         >
           <RotateCcw size={14} aria-hidden /> 再做一次出门条
         </button>

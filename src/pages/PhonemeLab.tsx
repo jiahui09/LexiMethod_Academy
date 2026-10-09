@@ -132,7 +132,7 @@ export default function PhonemeLab() {
             {tab === 'phonemes' && (
               <div className="flex flex-col gap-6">
                 {/* 学习进度：扁平刻线 */}
-                <div className="flex flex-wrap items-center gap-3 border border-rule bg-leaf px-4 py-3 text-xs text-ink2">
+                <div className="flex flex-wrap items-center gap-3 border-2 border-ink bg-leaf px-4 py-3 text-xs text-ink2">
                   <span className="tabular-nums">
                     已学音标：<b className="font-semibold text-ink tabular-nums">{learned.length}</b> / 48
                   </span>
@@ -143,7 +143,7 @@ export default function PhonemeLab() {
                 </div>
 
                 <div className="grid gap-6 xl:grid-cols-[380px_1fr]">
-                  <aside className="h-fit border border-rule bg-leaf p-4 xl:sticky xl:top-24">
+                  <aside className="h-fit border-2 border-ink bg-leaf p-4 xl:sticky xl:top-24">
                     <PhonemeChart
                       selected={selectedId}
                       learned={learned}

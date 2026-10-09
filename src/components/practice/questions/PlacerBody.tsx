@@ -76,10 +76,10 @@ export default function PlacerBody({ q, given, revealed, onSubmit }: BodyProps) 
               type="button"
               disabled={revealed || used}
               onClick={() => place(i)}
-              className={`hinge flex min-h-[44px] flex-col items-center justify-center gap-0.5 border px-4 py-2 ${
+              className={`hinge flex min-h-[44px] flex-col items-center justify-center gap-0.5 border-2 px-4 py-2 ${
                 used
                   ? 'border-dashed border-rule bg-transparent text-ink2 opacity-50'
-                  : 'border-ink/40 bg-leaf font-bold text-ink hover:bg-under'
+                  : 'border-ink bg-leaf font-bold text-ink hover:bg-under'
               }`}
             >
               <span className={isAffix ? 'font-serif text-[15px]' : 'machine text-[15px]'}>{p.text}</span>
@@ -117,7 +117,7 @@ export default function PlacerBody({ q, given, revealed, onSubmit }: BodyProps) 
           type="button"
           disabled={revealed || !filled}
           onClick={submit}
-          className="hinge min-h-[44px] bg-ink px-5 py-2.5 font-display text-sm font-bold text-milk transition-colors hover:bg-ink2 disabled:opacity-40"
+          className="hinge min-h-[44px] bg-ink px-5 py-2.5 font-display text-sm font-bold text-milk transition-colors press shadow-hard hover:bg-ink2 disabled:opacity-40"
         >
           {revealed ? '已批改' : '装好了，提交'}
         </button>
@@ -125,7 +125,7 @@ export default function PlacerBody({ q, given, revealed, onSubmit }: BodyProps) 
           type="button"
           disabled={revealed}
           onClick={clear}
-          className="hinge inline-flex min-h-[44px] items-center gap-1.5 border border-ink/40 px-4 py-2.5 font-display text-sm font-bold text-ink transition-colors hover:bg-under disabled:opacity-40"
+          className="hinge inline-flex min-h-[44px] items-center gap-1.5 border-2 border-ink px-4 py-2.5 font-display text-sm font-bold text-ink transition-colors hover:bg-under disabled:opacity-40"
         >
           <RotateCcw size={14} aria-hidden /> 全部取回
         </button>

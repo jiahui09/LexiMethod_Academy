@@ -3,7 +3,7 @@ import { ArrowRight } from 'lucide-react';
 import { courses } from '@/data/courses';
 import type { Course } from '@/data/courses';
 import { useProgress } from '@/store/progressStore';
-import { STAGE_META, STAGE_ORDER, deepen } from '@/lib/stages';
+import { STAGE_META, STAGE_ORDER, deepen, textOn } from '@/lib/stages';
 import { EduRunningHead } from '@/components/edu';
 import { playSfx } from '@/hooks/useSfx';
 
@@ -115,7 +115,7 @@ export default function MethodList() {
         </header>
 
         {/* 黑块锚点：全页唯一主导色场，眼睛进门的落点——顶缘段色细条 + 巨号课号 + 白底按钮红箭头 */}
-        <section aria-label="继续学习" className="mt-5 bg-ink text-milk">
+        <section aria-label="继续学习" className="mt-5 bg-ink text-milk shadow-hard-lg">
           <div
             aria-hidden
             className="h-2"
@@ -125,6 +125,12 @@ export default function MethodList() {
             <div className="flex min-w-0 items-center gap-4 md:gap-5">
               <span className="font-display text-[64px] font-extrabold leading-none tracking-[-0.03em] tabular-nums md:text-[72px]">
                 {String(nextCourse.order).padStart(2, '0')}
+              </span>
+              <span
+                aria-hidden
+                className="machine hidden rotate-[-4deg] border-2 border-errata px-2 py-0.5 text-[12px] font-bold text-milk sm:block"
+              >
+                继续
               </span>
               <div className="min-w-0">
                 <p className="machine text-[12px] text-milk/70">
@@ -139,7 +145,7 @@ export default function MethodList() {
               to={primaryTo}
               onClick={() => playSfx('click')}
               data-testid="intro-next"
-              className="inline-flex min-h-[44px] w-full items-center justify-center gap-2 bg-milk px-5 py-2.5 font-display text-sm font-bold text-ink transition-colors hover:bg-rule active:translate-y-px sm:w-auto"
+              className="press press-invert shadow-hard-invert inline-flex min-h-[44px] w-full items-center justify-center gap-2 bg-milk px-5 py-2.5 font-display text-sm font-bold text-ink hover:bg-rule sm:w-auto"
             >
               {primaryLabel(nextCourse, target)} <ArrowRight size={15} className="text-errata" aria-hidden />
             </Link>
@@ -151,15 +157,15 @@ export default function MethodList() {
           const meta = STAGE_META[stage];
           const stageMin = list.reduce((a, c) => a + c.durationMin, 0);
           return (
-            <section key={stage} aria-label={`${meta.label}段课程`} className="mt-8">
+            <section key={stage} aria-label={`${meta.label}段课程`} className="mt-8 border-2 border-ink shadow-hard">
               {/* 分章带：灰场底墨字（图底分层），段色只上左侧方片与下缘 3px 细条；章题必须压过行题 */}
               <div
                 className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 bg-under px-4 py-3"
                 style={{ borderBottom: `3px solid ${deepen(meta.hue)}` }}
               >
-                <span className="flex items-baseline gap-2.5">
-                  <span aria-hidden className="h-3 w-3 translate-y-px" style={{ background: meta.hue }} />
-                  <h2 className="font-display text-[26px] font-extrabold leading-none tracking-[-0.02em] text-ink md:text-[32px]">
+                <span className="flex items-baseline gap-3">
+                  <span aria-hidden className="h-4 w-4 translate-y-px" style={{ background: meta.hue }} />
+                  <h2 className="bg-ink px-2.5 py-1.5 font-display text-[26px] font-extrabold leading-none tracking-[-0.02em] text-milk md:text-[32px]">
                     {meta.label}
                   </h2>
                 </span>
@@ -168,7 +174,7 @@ export default function MethodList() {
                 </p>
               </div>
 
-              <ol className="border border-t-0 border-rule bg-leaf">
+              <ol className="bg-leaf">
                 {list.map((c) => {
                   const done = isCourseDone(c, state);
                   const started =
@@ -194,7 +200,7 @@ export default function MethodList() {
                             {c.title}
                           </h3>
                           {c.optional && (
-                            <span className=" border border-ink/40 px-1.5 py-0.5 text-[12px] text-ink2">
+                            <span className=" border-2 border-ink px-1.5 py-0.5 text-[12px] text-ink2">
                               可跳过
                             </span>
                           )}
@@ -207,7 +213,18 @@ export default function MethodList() {
                                 className={`punch ${done ? 'punch-done' : started ? 'punch-active' : ''}`}
                                 aria-hidden
                               />
-                              {status}
+                              <span
+                                className={`border-2 px-1.5 py-0.5 font-bold ${
+                                  done ? 'border-ink bg-ink text-milk' : started ? '' : 'border-ink bg-milk text-ink2'
+                                }`}
+                                style={
+                                  started && !done
+                                    ? { background: meta.hue, borderColor: deepen(meta.hue), color: textOn(meta.hue) }
+                                    : undefined
+                                }
+                              >
+                                {status}
+                              </span>
                             </span>
                           </span>
                         </div>

@@ -23,8 +23,8 @@ function AmbulanceChain() {
         {CHAIN.map((c, i) => (
           <li
             key={c.step}
-            className={`hinge border px-3 py-2 ${
-              i < step ? 'border-ink/40 bg-leaf' : 'border-rule opacity-50'
+            className={`hinge border-2 px-3 py-2 ${
+              i < step ? 'border-ink bg-leaf' : 'border-ink opacity-50'
             }`}
           >
             <div className="flex items-center gap-3">
@@ -71,8 +71,8 @@ function ThreeRetrievalPaths() {
             type="button"
             onClick={() => setLit((l) => l.map((v, j) => (j === i ? !v : v)))}
             aria-pressed={lit[i]}
-            className={`hinge border p-3 text-left ${
-              lit[i] ? 'border-ink bg-leaf' : 'border-ink/30 bg-leaf hover:bg-under'
+            className={`hinge border-2 p-3 text-left ${
+              lit[i] ? 'border-ink bg-leaf' : 'border-ink bg-leaf hover:bg-under'
             }`}
           >
             <span className="mb-1 flex items-center gap-2">
@@ -156,7 +156,7 @@ function AssociationBuilder() {
     <DemoPanel label="联想搭建台 · diagnosis">
       <ol className="space-y-2">
         {BUILD_STAGES.map((s, i) => (
-          <li key={s.t} className={`hinge border p-3 ${i < stage ? 'border-ink/40 bg-leaf' : 'border-rule opacity-50'}`}>
+          <li key={s.t} className={`hinge border-2 p-3 ${i < stage ? 'border-ink bg-leaf' : 'border-ink opacity-50'}`}>
             <div className="flex items-center gap-3">
               <span aria-hidden className={`punch ${i < stage ? 'punch-done' : ''}`} />
               <span className="machine text-[14px] font-bold">{s.t}</span>

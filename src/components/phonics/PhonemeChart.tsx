@@ -57,10 +57,10 @@ export default function PhonemeChart({
               playSfx('click');
               setFilter(f.key);
             }}
-            className={`min-h-[44px] border px-3.5 py-1.5 text-xs font-medium transition-colors duration-200 ${
+            className={`min-h-[44px] border-2 px-3.5 py-1.5 text-xs font-medium transition-colors duration-200 ${
               filter === f.key
                 ? 'border-ink bg-under font-semibold text-ink'
-                : 'border-rule bg-transparent text-ink2 hover:border-ink/50 hover:text-ink'
+                : 'border-ink bg-transparent text-ink2 hover:border-ink/50 hover:text-ink'
             }`}
             aria-pressed={filter === f.key}
           >
@@ -109,7 +109,7 @@ export default function PhonemeChart({
                     )}
                     {!p.voiced && (
                       <span
-                        className="absolute left-1 top-1 h-1.5 w-1.5 border border-ink2 bg-transparent"
+                        className="absolute left-1 top-1 h-1.5 w-1.5 border-2 border-ink2 bg-transparent"
                         title="清音"
                         aria-label="清音"
                       />
@@ -124,7 +124,7 @@ export default function PhonemeChart({
 
       <div className="flex flex-wrap items-center gap-3 border-t border-rule pt-3 text-xs text-ink2">
         <span className="flex items-center gap-1.5">
-          <span className="h-2 w-2 border border-ink2" aria-hidden /> 清音（声带不振动）
+          <span className="h-2 w-2 border-2 border-ink2" aria-hidden /> 清音（声带不振动）
         </span>
         <span className="flex items-center gap-1.5">
           <Check size={12} strokeWidth={3} className="text-ink" aria-hidden /> 已学过

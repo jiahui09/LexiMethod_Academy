@@ -10,17 +10,17 @@ type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 const base =
-  'hinge inline-flex items-center justify-center gap-2 border font-medium min-h-[44px] disabled:cursor-not-allowed disabled:opacity-45 active:translate-y-px';
+  'hinge inline-flex items-center justify-center gap-2 border-2 font-medium min-h-[44px] disabled:cursor-not-allowed disabled:opacity-45';
 const variants = {
-  default: 'border-ink/60 bg-transparent text-ink hover:bg-ink hover:text-milk',
-  primary: 'border-ink bg-ink text-milk hover:bg-ink2 hover:border-ink2',
+  default: 'border-ink bg-transparent text-ink hover:bg-ink hover:text-milk',
+  primary: 'border-ink bg-ink text-milk hover:bg-ink2 hover:border-ink2 shadow-hard press',
   ghost: 'border-transparent bg-transparent text-ink2 hover:border-rule hover:text-ink',
 };
 const sizes = { sm: 'px-3 py-1.5 text-sm', md: 'px-4 py-2 text-sm' };
 
 /**
- * 瑞士按钮：方正无圆角、墨线描边、无辉光。
- * primary 是墨色实底（本页唯一主行动）；朱红不参与按钮。
+ * 瑞士×狂野按钮：方正无圆角、2px 实黑描边；primary 带硬偏移影并可按压
+ * （hover 抬起 / active 压回，90ms 硬跳）；每页唯一主行动才是 primary，朱红不作按钮底。
  */
 export default function EduButton({
   variant = 'default',

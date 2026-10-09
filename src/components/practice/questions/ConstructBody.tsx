@@ -15,7 +15,7 @@ export default function ConstructBody({ q, given, revealed, onSubmit }: BodyProp
 
   if (revealed) {
     return (
-      <div className="under-leaf border border-rule p-4">
+      <div className="under-leaf border-2 border-ink p-4">
         <p className="machine text-[12px] text-ink2">你写的</p>
         <p className="mt-1 whitespace-pre-wrap font-serif text-[15px] text-ink">{given}</p>
       </div>
@@ -39,7 +39,7 @@ export default function ConstructBody({ q, given, revealed, onSubmit }: BodyProp
             type="button"
             disabled={!text.trim()}
             onClick={() => setPeek(true)}
-            className="hinge min-h-[44px] border border-ink/40 px-4 py-2.5 font-display text-sm font-bold text-ink transition-colors hover:bg-under disabled:opacity-40"
+            className="hinge min-h-[44px] border-2 border-ink px-4 py-2.5 font-display text-sm font-bold text-ink transition-colors hover:bg-under disabled:opacity-40"
           >
             {peekLabel}
           </button>
@@ -48,7 +48,7 @@ export default function ConstructBody({ q, given, revealed, onSubmit }: BodyProp
 
       {peek && (
         <div className="flex flex-col gap-3">
-          <div className="under-leaf border border-rule p-4">
+          <div className="under-leaf border-2 border-ink p-4">
             <p className="machine text-[12px] text-ink2">参考</p>
             <p className="mt-1 font-serif text-[15px] text-ink">{q.answer}</p>
           </div>
@@ -56,14 +56,14 @@ export default function ConstructBody({ q, given, revealed, onSubmit }: BodyProp
             <button
               type="button"
               onClick={() => onSubmit(text, true)}
-              className="hinge min-h-[44px] bg-ink px-5 py-2.5 font-display text-sm font-bold text-milk transition-colors hover:bg-ink2"
+              className="hinge min-h-[44px] bg-ink px-5 py-2.5 font-display text-sm font-bold text-milk transition-colors press shadow-hard hover:bg-ink2"
             >
               {gradeLabels[0]}
             </button>
             <button
               type="button"
               onClick={() => onSubmit(text, false)}
-              className="hinge min-h-[44px] border border-ink/40 px-5 py-2.5 font-display text-sm font-bold text-ink transition-colors hover:bg-under"
+              className="hinge min-h-[44px] border-2 border-ink px-5 py-2.5 font-display text-sm font-bold text-ink transition-colors hover:bg-under"
             >
               {gradeLabels[1]}
             </button>

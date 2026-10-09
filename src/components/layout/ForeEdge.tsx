@@ -42,7 +42,7 @@ export default function ForeEdge() {
                 <Link
                   to={s.to}
                   title={s.label}
-                  className={`hinge flex min-h-[44px] items-center gap-1.5 border border-ink px-2.5 text-[13px] ${
+                  className={`hinge flex min-h-[44px] items-center gap-1.5 border-2 border-ink px-2.5 text-[13px] ${
                     on ? 'bg-ink font-bold text-milk' : 'bg-leaf text-ink2 hover:bg-under hover:text-ink'
                   }`}
                   aria-current={on ? 'page' : undefined}
@@ -80,7 +80,7 @@ export default function ForeEdge() {
                     background: on ? stage.hue : '#FFFFFF',
                     borderBottomColor: on ? deepen(stage.hue) : undefined,
                   }}
-                  className={`hinge flex items-center gap-1.5 border border-r-0 border-y border-l border-ink border-b-[3px] pl-2 pr-1.5 ${
+                  className={`hinge flex items-center gap-1.5 border-2 border-r-0 border-ink border-b-[3px] pl-2 pr-1.5 ${
                     on ? 'font-bold' : 'hover:bg-under'
                   }`}
                   aria-current={on ? 'page' : undefined}
@@ -91,7 +91,7 @@ export default function ForeEdge() {
                   </span>
                   <span
                     className={`hinge flex h-4 w-4 items-center justify-center border-2 ${
-                      done ? 'border-ink bg-ink text-milk' : on ? 'border-ink/60 bg-milk/40' : 'border-rule'
+                      done ? 'border-ink bg-ink text-milk' : on ? 'border-ink/60 bg-milk/40' : 'border-ink'
                     }`}
                     aria-hidden
                   >

@@ -31,13 +31,13 @@ export default function NotFound() {
         <div className="mt-5 flex flex-wrap gap-3">
           <Link
             to="/methods"
-            className="inline-flex min-h-[44px] items-center bg-ink px-5 py-2.5 font-display text-sm font-bold text-milk transition-colors hover:bg-ink2"
+            className="inline-flex min-h-[44px] items-center bg-ink px-5 py-2.5 font-display text-sm font-bold text-milk transition-colors press shadow-hard hover:bg-ink2"
           >
             回课程总目
           </Link>
           <Link
             to="/lab/phonemes"
-            className="hinge inline-flex min-h-[44px] items-center gap-1.5 border border-ink px-5 py-2.5 text-sm text-ink transition-colors hover:bg-under"
+            className="hinge inline-flex min-h-[44px] items-center gap-1.5 border-2 border-ink px-5 py-2.5 text-sm text-ink transition-colors hover:bg-under"
           >
             <FlaskConical size={14} aria-hidden /> 去音标实验室
           </Link>

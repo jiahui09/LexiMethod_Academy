@@ -57,7 +57,7 @@ const VowelCore: KindComp = ({ onDone }) => {
               aria-label={`${c}${on ? '，已圈为核心' : ''}`}
               onClick={() => setPicked((p) => (on ? p.filter((x) => x !== i) : [...p, i]))}
               className={`hinge machine flex min-h-[44px] min-w-[44px] items-center justify-center border-2 px-2 text-[16px] font-bold ${
-                on ? 'border-ink bg-ink text-milk' : 'border-ink/30 bg-leaf hover:bg-under'
+                on ? 'border-ink bg-ink text-milk' : 'border-ink bg-leaf hover:bg-under'
               }`}
             >
               {c}
@@ -126,7 +126,7 @@ const SyllableSplit: KindComp = ({ onDone }) => {
           第 {wi + 1}/{SS_WORDS.length} 词
         </span>
       </div>
-      <div className="mb-3 flex min-h-[52px] flex-wrap items-center gap-1.5 border-2 border-dashed border-ink/30 p-2">
+      <div className="mb-3 flex min-h-[52px] flex-wrap items-center gap-1.5 border-2 border-dashed border-ink p-2">
         {slot.length === 0 && <span className="px-1 text-[13px] text-ink2">点下方音块，按顺序放进槽位</span>}
         {slot.map((b, i) => (
           <span key={b} className="machine bg-ink px-2 py-1.5 text-[16px] text-milk">
@@ -142,7 +142,7 @@ const SyllableSplit: KindComp = ({ onDone }) => {
             type="button"
             disabled={slot.includes(b)}
             onClick={() => put(b)}
-            className="hinge machine min-h-[44px] border border-ink/40 bg-leaf px-3 text-[16px] font-bold hover:bg-under disabled:opacity-30"
+            className="hinge machine min-h-[44px] border-2 border-ink bg-leaf px-3 text-[16px] font-bold hover:bg-under disabled:opacity-30"
           >
             {b}
           </button>
@@ -206,8 +206,8 @@ const StressPosition: KindComp = ({ onDone }) => {
             aria-pressed={picked === i}
             aria-label={`${p}${picked === i ? '，已点为重读' : ''}`}
             onClick={() => setPicked(i)}
-            className={`hinge machine min-h-[44px] border px-3 text-[16px] font-bold ${
-              picked === i ? 'border-ink bg-ink text-milk' : 'border-ink/30 bg-leaf hover:bg-under'
+            className={`hinge machine min-h-[44px] border-2 px-3 text-[16px] font-bold ${
+              picked === i ? 'border-ink bg-ink text-milk' : 'border-ink bg-leaf hover:bg-under'
             }`}
           >
             {picked === i ? `ˈ${p}` : p}
@@ -347,8 +347,8 @@ const AlgorithmRun: KindComp = ({ onDone }) => {
               type="button"
               aria-pressed={stress === i}
               onClick={() => setStress(i)}
-              className={`hinge machine min-h-[44px] border px-3 text-[16px] font-bold ${
-                stress === i ? 'border-ink bg-ink text-milk' : 'border-ink/30 bg-leaf hover:bg-under'
+              className={`hinge machine min-h-[44px] border-2 px-3 text-[16px] font-bold ${
+                stress === i ? 'border-ink bg-ink text-milk' : 'border-ink bg-leaf hover:bg-under'
               }`}
             >
               {stress === i ? `ˈ${b}` : b}

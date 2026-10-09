@@ -18,14 +18,14 @@ function StepPointer({ step, label, note }: { step: 0 | 7; label: string; note: 
           setClicked(true);
           playSfx('click');
         }}
-        className="hinge inline-flex min-h-[44px] items-center gap-2 bg-ink px-4 font-display text-sm font-bold text-milk hover:bg-ink2"
+        className="hinge inline-flex min-h-[44px] items-center gap-2 bg-ink px-4 font-display text-sm font-bold text-milk press shadow-hard hover:bg-ink2"
       >
         {label}
         <ArrowRight size={15} strokeWidth={3} aria-hidden />
       </a>
       <span className="text-[13px] text-ink2">{note}</span>
       {clicked && (
-        <span className="hinge machine border border-ink/40 px-2 py-1 text-[12px]">
+        <span className="hinge machine border-2 border-ink px-2 py-1 text-[12px]">
           新页面做完记得回来收口
         </span>
       )}
@@ -526,8 +526,8 @@ const RecallTiming: KindComp = ({ onDone }) => {
             type="button"
             aria-pressed={zone === z.id}
             onClick={() => { setZone(z.id); setReason(null); playSfx('click'); }}
-            className={`hinge machine min-h-[44px] border px-3 text-[15px] font-bold ${
-              zone === z.id ? 'border-ink bg-ink text-milk' : 'border-ink/40 bg-leaf hover:bg-under'
+            className={`hinge machine min-h-[44px] border-2 px-3 text-[15px] font-bold ${
+              zone === z.id ? 'border-ink bg-ink text-milk' : 'border-ink bg-leaf hover:bg-under'
             }`}
           >
             {z.name}区
@@ -649,7 +649,7 @@ const LoopTimer: KindComp = ({ onDone }) => {
             {w.parts.map((p, i) => (
               <React.Fragment key={i}>
                 {i > 0 && <span aria-hidden className="text-ink2">·</span>}
-                <span className="machine border border-ink/30 px-1.5 py-0.5 text-[15px]">{p}</span>
+                <span className="machine border-2 border-ink px-1.5 py-0.5 text-[15px]">{p}</span>
               </React.Fragment>
             ))}
           </p>
@@ -665,7 +665,7 @@ const LoopTimer: KindComp = ({ onDone }) => {
               value={guess}
               onChange={(e) => setGuess(e.target.value)}
               placeholder="用中文写猜的意思"
-              className="h-11 w-full border border-ink/40 bg-milk px-3 text-[15px] placeholder:text-ink2 focus:border-ink"
+              className="h-11 w-full border-2 border-ink bg-milk px-3 text-[15px] placeholder:text-ink2 focus:border-ink"
             />
           </div>
         )}

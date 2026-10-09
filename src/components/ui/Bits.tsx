@@ -75,7 +75,7 @@ export function SpeakButton({
           speak(text, { slow });
         }
       }}
-      className={`hinge inline-flex ${dim} shrink-0 items-center justify-center border disabled:opacity-40 ${className}`}
+      className={`hinge inline-flex ${dim} shrink-0 items-center justify-center border-2 disabled:opacity-40 ${className}`}
       style={{
         borderColor: speaking ? '#111111' : 'rgba(17,17,17,0.55)',
         background: speaking ? '#111111' : slow ? '#F1F1F1' : 'transparent',

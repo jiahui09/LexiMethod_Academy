@@ -11,7 +11,7 @@ import { playSfx } from '@/hooks/useSfx';
 
 /** 选项卡通用外壳（面板 + 发丝线；选中 = 墨描边 + 勾形，从不只靠颜色） */
 const optionCard = (on: boolean) =>
-  `hinge border p-4 text-left ${on ? 'border-ink bg-under' : 'border-rule bg-leaf hover:border-ink'}`;
+  `hinge border-2 p-4 text-left ${on ? 'border-ink bg-under' : 'border-ink bg-leaf hover:border-ink'}`;
 
 /** 设置页 */
 export default function Settings() {
@@ -62,7 +62,7 @@ export default function Settings() {
 
       <div className="grid gap-5 lg:grid-cols-2">
         {/* 口音 */}
-        <section className=" border border-rule bg-leaf p-5">
+        <section className=" border-2 border-ink bg-leaf p-5">
           <div className="mb-1 flex items-center gap-2 font-display text-sm font-bold text-ink">
             <Volume2 size={15} className="text-ink2" aria-hidden /> 发音口音
           </div>
@@ -102,7 +102,7 @@ export default function Settings() {
         </section>
 
         {/* 语速 */}
-        <section className=" border border-rule bg-leaf p-5">
+        <section className=" border-2 border-ink bg-leaf p-5">
           <div className="mb-1 flex items-center gap-2 font-display text-sm font-bold text-ink">
             <Gauge size={15} className="text-ink2" aria-hidden /> 朗读语速
           </div>
@@ -152,7 +152,7 @@ export default function Settings() {
         </section>
 
         {/* 动画 */}
-        <section className=" border border-rule bg-leaf p-5">
+        <section className=" border-2 border-ink bg-leaf p-5">
           <div className="mb-1 flex items-center gap-2 font-display text-sm font-bold text-ink">
             <Accessibility size={15} className="text-ink2" aria-hidden /> 动画强度
           </div>
@@ -169,10 +169,10 @@ export default function Settings() {
                   s.setMotionTier(o.key);
                   applyMotionTier(o.key);
                 }}
-                className={`hinge border p-3.5 text-left ${
+                className={`hinge border-2 p-3.5 text-left ${
                   s.motionTier === o.key
                     ? 'border-ink bg-under'
-                    : 'border-rule bg-leaf hover:border-ink'
+                    : 'border-ink bg-leaf hover:border-ink'
                 }`}
                 aria-pressed={s.motionTier === o.key}
               >
@@ -190,7 +190,7 @@ export default function Settings() {
         </section>
 
         {/* 音效与粒子 */}
-        <section className=" border border-rule bg-leaf p-5">
+        <section className=" border-2 border-ink bg-leaf p-5">
           <div className="mb-3 flex items-center gap-2 font-display text-sm font-bold text-ink">
             <Sparkles size={15} className="text-ink2" aria-hidden /> 音效与背景
           </div>
@@ -206,7 +206,7 @@ export default function Settings() {
                 s.toggleSound();
                 playSfx('click');
               }}
-              className={`hinge flex h-11 w-16 items-center border px-1 transition-transform ${
+              className={`hinge flex h-11 w-16 items-center border-2 px-1 transition-transform ${
                 s.sound === 'on' ? 'justify-end border-ink bg-ink' : 'justify-start border-rule bg-under'
               }`}
               role="switch"
@@ -214,8 +214,8 @@ export default function Settings() {
               aria-label="UI 音效开关"
             >
               <span
-                className={`hinge flex h-7 w-7 items-center justify-center border ${
-                  s.sound === 'on' ? 'border-ink bg-leaf text-ink' : 'border-rule bg-leaf text-ink2'
+                className={`hinge flex h-7 w-7 items-center justify-center border-2 ${
+                  s.sound === 'on' ? 'border-ink bg-leaf text-ink' : 'border-ink bg-leaf text-ink2'
                 }`}
               >
                 {s.sound === 'on' ? <Volume2 size={14} /> : <VolumeX size={14} />}
@@ -233,10 +233,10 @@ export default function Settings() {
                   playSfx('tick');
                   s.setParticleDensity(p);
                 }}
-                className={`hinge inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-1 border px-3 py-1.5 ${
+                className={`hinge inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-1 border-2 px-3 py-1.5 ${
                   s.particleDensity === p
                     ? 'border-ink bg-under text-ink'
-                    : 'border-rule text-ink hover:border-ink'
+                    : 'border-ink text-ink hover:border-ink'
                 }`}
                 aria-pressed={s.particleDensity === p}
               >
@@ -253,7 +253,7 @@ export default function Settings() {
       </div>
 
       {/* 数据与隐私：零存储声明 */}
-      <section className=" border border-rule bg-leaf p-5" data-testid="zero-storage-note">
+      <section className=" border-2 border-ink bg-leaf p-5" data-testid="zero-storage-note">
         <div className="mb-1 flex items-center gap-2 font-display text-sm font-bold text-ink">
           <ShieldCheck size={15} className="text-ink2" aria-hidden /> 数据与隐私，零存储
         </div>
@@ -284,7 +284,7 @@ export default function Settings() {
               <RotateCcw size={14} aria-hidden /> 清空本次会话…
             </EduButton>
           ) : (
-            <div className="flex flex-wrap items-center gap-2 border-y border-errata py-2">
+            <div className="flex flex-wrap items-center gap-2 border-y-2 border-errata py-2">
               <span className="text-xs text-errata-deep">确认清空进度、复习卡与错题？不可撤销。</span>
               <button
                 type="button"
@@ -294,14 +294,14 @@ export default function Settings() {
                   review.reset();
                   setConfirmReset(false);
                 }}
-                className="hinge min-h-[44px] border border-errata bg-leaf px-3 text-xs font-semibold text-errata-deep transition-colors hover:bg-errata/[0.08]"
+                className="hinge min-h-[44px] border-2 border-errata bg-leaf px-3 text-xs font-semibold text-errata-deep transition-colors hover:bg-errata/[0.08]"
               >
                 确认重置
               </button>
               <button
                 type="button"
                 onClick={() => setConfirmReset(false)}
-                className="hinge min-h-[44px] border border-ink/40 px-3 text-xs text-ink transition-colors hover:bg-under"
+                className="hinge min-h-[44px] border-2 border-ink px-3 text-xs text-ink transition-colors hover:bg-under"
               >
                 取消
               </button>

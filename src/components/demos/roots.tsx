@@ -31,8 +31,8 @@ function PipelineOverview() {
         {STAGES.map((s, i) => (
           <React.Fragment key={s}>
             <span
-              className={`machine border px-2.5 py-1.5 text-[13px] ${
-                step > i ? 'border-ink bg-ink text-milk' : step === i ? 'border-ink bg-leaf font-bold' : 'border-rule text-ink2'
+              className={`machine border-2 px-2.5 py-1.5 text-[13px] ${
+                step > i ? 'border-ink bg-ink text-milk' : step === i ? 'border-ink bg-leaf font-bold' : 'border-ink text-ink2'
               }`}
             >
               {s}
@@ -122,8 +122,8 @@ function WordFamilySpect() {
         {SPECT.map((b, i) => (
           <li
             key={b.word}
-            className={`hinge flex items-center gap-3 border px-3 ${
-              i < grown ? 'border-ink/40 bg-leaf' : 'border-rule opacity-50'
+            className={`hinge flex items-center gap-3 border-2 px-3 ${
+              i < grown ? 'border-ink bg-leaf' : 'border-ink opacity-50'
             }`}
             style={{ minHeight: 44, marginLeft: `${Math.min(i, 3) * 10}px` }}
           >
@@ -169,14 +169,14 @@ function WordFamilyPort() {
               type="button"
               onClick={() => setOpen(i)}
               aria-expanded={open === i}
-              className={`hinge flex min-h-[44px] w-full items-center gap-3 border px-3 text-left ${
-                open === i ? 'border-ink bg-leaf' : 'border-ink/30 bg-leaf hover:bg-under'
+              className={`hinge flex min-h-[44px] w-full items-center gap-3 border-2 px-3 text-left ${
+                open === i ? 'border-ink bg-leaf' : 'border-ink bg-leaf hover:bg-under'
               }`}
             >
               <span aria-hidden className="machine w-6 text-center font-bold">
                 {b.dir}
               </span>
-              <span className="machine border border-ink/30 px-1.5 text-[14px]">{b.affix}</span>
+              <span className="machine border-2 border-ink px-1.5 text-[14px]">{b.affix}</span>
               <span className="machine text-[15px] font-bold">port</span>
               <span className="ml-auto flex items-center gap-2">
                 <span className="text-[14px]">{b.mean}</span>
@@ -276,8 +276,8 @@ function LoopTimerThreeWords() {
           {BEATS.map((b, i) => (
             <span
               key={b}
-              className={`machine border px-3 py-1.5 text-[14px] ${
-                i < beats ? 'border-ink bg-ink text-milk' : i === beats && !done ? 'border-ink bg-leaf font-bold' : 'border-rule text-ink2'
+              className={`machine border-2 px-3 py-1.5 text-[14px] ${
+                i < beats ? 'border-ink bg-ink text-milk' : i === beats && !done ? 'border-ink bg-leaf font-bold' : 'border-ink text-ink2'
               }`}
             >
               {b}

@@ -60,7 +60,7 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
     switch (index) {
       case 0:
         return (
-          <div className="relative flex min-h-[300px] flex-col items-center justify-center overflow-hidden border border-rule bg-leaf px-4 py-8 text-center">
+          <div className="relative flex min-h-[300px] flex-col items-center justify-center overflow-hidden border-2 border-ink bg-leaf px-4 py-8 text-center">
             <div className="relative z-10 flex flex-col items-center gap-3">
               <div key={`sym-${replay}`} className="ipa text-6xl font-bold text-ink md:text-7xl">
                 {phoneme.symbol}
@@ -87,7 +87,7 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
             <div className="flex flex-col gap-3">
               <InfoCard title="口型（正面 + 侧面）" text={phoneme.mouthShape} />
               <InfoCard title="舌位" text={phoneme.tonguePosition} />
-              <div className=" border border-rule bg-under/60 p-4 text-xs leading-relaxed text-ink2">
+              <div className=" border-2 border-ink bg-under/60 p-4 text-xs leading-relaxed text-ink2">
                 观察要点，下颌开合度 = <b className="font-semibold text-ink">{phoneme.geo.jawOpen.toFixed(2)}</b> · 舌高 ={' '}
                 <b className="font-semibold text-ink">{phoneme.geo.tongueHigh.toFixed(2)}</b> · 舌前后 ={' '}
                 <b className="font-semibold text-ink">{phoneme.geo.tongueFront.toFixed(2)}</b> · 唇圆度 ={' '}
@@ -103,7 +103,7 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
             <MouthSideView geo={phoneme.geo} voiced={phoneme.voiced} playing />
             <div className="flex flex-col gap-3">
               <InfoCard title="气流路径" text={phoneme.airflow} />
-              <div className=" border border-ink/30 bg-under/60 p-4">
+              <div className=" border-2 border-ink bg-under/60 p-4">
                 <div className="mb-1 text-sm font-semibold text-ink">
                   声带{phoneme.voiced ? '振动（浊音）' : '不振动（清音）'}
                 </div>
@@ -126,7 +126,7 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
             </p>
             <div className="grid gap-3 md:grid-cols-2">
               {contrast.map((c) => (
-                <div key={c.id} className=" border border-rule bg-under/50 p-3">
+                <div key={c.id} className=" border-2 border-ink bg-under/50 p-3">
                   <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
                     <span className="ipa text-lg font-bold text-ink">
                       {phoneme.symbol} <span className="text-ink2">vs</span> {c.symbol}
@@ -137,7 +137,7 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
                         playSfx('tick');
                         onSelect(c);
                       }}
-                      className="flex min-h-[44px] min-w-[44px] items-center gap-1 border border-ink/40 px-2 py-1 text-xs text-ink transition-colors hover:bg-under"
+                      className="flex min-h-[44px] min-w-[44px] items-center gap-1 border-2 border-ink px-2 py-1 text-xs text-ink transition-colors hover:bg-under"
                     >
                       <Link2 size={11} aria-hidden /> 切换到 {c.symbol}
                     </button>
@@ -169,7 +169,7 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
                       playSfx('tick');
                       speak(w);
                     }}
-                    className="flex min-h-[44px] items-center gap-2 border border-rule bg-leaf px-4 py-2.5 font-serif text-sm font-semibold text-ink transition-colors hover:border-ink hover:bg-under"
+                    className="flex min-h-[44px] items-center gap-2 border-2 border-ink bg-leaf px-4 py-2.5 font-serif text-sm font-semibold text-ink transition-colors hover:border-ink hover:bg-under"
                   >
                     {w} <Volume2 size={13} className="text-ink2" aria-hidden />
                   </button>
@@ -185,7 +185,7 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
                 {phoneme.commonSpellings.map((s) => (
                   <span
                     key={s}
-                    className="ipa inline-flex min-h-[44px] min-w-[44px] items-center border border-rule bg-under/60 px-3 py-1.5 text-sm font-semibold text-ink"
+                    className="ipa inline-flex min-h-[44px] min-w-[44px] items-center border-2 border-ink bg-under/60 px-3 py-1.5 text-sm font-semibold text-ink"
                   >
                     {s}
                   </span>
@@ -194,7 +194,7 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
             </div>
 
             {longShort && (
-              <div className=" border border-rule bg-under/50 p-4">
+              <div className=" border-2 border-ink bg-under/50 p-4">
                 <div className="mb-2 text-xs font-semibold text-ink">长短音对比</div>
                 <div className="flex flex-wrap items-center gap-4">
                   {[phoneme, longShort].map((p) => (
@@ -224,12 +224,12 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
   return (
     <div className="flex flex-col gap-5">
       {/* 分步播放器：词典里的词条装置块 */}
-      <section className=" border border-rule bg-under/40 p-4 md:p-6" aria-live="polite">
+      <section className=" border-2 border-ink bg-under/40 p-4 md:p-6" aria-live="polite">
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
           <div>
             <div className="flex items-center gap-2">
               <span className="ipa text-3xl font-bold text-ink">{phoneme.symbol}</span>
-              <span className=" border border-ink bg-under px-2 py-0.5 text-xs font-semibold text-ink">
+              <span className=" border-2 border-ink bg-under px-2 py-0.5 text-xs font-semibold text-ink">
                 {STEP_TITLES[index]}
               </span>
             </div>
@@ -243,7 +243,7 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
                 playSfx('correct');
                 markLearned(phoneme.id);
               }}
-              className="flex min-h-[44px] items-center gap-1 border border-ink/40 bg-transparent px-3 py-2 text-xs text-ink transition-colors hover:bg-under"
+              className="flex min-h-[44px] items-center gap-1 border-2 border-ink bg-transparent px-3 py-2 text-xs text-ink transition-colors hover:bg-under"
             >
               <CheckCircle2 size={13} aria-hidden /> 标记已学
             </button>
@@ -279,7 +279,7 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
         <InfoCard title="口型" text={phoneme.mouthShape} />
         <InfoCard title="舌位" text={phoneme.tonguePosition} />
         <InfoCard title="气流" text={phoneme.airflow} />
-        <div className=" border border-errata/60 bg-leaf p-4">
+        <div className=" border-2 border-errata/60 bg-leaf p-4">
           <div className="mb-1.5 flex items-center gap-1.5 text-xs font-semibold text-errata-deep">
             <TriangleAlert size={13} aria-hidden /> 中文母语者易犯错误
           </div>
@@ -293,19 +293,19 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
 
       {/* 拼写对应 + 对比跳转 */}
       <section className="grid gap-3 md:grid-cols-2">
-        <div className=" border border-rule bg-under/50 p-4">
+        <div className=" border-2 border-ink bg-under/50 p-4">
           <div className="mb-2 flex items-center gap-1.5 text-xs font-semibold text-ink">
             <Ear size={12} aria-hidden /> 常见拼写
           </div>
           <div className="flex flex-wrap gap-2">
             {phoneme.commonSpellings.map((s) => (
-              <span key={s} className="ipa border border-rule bg-leaf px-3 py-1.5 text-sm text-ink">
+              <span key={s} className="ipa border-2 border-ink bg-leaf px-3 py-1.5 text-sm text-ink">
                 {s}
               </span>
             ))}
           </div>
         </div>
-        <div className=" border border-rule bg-under/50 p-4">
+        <div className=" border-2 border-ink bg-under/50 p-4">
           <div className="mb-2 flex items-center gap-1.5 text-xs font-semibold text-ink">
             <Link2 size={12} aria-hidden /> 对比 / 相关音标
           </div>
@@ -320,7 +320,7 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
                     playSfx('tick');
                     onSelect(p);
                   }}
-                  className="ipa min-h-[44px] min-w-[44px] border border-rule bg-leaf px-3 py-1.5 text-sm text-ink transition-colors hover:border-ink hover:bg-under"
+                  className="ipa min-h-[44px] min-w-[44px] border-2 border-ink bg-leaf px-3 py-1.5 text-sm text-ink transition-colors hover:border-ink hover:bg-under"
                 >
                   {p.symbol}
                 </button>
@@ -335,7 +335,7 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
 /** 要点卡：发丝线框 + 一档叶色，标题走墨色，正文走次级墨 */
 function InfoCard({ title, text }: { title: string; text: string }) {
   return (
-    <div className=" border border-rule bg-under/50 p-4">
+    <div className=" border-2 border-ink bg-under/50 p-4">
       <div className="mb-1.5 text-[13px] font-semibold text-ink">{title}</div>
       <p className="text-[13px] leading-[1.75] text-ink2">{text}</p>
     </div>
@@ -344,7 +344,7 @@ function InfoCard({ title, text }: { title: string; text: string }) {
 
 function MiniMouth({ phoneme }: { phoneme: Phoneme }) {
   return (
-    <div className="overflow-hidden border border-rule bg-leaf">
+    <div className="overflow-hidden border-2 border-ink bg-leaf">
       <div className="px-2 pt-1 text-center text-xs font-bold text-ink2">{phoneme.symbol}</div>
       <MouthSideView geo={phoneme.geo} voiced={phoneme.voiced} showFront={false} />
     </div>

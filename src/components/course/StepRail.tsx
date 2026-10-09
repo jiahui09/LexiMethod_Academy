@@ -44,7 +44,7 @@ export default function StepRail({
                   aria-current={on ? 'step' : undefined}
                   aria-label={`第 ${m.n + 1} 步 ${m.label}，${label(m)}`}
                   className={`hinge flex min-h-[44px] w-full flex-wrap items-baseline gap-x-2 px-2 py-1.5 text-left ${
-                    on ? 'bg-ink text-milk' : 'border border-transparent text-ink2 hover:border-ink hover:text-ink'
+                    on ? 'bg-ink text-milk' : 'border-2 border-transparent text-ink2 hover:border-ink hover:text-ink'
                   }`}
                 >
                   <span className="font-display basis-full text-[40px] font-extrabold leading-none tracking-tight tabular-nums">
@@ -73,8 +73,8 @@ export default function StepRail({
                   onClick={() => onSelect(m.n)}
                   aria-current={on ? 'step' : undefined}
                   aria-label={`第 ${m.n + 1} 步 ${m.label}，${label(m)}`}
-                  className={`hinge flex min-h-[44px] shrink-0 items-center gap-1.5 whitespace-nowrap border px-3 text-[13px] ${
-                    on ? 'border-ink bg-ink font-bold text-milk' : 'border-rule bg-leaf text-ink2 hover:border-ink hover:text-ink'
+                  className={`hinge flex min-h-[44px] shrink-0 items-center gap-1.5 whitespace-nowrap border-2 px-3 text-[13px] ${
+                    on ? 'border-ink bg-ink font-bold text-milk' : 'border-ink bg-leaf text-ink2 hover:border-ink hover:text-ink'
                   }`}
                 >
                   <span className="font-display text-[13px] font-extrabold tabular-nums">

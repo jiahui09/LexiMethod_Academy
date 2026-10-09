@@ -19,7 +19,7 @@ export function Practice({ practice, onDone }: { practice: PracticeData; onDone?
   };
 
   return (
-    <section className="leaf my-4 border border-rule p-4 sm:p-5" aria-label={`练习，${practice.title}`}>
+    <section className="leaf my-4 border-2 border-ink p-4 sm:p-5" aria-label={`练习，${practice.title}`}>
       <div className="mb-2 flex items-center gap-2">
         <span className="machine bg-ink px-1.5 py-0.5 text-[12px] text-milk" aria-hidden>
           练
@@ -36,7 +36,7 @@ export function Practice({ practice, onDone }: { practice: PracticeData; onDone?
           <button
             type="button"
             onClick={handleDone}
-            className="hinge inline-flex min-h-[44px] items-center gap-2 bg-ink px-4 font-display text-sm font-bold text-milk hover:bg-ink2"
+            className="hinge inline-flex min-h-[44px] items-center gap-2 bg-ink px-4 font-display text-sm font-bold text-milk press shadow-hard hover:bg-ink2"
           >
             <Check size={15} strokeWidth={3} aria-hidden />
             做完了

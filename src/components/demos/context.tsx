@@ -60,8 +60,8 @@ function PlantTwoScenes() {
             type="button"
             onClick={() => setOpen(i)}
             aria-pressed={open === i}
-            className={`hinge border p-3 text-left ${
-              open === i ? 'border-ink bg-leaf' : 'border-ink/30 bg-leaf hover:bg-under'
+            className={`hinge border-2 p-3 text-left ${
+              open === i ? 'border-ink bg-leaf' : 'border-ink bg-leaf hover:bg-under'
             }`}
           >
             <span className="machine mb-1 block text-[13px] text-ink2">{s.kind}</span>
@@ -109,7 +109,7 @@ function ThreeColorBlocks() {
               style={{
                 background: on ? BLOCK_HUE[b.type] : '#FFFFFF',
                 color: on ? '#FFFFFF' : '#111111',
-                border: `1px solid ${on ? BLOCK_HUE[b.type] : 'rgba(17,17,17,0.3)'}`,
+                border: `2px solid ${on ? BLOCK_HUE[b.type] : 'rgba(17,17,17,0.3)'}`,
               }}
             >
               {b.w}
@@ -122,7 +122,7 @@ function ThreeColorBlocks() {
           <Btn key={t} pressed={mark[t]} onClick={() => setMark((m) => ({ ...m, [t]: !m[t] }))} ariaLabel={`切换${t}块上色`}>
             <span
               aria-hidden
-              className="inline-block h-3 w-3 border border-ink/40"
+              className="inline-block h-3 w-3 border-2 border-ink"
               style={{ background: mark[t] ? BLOCK_HUE[t] : '#FFFFFF' }}
             />
             {t}
@@ -159,7 +159,7 @@ function SentenceBuilderGate() {
       <ul className="mt-3 space-y-2">
         {GATE_QUESTIONS.map((g, i) => (
           <li key={i}>
-            <label className="flex min-h-[44px] cursor-pointer items-center gap-3 border border-ink/30 bg-leaf px-3 hover:bg-under">
+            <label className="flex min-h-[44px] cursor-pointer items-center gap-3 border-2 border-ink bg-leaf px-3 hover:bg-under">
               <input
                 type="checkbox"
                 checked={checked[i]}
@@ -259,9 +259,9 @@ function FakeContextAutopsy() {
               <SpeakButton text={a.good} size="sm" label="朗读改好的版本" />
             </div>
             {open === i && (
-              <div className="hinge mt-2 space-y-1.5 border border-rule bg-leaf p-3 text-[14px]">
+              <div className="hinge mt-2 space-y-1.5 border-2 border-ink bg-leaf p-3 text-[14px]">
                 <p>
-                  <span className="machine border border-errata px-1.5 py-0.5 text-[13px] text-errata">
+                  <span className="machine border-2 border-errata px-1.5 py-0.5 text-[13px] text-errata">
                     {a.sick}
                   </span>{' '}
                   <span className="ml-1">{a.why}</span>

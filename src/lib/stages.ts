@@ -57,3 +57,14 @@ export function deepen(hex: string, amount = 0.28): string {
   const b = Math.round((n & 255) * (1 - amount));
   return `rgb(${r} ${g} ${b})`;
 }
+
+/** 段色实底上的字色：亮底用墨、暗底用 milk（WCAG 相对亮度解算，不引入第三色） */
+export function textOn(hex: string): string {
+  const n = parseInt(hex.slice(1), 16);
+  const lin = (v: number) => (v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4));
+  const r = lin(((n >> 16) & 255) / 255);
+  const g = lin(((n >> 8) & 255) / 255);
+  const b = lin((n & 255) / 255);
+  const L = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  return L >= 0.4 ? '#111111' : '#FFFFFF';
+}

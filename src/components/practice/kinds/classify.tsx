@@ -171,8 +171,8 @@ const SignalMatch: KindComp = ({ onDone }) => {
         {SM_PAIRS.map((p, i) => (
           <li
             key={p.signal}
-            className={`flex items-center gap-3 border px-3 py-2 text-[14px] ${
-              done.includes(i) ? 'border-ink/40 bg-leaf' : 'border-rule'
+            className={`flex items-center gap-3 border-2 px-3 py-2 text-[14px] ${
+              done.includes(i) ? 'border-ink bg-leaf' : 'border-ink'
             }`}
           >
             <span aria-hidden className={`punch ${done.includes(i) ? 'punch-done' : ''}`} />
@@ -188,8 +188,8 @@ const SignalMatch: KindComp = ({ onDone }) => {
             type="button"
             aria-pressed={sel === i}
             onClick={() => setSel(sel === i ? null : i)}
-            className={`hinge min-h-[44px] border px-2.5 text-left text-[13px] ${
-              sel === i ? 'border-ink bg-ink text-milk' : 'border-ink/40 bg-leaf hover:bg-under'
+            className={`hinge min-h-[44px] border-2 px-2.5 text-left text-[13px] ${
+              sel === i ? 'border-ink bg-ink text-milk' : 'border-ink bg-leaf hover:bg-under'
             }`}
           >
             {SM_PAIRS[i].action}
@@ -240,7 +240,7 @@ const ChecklistFill: KindComp = ({ onDone }) => {
       <ul className="space-y-1.5">
         {CF_PRE.map((t, i) => (
           <li key={t}>
-            <label className="flex min-h-[44px] cursor-pointer items-center gap-3 border border-ink/30 bg-leaf px-3 hover:bg-under">
+            <label className="flex min-h-[44px] cursor-pointer items-center gap-3 border-2 border-ink bg-leaf px-3 hover:bg-under">
               <input
                 type="checkbox"
                 checked={pre[i]}
@@ -256,7 +256,7 @@ const ChecklistFill: KindComp = ({ onDone }) => {
       <ul className="space-y-1.5">
         {CF_DURING.map((it, i) => (
           <li key={it.t}>
-            <label className="flex min-h-[44px] cursor-pointer items-center gap-3 border border-ink/30 bg-leaf px-3 hover:bg-under">
+            <label className="flex min-h-[44px] cursor-pointer items-center gap-3 border-2 border-ink bg-leaf px-3 hover:bg-under">
               <input
                 type="checkbox"
                 checked={during[i]}
@@ -324,7 +324,7 @@ const DebriefForm: KindComp = ({ onDone }) => {
               value={vals[i]}
               onChange={(e) => setVals((v) => v.map((x, j) => (j === i ? e.target.value : x)))}
               placeholder={c.hint}
-              className="h-11 w-full border border-ink/40 bg-leaf px-3 text-[15px] placeholder:text-ink2 focus:border-ink"
+              className="h-11 w-full border-2 border-ink bg-leaf px-3 text-[15px] placeholder:text-ink2 focus:border-ink"
             />
           </li>
         ))}

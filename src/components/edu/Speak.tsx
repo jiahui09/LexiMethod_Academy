@@ -59,7 +59,7 @@ export function SpeakButton({
         }
         onSpeak?.();
       }}
-      className={`hinge inline-flex ${dim} shrink-0 items-center justify-center border disabled:opacity-40 ${className}`}
+      className={`hinge inline-flex ${dim} shrink-0 items-center justify-center border-2 disabled:opacity-40 ${className}`}
       style={{
         borderColor: speaking ? '#111111' : slow ? 'rgba(17,17,17, 0.55)' : 'rgba(17,17,17, 0.55)',
         background: speaking ? '#111111' : slow ? '#F1F1F1' : 'transparent',
@@ -96,7 +96,7 @@ export function EduChip({
           : undefined
       }
       aria-pressed={onClick ? active : undefined}
-      className={`hinge inline-flex min-h-[36px] items-center gap-1.5 border px-3 py-1 text-xs font-medium ${className}`}
+      className={`hinge inline-flex min-h-[36px] items-center gap-1.5 border-2 px-3 py-1 text-xs font-medium ${className}`}
       style={{
         borderColor: active ? '#111111' : 'rgba(17,17,17, 0.45)',
         background: active ? '#111111' : 'transparent',

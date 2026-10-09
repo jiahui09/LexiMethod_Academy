@@ -65,7 +65,7 @@ export default function MouthSideView({ geo, voiced, playing = true, showFront =
   const flowColor = '#111111';
 
   return (
-    <div className="relative overflow-hidden border border-rule bg-under/60">
+    <div className="relative overflow-hidden border-2 border-ink bg-under/60">
       <svg viewBox="0 0 420 270" className="w-full" role="img" aria-label="口腔侧视图动画，展示舌位、口型与气流">
         {/* 鼻腔 */}
         <path
@@ -246,7 +246,7 @@ export default function MouthSideView({ geo, voiced, playing = true, showFront =
 
       {/* 正视口型（唇形圆展） */}
       {showFront && (
-        <div className="absolute right-3 top-3 border border-rule bg-under/95 p-2">
+        <div className="absolute right-3 top-3 border-2 border-ink bg-under/95 p-2">
           <svg width={96} height={78} viewBox="0 0 96 78" role="img" aria-label="正面口型">
             <text x={48} y={12} textAnchor="middle" fill="#555555" fontSize={12}>
               正面口型
