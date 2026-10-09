@@ -49,7 +49,7 @@ export default function DiagnosticView({
             data-testid="diag-enter-u1"
             className="hinge inline-flex min-h-[44px] items-center gap-2 bg-ink px-5 py-2.5 font-display text-sm font-bold text-milk hover:bg-ink2 active:translate-y-px"
           >
-            进入 U1 <ArrowRight size={15} aria-hidden />
+            进入 U1 <ArrowRight size={15} className="text-errata" aria-hidden />
           </button>
         </div>
       </div>

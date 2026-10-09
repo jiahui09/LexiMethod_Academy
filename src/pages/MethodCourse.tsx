@@ -129,7 +129,7 @@ export default function MethodCourse() {
           <p className="machine text-[12px] text-ink2">
             {stage.label}段 · {course.durationMin} 分钟 · {course.units.length} 单元
           </p>
-          <h1 className="mt-1.5 font-display text-[26px] font-extrabold leading-tight text-ink md:text-[32px]">
+          <h1 className="mt-1.5 font-display text-[30px] font-extrabold leading-[1.1] tracking-[-0.02em] text-ink md:text-[40px]">
             {course.title}
           </h1>
           <p className="mt-2 max-w-[68ch] text-[15px] leading-[1.85] text-ink2">{course.subtitle}</p>
@@ -179,7 +179,7 @@ export default function MethodCourse() {
                     className="hinge inline-flex min-h-[44px] items-center justify-center gap-2 bg-ink px-5 py-2.5 font-display text-sm font-bold text-milk hover:bg-ink2 active:translate-y-px sm:ml-auto"
                   >
                     {step === 6 ? '去出门条' : `下一步 U${step + 1}`}
-                    <ArrowRight size={15} aria-hidden />
+                    <ArrowRight size={15} className="text-errata" aria-hidden />
                   </button>
                 </div>
               </>

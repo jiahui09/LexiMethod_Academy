@@ -1,3 +1,10 @@
+---
+version: 1
+slug: "tutorial"
+primary_target: "tutorial"
+related_targets: []
+---
+
 # 全站（目录 + 课程步进 + 音标实验室 + 设置 + 壳）
 
 ## Scope and visitor mode
@@ -47,16 +54,3 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
 - 无 comp 轮；首屏与签名交互的承诺由 finish reviewer 对照本契约审计。
 - DESIGN.md 与 `.impeccable/design.json` 由 documenter 在 finish 阶段基于已建成世界整体替换（旧压膜叙述与 14 色 tonalRamps、leaf-edge 阴影、书口/打孔组件全部作废），不在构建前预写。
 - 旧世界签名件（ForeEdge 书口贴、PunchedDot 打孔、HingeCorner 掀角）保留结构与 aria，视觉改为瑞士语言（方角、编号、色细条）。
-
-## 焦点层修订（第二轮，用户四策略全批）
-
-用户判定首屏「色彩过于平面化，进入后不知道眼睛应该落在那里」。四条策略合并执行，作为对 OWN-WORLD / FIRST VIEWPORT 的修订增补（其余契约不变）：
-
-- **黑块锚点**：总目首屏在 h1 之下新增黑色「继续」面板——全页唯一主导色场：底 `#111111` 白字，巨号课号（display 64–72px 特粗），顶缘当前段色 6–8px 细条，白底按钮承载红箭头。眼睛进门先落这块黑。
-- **红色指路**：信号红 `#E34234` 语义从「只给勘误/对立/错」扩域为「指路与当前位置」双域统一（共同语义 = 看这里）：字标红块（Lx 反白，字号 ≥19px 特粗走大字级 3:1）、导航当前项红色 3px 标、章节带默认红细条、主行动方向箭头（浅底/黑底上均为图形级 ≥3:1）；勘误域照旧。DESIGN.md / design.json 规则同步改写。
-- **灰场分区**：`#F1F1F1` 作成区地——报头带、分段头带、页脚带铺灰，白行浮于灰场，图底分层；报头下线升 2px 黑。
-- **纯排印层级**：总目 h1 升海报级 `44 → 64 → 72px`（display 特粗、齐左、字距 -0.03em），段头 24 → 32px，行题守 19px，行内课号 15 → 18px；级差 ≥1.5 级。课程页 h1 同步升至 40px 级。
-
-### FIRST VIEWPORT 增补（总目）
-
-灰报头（红字标）之下三步阶梯：海报级 h1 → 黑块继续面板（唯一落点）→ 灰场段头 + 白行清单；视线从大到小落到行动上。移动端面板纵向堆叠，按钮满宽。

@@ -39,6 +39,7 @@ function derive(pathname: string): { primary: Target; secondary: Target } {
 /**
  * 页面底部的「下一步去哪儿」：每页一个主推进（ink 实底，全页唯一主行动）
  * + 一个相关去向 + 回总目，保证任何一页都有明确去向（The Single Focus Rule）。
+ * 指路红只上两处：前缀短线与主行动箭头，不动按钮实底。
  */
 export default function NextStepBar() {
   const { pathname } = useLocation();
@@ -53,7 +54,7 @@ export default function NextStepBar() {
       aria-label="下一步引导"
     >
       <span className="flex items-center gap-2 machine text-[12px] text-ink2">
-        <span className="h-px w-5 bg-rule" aria-hidden />
+        <span className="h-px w-5 bg-errata" aria-hidden />
         下一步去哪儿
       </span>
       <div className="flex flex-wrap items-center gap-2">
@@ -61,7 +62,7 @@ export default function NextStepBar() {
           to={primary.to}
           className="inline-flex min-h-[44px] items-center gap-1.5 bg-ink px-4 py-2 font-display text-[13px] font-bold text-milk transition-colors hover:bg-ink2 active:translate-y-px"
         >
-          {primary.label} <ArrowRight size={13} aria-hidden />
+          {primary.label} <ArrowRight size={13} className="text-errata" aria-hidden />
         </Link>
         <Link
           to={secondary.to}

@@ -14,6 +14,7 @@ const ITEMS: Item[] = [
 /**
  * 移动端底部导航：小屏下最容易丢方向，主目的地常驻、当前项高亮。
  * 桌面端（≥1024px）由顶部导航承担，本条隐藏。
+ * 灰场地带（与报头、页脚同灰），满宽铺开不收窄。
  */
 export default function BottomNav() {
   const { pathname } = useLocation();
@@ -26,9 +27,9 @@ export default function BottomNav() {
     <nav
       aria-label="底部导航"
       data-testid="bottom-nav"
-      className="paper-chrome fixed inset-x-0 bottom-0 z-40 border-t border-ink bg-milk lg:hidden"
+      className="paper-chrome fixed inset-x-0 bottom-0 z-40 border-t border-ink bg-under lg:hidden"
     >
-      <ul className="mx-auto grid max-w-lg grid-cols-3">
+      <ul className="grid w-full grid-cols-3">
         {ITEMS.map((item) => {
           const Icon = item.icon;
           const on = active(item);
@@ -43,8 +44,8 @@ export default function BottomNav() {
               >
                 <Icon size={18} aria-hidden />
                 {item.label}
-                {/* 形状通道：3px 墨色刻线，当前项不只靠颜色 */}
-                {on && <span aria-hidden className="absolute inset-x-3 bottom-0 h-[3px] bg-ink" />}
+                {/* 形状通道：3px 红标（指路），当前项不只靠颜色 */}
+                {on && <span aria-hidden className="absolute inset-x-3 bottom-0 h-[3px] bg-errata" />}
               </Link>
             </li>
           );
