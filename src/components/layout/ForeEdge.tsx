@@ -69,7 +69,14 @@ export default function ForeEdge() {
             const stage = STAGE_META[c.stage];
             // The Extent Rule：签高与课时成正比（35–38 分钟 → 48–57px，均 ≥44 触控底线）
             const h = 44 + (c.durationMin - 30) * 1.5;
-            const state = done ? '已完成' : on ? '当前' : '未学';
+            const exit = exitResults[c.id];
+            const state = done
+              ? exit
+                ? `已完成 · 出门条 ${exit.score}/${exit.total}`
+                : '已完成'
+              : on
+                ? '当前'
+                : '未学';
             return (
               <li key={c.id}>
                 <Link

@@ -4,10 +4,18 @@ import type { KindComp } from './types';
 import { Btn, OptionBtn, PunchRow, Verdict, Timer } from '@/components/demos/_shared';
 import { SpeakButton } from '@/components/edu/Speak';
 import { playSfx } from '@/hooks/useSfx';
+import { useProgress } from '@/store/progressStore';
 
 /* 常规流程族练习体（9 个 kind） */
 
 /* ---------- diagnostic / exitTicket：指针型，跳到本课第 0 / 7 步 ---------- */
+/* P0-4 成绩门：真实成绩进了本机进度才允许收口，「我做完了」不再一键即过 */
+function useStepScoreGate(courseId: string | undefined, which: 'diagnostic' | 'exit') {
+  return useProgress((s) => {
+    if (!courseId) return undefined;
+    return which === 'diagnostic' ? s.diagnosticResults[courseId] : s.exitResults[courseId];
+  });
+}
 function StepPointer({ step, label, note }: { step: 0 | 7; label: string; note: string }) {
   const [clicked, setClicked] = useState(false);
   return (
@@ -32,28 +40,58 @@ function StepPointer({ step, label, note }: { step: 0 | 7; label: string; note: 
     </div>
   );
 }
-const Diagnostic: KindComp = ({ practice, onDone }) => (
-  <div className="space-y-3">
-    <StepPointer step={0} label="去诊断台" note="7 到 10 道题一次做完，当场看分数带" />
-    <Btn variant="ghost" onClick={onDone}>
-      <Check size={15} strokeWidth={3} aria-hidden />
-      我做完了
-    </Btn>
-    <p className="text-[13px] text-ink2">诊断题在第 0 步，做完回来点上面的收口。</p>
-    <span className="sr-only">{practice.title}</span>
-  </div>
-);
-const ExitTicket: KindComp = ({ practice, onDone }) => (
-  <div className="space-y-3">
-    <StepPointer step={7} label="去出门条" note="出门条加离场自测，答完看分流结果" />
-    <Btn variant="ghost" onClick={onDone}>
-      <Check size={15} strokeWidth={3} aria-hidden />
-      我做完了
-    </Btn>
-    <p className="text-[13px] text-ink2">出门条在第 7 步，成绩只用来分流。</p>
-    <span className="sr-only">{practice.title}</span>
-  </div>
-);
+function PointerDone({
+  ready,
+  scoreLabel,
+  onDone,
+}: {
+  ready: boolean;
+  scoreLabel: string;
+  onDone: () => void;
+}) {
+  return (
+    <>
+      <Btn variant="ghost" onClick={onDone} disabled={!ready}>
+        <Check size={15} strokeWidth={3} aria-hidden />
+        我做完了
+      </Btn>
+      <p className="text-[13px] text-ink2" aria-live="polite">
+        {ready
+          ? `已记录：${scoreLabel}，现在可以收口。`
+          : '成绩门：先到上面指向的那一步真做一遍，成绩记下来后这里才能收口。'}
+      </p>
+    </>
+  );
+}
+const Diagnostic: KindComp = ({ practice, onDone, courseId }) => {
+  const score = useStepScoreGate(courseId, 'diagnostic');
+  return (
+    <div className="space-y-3">
+      <StepPointer step={0} label="去诊断台" note="7 到 10 道题一次做完，当场看分数带" />
+      <PointerDone
+        ready={score != null}
+        scoreLabel={score ? `诊断 ${score.score}/${score.total}` : ''}
+        onDone={onDone}
+      />
+      <span className="sr-only">{practice.title}</span>
+    </div>
+  );
+};
+const ExitTicket: KindComp = ({ practice, onDone, courseId }) => {
+  const score = useStepScoreGate(courseId, 'exit');
+  return (
+    <div className="space-y-3">
+      <StepPointer step={7} label="去出门条" note="出门条加离场自测，答完看分流结果" />
+      <PointerDone
+        ready={score != null}
+        scoreLabel={score ? `出门条 ${score.score}/${score.total}` : ''}
+        onDone={onDone}
+      />
+      <p className="text-[13px] text-ink2">出门条在第 7 步，成绩只用来分流。</p>
+      <span className="sr-only">{practice.title}</span>
+    </div>
+  );
+};
 
 /* ---------- choice：按 prompt 匹配六套选择内容，阈值过关 ---------- */
 type ChoiceSet = {
@@ -132,6 +170,7 @@ const Choice: KindComp = ({ practice, onDone }) => {
   const set = CHOICE_SETS.find((s) => s.match.test(practice.prompt)) ?? FALLBACK_SET;
   const [picked, setPicked] = useState<Record<number, number>>({});
   const [mark, setMark] = useState<null | boolean>(null);
+  const [attempt, setAttempt] = useState(1);
   const right = set.items.filter((it, i) => picked[i] === it.ans).length;
   const allPicked = Object.keys(picked).length === set.items.length;
   const submit = () => {
@@ -141,6 +180,20 @@ const Choice: KindComp = ({ practice, onDone }) => {
       playSfx('complete');
       onDone();
     } else playSfx('wrong');
+  };
+  // P0-3：首次点击即锁定，交卷才揭晓；没过线→看过错处→清空重做（P1-5：穷举计次）
+  const retry = () => {
+    setPicked({});
+    setMark(null);
+    setAttempt((n) => n + 1);
+  };
+  const stateOf = (i: number, k: number): 'idle' | 'selected' | 'right' | 'wrong' => {
+    if (mark === null) return picked[i] === k ? 'selected' : 'idle';
+    return k === set.items[i].ans ? 'right' : picked[i] === k ? 'wrong' : 'idle';
+  };
+  const pick = (i: number, k: number) => {
+    if (mark !== null || picked[i] !== undefined) return;
+    setPicked((p) => ({ ...p, [i]: k }));
   };
   return (
     <div className="space-y-3">
@@ -156,8 +209,9 @@ const Choice: KindComp = ({ practice, onDone }) => {
                 <OptionBtn
                   key={o}
                   className="w-auto"
-                  state={picked[i] === undefined ? 'idle' : k === it.ans ? 'right' : picked[i] === k ? 'wrong' : 'idle'}
-                  onClick={() => setPicked((p) => ({ ...p, [i]: k }))}
+                  state={stateOf(i, k)}
+                  disabled={mark !== null || picked[i] !== undefined}
+                  onClick={() => pick(i, k)}
                 >
                   {o}
                 </OptionBtn>
@@ -167,12 +221,19 @@ const Choice: KindComp = ({ practice, onDone }) => {
         ))}
       </ul>
       <div className="flex flex-wrap items-center gap-3">
-        <Btn variant="primary" onClick={submit} disabled={!allPicked}>
+        {mark === false && (
+          <Btn variant="ghost" onClick={retry}>
+            看清错处，重新做过一遍
+          </Btn>
+        )}
+        <Btn variant="primary" onClick={submit} disabled={!allPicked || mark !== null}>
           交
         </Btn>
         <PunchRow total={set.items.length} done={Object.keys(picked).length} />
         <span className="machine text-[13px] text-ink2">
-          对 {right}/{set.items.length}，{set.need} 过线
+          {mark === null
+            ? `第 ${attempt} 次 · 已选 ${Object.keys(picked).length}/${set.items.length}，选中即锁定，交卷出分（${set.need} 题过线）`
+            : `第 ${attempt} 次 · 对 ${right}/${set.items.length}，${set.need} 过线${attempt > 1 ? `（已重做 ${attempt - 1} 次）` : ''}`}
         </span>
       </div>
       <div aria-live="polite">
@@ -192,6 +253,7 @@ const CC_ITEMS: { sentence: string; word: string; options: string[]; ans: number
 const ContextChoice: KindComp = ({ onDone }) => {
   const [picked, setPicked] = useState<Record<number, number>>({});
   const [mark, setMark] = useState<null | boolean>(null);
+  const [attempt, setAttempt] = useState(1);
   const right = CC_ITEMS.filter((it, i) => picked[i] === it.ans).length;
   const allPicked = Object.keys(picked).length === CC_ITEMS.length;
   const submit = () => {
@@ -201,6 +263,20 @@ const ContextChoice: KindComp = ({ onDone }) => {
       playSfx('complete');
       onDone();
     } else playSfx('wrong');
+  };
+  const retry = () => {
+    setPicked({});
+    setMark(null);
+    setAttempt((n) => n + 1);
+  };
+  // P0-3：选中即锁定，交卷才揭晓
+  const stateOf = (i: number, k: number): 'idle' | 'selected' | 'right' | 'wrong' => {
+    if (mark === null) return picked[i] === k ? 'selected' : 'idle';
+    return k === CC_ITEMS[i].ans ? 'right' : picked[i] === k ? 'wrong' : 'idle';
+  };
+  const pick = (i: number, k: number) => {
+    if (mark !== null || picked[i] !== undefined) return;
+    setPicked((p) => ({ ...p, [i]: k }));
   };
   return (
     <div className="space-y-3">
@@ -216,8 +292,9 @@ const ContextChoice: KindComp = ({ onDone }) => {
                 <OptionBtn
                   key={o}
                   className="w-auto"
-                  state={picked[i] === undefined ? 'idle' : k === it.ans ? 'right' : picked[i] === k ? 'wrong' : 'idle'}
-                  onClick={() => setPicked((p) => ({ ...p, [i]: k }))}
+                  state={stateOf(i, k)}
+                  disabled={mark !== null || picked[i] !== undefined}
+                  onClick={() => pick(i, k)}
                 >
                   {o}
                 </OptionBtn>
@@ -227,10 +304,19 @@ const ContextChoice: KindComp = ({ onDone }) => {
         ))}
       </ul>
       <div className="flex flex-wrap items-center gap-3">
-        <Btn variant="primary" onClick={submit} disabled={!allPicked}>
+        {mark === false && (
+          <Btn variant="ghost" onClick={retry}>
+            看清错处，重新做过一遍
+          </Btn>
+        )}
+        <Btn variant="primary" onClick={submit} disabled={!allPicked || mark !== null}>
           交三题
         </Btn>
-        <span className="machine text-[13px] text-ink2">{right}/3</span>
+        <span className="machine text-[13px] text-ink2">
+          {mark === null
+            ? `第 ${attempt} 次 · 已选 ${Object.keys(picked).length}/3，交卷出分`
+            : `第 ${attempt} 次 · ${right}/3${attempt > 1 ? `（已重做 ${attempt - 1} 次）` : ''}`}
+        </span>
       </div>
       <div aria-live="polite">
         {mark === false && <Verdict ok={false}>搭配在定方向，放回句子里再看一次</Verdict>}

@@ -450,14 +450,17 @@ function StressThreeClues() {
         <div className="under-leaf flex items-center gap-2 px-3 py-2">
           <span className="machine text-[16px] font-bold">ˈrecord</span>
           <span className="text-[13px] text-ink2">名词，唱片</span>
-          <SpeakButton text="record" size="sm" />
+          <SpeakButton text="record" audioKey="record-noun" size="sm" label="播放 ˈrecord（名词，重音在首音节）" />
         </div>
         <div className="under-leaf flex items-center gap-2 px-3 py-2">
           <span className="machine text-[16px] font-bold">reˈcord</span>
           <span className="text-[13px] text-ink2">动词，记录</span>
-          <SpeakButton text="record" slow size="sm" />
+          <SpeakButton text="record" audioKey="record-verb" size="sm" label="播放 reˈcord（动词，重音在第二音节）" />
         </div>
       </div>
+      <p className="mt-2 text-[13px] text-ink2">
+        两个喇叭各播对应读音：名词重音落在 ˈre，动词重音落在 cord——同一拼写，两段音频。
+      </p>
       <ul className="space-y-2">
         {CLUES.map((c, i) => (
           <li key={c.t}>

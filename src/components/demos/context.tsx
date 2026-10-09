@@ -1,26 +1,112 @@
-import React, { useState } from 'react';
-import { Check, X, Volume2 } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Check, X, Volume2, AlignLeft, Rows3 } from 'lucide-react';
 import { DemoPanel, Btn, PunchRow, Verdict, Token } from './_shared';
 import { SpeakButton } from '@/components/edu/Speak';
+import { useSpeech, useSpeaking } from '@/hooks/useSpeech';
 
 /* 课程 04 语境存入的教学演示（6 个 ref） */
 
-/** 同一个句子读两遍，一遍逐词对照，一遍整句连读 */
+/**
+ * 同一个句子读两遍，一遍逐词对照，一遍整句连读。
+ * 真·两遍制：点「读两遍」→ 第一遍按块分次点读（停在逐词对照视图），
+ * 每块间隔 350ms、块间静默 600ms 后自动切到整句连读视图播第二遍。
+ * 模式切换钮只是视图开关（AlignLeft/Rows3 语义图标），播放流程会自动带着模式走。
+ */
 const READ_SENT = [
   { w: 'The committee', g: '委员会', role: '主语块' },
   { w: 'made a final decision', g: '做出了最终决定', role: '谓语搭配块' },
   { w: 'yesterday.', g: '昨天', role: '时间块' },
 ];
+const READ_SENT_FULL = 'The committee made a final decision yesterday.';
+
+/** 播放阶段：w0/w1/w2 = 第一遍逐块，full = 第二遍整句，done = 两遍读完 */
+type ReadStage = 'idle' | 'w0' | 'w1' | 'w2' | 'full' | 'done';
+
 function VisibleReadAloud() {
   const [mode, setMode] = useState<'word' | 'block'>('word');
+  const [stage, setStage] = useState<ReadStage>('idle');
+  const { speak, supported } = useSpeech();
+  const speaking = useSpeaking();
+  const stageRef = useRef<ReadStage>('idle');
+  const timerRef = useRef<number | undefined>(undefined);
+  const speakingRef = useRef(speaking);
+
+  const go = (s: ReadStage) => {
+    stageRef.current = s;
+    setStage(s);
+  };
+  const delay = (fn: () => void, ms: number) => {
+    window.clearTimeout(timerRef.current);
+    timerRef.current = window.setTimeout(fn, ms);
+  };
+  useEffect(() => {
+    speakingRef.current = speaking;
+  }, [speaking]);
+  useEffect(() => () => window.clearTimeout(timerRef.current), []);
+
+  /* 起播失败（词库外又无语音合成）或 3s 无回音（语音合成被系统吞掉）→ 直接推进下一段，
+     演示绝不停在半路、播放钮也不会永久锁死 */
+  function say(text: string) {
+    if (!speak(text)) {
+      advance();
+      return;
+    }
+    delay(() => {
+      if (!speakingRef.current) advance();
+    }, 3000);
+  }
+  /* 当前段落播完 → 推进下一段（第二遍结束复位） */
+  function advance() {
+    const s = stageRef.current;
+    if (s === 'w0') {
+      go('w1');
+      delay(() => say(READ_SENT[1].w), 350);
+    } else if (s === 'w1') {
+      go('w2');
+      delay(() => say(READ_SENT[2].w), 350);
+    } else if (s === 'w2') {
+      go('full');
+      delay(() => {
+        setMode('block');
+        say(READ_SENT_FULL);
+      }, 600);
+    } else if (s === 'full') {
+      go('done');
+    }
+  }
+
+  /* 出声结束（总线 true → false）= 一段读完，推进到下一段 */
+  useEffect(() => {
+    if (speaking) return;
+    if (stageRef.current !== 'idle' && stageRef.current !== 'done') advance();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [speaking]);
+
+  const playing = stage !== 'idle' && stage !== 'done';
+  const start = () => {
+    window.clearTimeout(timerRef.current);
+    setMode('word');
+    go('w0');
+    say(READ_SENT[0].w);
+  };
+  const status = !supported
+    ? '当前浏览器不支持语音合成，两遍制演示无法出声。'
+    : stage === 'idle'
+      ? '点「读两遍」：第一遍逐词对照，第二遍整句连读。'
+      : stage === 'done'
+        ? '两遍读完——第一遍对词，第二遍听整句。'
+        : stage === 'full'
+          ? '第 2 遍 · 整句连读'
+          : `第 1 遍 · 逐词对照（第 ${Number(stage.slice(1)) + 1} 块 / 共 ${READ_SENT.length} 块）`;
+
   return (
     <DemoPanel label="朗读对照 · 两遍制">
       <div className="mb-3 flex gap-2">
-        <Btn pressed={mode === 'word'} onClick={() => setMode('word')}>
-          <Volume2 size={15} aria-hidden /> 逐词对照
+        <Btn pressed={mode === 'word'} onClick={() => setMode('word')} ariaLabel="切换到逐词对照视图">
+          <AlignLeft size={15} aria-hidden /> 逐词对照
         </Btn>
-        <Btn pressed={mode === 'block'} onClick={() => setMode('block')}>
-          <Volume2 size={15} aria-hidden /> 整句连读
+        <Btn pressed={mode === 'block'} onClick={() => setMode('block')} ariaLabel="切换到整句连读视图">
+          <Rows3 size={15} aria-hidden /> 整句连读
         </Btn>
       </div>
       <div className="under-leaf p-4">
@@ -36,9 +122,19 @@ function VisibleReadAloud() {
           {mode === 'word' ? '逐词对照，词词有着落，但读得慢。' : '整块连读，按意群一口气读完，读完再回头看词。'}
         </p>
       </div>
-      <div className="mt-3 flex items-center gap-3">
-        <SpeakButton text="The committee made a final decision yesterday." label="朗读整句" />
-        <span className="text-[14px]">两遍都读，比谁先反应过来。</span>
+      <div className="mt-3 flex flex-wrap items-center gap-3">
+        <Btn
+          variant="primary"
+          onClick={start}
+          disabled={!supported || playing}
+          ariaLabel="播放两遍：第一遍逐词对照分块点读，第二遍整句连读"
+          title="第一遍逐词对照（分块点读），第二遍整句连读"
+        >
+          <Volume2 size={15} aria-hidden /> 读两遍
+        </Btn>
+        <span className="text-[14px]" aria-live="polite">
+          {status}
+        </span>
       </div>
     </DemoPanel>
   );

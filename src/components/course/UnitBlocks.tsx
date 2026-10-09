@@ -10,7 +10,7 @@ function ExampleBlock({ b }: { b: Extract<Block, { kind: 'example' }> }) {
   return (
     <figure className="border-2 border-ink bg-leaf px-4 py-3.5">
       <div className="flex flex-wrap items-start gap-x-3 gap-y-1.5">
-        {b.speak && <SpeakButton text={b.speak} size="sm" />}
+        {b.speak && <SpeakButton text={b.speak} size="sm" audioKey={b.speakAudio} />}
         <div className="min-w-0 flex-1">
           <p className="max-w-[68ch] text-[16px] leading-[1.85] text-ink">{b.text}</p>
           {b.ipa && <p className="machine mt-1 text-ink2">{b.ipa}</p>}
@@ -70,12 +70,14 @@ export function Blocks({ blocks }: { blocks: Block[] }) {
 export function UnitView({
   unit,
   done,
+  courseId,
   onToggleCheck,
   onPracticeDone,
   practiced,
 }: {
   unit: Unit;
   done: boolean;
+  courseId: string;
   onToggleCheck: () => void;
   onPracticeDone: () => void;
   practiced: boolean;
@@ -98,7 +100,7 @@ export function UnitView({
 
       {unit.practice && (
         <section className="mt-6" aria-label={`微练习 ${unit.practice.title}`}>
-          <Practice practice={unit.practice} onDone={onPracticeDone} />
+          <Practice practice={unit.practice} onDone={onPracticeDone} courseId={courseId} />
           {practiced && !done && unit.check && (
             <p className="machine mt-2 text-[12px] text-ink2">练过了，勾掉下面的自检就能收口。</p>
           )}

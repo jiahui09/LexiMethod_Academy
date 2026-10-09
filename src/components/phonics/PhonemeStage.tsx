@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Ear, Layers, TriangleAlert, Link2, Volume2, CheckCircle2 } from 'lucide-react';
+import { SpellCheck, Layers, TriangleAlert, Link2, Volume2, CheckCircle2 } from 'lucide-react';
 import type { Phoneme } from '@/types';
 import { phonemeById, phonemes } from '@/data/phonemes';
 import MouthSideView from './MouthSideView';
@@ -23,6 +23,12 @@ const STEP_TITLES = [
   '⑦ 互动判断',
 ];
 
+/**
+ * P1-6 分级读秒：自动播放时长按每步信息量定，不再一律 7s。
+ * ①登场轻（5s）→ ②③ 口型/气流动画（8s）→ ④对比音（7s）→ ⑤例词拼写密（9s）→ ⑥⑦ 操练（8s）。
+ */
+const STEP_MS = [5000, 8000, 8000, 7000, 9000, 8000, 8000];
+
 /** 单个音标的分步教学舞台（7 步动画讲解）——词典里的音标词条页，内容动画保留，辉光与渐变已除 */
 export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; onSelect: (p: Phoneme) => void }) {
   const { speak } = useSpeech();
@@ -30,8 +36,12 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
   const [index, setIndex] = useState(0);
   const [autoplay, setAutoplay] = useState(false);
   const [replay, setReplay] = useState(0);
+  const learnedList = useProgress((s) => s.phonemesLearned);
+  const learned = learnedList.includes(phoneme.id);
   const markLearned = useProgress((s) => s.markPhonemeLearned);
   const ensureCard = useReview((s) => s.ensureCard);
+  /** 走完全部 7 步（到末步）才允许自报「标记已学」 */
+  const reachedEnd = index >= STEP_TITLES.length - 1;
 
   // 换音标 → 回到第一步 + 预载离线发音
   useEffect(() => {
@@ -232,21 +242,60 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
               <span className=" border-2 border-ink bg-under px-2 py-0.5 text-xs font-semibold text-ink">
                 {STEP_TITLES[index]}
               </span>
+              {/* §4.4-3 模式区分：系统在推进还是我在推进，形状+颜色双编码，硬切呈现（无入场动画） */}
+              <span
+                className={`border-2 px-2 py-0.5 text-xs font-semibold ${
+                  autoplay ? 'border-ink bg-ink text-milk' : 'border-ink bg-transparent text-ink2'
+                }`}
+              >
+                {autoplay ? '自动推进中' : '手动翻步'}
+              </span>
             </div>
           </div>
           <div className="flex flex-wrap items-center gap-2">
             <SpeakButton text={phoneme.ttsWord ?? phoneme.exampleWords[0]} phonemeId={phoneme.id} label={`播放 ${phoneme.symbol} 发音`} className="min-h-[44px] min-w-[44px]" />
             <SpeakButton text={phoneme.ttsWord ?? phoneme.exampleWords[0]} phonemeId={phoneme.id} slow label={`慢速播放 ${phoneme.symbol}`} className="min-h-[44px] min-w-[44px]" />
+            {/* 标记已学：走完全部 7 步才解锁——不允许第一屏就自报已学（报告 §2.3-6） */}
             <button
               type="button"
               onClick={() => {
+                if (!reachedEnd) return;
                 playSfx('correct');
                 markLearned(phoneme.id);
               }}
-              className="flex min-h-[44px] items-center gap-1 border-2 border-ink bg-transparent px-3 py-2 text-xs text-ink transition-colors hover:bg-under"
+              disabled={!reachedEnd}
+              aria-disabled={!reachedEnd}
+              aria-label={
+                reachedEnd
+                  ? '标记已学'
+                  : `标记已学（需走完全部 ${STEP_TITLES.length} 步，当前第 ${index + 1} 步）`
+              }
+              title={
+                reachedEnd
+                  ? '走完全部步骤，标记本音标为已学'
+                  : `走完全部 ${STEP_TITLES.length} 步后才能标记已学（当前第 ${index + 1} 步）`
+              }
+              className={`flex min-h-[44px] items-center gap-1 border-2 border-ink bg-transparent px-3 py-2 text-xs text-ink transition-colors hover:bg-under disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent`}
             >
               <CheckCircle2 size={13} aria-hidden /> 标记已学
             </button>
+            {/* P2：建卡后从不复查 → 已学者给一条复查路：跳回互动判断步，当场再验一次 */}
+            {learned && (
+              <button
+                type="button"
+                onClick={() => {
+                  playSfx('click');
+                  setAutoplay(false);
+                  setIndex(STEP_TITLES.length - 1);
+                  setReplay((r) => r + 1);
+                }}
+                aria-label="复查一次：跳回互动判断步"
+                title="已学不等于不会再错：跳回第 7 步互动判断当场再验一次"
+                className="flex min-h-[44px] items-center gap-1 border-2 border-ink bg-under px-3 py-2 text-xs text-ink transition-colors hover:bg-leaf"
+              >
+                <SpellCheck size={13} aria-hidden /> 复查一次
+              </button>
+            )}
           </div>
         </div>
 
@@ -254,7 +303,12 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
 
         <div className="mt-4">
           <StepControls
-            hint="可用键盘 ← / → 翻页；开启自动播放按 7 步时间线推进；走完最后一步记得标记已学。"
+            hint={
+              autoplay
+                ? '自动播放中：刻线在走 = 系统在推进，按每步信息量读秒（5–9 秒）；暂停后回到手动翻步。走完全部 7 步后「标记已学」才解锁。'
+                : '手动翻步：刻线静止 = 你在推进，点「下一步」或按 ← / →；走完全部 7 步后「标记已学」才解锁。'
+            }
+            stepDurationMs={STEP_MS[index] ?? 7000}
             index={index}
             total={STEP_TITLES.length}
             autoplay={autoplay}
@@ -295,7 +349,7 @@ export default function PhonemeStage({ phoneme, onSelect }: { phoneme: Phoneme; 
       <section className="grid gap-3 md:grid-cols-2">
         <div className=" border-2 border-ink bg-under/50 p-4">
           <div className="mb-2 flex items-center gap-1.5 text-xs font-semibold text-ink">
-            <Ear size={12} aria-hidden /> 常见拼写
+            <SpellCheck size={12} aria-hidden /> 常见拼写
           </div>
           <div className="flex flex-wrap gap-2">
             {phoneme.commonSpellings.map((s) => (

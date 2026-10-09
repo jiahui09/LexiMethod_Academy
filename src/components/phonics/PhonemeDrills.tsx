@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Mic, Square, Ear, Eye, Check, X, Volume2, Radio } from 'lucide-react';
+import { Mic, Square, Ear, Eye, Check, X, Volume2, Turtle } from 'lucide-react';
 import type { Phoneme } from '@/types';
 import { phonemes } from '@/data/phonemes';
 import { useSpeech, useSpeaking } from '@/hooks/useSpeech';
@@ -72,7 +72,7 @@ export function MinimalPairJudge({ phoneme }: { phoneme: Phoneme }) {
         <span className="flex items-center gap-1.5 text-xs font-semibold text-ink">
           <Ear size={13} aria-hidden /> 最小对立对，听清哪一个
         </span>
-        <EduButton size="sm" variant="ghost" onClick={() => speak(pair[target])}>
+        <EduButton size="sm" variant="ghost" aria-label={`再听一次 ${pair[target]}`} onClick={() => speak(pair[target])}>
           <Volume2 size={13} aria-hidden /> 再听一次
         </EduButton>
       </div>
@@ -153,11 +153,17 @@ export function ListenChooseDrill({ phoneme }: { phoneme: Phoneme }) {
         </EduButton>
       </div>
       <div className="mb-3 flex flex-wrap items-center gap-2">
-        <EduButton size="sm" onClick={() => speak(target.ttsWord ?? target.exampleWords[0])}>
+        <EduButton size="sm" aria-label="常速播放目标词" onClick={() => speak(target.ttsWord ?? target.exampleWords[0])}>
           <Volume2 size={14} aria-hidden /> 播放
         </EduButton>
-        <EduButton size="sm" variant="ghost" onClick={() => speak(target.ttsWord ?? target.exampleWords[0], { slow: true })}>
-          慢速
+        <EduButton
+          size="sm"
+          variant="ghost"
+          title="慢速播放（浏览器语音合成降速）"
+          aria-label="慢速播放目标词（浏览器语音合成降速）"
+          onClick={() => speak(target.ttsWord ?? target.exampleWords[0], { slow: true })}
+        >
+          <Turtle size={14} aria-hidden /> 慢速
         </EduButton>
         <PaperWave active={speaking} />
       </div>
@@ -283,8 +289,14 @@ export function RecordCompare({ phoneme }: { phoneme: Phoneme }) {
   const [state, setState] = useState<'idle' | 'recording' | 'done' | 'unsupported'>('idle');
   const [url, setUrl] = useState<string | null>(null);
   const [selfOk, setSelfOk] = useState<boolean | null>(null);
+  const recordSelfReview = useReview((s) => s.recordSelfReview);
   const recorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
+
+  /** P1-4 自评接线：只记录（带音标 id），不进排期、不消费 dueCards() */
+  const noteSelf = (ok: boolean) => {
+    recordSelfReview(`${phoneme.symbol}（${phoneme.id}）录音自评：${ok ? '记牢' : '记不牢'}`, ok);
+  };
 
   useEffect(() => {
     return () => {
@@ -331,6 +343,7 @@ export function RecordCompare({ phoneme }: { phoneme: Phoneme }) {
       <div className="flex flex-wrap items-center gap-2">
         <EduButton
           size="sm"
+          aria-label={`播放 ${phoneme.symbol} 的原声（常速）`}
           onClick={() => {
             if (!speakPhoneme(phoneme.id)) speak(phoneme.ttsWord ?? phoneme.exampleWords[0]);
           }}
@@ -355,19 +368,21 @@ export function RecordCompare({ phoneme }: { phoneme: Phoneme }) {
 
       {state === 'done' && (
         <div className="flex flex-wrap items-center gap-2 text-xs">
-          <Radio size={13} className="text-ink2" aria-hidden />
+          <Ear size={13} className="text-ink2" aria-hidden />
           <span className="text-ink2">自评，和原声接近吗？</span>
           <button
             type="button"
             onClick={() => {
               setSelfOk(true);
               playSfx('correct');
+              noteSelf(true);
             }}
             className={`min-h-[44px] border-2 px-3 py-1 transition-colors duration-200 ${
               selfOk === true
                 ? 'border-ink bg-under text-ink'
                 : 'border-ink text-ink hover:border-ink'
             }`}
+            aria-pressed={selfOk === true}
           >
             像
           </button>
@@ -376,17 +391,22 @@ export function RecordCompare({ phoneme }: { phoneme: Phoneme }) {
             onClick={() => {
               setSelfOk(false);
               playSfx('wrong');
+              noteSelf(false);
             }}
             className={`min-h-[44px] border-2 px-3 py-1 transition-colors duration-200 ${
               selfOk === false
                 ? 'border-errata bg-errata/[0.08] text-errata-deep'
                 : 'border-ink text-ink hover:border-errata hover:text-errata-deep'
             }`}
+            aria-pressed={selfOk === false}
           >
             不像，再练
           </button>
           {selfOk === false && (
             <span className="text-ink2">重听原声对着练，口型动作先做到位，{phoneme.mouthShape.slice(0, 30)}…</span>
+          )}
+          {selfOk !== null && (
+            <span className="text-ink2">（已记入本机自评记录：{selfOk ? '记牢' : '记不牢'}，只记录、站内不排复习）</span>
           )}
         </div>
       )}

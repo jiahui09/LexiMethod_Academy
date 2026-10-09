@@ -6,6 +6,8 @@ export type KindProps = {
   practice: Practice;
   /** 练习收口时调用（A 自行幂等）；调用后 Practice 会亮出 debrief 收口行 */
   onDone: () => void;
+  /** 所属课程 id：指针型练习（diagnostic/exitTicket）据此查成绩门（P0-4） */
+  courseId?: string;
 };
 
 export type KindComp = React.ComponentType<KindProps>;

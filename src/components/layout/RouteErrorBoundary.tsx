@@ -29,7 +29,7 @@ export default class RouteErrorBoundary extends Component<Props, State> {
           <div className="w-full max-w-2xl border-2 border-errata bg-leaf p-6 md:p-8">
             <h1 className="font-display text-2xl font-bold text-ink">这一页没能打开</h1>
             <p className="mt-3 max-w-md text-sm leading-relaxed text-ink2">
-              学习内容渲染时出了点问题。你的进度只存在内存里，刷新即回到课程，不必担心数据。
+              学习内容渲染时出了点问题。进度已存在本机，刷新不会丢学习记录，回到课程即可继续。
             </p>
             <code className="machine mt-4 block max-w-full overflow-x-auto bg-errata-deep px-3 py-1.5 text-xs text-[#FFF6F0]">
               {this.state.error.message || 'Unknown error'}

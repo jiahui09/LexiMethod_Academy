@@ -1,10 +1,22 @@
-import { useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { RotateCcw } from 'lucide-react';
 import type { Course } from '@/data/courses';
+import type { CourseQuestion } from '@/data/courseSchema';
 import CourseQuestionRunner from '@/components/practice/CourseQuestionRunner';
 import BandsReport from '@/components/course/BandsReport';
 import { useProgress } from '@/store/progressStore';
+import { useReview } from '@/store/reviewStore';
+
+/** P0-6：复测洗牌——重排题目顺序（Fisher–Yates），同题不同序，防同序再认 */
+function reshuffle<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
 
 /** 离场自测卡：5 条是/否，答完登记；不打分不判错，是自评不是考试 */
 function SelfCheckCard({
@@ -80,7 +92,8 @@ function SelfCheckCard({
 
 /**
  * 出门条（step 7）：快测当场判分 → 分数带报告 → 离场自测 5 条。
- * 成绩只记在本会话内存里，报告旁显著注明刷新即失效（零存储诚实性）。
+ * 成绩写进本机 localStorage（可在设置页清除），报告旁如实注明（P0-2 持久化口径）。
+ * P0-6：复测时题目重排顺序，不再是同题同序。
  */
 export default function ExitView({ course }: { course: Course }) {
   const stored = useProgress((s) => s.exitResults[course.id]);
@@ -88,8 +101,16 @@ export default function ExitView({ course }: { course: Course }) {
 
   const [fresh, setFresh] = useState<{ score: number; total: number } | null>(null);
   const [rerun, setRerun] = useState(false);
+  const [round, setRound] = useState(0);
   const [answered, setAnswered] = useState<Record<number, string>>({});
   const wrongIds = useRef<Set<string>>(new Set());
+  const selfRecorded = useRef(false);
+
+  // P0-6：第 0 轮用原序，复测每轮重掷题目顺序
+  const runQuestions = useMemo<CourseQuestion[]>(
+    () => (round === 0 ? course.exitTicket.questions : reshuffle(course.exitTicket.questions)),
+    [round, course],
+  );
 
   const showReport = fresh != null || (rerun ? false : stored != null);
   const score = fresh?.score ?? stored?.score;
@@ -105,6 +126,13 @@ export default function ExitView({ course }: { course: Course }) {
       const next = { ...prev, [i]: v };
       if (course.selfCheck.every((_, k) => next[k] != null)) {
         useProgress.getState().markSelfChecked(course.id);
+        // P1-4：自评写进本机自评记录（只记一次，站内不调度）
+        if (!selfRecorded.current) {
+          selfRecorded.current = true;
+          course.selfCheck.forEach((item, k) => {
+            useReview.getState().recordSelfReview(item, next[k] === '是');
+          });
+        }
       }
       return next;
     });
@@ -125,7 +153,7 @@ export default function ExitView({ course }: { course: Course }) {
           </p>
         </header>
         <CourseQuestionRunner
-          questions={course.exitTicket.questions}
+          questions={runQuestions}
           mode="exit"
           onDone={handleDone}
           onAnswered={(qid: string, correct: boolean) => {
@@ -150,7 +178,7 @@ export default function ExitView({ course }: { course: Course }) {
   return (
     <div>
       <p className="machine border-2 border-ink bg-leaf px-3 py-2 text-[12px] text-ink">
-        本成绩仅本会话，刷新即失效。
+        本成绩记在本机，刷新后仍在；可在设置页一键清除。
       </p>
       <BandsReport
         score={score ?? 0}
@@ -167,6 +195,7 @@ export default function ExitView({ course }: { course: Course }) {
             wrongIds.current.clear();
             setFresh(null);
             setRerun(true);
+            setRound((r) => r + 1);
           }}
           className="hinge inline-flex min-h-[44px] items-center gap-2 border-2 border-ink px-4 text-[13px] text-ink hover:bg-under"
         >

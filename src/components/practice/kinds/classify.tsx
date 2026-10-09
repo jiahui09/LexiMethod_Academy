@@ -17,6 +17,7 @@ const MJ_ITEMS: { block: string; word: string; real: boolean; why: string }[] = 
 const MorphemeJudge: KindComp = ({ onDone }) => {
   const [verdicts, setVerdicts] = useState<Record<number, boolean>>({});
   const [mark, setMark] = useState<null | boolean>(null);
+  const [attempt, setAttempt] = useState(1);
   const all = Object.keys(verdicts).length === MJ_ITEMS.length;
   const rightCount = MJ_ITEMS.filter((it, i) => verdicts[i] === it.real).length;
   const check = () => {
@@ -26,6 +27,18 @@ const MorphemeJudge: KindComp = ({ onDone }) => {
       playSfx('complete');
       onDone();
     } else playSfx('wrong');
+  };
+  const retry = () => {
+    setVerdicts({});
+    setMark(null);
+    setAttempt((n) => n + 1);
+  };
+  // P0-3：选中即锁定，交卷才揭晓（含正确项点亮与实时对题数）
+  const stateOf = (i: number, btnReal: boolean): 'idle' | 'selected' | 'right' | 'wrong' => {
+    const chosen = verdicts[i];
+    if (mark === null) return chosen === btnReal ? 'selected' : 'idle';
+    if (btnReal === MJ_ITEMS[i].real) return chosen === btnReal ? 'right' : 'idle';
+    return chosen === btnReal ? 'wrong' : 'idle';
   };
   return (
     <div>
@@ -37,27 +50,44 @@ const MorphemeJudge: KindComp = ({ onDone }) => {
               <div className="mb-2 flex flex-wrap items-center gap-2">
                 <span className="machine border-2 border-ink px-1.5 py-0.5 text-[15px] font-bold">{it.block}</span>
                 <span className="machine text-[13px] text-ink2">在 {it.word} 里</span>
-                <span aria-hidden className={`punch ml-auto ${v === undefined ? '' : v === it.real ? 'punch-done' : ''}`} />
+                <span aria-hidden className={`punch ml-auto${mark !== null && v === it.real ? ' punch-done' : ''}`} />
               </div>
               <div className="flex flex-wrap gap-2">
-                <OptionBtn state={v === undefined ? 'idle' : v === it.real ? 'right' : 'wrong'} onClick={() => setVerdicts((s) => ({ ...s, [i]: it.real }))}>
+                <OptionBtn
+                  state={stateOf(i, true)}
+                  disabled={mark !== null || v !== undefined}
+                  onClick={() => setVerdicts((s) => ({ ...s, [i]: true }))}
+                >
                   真词素
                 </OptionBtn>
-                <OptionBtn state={v === undefined ? 'idle' : v !== it.real ? 'right' : 'wrong'} onClick={() => setVerdicts((s) => ({ ...s, [i]: !it.real }))}>
+                <OptionBtn
+                  state={stateOf(i, false)}
+                  disabled={mark !== null || v !== undefined}
+                  onClick={() => setVerdicts((s) => ({ ...s, [i]: false }))}
+                >
                   假词素
                 </OptionBtn>
               </div>
-              {v !== undefined && v !== it.real && <p className="hinge mt-1.5 text-[13px] text-errata">{it.why}</p>}
+              {mark === false && v !== it.real && <p className="hinge mt-1.5 text-[13px] text-errata">{it.why}</p>}
             </li>
           );
         })}
       </ul>
       <div className="mt-3 flex flex-wrap items-center gap-3">
-        <Btn variant="primary" onClick={check} disabled={!all}>
+        {mark === false && (
+          <Btn variant="ghost" onClick={retry}>
+            看清错处，重新判一遍
+          </Btn>
+        )}
+        <Btn variant="primary" onClick={check} disabled={!all || mark !== null}>
           过质检
         </Btn>
         <PunchRow total={6} done={Object.keys(verdicts).length} />
-        <span className="machine text-[13px] text-ink2">{rightCount}/{MJ_ITEMS.length} 判对</span>
+        <span className="machine text-[13px] text-ink2">
+          {mark === null
+            ? `第 ${attempt} 次 · 已判 ${Object.keys(verdicts).length}/6，交卷出分`
+            : `第 ${attempt} 次 · ${rightCount}/6 判对${attempt > 1 ? `（已重做 ${attempt - 1} 次）` : ''}`}
+        </span>
       </div>
       <div className="mt-2" aria-live="polite">
         {mark === false && <Verdict ok={false}>有判错的，看它能不能换词根、读音稳不稳</Verdict>}
@@ -83,6 +113,7 @@ const EC_ITEMS: { q: string; cls: (typeof EC_CLASSES)[number] }[] = [
 const ErrorClassify: KindComp = ({ onDone }) => {
   const [pick, setPick] = useState<Record<number, string>>({});
   const [mark, setMark] = useState<null | boolean>(null);
+  const [attempt, setAttempt] = useState(1);
   const all = Object.keys(pick).length === EC_ITEMS.length;
   const rightCount = EC_ITEMS.filter((it, i) => pick[i] === it.cls).length;
   const check = () => {
@@ -92,6 +123,18 @@ const ErrorClassify: KindComp = ({ onDone }) => {
       playSfx('complete');
       onDone();
     } else playSfx('wrong');
+  };
+  const retry = () => {
+    setPick({});
+    setMark(null);
+    setAttempt((n) => n + 1);
+  };
+  // P0-3：选中即锁定，交卷才揭晓（含正确类与实时对题数）
+  const stateOf = (i: number, c: string): 'idle' | 'selected' | 'right' | 'wrong' => {
+    const chosen = pick[i];
+    if (mark === null) return chosen === c ? 'selected' : 'idle';
+    if (c === EC_ITEMS[i].cls) return chosen === c ? 'right' : 'idle';
+    return chosen === c ? 'wrong' : 'idle';
   };
   return (
     <div>
@@ -107,7 +150,8 @@ const ErrorClassify: KindComp = ({ onDone }) => {
                 <OptionBtn
                   key={c}
                   className="w-auto"
-                  state={pick[i] === undefined ? 'idle' : pick[i] === c && c === it.cls ? 'right' : pick[i] === c ? 'wrong' : 'idle'}
+                  state={stateOf(i, c)}
+                  disabled={mark !== null || pick[i] !== undefined}
                   onClick={() => setPick((p) => ({ ...p, [i]: c }))}
                 >
                   {c}
@@ -118,11 +162,20 @@ const ErrorClassify: KindComp = ({ onDone }) => {
         ))}
       </ul>
       <div className="mt-3 flex flex-wrap items-center gap-3">
-        <Btn variant="primary" onClick={check} disabled={!all}>
+        {mark === false && (
+          <Btn variant="ghost" onClick={retry}>
+            看清错处，重新归一遍
+          </Btn>
+        )}
+        <Btn variant="primary" onClick={check} disabled={!all || mark !== null}>
           交归类
         </Btn>
         <PunchRow total={9} done={Object.keys(pick).length} />
-        <span className="machine text-[13px] text-ink2">{rightCount}/9 对</span>
+        <span className="machine text-[13px] text-ink2">
+          {mark === null
+            ? `第 ${attempt} 次 · 已归 ${Object.keys(pick).length}/9，交卷出分`
+            : `第 ${attempt} 次 · ${rightCount}/9 对${attempt > 1 ? `（已重做 ${attempt - 1} 次）` : ''}`}
+        </span>
       </div>
       <div className="mt-2" aria-live="polite">
         {mark === false && <Verdict ok={false}>至少一题归错，回知识缺口、粗心、时间不足三处各想一遍</Verdict>}
@@ -299,8 +352,13 @@ const DF_COLS: { id: string; label: string; hint: string }[] = [
 ];
 const DebriefForm: KindComp = ({ onDone }) => {
   const [vals, setVals] = useState<string[]>(DF_COLS.map(() => ''));
+  // P1-8：交表不是「填了就算」——每栏至少一句能落地的话（8 字起）才算产出
+  const MIN_LEN = 8;
+  const isFull = (v: string) => v.trim().length >= MIN_LEN;
+  const full = vals.filter(isFull).length;
   const filled = vals.filter((v) => v.trim().length > 0).length;
-  const pass = filled === DF_COLS.length;
+  const short = filled - full;
+  const pass = full === DF_COLS.length;
   const check = () => {
     if (!pass) {
       playSfx('wrong');
@@ -322,6 +380,7 @@ const DebriefForm: KindComp = ({ onDone }) => {
               id={`df-${c.id}`}
               type="text"
               value={vals[i]}
+              maxLength={60}
               onChange={(e) => setVals((v) => v.map((x, j) => (j === i ? e.target.value : x)))}
               placeholder={c.hint}
               className="h-11 w-full border-2 border-ink bg-leaf px-3 text-[15px] placeholder:text-ink2 focus:border-ink"
@@ -333,12 +392,19 @@ const DebriefForm: KindComp = ({ onDone }) => {
         <Btn variant="primary" onClick={check}>
           交表
         </Btn>
-        <PunchRow total={5} done={filled} />
-        <span className="machine text-[13px] text-ink2">{filled}/5 栏</span>
+        <PunchRow total={5} done={full} />
+        <span className="machine text-[13px] text-ink2">
+          {full}/5 栏够一句话{short > 0 ? `（另有 ${short} 栏太短）` : ''}
+        </span>
       </div>
       <div className="mt-2" aria-live="polite">
-        {!pass && <Verdict ok={false}>五栏每栏一句话，填满才交</Verdict>}
-        {pass && <Verdict ok>五栏交齐，最后一栏就是明天的计划</Verdict>}
+        {!pass && short > 0 && (
+          <Verdict ok={false}>
+            有 {short} 栏不足 8 个字——占位词不算复盘，写到能照着做才行
+          </Verdict>
+        )}
+        {!pass && short === 0 && <Verdict ok={false}>五栏每栏写满一句（8 字起），填满才交</Verdict>}
+        {pass && <Verdict ok>五栏都是一句能落地的话，最后一栏就是明天的计划</Verdict>}
       </div>
     </div>
   );

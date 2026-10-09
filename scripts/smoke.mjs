@@ -4,7 +4,7 @@
  * 断言面（每轮集成后必跑）：
  *   [1] 路由遍历：无控制台/网络错误，有导航地标（书口/路径）与「下一步」引导条
  *   [2] 首屏 3s
- *   [3] 零数据存储（ls/ss/cookie 全空）· 去角色化无残留 · 空库 CTA=「开始第一课」
+ *   [3] 本机存储边界（localStorage 仅 leximethod.* 进度键，ss/cookie 全空）· 去角色化无残留 · 空库 CTA=「开始第一课」
  *       · 目录 8 词条 · 深链 ?step= 只定位不自动完成
  *   [4] 旗舰课步进流：默认落诊断（一题一屏）→ 交互一次无错 → 深链单元页
  *       → step-next 前进改变 ?step= → 出门条可进
@@ -99,19 +99,22 @@ async function main() {
     if (loadMs > 3000) fail(`首屏 ${loadMs}ms > 3000ms`);
     else ok(`首屏品牌字样出现于 ${loadMs}ms`);
 
-    /* 3. 零数据存储 + 去角色化 + 空库语义 */
-    console.log('\n[3] 零数据存储 · 空库 CTA · 目录 8 词条 · 深链只定位');
+    /* 3. 本机存储边界（P0-2 后：仅允许 leximethod.* 进度键）+ 去角色化 + 空库语义 */
+    console.log('\n[3] 本机存储边界 · 空库 CTA · 目录 8 词条 · 深链只定位');
     await page.goto(BASE + '/methods', { waitUntil: 'networkidle2', timeout: TIMEOUT });
     await sleep(700);
 
-    const store = await page.evaluate(() => ({
-      ls: Object.keys(window.localStorage).length,
-      ss: Object.keys(window.sessionStorage).length,
-      cookies: document.cookie.split(';').filter(Boolean).length,
-    }));
-    if (store.ls || store.ss || store.cookies) {
-      fail(`浏览器存储被写入: ls=${store.ls} ss=${store.ss} cookies=${store.cookies}`);
-    } else ok('localStorage / sessionStorage / cookies 全部为空');
+    const store = await page.evaluate(() => {
+      const keys = Object.keys(window.localStorage);
+      return {
+        foreign: keys.filter((k) => !k.startsWith('leximethod.')),
+        ss: Object.keys(window.sessionStorage).length,
+        cookies: document.cookie.split(';').filter(Boolean).length,
+      };
+    });
+    if (store.foreign.length || store.ss || store.cookies) {
+      fail(`浏览器存储越界: 非 leximethod 键=[${store.foreign.join(',')}] ss=${store.ss} cookies=${store.cookies}`);
+    } else ok('localStorage 仅 leximethod.* 进度键，sessionStorage / cookies 全空');
 
     const residue = await page.evaluate(() => ({
       xpId: !!document.querySelector('[data-testid="header-xp"]'),
@@ -139,9 +142,12 @@ async function main() {
     if (exitState.summary || exitState.score) fail('深链 ?step=7 不应直接出现完成态（summary/score）');
     else ok('深链 ?step=7 只定位，无自动完成');
 
-    const store2 = await page.evaluate(() => Object.keys(window.localStorage).length + Object.keys(window.sessionStorage).length);
-    if (store2) fail(`深链后出现存储写入: ${store2} 项`);
-    else ok('深链后依旧零存储');
+    const store2 = await page.evaluate(() => ({
+      foreign: Object.keys(window.localStorage).filter((k) => !k.startsWith('leximethod.')),
+      ss: Object.keys(window.sessionStorage).length,
+    }));
+    if (store2.foreign.length || store2.ss) fail(`深链后出现越界存储: ${JSON.stringify(store2)}`);
+    else ok('深链后依旧只允许 leximethod.* 进度键');
 
     /* 4. 旗舰课步进流（诊断一题一屏 → 单元 → 出门条） */
     console.log('\n[4] 旗舰课：诊断渲染 → 一次交互 → 单元深链 → step-next → 出门条');
@@ -203,14 +209,17 @@ async function main() {
     if (!exit.text) fail('?step=7 未出现「出门条」正文');
     else ok('出门条页可进 ✓');
 
-    // 全程零存储
-    const store3 = await page.evaluate(() => ({
-      ls: Object.keys(window.localStorage).length,
-      ss: Object.keys(window.sessionStorage).length,
-      cookies: document.cookie.split(';').filter(Boolean).length,
-    }));
-    if (store3.ls || store3.ss || store3.cookies) fail(`流程结束仍有存储: ${JSON.stringify(store3)}`);
-    else ok('步进流程全程零存储');
+    // 全程存储边界：只允许 leximethod.* 进度键
+    const store3 = await page.evaluate(() => {
+      const keys = Object.keys(window.localStorage);
+      return {
+        foreign: keys.filter((k) => !k.startsWith('leximethod.')),
+        ss: Object.keys(window.sessionStorage).length,
+        cookies: document.cookie.split(';').filter(Boolean).length,
+      };
+    });
+    if (store3.foreign.length || store3.ss || store3.cookies) fail(`流程结束存储越界: ${JSON.stringify(store3)}`);
+    else ok('步进流程全程只有 leximethod.* 键，无 cookie / sessionStorage');
 
     /* 5. 实验室 */
     console.log('\n[5] 实验室：tab 可进 + 发音按钮可用');

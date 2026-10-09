@@ -1,7 +1,7 @@
 /* 深度 UI 验收 —— 压膜活页手册（Acetate Manual）
  * [1] 路由零报错 [2] 首屏 [3] 旗舰课端到端（诊断→报告→U1→自检→深链）
- * [4] 实验室 48 音标 [5] 削减路由 404 [6] 听写流程 [10] 设置 [10b] 零存储
- * [11] 目录状态行（内存进度 / 刷新归零） [11b] 去角色化 [14] 方向感（面包屑/底导/深链）
+ * [4] 实验室 48 音标 [5] 削减路由 404 [6] 听写流程 [10] 设置 [10b] 本机存储边界
+ * [11] 目录状态行（进度持久化：刷新保留） [11b] 去角色化 [14] 方向感（面包屑/底导/深链）
  * [12] 移动端无横向溢出 */
 import { build } from 'esbuild';
 import { unlink } from 'node:fs/promises';
@@ -57,7 +57,7 @@ page.on('requestfailed', (r) => consoleErrors.push('requestfailed: ' + r.url()))
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 /**
- * 站点是零存储纯前端 SPA：进度只存在于当前会话内存里。
+ * 站点是零上传纯前端 SPA：进度只写本机 localStorage（leximethod.* 键，可关可清），永不上行。
  * 因此除首次硬加载外，一律用 pushState 前进，跨段断言共享同一次会话的状态。
  */
 let booted = false;
@@ -139,6 +139,11 @@ for (let i = 0; i < 60; i++) {
     // 揭晓后前进（下一题 / 批改完成）
     const adv = [...r.querySelectorAll('button')].find((b) => /^(下一题|批改完成)/.test(b.textContent.trim()) && !b.disabled);
     if (adv) { adv.click(); return 'advance'; }
+    // P1-2：错题须归因后「合上答案再试一次」，重测一轮才放行（首答成绩不改）
+    const retest = [...r.querySelectorAll('button')].find((b) => b.textContent.includes('合上答案再试一次'));
+    if (retest) { retest.click(); return 'retest'; }
+    const tagBtn = r.querySelector('[role="group"][aria-label="错题归因"] button');
+    if (tagBtn) { tagBtn.click(); return 'tag'; }
     const group = r.querySelector('[role="group"][aria-label="选项"]');
     const btns = group ? [...group.querySelectorAll('button:not([disabled])')] : [];
     if (btns.length) {
@@ -178,14 +183,20 @@ check('成绩单给出 x / y 分数', /\d+\s*\/\s*\d+/.test(scoreText), scoreTex
 check('故意全错得 0 分', /^00\s*\/\s*10/.test(scoreText.replace(/\n/g, ' ')), scoreText.replace(/\n/g, ' ').slice(0, 20));
 const verdictShown = await page.evaluate((v) => document.body.innerText.includes(v), bottomBand.verdict);
 check('0 分落底带（报告渲染正确 verdict）', verdictShown, bottomVerdictExcerpt(bottomBand.verdict));
-const entered = await clickText('[data-testid="diag-enter-u1"]', '进入 U1');
-check('「进入 U1」可点', entered);
+// P0-5：主行动按分数带指路（底带 route=uN → 直接去 U N，不再恒指 U1）
+const bandTarget = String(/u(\d)/i.exec(bottomBand.route ?? '')?.[1] ?? '1');
+const entered = await page.evaluate(() => {
+  const b = document.querySelector('[data-testid="diag-enter-u1"]');
+  if (b) { b.click(); return b.textContent.trim().slice(0, 30); }
+  return '';
+});
+check('分数带主行动可点', !!entered, entered || '无 diag-enter-u1');
 await sleep(700);
 const u1 = await page.evaluate(() => ({
   check: !!document.querySelector('[data-testid="unit-check"]'),
   step: new URL(window.location.href).searchParams.get('step'),
 }));
-check('落到 U1（?step=1 + 自检行）', u1.check && u1.step === '1', JSON.stringify(u1));
+check(`落到 U${bandTarget}（?step=${bandTarget} + 自检行）`, u1.check && u1.step === bandTarget, JSON.stringify(u1));
 await page.evaluate(() => document.querySelector('[data-testid="unit-check"]')?.click());
 await sleep(500);
 const checkState = await page.evaluate(() => {
@@ -196,7 +207,7 @@ check('勾自检 → 已达成', checkState.checked === 'true' && checkState.tex
   `aria-checked=${checkState.checked}`);
 await page.evaluate(() => document.querySelector('[data-testid="step-next"]')?.click());
 await sleep(600);
-check('step-next → ?step=2', page.url().includes('step=2'), page.url().split('?')[1] ?? '(无参数)');
+check(`step-next → ?step=${Number(bandTarget) + 1}`, page.url().includes(`step=${Number(bandTarget) + 1}`), page.url().split('?')[1] ?? '(无参数)');
 await goto('/methods/phonetic-spelling?step=7');
 check('出门条（?step=7）可进', await bodyHas('出门条'));
 check('[3] 段零报错', consoleErrors.length === 0, consoleErrors[0] || '');
@@ -288,38 +299,48 @@ check('动效档位写入 data-motion', lightOk && motionAttr === 'light', motio
 check('设置页零报错', consoleErrors.length === 0, consoleErrors[0] || '');
 consoleErrors = [];
 
-console.log('[10b] 零数据存储：不写浏览器存储、无导出导入');
-const storeState = await page.evaluate(() => ({
-  ls: Object.keys(window.localStorage).length,
-  ss: Object.keys(window.sessionStorage).length,
-  cookies: document.cookie.split(';').filter(Boolean).length,
-}));
-check('localStorage / sessionStorage / cookies 全空', storeState.ls === 0 && storeState.ss === 0 && storeState.cookies === 0,
+console.log('[10b] 本机存储边界（P0-2 后：仅 leximethod.* 进度键、无导出导入）');
+const storeState = await page.evaluate(() => {
+  const keys = Object.keys(window.localStorage);
+  return {
+    foreign: keys.filter((k) => !k.startsWith('leximethod.')),
+    ss: Object.keys(window.sessionStorage).length,
+    cookies: document.cookie.split(';').filter(Boolean).length,
+  };
+});
+check('localStorage 仅 leximethod.* 键且无 sessionStorage / cookies', storeState.foreign.length === 0 && storeState.ss === 0 && storeState.cookies === 0,
   JSON.stringify(storeState));
 const exportBtn = await clickText('button', '导出备份');
 const importInput = await page.$('input[type="file"]');
 check('设置页已无「导出备份」入口', !exportBtn);
 check('设置页已无导入入口', !importInput);
 const zeroNote = await page.evaluate(() => document.querySelector('[data-testid="zero-storage-note"]')?.innerText ?? '');
-check('设置页展示零存储说明', zeroNote.includes('零存储') && zeroNote.includes('localStorage'),
+check('设置页展示本机存储说明', zeroNote.includes('零存储') && zeroNote.includes('localStorage'),
   zeroNote.slice(0, 46).replace(/\n/g, ' '));
-check('零存储段零报错', consoleErrors.length === 0, consoleErrors[0] || '');
+check('存储说明段零报错', consoleErrors.length === 0, consoleErrors[0] || '');
 consoleErrors = [];
 
-console.log('[11] 目录状态行：会话内存进度 / 刷新归零');
+console.log('[11] 目录状态行：进度持久化（刷新保留）');
 await goto('/methods');
 const rows = await page.evaluate(() => document.querySelectorAll('[data-testid="data-method-row"]').length);
 check('课程目录 8 条词条', rows === 8, `${rows} 行`);
-// [3] 已勾过 U1 自检 → 状态应为「进行中」；整页刷新后内存 store 重建 → 回到「未到」
+// [3] 已勾过 U1 自检 → 状态应为「进行中」；持久化默认开 → 整页刷新后状态仍保留
 const stBefore = await readRowStatus('phonetic-spelling');
 check('会话内进度可见（进行中）', stBefore === '进行中', stBefore || '读不到状态');
 await page.reload({ waitUntil: 'networkidle2' });
 await sleep(900);
 const stAfter = await readRowStatus('phonetic-spelling');
-check('刷新归零（未到）', stAfter === '未到', `${stBefore} → ${stAfter}`);
+check('刷新后进度保留（进行中）', stAfter === '进行中', `${stBefore} → ${stAfter}`);
 consoleErrors = [];
 
 console.log('[11b] 去角色化：XP / 成就徽章残留扫描');
+// 持久化默认开：进度键不清掉就永远测不到「空库」状态——先清 leximethod.* 再刷新断言空库 CTA
+await goto('/');
+await page.evaluate(() => {
+  for (const k of Object.keys(localStorage)) if (k.startsWith('leximethod.')) localStorage.removeItem(k);
+});
+await page.reload({ waitUntil: 'networkidle2' });
+await sleep(700);
 const heroCta = await page.evaluate(() => document.querySelector('[data-testid="intro-next"]')?.textContent.trim() ?? '');
 check('空库主 CTA 为「开始第一课」', heroCta.includes('开始第一课'), heroCta.slice(0, 40) || '(无 intro-next)');
 const homeResidue = await page.evaluate(() => ({

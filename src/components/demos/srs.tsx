@@ -288,7 +288,9 @@ function ScheduleBuilder() {
       </ul>
       <div className="mt-3 flex items-center gap-3 border-t border-rule pt-3">
         <PunchRow total={3} done={touched.filter(Boolean).length} />
-        <span className="text-[14px] text-ink2">三张表都动过一档才算排好，站内刷新后不保留。</span>
+        <span className="text-[14px] text-ink2">
+          三张表都动过一档才算排好；这三张是本页试排，改动只留在本页。学习进度默认存在本机，设置里可关、可清，站内不排复习。
+        </span>
       </div>
       <div className="mt-2" aria-live="polite">
         {all && <Verdict ok>三张时刻表排好，接下来七天照着执行</Verdict>}

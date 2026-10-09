@@ -5,6 +5,7 @@ import { getCourse } from '@/data/courses';
 import type { Course } from '@/data/courses';
 import { useProgress } from '@/store/progressStore';
 import { STAGE_META, type StageId } from '@/lib/stages';
+import { pickBand } from '@/components/course/BandsReport';
 import { EduRunningHead } from '@/components/edu';
 import StepRail from '@/components/course/StepRail';
 import type { StepMeta } from '@/components/course/StepRail';
@@ -24,9 +25,24 @@ const LAB_BY_STAGE: Record<StageId, { to: string; label: string }> = {
   capstone: { to: '/lab/dictation', label: '听写训练' },
 };
 
-/** 缺省步位的唯一口径：诊断 → 第一个未完成单元 → 出门条 → 回 U1 */
-function defaultStep(course: Course, completed: string[], taken: boolean, exited: boolean): number {
+/** 缺省步位的唯一口径：诊断 → 诊断分数带的 route（P0-5：分数带改路径）→ 第一个未完成单元 → 出门条 → 回 U1 */
+function defaultStep(
+  course: Course,
+  completed: string[],
+  taken: boolean,
+  exited: boolean,
+  result?: { score: number; total: number },
+): number {
   if (!taken) return 0;
+  if (result) {
+    const band = pickBand(result.score, course.opening.bands);
+    const m = /^u([1-6])$/i.exec(band.route ?? '');
+    if (m) {
+      const idx = Number(m[1]) - 1;
+      const target = course.units[idx];
+      if (target && !completed.includes(target.id)) return idx + 1;
+    }
+  }
   const i = course.units.findIndex((u) => !completed.includes(u.id));
   if (i !== -1) return i + 1;
   if (!exited) return 7;
@@ -59,6 +75,7 @@ export default function MethodCourse() {
       s.completedUnits[course.id] ?? EMPTY,
       s.diagnosticTaken.includes(course.id),
       s.exitResults[course.id] != null,
+      s.diagnosticResults[course.id],
     );
   });
 
@@ -147,7 +164,7 @@ export default function MethodCourse() {
               <DiagnosticView
                 opening={course.opening}
                 courseId={course.id}
-                onEnterU1={() => goStep(1)}
+                onEnterStep={goStep}
               />
             )}
 
@@ -155,6 +172,7 @@ export default function MethodCourse() {
               <>
                 <UnitView
                   unit={unit}
+                  courseId={course.id}
                   done={completedUnits.includes(unit.id)}
                   practiced={practiced.includes(unit.id)}
                   onPracticeDone={() =>

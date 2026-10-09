@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Play, X } from 'lucide-react';
+import { Volume2, X } from 'lucide-react';
 import type { KindComp } from './types';
 import { Btn, OptionBtn, PunchRow, Verdict, Timer } from '@/components/demos/_shared';
 import { SpeakButton } from '@/components/edu/Speak';
@@ -40,7 +40,7 @@ const ListenChoosePhoneme: KindComp = ({ onDone }) => {
       <div className="under-leaf mb-3 flex flex-wrap items-center gap-3 p-3">
         <span className="machine text-[17px] font-bold">{item.word}</span>
         <Btn onClick={() => speakPhoneme(item.target)} ariaLabel={`播音标 ${item.target}`}>
-          <Play size={15} aria-hidden /> 听音标
+          <Volume2 size={15} aria-hidden /> 听音标
         </Btn>
         <SpeakButton text={item.word} label="听这个词" />
         <span className="machine ml-auto text-[13px] text-ink2">
@@ -204,7 +204,7 @@ const ListenWriteWord: KindComp = ({ onDone }) => {
           <li key={i} className="flex flex-wrap items-center gap-2">
             <span className="machine w-6 text-[13px] text-ink2">{i + 1}</span>
             <Btn onClick={() => speakPhoneme(w, { slow: true })} ariaLabel={`播第 ${i + 1} 个词`}>
-              <Play size={15} aria-hidden />
+              <Volume2 size={15} aria-hidden />
             </Btn>
             <input
               type="text"
@@ -265,6 +265,9 @@ const MatchPairs: KindComp = ({ onDone }) => {
   const [left, setLeft] = useState<string | null>(null);
   const [done, setDone] = useState<string[]>([]);
   const [miss, setMiss] = useState(false);
+  // P1-5：配对不再无惩罚穷举——错配计次，错满 5 次摊开配对表（照着点完，不再盲试）
+  const [misses, setMisses] = useState(0);
+  const revealed = misses >= 5;
   const hit = (f: (typeof MATCH_8)[number]) => {
     if (!left) return;
     if (left === f.ipa) {
@@ -277,6 +280,7 @@ const MatchPairs: KindComp = ({ onDone }) => {
       }
     } else {
       setMiss(true);
+      setMisses((m) => m + 1);
       playSfx('wrong');
     }
     setLeft(null);
@@ -286,7 +290,9 @@ const MatchPairs: KindComp = ({ onDone }) => {
     <div>
       <div className="mb-3 flex flex-wrap items-center gap-3">
         <PunchRow total={8} done={done.length} />
-        <span className="machine text-[13px] text-ink2">{done.length}/8 对</span>
+        <span className="machine text-[13px] text-ink2">
+          {done.length}/8 对{misses > 0 ? ` · 错配 ${misses} 次` : ''}
+        </span>
         <Timer className="ml-auto" />
       </div>
       <div className="grid grid-cols-2 gap-3">
@@ -323,6 +329,20 @@ const MatchPairs: KindComp = ({ onDone }) => {
               '先点左栏音标，再点右栏拼写。'
             )}
           </p>
+        )}
+        {revealed && done.length < 8 && (
+          <div className="mt-2 border-2 border-ink bg-under p-3">
+            <p className="text-[13px] font-bold text-ink">
+              错配满 5 次，配对表摊开——照着点完这轮，下一组先在心里预配再下手。
+            </p>
+            <ul className="mt-1.5 flex flex-wrap gap-x-4 gap-y-1 text-[13px] text-ink2">
+              {MATCH_8.filter((f) => !done.includes(f.ipa)).map((f) => (
+                <li key={f.ipa} className="machine">
+                  {f.ipa} = {f.sp}
+                </li>
+              ))}
+            </ul>
+          </div>
         )}
       </div>
     </div>

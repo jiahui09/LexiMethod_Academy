@@ -3,21 +3,22 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import type { Diagnostic } from '@/data/courseSchema';
 import CourseQuestionRunner from '@/components/practice/CourseQuestionRunner';
-import BandsReport from '@/components/course/BandsReport';
+import BandsReport, { pickBand } from '@/components/course/BandsReport';
 import { useProgress } from '@/store/progressStore';
 
 /**
  * 开场诊断（step 0）：引导语 → 逐题当场揭晓 → 分数带报告 + 错题勘误。
- * 报告后本步唯一主行动是「进入 U1」（决策点 4：裂缝当场可见）。
+ * P0-5：成绩写进本机进度（diagnosticResults），主行动跟随命中分数带的 route
+ * （带 route=uN → 直接去该单元；否则回退「进入 U1」）。
  */
 export default function DiagnosticView({
   opening,
   courseId,
-  onEnterU1,
+  onEnterStep,
 }: {
   opening: Diagnostic;
   courseId: string;
-  onEnterU1: () => void;
+  onEnterStep: (n: number) => void;
 }) {
   const [report, setReport] = useState<{ score: number; total: number } | null>(null);
   const wrongIds = useRef<Set<string>>(new Set());
@@ -25,6 +26,7 @@ export default function DiagnosticView({
   const handleDone = (score: number, total: number) => {
     setReport({ score, total });
     useProgress.getState().markDiagnosticTaken(courseId);
+    useProgress.getState().recordDiagnosticResult(courseId, score, total);
   };
 
   const wrongs = report
@@ -42,15 +44,23 @@ export default function DiagnosticView({
           courseId={courseId}
           title="开场诊断报告"
         />
-        <div className="mt-6 flex justify-end">
-          <button
-            type="button"
-            onClick={onEnterU1}
-            data-testid="diag-enter-u1"
-            className="hinge inline-flex min-h-[44px] items-center gap-2 bg-ink px-5 py-2.5 font-display text-sm font-bold text-milk press shadow-hard hover:bg-ink2"
-          >
-            进入 U1 <ArrowRight size={15} className="text-errata" aria-hidden />
-          </button>
+        <div className="mt-6 flex flex-wrap items-center justify-end gap-3">
+          {(() => {
+            const band = pickBand(report.score, opening.bands);
+            const m = /^u([1-6])$/i.exec(band.route ?? '');
+            const target = m ? Number(m[1]) : 1;
+            return (
+              <button
+                type="button"
+                onClick={() => onEnterStep(target)}
+                data-testid="diag-enter-u1"
+                className="hinge inline-flex min-h-[44px] items-center gap-2 bg-ink px-5 py-2.5 font-display text-sm font-bold text-milk press shadow-hard hover:bg-ink2"
+              >
+                {m ? `按分数带直接去 U${target}` : '进入 U1'}{' '}
+                <ArrowRight size={15} className="text-errata" aria-hidden />
+              </button>
+            );
+          })()}
         </div>
       </div>
     );

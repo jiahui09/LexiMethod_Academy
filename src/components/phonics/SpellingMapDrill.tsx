@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { ArrowLeftRight, AudioWaveform, AlertTriangle, Sparkles } from 'lucide-react';
+import { ArrowLeftRight, Volume2, AlertTriangle, Sparkles } from 'lucide-react';
 import { spellingPatterns } from '@/data/spellingPatterns';
 import { phonemes } from '@/data/phonemes';
 import { words } from '@/data/words';
@@ -192,7 +192,7 @@ function PatternSpotlight() {
                 )}
               </span>
               <span className="ml-auto flex items-center gap-2">
-                <AudioWaveform size={14} className="text-ink2" aria-hidden />
+                <Volume2 size={14} className="text-ink2" aria-hidden />
                 <span className="ipa text-xs text-ink">{pat.phoneme}</span>
               </span>
             </button>

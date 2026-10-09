@@ -180,7 +180,15 @@ export default function MethodList() {
                   const started =
                     (state.completedUnits[c.id]?.length ?? 0) > 0 ||
                     state.diagnosticTaken.includes(c.id);
-                  const status = done ? '已收口' : started ? '进行中' : '未到';
+                  // P1-7：完成态与分数同屏——「已收口」旁带出门条成绩，不让完成标记掩盖分数
+                  const exit = state.exitResults[c.id];
+                  const status = done
+                    ? exit
+                      ? `已收口 · 出门条 ${exit.score}/${exit.total}`
+                      : '已收口'
+                    : started
+                      ? '进行中'
+                      : '未到';
                   const t = nextTarget(c, state);
                   return (
                     <li key={c.id} className="border-b border-rule last:border-b-0">
