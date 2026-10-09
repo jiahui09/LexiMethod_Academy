@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-09T03:10:45.000Z",
+  "generatedAt": "2026-10-09T05:35:06.000Z",
   "title": "Design System: LexiMethod Academy",
   "extensions": {
     "colorMeta": {
@@ -36,7 +36,7 @@
       },
       "under": {
         "role": "neutral",
-        "displayName": "灰面板 Under",
+        "displayName": "灰场（报头/页脚/底导/章带）Under",
         "canonical": "#F1F1F1",
         "tonalRamp": [
           "#262626",
@@ -66,7 +66,7 @@
       },
       "ink": {
         "role": "primary",
-        "displayName": "正文墨 Ink",
+        "displayName": "正文墨 · 黑块锚点 Ink",
         "canonical": "#111111",
         "tonalRamp": [
           "#262626",
@@ -111,7 +111,7 @@
       },
       "errata": {
         "role": "secondary",
-        "displayName": "信号红 Errata",
+        "displayName": "指路·勘误红（双域）",
         "canonical": "#E34234",
         "tonalRamp": [
           "#3d1310",
@@ -216,13 +216,17 @@
       }
     },
     "typographyMeta": {
+      "poster": {
+        "displayName": "Poster 海报级题名",
+        "purpose": "课程总目 h1 与黑块锚点巨号：44 → 64 → 72px，800，−0.03em/0.95。"
+      },
       "display": {
-        "displayName": "Display 页面主标题",
-        "purpose": "每路由唯一的 h1；extrabold 齐左，26px → 32px @md。"
+        "displayName": "Display 课题",
+        "purpose": "课程页 h1（本路由唯一）：30px → 40px @md，−0.02em。"
       },
       "section": {
-        "displayName": "Section 章题 / 步题",
-        "purpose": "分段章节带与步内小节题，24px extrabold。"
+        "displayName": "Section 章题 / 常规 h1",
+        "purpose": "分段章题（压行题）、实验室与设置 h1：26px → 32px @md。"
       },
       "giant-numeral": {
         "displayName": "Giant Numeral 巨号步位",
@@ -295,8 +299,8 @@
       "name": "Primary Button 墨底主按钮",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "每屏唯一的主行动：黑底白字方角钮，hover 转次级墨；朱红永不充当主按钮。",
-      "html": "<button class=\"ds-btn-primary\">继续学习 <svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"square\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></button>",
+      "description": "每屏唯一的主行动：黑底白字方角钮，hover 转次级墨；指路红只上箭头（黑底 4.44:1 图形级），永不作按钮实底。",
+      "html": "<button class=\"ds-btn-primary\">继续学习 <span aria-hidden style=\"color:#E34234\"><svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"square\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></span></button>",
       "css": ".ds-btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 20px;background:#111111;color:#FFFFFF;border:1px solid #111111;border-radius:0;font-family:'Helvetica Neue',Helvetica,Arial,Inter,'Noto Sans SC',sans-serif;font-size:14px;font-weight:700;line-height:1.5;cursor:pointer;transition:background-color 90ms steps(2),color 90ms steps(2);}.ds-btn-primary:hover{background:#555555;border-color:#555555;}.ds-btn-primary:active{transform:translateY(1px);}.ds-btn-primary[disabled]{opacity:.45;cursor:not-allowed;}:focus-visible{outline:2px solid #2A4BD7;outline-offset:2px;}"
     },
     {
@@ -332,12 +336,28 @@
       "css": ".ds-chip{min-height:44px;padding:6px 14px;background:#FFFFFF;color:#555555;border:1px solid #D9D9D9;border-radius:0;cursor:pointer;font-family:'Helvetica Neue',Helvetica,Arial,Inter,'Noto Sans SC',sans-serif;font-size:14px;font-weight:700;transition:border-color 90ms steps(2),background-color 90ms steps(2);}.ds-chip:hover{border-color:rgba(17,17,17,.5);color:#111111;}.ds-chip[aria-pressed=\"true\"]{border-color:#111111;background:#F1F1F1;color:#111111;}:focus-visible{outline:2px solid #2A4BD7;outline-offset:2px;}"
     },
     {
+      "name": "Logo Mark 字标红块（签名）",
+      "kind": "logo",
+      "refersTo": "logo-mark",
+      "description": "指路红的锚：40×40 红方块反白 Lx（19px/800，大字级 3:1）——进门第一眼的当前位置标记。",
+      "html": "<a class=\"ds-logo\" href=\"#/methods\"><span class=\"ds-logo-mark\">Lx</span><span class=\"ds-logo-word\">LexiMethod</span></a>",
+      "css": ".ds-logo{display:inline-flex;align-items:center;gap:10px;min-height:44px;text-decoration:none;}.ds-logo-mark{display:flex;width:40px;height:40px;align-items:center;justify-content:center;background:#E34234;color:#FFFFFF;border-radius:0;font-family:'Helvetica Neue',Helvetica,Arial,Inter,'Noto Sans SC',sans-serif;font-size:19px;font-weight:800;line-height:1;}.ds-logo-word{font-family:'Helvetica Neue',Helvetica,Arial,Inter,'Noto Sans SC',sans-serif;font-size:15px;font-weight:700;color:#111111;}:focus-visible{outline:2px solid #2A4BD7;outline-offset:2px;}"
+    },
+    {
+      "name": "Continue Panel 继续黑块（签名）",
+      "kind": "custom",
+      "refersTo": "continue-panel",
+      "description": "首屏唯一主导色场：ink 底白字 + 顶缘深一档段色 8px 细条 + 64/72px 巨号课号 + 白底按钮红箭头。",
+      "html": "<section class=\"ds-panel\"><span class=\"ds-panel-strip\" aria-hidden></span><p class=\"ds-panel-prefix\">单元 U3</p><p class=\"ds-panel-num\">04</p><button class=\"ds-panel-btn\">继续学习 <span aria-hidden style=\"color:#E34234\"><svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"square\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></span></button></section>",
+      "css": ".ds-panel{position:relative;background:#111111;color:#FFFFFF;padding:20px 24px;border-radius:0;}.ds-panel-strip{position:absolute;inset:0 0 auto 0;height:8px;background:rgb(148 135 0);}.ds-panel-prefix{margin:0;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;font-weight:500;letter-spacing:.02em;color:#FFFFFF;}.ds-panel-num{margin:4px 0 12px;font-family:'Helvetica Neue',Helvetica,Arial,Inter,sans-serif;font-size:64px;font-weight:800;line-height:.95;letter-spacing:-.03em;font-variant-numeric:tabular-nums;}.ds-panel-btn{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:10px 20px;background:#FFFFFF;color:#111111;border:0;border-radius:0;cursor:pointer;font-family:'Helvetica Neue',Helvetica,Arial,Inter,'Noto Sans SC',sans-serif;font-size:14px;font-weight:700;transition:background-color 90ms steps(2);}.ds-panel-btn:hover{background:#D9D9D9;}:focus-visible{outline:2px solid #2A4BD7;outline-offset:2px;}"
+    },
+    {
       "name": "Chapter Band 章节带（签名）",
       "kind": "custom",
       "refersTo": "chapter-band",
-      "description": "分段章题带：白底墨字 + 12×12 段色方片 + 下缘 3px 深一档细条——段色唯一合法的出场方式。",
+      "description": "分段章题带：灰场底墨字 + 12×12 段色方片 + 下缘 3px 深一档细条——白行浮灰场，段色唯一合法的出场方式是这条 3px。",
       "html": "<div class=\"ds-band\"><span class=\"ds-band-chip\" style=\"background:#F2B700\"></span><h2 class=\"ds-band-title\">通路</h2><span class=\"ds-band-count\">01–02 · 74 分钟</span></div>",
-      "css": ".ds-band{display:flex;flex-wrap:wrap;align-items:baseline;gap:0 16px;background:#FFFFFF;padding:12px 16px;border-bottom:3px solid rgb(177 157 0);border-radius:0;}.ds-band-chip{width:12px;height:12px;display:inline-block;transform:translateY(1px);}.ds-band-title{margin:0;font-family:'Helvetica Neue',Helvetica,Arial,Inter,'Noto Sans SC',sans-serif;font-size:24px;font-weight:800;line-height:1.15;color:#111111;}.ds-band-count{margin-left:auto;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;font-weight:500;letter-spacing:.02em;font-variant-numeric:tabular-nums;color:#555555;}"
+      "css": ".ds-band{display:flex;flex-wrap:wrap;align-items:baseline;gap:0 16px;background:#F1F1F1;padding:12px 16px;border-bottom:3px solid rgb(177 157 0);border-radius:0;}.ds-band-chip{width:12px;height:12px;display:inline-block;transform:translateY(1px);}.ds-band-title{margin:0;font-family:'Helvetica Neue',Helvetica,Arial,Inter,'Noto Sans SC',sans-serif;font-size:32px;font-weight:800;line-height:1.15;letter-spacing:-.02em;color:#111111;}.ds-band-count{margin-left:auto;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;font-weight:500;letter-spacing:.02em;font-variant-numeric:tabular-nums;color:#555555;}"
     },
     {
       "name": "Apparatus Panel 灰面板边注",
@@ -374,24 +394,26 @@
   ],
   "narrative": {
     "northStar": "「瑞士排版机（The Typographic Machine）」",
-    "overview": "全站是一版排好的瑞士国际主义版面：网格即秩序，字体即层级，颜色只做路标。它不是一本手工书，也不是一间课程货架，而是一台排版机——大屏打开课程页，版心铺满整个窗口，编号导轨的巨号 Helvetica 步位与黑块当前标一齐左压下来，像在看一版排好的海报，而不是一根中间的竖棍。\n\n白纸 `#FFFFFF` 满地全出血，黑 `#111111` 承字，灰面板 `#F1F1F1` 分层，发丝 `#D9D9D9` 划界。大面积只有黑白灰与信号红；五段路径色（铬黄 / 群青 / 青 / 草绿 / 紫罗兰）被降为点缀，只出现在编号方片、3px 细条、右缘页签与答题状态上。层级靠三样东西：Helvetica 粗体齐左的字级、线宽的阶梯（1px 发丝 → 2px 实黑 → 3px 段色细条）、以及等宽的机器嗓音（课号、步数、计时、IPA）。正文永远安静：中文衬线 17px/1.8、68ch 行宽，背后没有东西在表演。\n\n反参考（两轮旧世界 + 网课站品类默认）：拒绝压膜活页手册的纸物拟态（书口贴、打孔、掀角、暖纸色地），拒绝辞书版式的双栏词条排印，拒绝白底卡片货架 + 渐变 hero + 进度环的网课站观感，拒绝经验值 / 连击 / 徽章等角色化成长。",
+    "overview": "全站是一版排好的瑞士国际主义版面：网格即秩序，字体即层级，颜色只做路标。它不是一本手工书，也不是一间课程货架，而是一台排版机——大屏打开课程页，版心铺满整个窗口，编号导轨的巨号 Helvetica 步位与黑块当前标一齐左压下来，像在看一版排好的海报，而不是一根中间的竖棍。\n\n焦点层（第二轮修订，用户四策略全批）把「眼睛落哪儿」写进版面：**灰报头（红字标）→ 海报级题名 → 黑块锚点（全页唯一主导色场）→ 灰场段头 + 白行清单**，视线从大到小落到行动上。白纸 `#FFFFFF` 满地全出血，黑 `#111111` 承字也承那唯一一块主色场，灰场 `#F1F1F1` 成区地（报头带、页脚带、底导、分段章带），发丝 `#D9D9D9` 划界；信号红 `#E34234` 扩成双域——**指路与当前位置 + 勘误**，共同语义是「看这里」。五段路径色（铬黄 / 群青 / 青 / 草绿 / 紫罗兰）依旧只作点缀：编号方片、3px 细条、右缘页签、答题状态。层级靠四样东西：海报级 Helvetica 粗体齐左的字级差、线宽的阶梯（1px 发丝 → 2px 实黑 → 3px 细条 → 8px 黑块顶缘）、黑白灰的图底分区、以及等宽的机器嗓音（课号、步数、计时、IPA）。正文永远安静：中文衬线 17px/1.8、68ch 行宽，背后没有东西在表演。\n\n反参考（两轮旧世界 + 网课站品类默认）：拒绝压膜活页手册的纸物拟态（书口贴、打孔、掀角、暖纸色地），拒绝辞书版式的双栏词条排印，拒绝白底卡片货架 + 渐变 hero + 进度环的网课站观感，拒绝经验值 / 连击 / 徽章等角色化成长。",
     "keyCharacteristics": [
       "真·全出血版心：容器无 max-width，行宽靠 68ch 封顶，绝不居中一根竖棍。",
-      "黑白灰地 + 信号红说错；五段路径色只作点缀（编号方片、3px 细条、页签、答题状态）。",
-      "无衬线承题（Helvetica 系，extrabold 齐左），衬线承文（Noto Serif SC 17/1.8），等宽承数据（`.machine` 13px）。",
-      "方角归零、阴影归零、渐变归零；分层只靠发丝线与灰面板。",
-      "状态三重编码（形状 + 文字 + 颜色）；刻度方块与比例条是唯一的进度语言。",
+      "黑白灰地：白行浮于灰场（报头 / 页脚 / 底导 / 分段章带铺 `#F1F1F1`），每页至多一块黑块锚点作主色场。",
+      "指路红双域：字标红块、当前项 3px 红标、缺省红细条、主行动红箭头 = 指路；勘误条与错答描边 = 错；红不作按钮实底、不作正文色。",
+      "五段路径色只作点缀（编号方片、3px 细条、ForeEdge 页签、答题状态）；大面积只有白 / 灰 / 黑 / 红。",
+      "无衬线承题（海报级 44→64→72px h1，extrabold 齐左 −0.03em），衬线承文（Noto Serif SC 17/1.8），等宽承数据（`.machine` 13px）。",
+      "方角归零、阴影归零、渐变归零；分层靠发丝线与灰档。",
+      "状态三重编码（形状 + 文字 + 颜色）；比例条与刻度方块是唯一的进度语言。",
       "动效只有一样：`.hinge` 90ms `steps(2)` 硬切；无淡入、无页面进场。"
     ],
     "rules": [
       {
-        "name": "The Errata Rule（朱红唯一律）",
-        "body": "红只说「这里错了」。需要主行动时用 ink 实底 milk 字；需要高亮时用所在段的段色或加粗，永不用红。",
+        "name": "The Red Rule（指路·勘误双域律）",
+        "body": "红只出现在两个语义里：指路与当前位置，或勘误与错。做主行动仍用 ink 实底 milk 字——红上箭头，不上按钮底；做高亮仍用所在段段色或加粗。",
         "section": "colors"
       },
       {
         "name": "The Accent Rule（段色点缀律）",
-        "body": "五段路径色在任一屏的总面积只到「点缀」量级——方片、细条、页签、答题状态；大面积永远是白 / 灰 / 黑。段色不承载成段文字（铬黄带上用 ink，其余深色带上用 milk）。",
+        "body": "五段路径色在任一屏的总面积只到「点缀」量级——方片、细条、页签、答题状态、黑块顶缘 8px；大面积永远是白 / 灰 / 黑。段色不承载成段文字（铬黄带上用 ink，其余深色带上用 milk）。",
         "section": "colors"
       },
       {
@@ -400,13 +422,23 @@
         "section": "colors"
       },
       {
+        "name": "The Black Anchor Rule（黑块锚点律）",
+        "body": "每页至多一块 ink 主导色场，放在首屏题名之下、清单之上，作眼睛进门的落点：顶缘深一档段色 8px 细条 + 巨号课号（64/72px）+ 白底按钮承载红箭头。第二块黑场即违规。",
+        "section": "colors"
+      },
+      {
+        "name": "The Poster-Head Rule（海报级题名律）",
+        "body": "首屏题名走海报级：44 → 64 → 72px、extrabold、齐左、−0.03em、行距 0.95；相邻层级级差 ≥1.5 级（海报 72 → 章题 32 → 行题 19）。升一级靠字级与字重，不靠颜色或框。",
+        "section": "typography"
+      },
+      {
         "name": "The Machine Voice Rule（机器嗓音律）",
         "body": "一切可计数、可对位、可核验的数据走等宽 13px；散文永远不进等宽，数据永远不进衬线。",
         "section": "typography"
       },
       {
         "name": "The Left-Flush Rule（齐左律）",
-        "body": "标题、标签、数字一律齐左，字距不放宽（巨号反收紧 −0.025em）；只有全屏空态 / 载入态可以居中。",
+        "body": "标题、标签、数字一律齐左，字距不放宽（海报与巨号反收紧 −0.03em / −0.025em）；只有全屏空态 / 载入态可以居中。",
         "section": "typography"
       },
       {
@@ -417,6 +449,11 @@
       {
         "name": "The Full-Bleed Rule（全出血无上限）",
         "body": "页面级容器一律 `width: 100%`，禁止 max-width 与居中版心；行长只用 ch 封顶。",
+        "section": "layout"
+      },
+      {
+        "name": "The Gray Field Rule（灰场分区律）",
+        "body": "结构带铺灰成区地——报头带、移动菜单、页脚带、BottomNav、分段章带一律 `#F1F1F1`，白行浮于灰场之上；结构带的上下界用 2px 实黑（报头下线、页脚压顶、菜单收口），不用阴影分层。",
         "section": "layout"
       },
       {
@@ -431,7 +468,7 @@
       },
       {
         "name": "The Flat Rule（零阴影律）",
-        "body": "抬升不是这个世界的词汇。想区分层次就换线宽或换灰档，不要加影。",
+        "body": "抬升不是这个世界的词汇。想区分层次就换线宽或换图底灰档，不要加影。",
         "section": "elevation"
       },
       {
@@ -451,32 +488,35 @@
       },
       {
         "name": "The Giant-Numeral Rule（巨号步位律）",
-        "body": "导轨编号 40px extrabold、页边课号 44px，`tabular-nums`；当前步 = 黑块反白（形状通道），已完成 = ✓，未到 = 空位。数字本身就是导航。",
+        "body": "导轨编号 40px extrabold、页边课号 44px、黑块锚点课号 64/72px，全部 `tabular-nums`；当前步 = 黑块反白（形状通道），已完成 = ✓，未到 = 空位。数字本身就是导航。",
         "section": "components"
       },
       {
         "name": "The Chapter-Over-Row Rule（章题压行题）",
-        "body": "分段章题（24px extrabold）永远压过行题（17–19px bold）：章题坐在白底 + 3px 深一档段色下缘的章节带上，行题落在发丝线行里；带内只有一枚 12×12 段色方片与一段机器计数。",
+        "body": "分段章题（26 → 32px extrabold，坐在灰场带内）永远压过行题（17–19px bold，落在白行里）：灰带 + 12×12 段色方片 + 下缘 3px 深一档段色细条 + 右端机器计数。",
         "section": "components"
       }
     ],
     "dos": [
       "Do 让页面容器全出血（`width: 100%` + `padding-inline: max(16px, 3.5vw)`），行长用 68ch 封顶；网格与表格铺满可用宽。",
-      "Do 用 Helvetica 系 extrabold 齐左承题（26 → 32px h1、24px 章题、40/44px 巨号），中文正文用衬线 17px/1.8，数据用等宽 13px。",
-      "Do 用线宽与灰档分层：1px 发丝划界，2px 实黑压顶 / 收口，3px 只给段色细条与当前态刻线。",
+      "Do 首屏题名走海报级：44 → 64 → 72px、extrabold、齐左、−0.03em，级差 ≥1.5 级（章题 26 → 32，行题 19，行内课号 18）。",
+      "Do 用黑块锚点给眼睛一个落点：每页至多一块 ink 主色场，顶缘段色 8px + 巨号课号 + 白底按钮红箭头。",
+      "Do 让结构带铺灰成区地（报头 / 移动菜单 / 页脚 / 底导 / 分段章带 = `#F1F1F1`），白行浮灰场，带缘 2px 实黑。",
+      "Do 用红做指路（字标块、当前项 3px 标、缺省细条、主行动箭头）与勘误；红不作按钮实底、不作正文色。",
+      "Do 把五段路径色限制在编号方片、3px 细条、黑块顶缘 8px、ForeEdge 当前页签与答题状态；大面积只有白 / 灰 / 黑 / 红。",
+      "Do 用线宽与图底分层：1px 发丝划界，2px 实黑压顶 / 收口，3px 只给段色细条与当前态刻线。",
       "Do 状态三重编码（形状 + 文字 + 颜色），进度用比例条与刻度方块。",
-      "Do 把五段路径色限制在编号方片、3px 细条、ForeEdge 当前页签与答题状态；大面积只有白 / 灰 / 黑 / 信号红。",
-      "Do 红只给 勘误 / 对立 / 错；蓝只给焦点环与答题语义。",
       "Do 状态切换用 `.hinge` 90ms `steps(2)`；`prefers-reduced-motion` 下瞬时，内容始终完整可读。",
       "Do 文字 ≥12px、对比 ≥4.5:1、触控 ≥44×44、单路由单 h1、无重复 id（`npm run audit:floor` 门禁）。",
-      "Do 用 lucide 图标（16–18px），链接用下划线 + hover 转墨。"
+      "Do 用 lucide 图标（16–18px），链接用下划线 + hover 转墨，焦点环处处在（2px `#2A4BD7`，`outline-none` 禁用）。"
     ],
     "donts": [
       "Don't 给任何元素圆角、圆形或 `box-shadow`——半径 >0 与任何投影都违规。",
       "Don't 给页面容器 max-width 或做居中版心；度量只用 ch 封顶。",
+      "Don't 用红做按钮实底、正文色或装饰底；红只上字标块、当前项标、细条、箭头与勘误。",
+      "Don't 把段色铺成大色块、彩色 hero、整幅色带或内容背景；不要在段色五色之外引入第二套强调色。",
+      "Don't 在一页里放第二块黑块锚点，或让黑场盖过题名与清单。",
       "Don't 用渐变文字或渐变洗底做装饰（本构建里仅有的 `linear-gradient` 是硬停两色、用来画形状的半格填充）；不要玻璃、辉光、多层影、卡中叠卡。",
-      "Don't 把段色铺成大色块、彩色 hero、整幅色带或内容背景。",
-      "Don't 用红做主按钮、链接或装饰；不要在段色五色之外引入第二套强调色。",
       "Don't 用 emoji 或字形图标做图标——图标只走 lucide；✓ / ▶ / ✗ / — 只能作带文字的状态刻度。",
       "Don't 用透明度缓动做状态过渡，不做页面进入动画、不放进度环。",
       "Don't 做卡片货架式课程网格、经验值 / 连击 / 徽章；第一屏永远是目录或可执行的下一步。",
