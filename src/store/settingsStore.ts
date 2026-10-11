@@ -39,7 +39,7 @@ export function resolveMotionTier(pref: AnimationTier | 'auto'): AnimationTier {
  * 存储口径（P0-2）：偏好本身仍是会话内存态（刷新回默认），唯二例外是
  * 「进度持久化开关」写在 `leximethod.prefs.v1`（否则关不掉），
  * 开关打开时学习进度/错题写入 `leximethod.progress.v1` / `leximethod.review.v1`。
- * 一律只写本机 localStorage，不上行、不追踪（PRODUCT.md 已改写）。
+ * 一律只写本机 localStorage，不上行、不追踪（原「零存储」条款已废止）。
  */
 export const useSettings = create<SettingsState>()((set) => ({
   accent: 'uk',

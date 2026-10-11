@@ -105,11 +105,10 @@ docs/assets/    README 用标题图与截图
 
 ## 文档
 
-- [DESIGN.md](DESIGN.md)：设计契约（规范性，`.impeccable/design.json` 为机器可读同步件）
+- [DESIGN.md](DESIGN.md)：设计契约（规范性）
 - [docs/ui-rebuild-contracts.md](docs/ui-rebuild-contracts.md)：动效、图标与交互策略的落地契约
 - [docs/content-style-guide.md](docs/content-style-guide.md)：课程文案体例（标点、用语、事实规范）
 - [docs/curriculum-outline-v1.md](docs/curriculum-outline-v1.md)：8 门课课程大纲
-- [docs/course-quality-inspection.md](docs/course-quality-inspection.md)：课程质量检测报告（文本 / 交互 / 音频 / 动画 / 信息密度五维）
 - [NOTICE-AUDIO.md](NOTICE-AUDIO.md)：音频来源与许可边界
 
 ## 贡献
