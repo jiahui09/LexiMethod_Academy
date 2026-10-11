@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="LexiMethod Academy 英语词汇方法课">
+  <!-- 瑞士国际主义 × 新狂野主义：白纸地 · 2px 粗描边 · 4/8px 硬偏移影 · 黑块锚点 · 灰场分区 · 指路红 -->
+  <rect x="0" y="0" width="1200" height="400" fill="#FFFFFF"/>
+
+  <!-- 硬偏移影（6px）+ 主画框 -->
+  <rect x="18" y="18" width="1168" height="368" fill="none" stroke="#111111" stroke-width="2" opacity="0.16"/>
+  <rect x="12" y="12" width="1168" height="368" fill="#FFFFFF" stroke="#111111" stroke-width="2"/>
+
+  <!-- 顶部灰场报头带 -->
+  <rect x="14" y="14" width="1164" height="42" fill="#F1F1F1"/>
+  <line x1="13" y1="56" x2="1179" y2="56" stroke="#111111" stroke-width="2"/>
+  <text x="36" y="41" font-family="'SF Mono', Menlo, Consolas, 'Noto Sans SC', monospace" font-size="13" fill="#555555">LEXIMETHOD ACADEMY · 英语词汇方法课</text>
+  <text x="1156" y="41" text-anchor="end" font-family="'SF Mono', Menlo, Consolas, 'Noto Sans SC', monospace" font-size="13" fill="#555555">纯前端 · 个人 · 非商业</text>
+
+  <!-- 左栏：眉题 + 指路红竖条 + 海报字标 -->
+  <text x="72" y="82" font-family="'SF Mono', Menlo, Consolas, 'Noto Sans SC', monospace" font-size="13" fill="#C1301A">先方法 · 后词汇</text>
+  <rect x="48" y="96" width="8" height="148" fill="#E34234"/>
+  <text x="72" y="156" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans SC', sans-serif" font-size="76" font-weight="800" letter-spacing="-2" fill="#111111">LexiMethod</text>
+  <text x="72" y="232" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans SC', sans-serif" font-size="76" font-weight="800" letter-spacing="-2" fill="#111111">Academy</text>
+  <rect x="72" y="246" width="300" height="6" fill="#E34234"/>
+  <text x="408" y="232" font-family="'SF Mono', Menlo, Consolas, monospace" font-size="18" fill="#555555">/ˈlek.sɪ.meθ.əd/</text>
+  <text x="72" y="284" font-family="'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', SimSun, Georgia, serif" font-size="17" fill="#555555">教「背单词的方法与技巧」的多媒体教学网页——学与练一体，随用随打开</text>
+
+  <!-- 五段路径色 + 机读数据条 -->
+  <rect x="72" y="308" width="16" height="16" fill="#F2B700"/>
+  <rect x="96" y="308" width="16" height="16" fill="#2A4BD7"/>
+  <rect x="120" y="308" width="16" height="16" fill="#137574"/>
+  <rect x="144" y="308" width="16" height="16" fill="#357A1E"/>
+  <rect x="168" y="308" width="16" height="16" fill="#6B3FA0"/>
+  <text x="204" y="321" font-family="'SF Mono', Menlo, Consolas, 'Noto Sans SC', monospace" font-size="13" fill="#111111">8 门课 · 48 音标 · 925 点读词 · 973 条内置 mp3（约 3.7MB）</text>
+
+  <!-- 右栏：黑块锚点 + 巨号数字 -->
+  <rect x="768" y="92" width="372" height="200" fill="#111111" opacity="0.16"/>
+  <rect x="760" y="84" width="372" height="200" fill="#111111"/>
+  <text x="792" y="132" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="44" font-weight="800" fill="#FFFFFF">8</text>
+  <text x="884" y="132" font-family="'SF Mono', Menlo, Consolas, 'Noto Sans SC', monospace" font-size="13" fill="#F1F1F1">门课 · 48 单元 · 8 段路径</text>
+  <text x="792" y="180" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="44" font-weight="800" fill="#FFFFFF">48</text>
+  <text x="884" y="180" font-family="'SF Mono', Menlo, Consolas, 'Noto Sans SC', monospace" font-size="13" fill="#F1F1F1">音标 · 口型 / 舌位 / 气流动画</text>
+  <text x="792" y="228" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="44" font-weight="800" fill="#FFFFFF">925</text>
+  <text x="884" y="228" font-family="'SF Mono', Menlo, Consolas, 'Noto Sans SC', monospace" font-size="13" fill="#F1F1F1">点读词 · 内置音频零请求</text>
+
+  <!-- 状态印章：压在黑块左下角（海报拼贴） -->
+  <g transform="rotate(-8 766 269)">
+    <rect x="688" y="238" width="156" height="62" fill="#FFFFFF" stroke="#111111" stroke-width="2"/>
+    <rect x="694" y="244" width="144" height="50" fill="none" stroke="#111111" stroke-width="1"/>
+    <text x="766" y="277" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, 'Noto Sans SC', sans-serif" font-size="24" font-weight="800" fill="#111111">授人以渔</text>
+  </g>
+
+  <!-- 底部发丝线 + 技术栈机读条 -->
+  <line x1="36" y1="348" x2="1144" y2="348" stroke="#D9D9D9" stroke-width="1"/>
+  <text x="36" y="370" font-family="'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#555555">REACT 18 · TYPESCRIPT · VITE · TAILWIND · ZUSTAND · FRAMER-MOTION</text>
+  <text x="1144" y="370" text-anchor="end" font-family="'SF Mono', Menlo, Consolas, monospace" font-size="12" fill="#555555">github.com/jiahui09/LexiMethod_Academy</text>
+</svg>
