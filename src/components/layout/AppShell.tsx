@@ -145,7 +145,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             <Link to="/methods" className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center text-ink2 underline decoration-rule underline-offset-4 transition-colors hover:text-ink hover:decoration-ink">课程总目</Link>
             <Link to="/lab/phonemes" className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center text-ink2 underline decoration-rule underline-offset-4 transition-colors hover:text-ink hover:decoration-ink">音标实验室</Link>
             <Link to="/settings" className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center text-ink2 underline decoration-rule underline-offset-4 transition-colors hover:text-ink hover:decoration-ink">设置</Link>
-            <span className="machine text-[12px] text-ink2">纯前端 · 零数据存储</span>
+            <span className="machine text-[12px] text-ink2">纯前端 · 数据只存本机</span>
           </div>
         </div>
       </footer>
